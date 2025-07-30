@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Spiral Animation with p5.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      canvas {
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const spirals = []; // Array to hold multiple spiral objects
+      const numSpirals = 3; // Number of spirals
+      const center = { x: 400, y: 400 }; // Center of the canvas
+
+      // p5.js setup function runs once at the beginning
+      function setup() {
+        createCanvas(800, 800); // Create a canvas of 800x800 pixels
+        background(255); // Set background to white
+
+        // Create spiral objects
+        for (let i = 0; i < numSpirals; i++) {
+          spirals.push(new Spiral());
+        }
+
+        smooth(); // Enables anti-aliasing for smoother drawing
+      }
+
+      // p5.js draw function loops every frame (typically 60 times per second)
+      function draw() {
+        for (let s of spirals) {
+          s.update(); // Update spiral logic
+          s.show();   // Draw the spiral
+        }
+      }
+
+      // Spiral class defines each spiral's behavior
+      class Spiral {
+        constructor() {
+          this.reset(); // Initialize spiral with random settings
+        }
+
+        // Resets spiral position and properties
+        reset() {
+          // Start slightly off center in a random direction
+          let offset = p5.Vector.random2D().mult(random(5, 20));
+          this.pos = createVector(center.x + offset.x, center.y + offset.y);
+
+          this.angle = random(TWO_PI); // Starting angle
+          this.radius = 0;             // Start close to center
+          this.speed = random(0.02, 0.05); // Spiral outward speed
+
+          // Random RGBA color with some transparency
+          this.color = color(random(255), random(255), random(255), 150);
+
+          this.lineWidth = 1;              // Starting line width
+          this.prevPos = this.pos.copy();  // Store previous position for drawing
+        }
+
+        // Updates spiral movement and thickness
+        update() {
+          this.radius += this.speed * 10; // Increase radius to spiral outward
+          this.angle += this.speed;       // Change angle to keep spiraling
+
+          // Map thickness from 1 to 50 as the spiral grows outward
+          this.lineWidth = map(this.radius, 0, width / 2, 1, 50);
+
+          this.prevPos = this.pos.copy(); // Save previous position before updating
+
+          // Update current position based on polar coordinates
+          this.pos.x = center.x + cos(this.angle) * this.radius;
+          this.pos.y = center.y + sin(this.angle) * this.radius;
+
+          // If spiral goes off screen, reset it
+          if (
+            this.pos.x < 0 ||
+            this.pos.x > width ||
+            this.pos.y < 0 ||
+            this.pos.y > height
+          ) {
+            this.reset();
+          }
+        }
+
+        // Draws a line from previous to current position
+        show() {
+          stroke(this.color);              // Set stroke color
+          strokeWeight(this.lineWidth);   // Set stroke thickness
+          line(this.prevPos.x, this.prevPos.y, this.pos.x, this.pos.y); // Draw line segment
+        }
+      }
+    </script>
+  </body>
+</html>

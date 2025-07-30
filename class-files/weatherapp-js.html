@@ -1,0 +1,90 @@
+
+<DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>weather app</title>
+
+	<style>
+    </style>
+ </head>
+
+ <body>
+
+ 	<div>
+ 		city: <input type="text" id="city">
+        state: <input type="text" id="state">
+ 		<button id="submitWeather">Search City, State</button>
+ 	</div>
+
+ 	<div id="show"></div>
+ 	<div id="error"></div>
+   
+
+    <script>
+   
+
+    // Attach click event listener to the 'submitWeather' button
+    document.querySelector('#submitWeather').addEventListener('click', function() {
+        // Get the value of the 'city' input field
+        let city = document.querySelector('#city').value;
+        let state = document.querySelector('#state').value;
+        
+        // Check if the city input is not empty
+        if (city !== '' && state !== '') {
+
+            // Create the URL for the OpenWeatherMap API request
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},us&appid=5d403b6b84ed210aa64a032618aa4156&units=imperial`
+
+            /*`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&APPID=5d403b6b84ed210aa64a032618aa4156`;
+*/
+            // Use the fetch API to make the request
+            fetch(url)
+                .then(function(response) {
+                    // If the response is successful, parse the JSON data
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        // If the response is unsuccessful, throw an error
+                        throw new Error('Error fetching data');
+                    }
+                })
+                .then(function(response) {
+                    // Log the response data to the console
+                    console.log(response);
+                    
+                    // Extract the weather description and icon from the response data
+                    let weatherDescript = response.weather[0].description;
+
+                    let weatherIcon = response.weather[0].icon;
+                    
+                    // Update the 'show' element's content with the weather description and icon
+                    document.querySelector('#show').innerHTML = `${weatherDescript}<br><img src="http://openweathermap.org/img/w/${weatherIcon}.png">`;
+
+                    if (response.weather[0].description.includes('clouds') || response.weather[0].description.includes('rain')) {
+
+                        document.querySelector(`body`).style.backgroundColor = `grey`
+                    }
+                    else if (response.weather[0].description.includes('sun') || response.weather[0].description.includes('clear')) {
+
+                        document.querySelector(`body`).style.backgroundColor = `lightblue`
+                    }
+
+                })
+                .catch(function(error) {
+                    // Log any errors that occurred during the fetch operation
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+
+        } else {
+            // If the city input is empty, show an error message in the 'error' element
+            document.getElementById('error').innerHTML = "Field cannot be empty";
+        }
+
+    });
+
+
+
+    </script>
+ </body>
+ </html>

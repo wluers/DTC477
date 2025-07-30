@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess the Country Game</title>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+  <div class="container">
+    <div id="map"></div>
+    <div class="sidebar">
+      <div class="streak">
+        <strong>Streak:</strong> <span id="score">0</span>
+      </div>
+      <div id="country-name">
+        <strong>Guess the country:</strong>
+      </div>
+      <div class="options">
+        <!-- Radio buttons will be added dynamically -->
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

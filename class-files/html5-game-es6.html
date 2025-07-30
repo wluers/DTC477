@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
+</head>
+<body onload="startGame()">
+
+<script>
+
+	// Declaration of game elements using 'let' for variables that will change
+	let myGamePiece;
+	let myObstacles = []; // Array to hold obstacles
+	let myScore; // Variable to keep track of the score
+
+	// ES6 class for game components such as the player, obstacles, and the score display
+	class Component {
+	  constructor(width, height, color, x, y, type) {
+	    this.type = type; // Determines if the component is 'text' or a shape
+	    this.width = width;
+	    this.height = height;
+	    this.color = color; // Color of the component
+	    this.x = x; // Horizontal position
+	    this.y = y; // Vertical position
+	    this.speedX = 0; // Speed in the x-direction
+	    this.speedY = 0; // Speed in the y-direction
+	    this.gravity = 0; // Gravity effect on the component
+	    this.gravitySpeed = 0; // Speed gained from gravity
+	    if (this.type === 'text') {
+	      this.text = ''; // Text content, used if the component is of type 'text'
+	    }
+	  }
+
+	  // Method to update the component on the canvas
+	  update() {
+	    let ctx = myGameArea.context;
+	    if (this.type === 'text') {
+	      // If component is text, render it accordingly
+	      ctx.font = this.width + ' ' + this.height;
+	      ctx.fillStyle = this.color;
+	      ctx.fillText(this.text, this.x, this.y);
+	    } else {
+	      // If component is a shape, render a rectangle
+	      ctx.fillStyle = this.color;
+	      ctx.fillRect(this.x, this.y, this.width, this.height);
+	    }
+	  }
+
+	  // Method to update the component's position
+	  newPos() {
+	    this.gravitySpeed += this.gravity;
+	    this.x += this.speedX;
+	    this.y += this.speedY + this.gravitySpeed;
+	    this.hitBottom();
+	    this.hitTop();
+	  }
+
+	  // Method to ensure the component does not go out of the game area
+	  hitBottom() {
+	    const rockBottom = myGameArea.canvas.height - this.height;
+	    if (this.y > rockBottom) {
+	      this.y = rockBottom;
+	      this.gravitySpeed = 0;
+	    }
+	  }
+
+	  // Method to ensure the component does not go out of the game area
+	  hitTop() {
+	    const tipTop = 0;
+	    if (this.y < tipTop) {
+	      this.y = tipTop;
+	      this.gravitySpeed = 0;
+	    }
+	  }
+
+	  // Collision detection with another component
+	  crashWith(otherobj) {
+	    const myleft = this.x;
+	    const myright = this.x + this.width;
+	    const mytop = this.y;
+	    const mybottom = this.y + this.height;
+	    const otherleft = otherobj.x;
+	    const otherright = otherobj.x + otherobj.width;
+	    const othertop = otherobj.y;
+	    const otherbottom = otherobj.y + otherobj.height;
+	    return !(mybottom < othertop || mytop > otherbottom || myright < otherleft || myleft > otherright);
+	  }
+	}
+
+	// Function to start and initialize the game
+	function startGame() {
+	  myGamePiece = new Component(30, 30, 'red', 10, 120);
+	  myGamePiece.gravity = 0.05; // Apply initial gravity to the game piece
+	  myScore = new Component('30px', 'Consolas', 'black', 280, 40, 'text'); // Initialize the score display
+	  myGameArea.start();
+	}
+
+	// Game area object
+	const myGameArea = {
+	  canvas: document.createElement('canvas'),
+	  start() {
+	    this.canvas.width = 480;
+	    this.canvas.height = 270;
+	    this.context = this.canvas.getContext('2d');
+	    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+	    this.frameNo = 0;
+	    // Set up the game loop to update every 20ms
+	    this.interval = setInterval(updateGameArea, 20);
+	  },
+	  // Clear the game area
+	  clear() {
+	    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	  }
+	};
+
+	// Function to update the game area on each interval
+	function updateGameArea() {
+	    let x, height, gap, minHeight, maxHeight, minGap, maxGap;
+	    // Loop through all obstacles to check for collisions
+	    for (let i = 0; i < myObstacles.length; i += 1) {
+	        if (myGamePiece.crashWith(myObstacles[i])) {
+	            // If the game piece crashes with an obstacle, stop the game by halting the interval
+	            clearInterval(myGameArea.interval);
+	            return; // Exit the function early
+	        } 
+	    }
+	    myGameArea.clear(); // Clear the game area before each update for a clean slate
+	    myGameArea.frameNo += 1; // Increment the frame number for timing purposes
+
+	    // Every 150 frames, create a new pair of obstacles
+	    if (myGameArea.frameNo === 1 || everyinterval(150)) {
+	        x = myGameArea.canvas.width;
+	        minHeight = 20; // Minimum height of the top obstacle
+	        maxHeight = 200; // Maximum height of the top obstacle
+	        // Calculate random height for the top obstacle
+	        height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+	        minGap = 50; // Minimum gap between the top and bottom obstacles
+	        maxGap = 200; // Maximum gap between the top and bottom obstacles
+	        // Calculate random gap size
+	        gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+	        // Create top and bottom obstacles at the right edge of the canvas
+	        myObstacles.push(new Component(10, height, "green", x, 0));
+	        myObstacles.push(new Component(10, x - height - gap, "green", x, height + gap));
+	    }
+	    // Move each obstacle to the left and update its position
+	    for (let i = 0; i < myObstacles.length; i += 1) {
+	        myObstacles[i].x += -1; // Move left by decreasing the x coordinate
+	        myObstacles[i].update(); // Redraw the obstacle in its new position
+	    }
+	    // Update the score text with the current frame number
+	    myScore.text = "SCORE: " + myGameArea.frameNo;
+	    myScore.update(); // Redraw the score with its updated value
+	    // Calculate the new position of the game piece based on its current speed and gravity
+	    myGamePiece.newPos();
+	    myGamePiece.update(); // Redraw the game piece in its new position
+	}
+
+
+	// Function to check if the current frame number is a multiple of n
+	// This is useful for scheduling regular events, like spawning obstacles
+	function everyinterval(n) {
+	    // Check if the current frame number divided by n has no remainder
+	    return (myGameArea.frameNo / n) % 1 === 0;
+	}
+
+
+	// Function to adjust the game piece's gravity
+	// Negative value for gravity will make the game piece rise
+	function accelerate(n) {
+	    myGamePiece.gravity = n;
+	}
+
+
+</script>
+<br>
+<!-- Button to control the game piece's movement -->
+<button onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">ACCELERATE</button>
+<p>Use the ACCELERATE button to stay in the air</p>
+<p>How long can you stay alive?</p>
+
+</body>
+</html>
+

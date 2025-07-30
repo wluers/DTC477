@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor Function Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        button { font-size: 16px; padding: 10px; cursor: pointer; }
+        #output { margin-top: 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>Constructor Function Demo</h1>
+    <button id="button">Enter Info</button>
+    <p id="output">Click the button to enter your information.</p>
+    
+    <script>
+        // Step 1: Create a constructor function
+        function Person(name, age, job) {
+            this.name = name;
+            this.age = age;
+            this.job = job;
+            this.getInfo = function() {
+                return `The applicant is ${this.name}, aged ${this.age}, who works as a ${this.job}`;
+            };
+        }
+
+        /*
+        class Person {
+            constructor(name, age, job) {
+                this.name = name;
+                this.age = age
+                this.job = job;
+            }
+            
+            getInfo() {
+                return `Name: ${this.name}, Age: ${this.age}, Job: ${this.job}`;
+            }
+        }
+        */
+        
+        let user;
+        
+        // Step 2: Select the button and output elements
+        const button = document.querySelector("#button");
+        const output = document.querySelector("#output");
+        
+        // Step 3: Add an event listener to the button
+        button.addEventListener("click", function() {
+            // Step 4: Get user input from prompts
+            const name = prompt("Enter your name:");
+            const age = prompt("Enter your age:");
+            const job = prompt("Enter your job:");
+            
+            // Step 5: Create a new Person instance
+            user = new Person(name, age, job);
+            
+            // Step 6: Display the user info 
+            output.textContent = user.getInfo();
+        });
+    </script>
+</body>
+</html>

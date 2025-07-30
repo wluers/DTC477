@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 1: P5js Animations</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html"><div class="course-info">DTC 477: Advanced Web Design & Development</div></a>
+    <nav class="main-nav">
+      <a href="syllabus.html">Syllabus</a>
+      <a href="index.html">Modules</a>
+      <a href="projects.html">Projects</a>
+      <a href="tutorials.html">Tutorials</a>
+    </nav>
+  </header>
+
+  <main class="module-page">
+    <h1>Week 13: P5js Animations</h1>
+
+    <h3>To Do This Week</h3>
+<strong>Weather App<span style="color: #ff0000;">&nbsp; DUE this Wednesday, April 16th</span></strong>
+
+<strong>HTML5 Game<span style="color: #ff0000;">&nbsp; NOW DUE Monday, April 14th&nbsp;</span></strong>
+
+<hr>
+
+<h3>P5js Project (5%)
+<span style="color: #ff0000;"><strong>Due April 16th</strong></span></h3>
+Create a generative animation using p5.js that reflects your personal style and curiosity. Your sketch should include animation, randomness or Perlin noise, and pattern logic. You may use AI for assistance, but things will only get really interesting if your dig in and play with the code. Mistakes sometimes reveal interesting results. Ask for good comments in the outputs.&nbsp;
+
+You can use the p5js editor to work out your script, but you should submit to Canvas and HTML page called index.html inside a folder called "p5js."
+
+You will need to link to the p5js library in the head. Use a &lt;script&gt; with: src<em>="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"</em>
+<p class="" data-start="3087" data-end="3104"><strong data-start="3087" data-end="3104">Requirements:</strong></p>
+
+<ul data-start="3105" data-end="3306">
+  <li class="" data-start="3134" data-end="3180">
+<p class="" data-start="3136" data-end="3180">Include randomness (<code data-start="3156" data-end="3166">random()</code> or <code data-start="3170" data-end="3179">noise()</code>)</p>
+</li>
+  <li class="" data-start="3181" data-end="3228">
+<p class="" data-start="3183" data-end="3228">Include some kind of animation or interaction</p>
+</li>
+  <li class="" data-start="3229" data-end="3306">
+<p class="" data-start="3231" data-end="3306">Include logic steps that describes your idea as comment in the code.</p>
+</li>
+</ul>
+<p class="" data-start="3308" data-end="3399">This is about play, remix, and experimentation!</p>
+
+
+<hr>
+
+<h3 class="term">Generative Art with P5js</h3>
+<h4><strong>Processing Overview</strong></h4>
+P5js (Processing for JavaScript) is a library that makes it easy to create complex drawing and animations using Canvas and additional built-in Processing methods. Below are resources and a&nbsp; which includes the p5js file. Look at theses resources in order to see how p5js works.&nbsp;
+
+<a href="https://p5js.org/">p5js.org/</a>&nbsp;: processing &gt; javascript for fun and art, creative programming
+<h4>P5js Methods</h4>
+<section>
+<h5>Animation Loop</h5>
+<ul>
+  <li><strong>setup()</strong>: Runs once at start. No need to call function!</li>
+  <li><strong>draw()</strong>: Runs repeatedly every frame. No need to call function!</li>
+  <li><strong>frameRate(fps)</strong>: Sets framerate.&nbsp; <a href="https://p5js.org/reference/p5/frameRate/">[framerate()]</a></li>
+  <li><strong>noLoop()</strong> / <strong>loop()</strong>: Stops or resumes looping. <a href="https://p5js.org/reference/#/p5/noLoop">[noLoop]</a>, <a href="https://p5js.org/reference/#/p5/loop">[loop]</a></li>
+</ul>
+<h5>Canvas &amp; Setup</h5>
+<ul>
+  <li><strong>createCanvas(w, h)</strong>: Creates a canvas.&nbsp;</li>
+  <li><strong>background(val)</strong>: Sets background color.&nbsp;</li>
+  <li><strong>smooth()</strong> / <strong>noSmooth()</strong>: Enables/disables anti-aliasing. smooth() is default&nbsp; &nbsp;<a href="https://p5js.org/reference/#/p5/smooth">[smooth]</a>, <a href="https://p5js.org/reference/#/p5/noSmooth">[noSmooth]</a></li>
+</ul>
+</section><section>
+<h5>Drawing &amp; Shapes</h5>
+<ul>
+  <li><strong>line(x1, y1, x2, y2)</strong>: Draws a line.</li>
+  <li><strong>circle(x, y, diameter)</strong>: Draws an ellipse.&nbsp;</li>
+  <li><strong>ellipse(x, y, w, h)</strong>: Draws an ellipse.&nbsp;</li>
+  <li><strong>arc(x, y, w, h, start, stop, [mode])</strong>: Draws part of an ellipse. HALF_PI, PI, PI + HALF_PI, TWO_PI&nbsp; &nbsp;<a href="https://p5js.org/reference/p5/arc/">[arc()]</a></li>
+  <li><strong>rect(x, y, w, h)</strong>: Draws a rectangle.&nbsp;</li>
+  <li><strong>fill(r, g, b, [a])</strong> / <strong>noFill()</strong>: Sets or disables fill. <a href="https://p5js.org/reference/#/p5/fill">[fill]</a>, <a href="https://p5js.org/reference/#/p5/noFill">[noFill]</a></li>
+  <li><strong>stroke(r, g, b)</strong> / <strong>noStroke()</strong>: Sets or disables stroke. <a href="https://p5js.org/reference/#/p5/stroke">[stroke]</a>, <a href="https://p5js.org/reference/#/p5/noStroke">[noStroke]</a></li>
+  <li><strong>strokeWeight(w)</strong>: Sets stroke thickness</li>
+</ul>
+</section><section></section><section>
+<h5>Input (Mouse &amp; Keyboard)</h5>
+<ul>
+  <li><strong>mouseX, mouseY</strong>: Mouse position.&nbsp;</li>
+  <li><strong>mousePressed()</strong>, <strong>mouseMoved()</strong>: Mouse events. <a href="https://p5js.org/reference/#/p5/mousePressed">[mousePressed]</a>, <a href="https://p5js.org/reference/#/p5/mouseMoved">[mouseMoved]</a></li>
+  <li><strong>keyPressed()</strong>, <strong>key, keyCode</strong>: Key events and values. <a href="https://p5js.org/reference/#/p5/keyPressed">[keyPressed]</a>, <a href="https://p5js.org/reference/#/p5/key">[key]</a></li>
+</ul>
+</section><section>
+<h5>Math &amp; Vectors</h5>
+<ul>
+  <li><strong>random(min, max)</strong>: Random number in range. <a href="https://p5js.org/examples/calculating-values-random/">[random()]</a></li>
+  <li><strong>p5.Vector</strong>: Class for vector math. A vector can represent a position, a velocity, a direction, or a force&nbsp; <a href="https://p5js.org/reference/p5/p5.Vector/">[p5js.Vector]</a></li>
+</ul>
+</section><section>
+<h5>Utilities</h5>
+<ul>
+  <li><strong>saveCanvas()</strong>: Save canvas as image. <a href="https://p5js.org/reference/p5/saveCanvas/">[saveCanvas()]</a></li>
+  <li><strong>millis()</strong>: Time since sketch started (ms). <a href="https://p5js.org/reference/p5/millis/">[millis()]</a></li>
+  <li><strong>text</strong>("string", x, y)</li>
+</ul>
+</section>Full reference: <a href="https://p5js.org/reference">https://p5js.org/reference</a>
+<h4><strong>P5js Starter</strong></h4>
+<ol>
+  <li><a href="https://editor.p5js.org/wluers/sketches/465iJc7kY">p5js shapes</a></li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/ro7O-umTw">p5js square grid</a></li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/Kz2IAxRnJ">p5js- animating with framecount</a>&nbsp;</li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/qauYaDt2Q">p5js drawing</a></li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/7THLAKl3a">p5js velocity</a></li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/xJUULxSHv">p5js bouncing balls</a></li>
+  <li><a href="https://editor.p5js.org/">p5js online editor</a>&nbsp;</li>
+  <li><a href="https://will-luers.com/DTC/dtc477/p5js-starter-template.html">p5js html starter template</a></li>
+</ol>
+<h4><strong>P5js resources</strong></h4>
+<ol>
+  <li><a href="https://p5js.org/examples/">p5js examples</a></li>
+  <li><a href="https://github.com/processing/p5.js/wiki/p5.js-overview">p5js overview</a></li>
+  <li><a href="https://p5js.org/reference/">p5js reference</a></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA">p5js video tutorial&nbsp;</a></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLnJOmsprq3bE0QLbe7wZ8yb1-Dt0FBcP5">how to code generative art with p5js</a></li>
+  <li><a href="https://showcase.p5js.org/#/2022-All">p5js showcase</a></li>
+</ol>
+
+<hr>
+
+<h3>Weather Apps + P5js</h3>
+<pre>function setup() {
+  createCanvas(600, 400);
+
+  fetch('https://api.openweathermap.org/data/2.5/weather?q=London&amp;appid=YOUR_API_KEY')
+    .then(response =&gt; response.json())
+    .then(data =&gt; {
+      weatherData = data;
+    })
+    .catch(err =&gt; console.log(err));
+}
+
+function draw() {
+  background(220);
+
+  let mainWeather = weatherData.weather[0].main; // e.g., "Rain", "Clear"
+
+  if (mainWeather === "Rain") {
+    drawRainPattern();
+  } else if (mainWeather === "Clouds") {
+    drawCloudPattern();
+  } else {
+    drawGenericPattern();
+  }
+}</pre>
+
+<hr>
+
+<h3>Generative Art</h3>
+<ul>
+  <li class="" data-start="4633" data-end="4800">
+<p class="" data-start="4635" data-end="4800"><strong data-start="4635" data-end="4661">Algorithmic/Rule-Based</strong>: Setting up strict rule systems to generate visual outputs.</p>
+</li>
+  <li class="" data-start="4801" data-end="4911">
+<p class="" data-start="4803" data-end="4911"><strong data-start="4803" data-end="4825">Randomness &amp; Noise</strong>: Introducing randomness (e.g., Perlin noise) to simulate organic or chaotic patterns.</p>
+</li>
+  <li class="" data-start="4912" data-end="5025">
+<p class="" data-start="4914" data-end="5025"><strong data-start="4914" data-end="4950">Iterative / Recursive Approaches</strong>: Fractals and other self-similar patterns, such as recursive subdivisions.</p>
+</li>
+</ul>
+https://www.youtube.com/watch?v=ig0q6vfpD38
+
+&nbsp;
+<h4>generative art Examples</h4>
+<ul>
+  <li><a href="https://p5js.org/examples/math-and-physics-game-of-life/">Game of Life (P5js simultaion)</a></li>
+  <li><a href="https://openprocessing.org/">Openprocessing.org </a>- community of generative artists.&nbsp;</li>
+  <li><a href="https://www.amygoodchild.com/art/code">Amy Goodchild</a> | <a href="https://www.amygoodchild.com/blog/what-is-generative-art">Amy Goodchild: What is generative art?</a></li>
+  <li><a href="https://www.tylerxhobbs.com/works/qql#info">Tyler Hobbs</a> |&nbsp;<a href="https://www.tylerxhobbs.com/words/fidenza">Fidenza series</a> (flow fields)</li>
+  <li><a href="https://emilyxie.art/projects">Emily Xie</a></li>
+  <li><a href="https://joshuadavis.com/ArtBlocks-Organized-Disruption">Joshua Davis</a></li>
+  <li><a href="https://ravenkwok.com/joint-intellect/">Raven Kwok</a></li>
+  <li><a href="https://generated.space/">Kjetil Golid</a></li>
+</ul>
+
+<hr>
+
+<h3>Generative Artists</h3>
+<h4><strong>Vera Molnar</strong></h4>
+Vera Molnár (b. 1924) is a Hungarian-French artist often recognized as one of the earliest pioneers of generative and computer-based art. In the late 1960s, Molnár began systematically using computers—an uncommon practice at the time—to explore geometric forms and algorithmic variations. She embraced rule-based processes to create series of drawings that reveal slight, methodical permutations in composition. Her work anticipates generative art and processing: how simple computational rules can generate nuanced aesthetic complexity.
+
+<a href="http://dtc-wsuv.org/wp/dtc338-spring24-ai/files/2023/10/Screenshot-2024-03-07-at-11.51.52-PM.png"><img class="aligncenter size-full wp-image-1918" src="http://dtc-wsuv.org/wp/dtc338-spring24-ai/files/2023/10/Screenshot-2024-03-07-at-11.51.52-PM.png" alt="" width="2654" height="1344"></a>
+
+https://vimeo.com/372579247
+
+<hr>
+
+<h4 data-start="190" data-end="205">FRIEDER NAKE</h4>
+<p class="" data-start="206" data-end="553">Another key figure in early computer art who pioneered algorithmic and generative methods, Frieder Nake began creating computer-generated drawings in the 1960s. His work often explores mathematical and logical structures to produce abstract compositions, reflecting on the relationship between art, mathematics, and computation.</p>
+https://www.youtube.com/watch?v=UGjB36RXWQ8
+
+[caption id="attachment_4022" align="aligncenter" width="552"]<a href="http://dtc-wsuv.org/wp/dtc477/files/2020/07/friedernake.jpg"><img class="wp-image-4022 size-full" src="http://dtc-wsuv.org/wp/dtc477/files/2020/07/friedernake.jpg" alt="" width="552" height="550"></a> Matrix Multiplication Series 34[/caption]
+<p class="" data-start="575" data-end="638"><a class="" href="http://www.frieder-nake.de/" target="_new" rel="noopener" data-start="590" data-end="636">frieder-nake.de</a></p>
+
+
+<hr class="" data-start="743" data-end="746">
+
+<h4 data-start="748" data-end="761">CASEY REAS</h4>
+<p class="" data-start="762" data-end="1124">Co-founder of Processing (alongside Ben Fry), Casey Reas is deeply involved in computational and procedural art. His artwork blends organic forms generated by algorithmic rules, pushing the boundaries of what code-driven aesthetics can achieve. He has also curated numerous exhibitions and publications that bridge art, design, and technology.</p>
+https://www.youtube.com/watch?v=_8DMEHxOLQE
+<p class="" data-start="1146" data-end="1196"><a class="" href="https://www.reas.com/" target="_new" rel="noopener" data-start="1161" data-end="1194">reas.com</a></p>
+
+
+<hr class="" data-start="1374" data-end="1377">
+
+<h4 data-start="1379" data-end="1396">ZACH LIEBERMAN</h4>
+<p class="" data-start="1397" data-end="1777">An artist and educator known for interactive installations and playful, poetic use of code. Zach Lieberman experiments with the boundaries between the body, gesture, and computational expression. He frequently shares works-in-progress on social media and open sources many of his creative coding projects, making his process accessible to the broader community.</p>
+https://www.youtube.com/watch?v=P2YfRRJch7A
+<p class="" data-start="1799" data-end="1863"><a class="" href="https://zachlieberman.com/" target="_new" rel="noopener" data-start="1814" data-end="1861">zachlieberman.com</a>
+Instagram/Twitter: <a class="" href="https://instagram.com/zach.lieberman" target="_new" rel="noopener" data-start="1885" data-end="1940">@zach.lieberman</a> (Instagram)</p>
+
+
+<hr class="" data-start="3245" data-end="3248">
+
+<h4 data-start="3250" data-end="3266">SOUGWEN CHUNG</h4>
+<p class="" data-start="3267" data-end="3658">Combines AI, robotics, and hand-drawn lines in her practice, exploring the interplay between human creativity and machine-generated gestures. Sougwen’s performances and installations often feature collaborative drawing sessions with robots (guided by AI), raising questions about authorship, intimacy, and the evolving relationships between humans and intelligent systems.</p>
+https://www.youtube.com/watch?v=wTFCl8ExqUo
+<p class="" data-start="3680" data-end="3732"><a class="" href="https://sougwen.com/" target="_new" rel="noopener" data-start="3695" data-end="3730">sougwen.com</a></p>
+
+
+<hr class="" data-start="3836" data-end="3839">
+
+<h4 data-start="3841" data-end="3855">TYLER HOBBS</h4>
+<p class="" data-start="3856" data-end="4187">Well-known within the crypto art and NFT space—particularly for the <em data-start="3943" data-end="3952">Fidenza</em> series on Art Blocks—Tyler Hobbs applies algorithmic processes to yield unique abstract compositions. His work is often lauded for blending chance with control, resulting in outputs that feel at once organic and meticulously designed.</p>
+https://www.youtube.com/watch?v=MSArEkk1aDk
+
+[caption id="attachment_1934" align="aligncenter" width="1334"]<a href="http://dtc-wsuv.org/wp/dtc338-spring24-ai/files/2023/10/tyler-hobbs-fidenza313.png"><img class="size-full wp-image-1934" src="http://dtc-wsuv.org/wp/dtc338-spring24-ai/files/2023/10/tyler-hobbs-fidenza313.png" alt="" width="1334" height="1600"></a> Tyler Hobbs, Fidenza 313 / <a href="https://tylerxhobbs.com/fidenza">About the making of&nbsp;</a>[/caption]
+<p class="" data-start="4209" data-end="4269"><a class="" href="https://tylerxhobbs.com/" target="_new" rel="noopener" data-start="4224" data-end="4267">tylerxhobbs.com</a>
+<a href="https://www.tylerxhobbs.com/works/qql#info">https://www.tylerxhobbs.com/works/qql#info</a></p>
+
+
+<hr>
+
+<h3 data-start="4209" data-end="4269">Advanced Generative Art Techniques</h3>
+<strong data-start="0" data-end="15">Flow Fields</strong><br data-start="15" data-end="18">A grid-based technique where each cell contains a vector determining the direction of particle movement. By populating the field with small agents or particles, artists generate organic, undulating patterns that resemble fluid, wind, or magnetic currents. Subtle adjustments to vector generation—often via noise—produce continuously evolving, visually engaging animations.
+
+example: <a href="https://will-luers.com/DTC/dtc338-AI/javascript-p5js-flowfields.html">https://will-luers.com/DTC/dtc338-AI/javascript-p5js-flowfields.html</a>
+
+<a href="https://tylerxhobbs.com/essays/2020/flow-fields">Description by Tyler Hobbs</a>
+
+<em>prompt: “Write a p5.js sketch that creates a flow field using Perlin noise, where 100 particles move according to the flow vectors. The sketch should visualize the paths in real time.”</em>
+
+<hr>
+
+<strong data-start="392" data-end="433">Perlin Noise &amp; Noise-Based Techniques</strong><br data-start="433" data-end="436">The <strong>random()</strong> function in p5.js generates pseudorandom numbers. It can return a floating-point number between 0 and 1, a number within a specified range, or a random element from an array, depending on how it's used. It's useful for introducing unpredictability and variation in sketches.
+
+The <strong>noise()</strong> function in p5js) uses Perlin noise: a smooth, gradient-based form of randomness that avoids abrupt changes and is often used to add natural variation in movement, color, or shapes. By sampling noise at various scales or “octaves,” artists produce effects of terrains, clouds, or fluid dynamics. Controlled yet unpredictable.
+
+<a href="https://editor.p5js.org/wluers/sketches/zJ5TzLsxM">random() vs noise()</a>
+
+<em>prompt: “Generate p5.js code that draws a 2D Perlin noise field in grayscale, continuously updating over time to look like clouds.”</em>
+
+<hr>
+
+<strong data-start="775" data-end="795">Particle Systems</strong><br data-start="795" data-end="798">Particle systems involve numerous small entities (particles) that each follow simple behavioral rules, typically with an emitter releasing new particles over time. By combining forces like gravity, drag, and random variation, these systems can simulate natural phenomena (like fire or smoke) or produce dense, mesmerizing compositions that evolve frame by frame.
+
+<em>prompt: “Create a p5.js sketch of a particle system where new particles are emitted from the bottom center of the screen and rise upwards, fading out over time.”</em>
+
+<hr>
+
+<strong data-start="1162" data-end="1182">Boids / Flocking</strong><br data-start="1182" data-end="1185">Originating from Craig Reynolds’s model of bird flocking, boids follow rules of separation, alignment, and cohesion to create emergent group movement or <em>murmuration.</em> Even with minimal constraints, the resulting swarming, flocking, or schooling visuals evoke lifelike patterns and make for captivating, dynamic scenes.
+
+<em>prompt: “Write a p5.js sketch implementing boids flocking with 50 boids. They should avoid overlapping, try to move with neighbors, and stay within the canvas area.”</em>
+
+<hr>
+
+<strong data-start="1489" data-end="1524">Fractals &amp; Recursive Structures</strong><br data-start="1524" data-end="1527">Fractals use recursive functions or iterative processes to reveal self-similar patterns across multiple scales. Techniques like L-systems (<em class="nm">Lindenmayer systems</em> ), the Mandelbrot set, or tree recursion create visually infinite layers of detail and demonstrate how simple equations can generate hypnotically complex imagery.
+
+prompt: “Generate a p5.js fractal tree sketch that uses recursion to draw multiple branches from each node, with sliders to control branch angle and depth.”
+
+<hr>
+
+<strong data-start="1827" data-end="1848">Cellular Automata</strong><br data-start="1848" data-end="1851">A grid-based system where each cell transitions between states based on rules involving its neighbors. Conway’s Game of Life is the classic example, showing how seemingly complex organisms can arise from straightforward conditions. Artists extend these concepts to create evolving abstract patterns and even interactive art pieces.
+
+prompt: “Create a p5.js version of Conway’s Game of Life with a grid of 50×50 cells, using random initialization, and animate each generation.”
+
+<hr>
+
+<strong data-start="3432" data-end="3469">Data Visualization &amp; Sonification</strong><br data-start="3469" data-end="3472">Turning data sets into visual or auditory experiences. This can range from straightforward charts to immersive representations where color, position, shape, or sound encodes underlying information. It blends aesthetic sensibilities with analytical rigor to offer deeper insights into complex data.
+
+<em>prompt: “Create a p5.js data visualization of US debt over 50 years."</em>
+
+<hr>
+
+<h3>Generative Art In-class Exercise</h3>
+Play with the advanced techniques above. You can use/alter the sample prompts to get started.
+
+<hr>
+
+<h4>p5.js Advanced Methods for Generative Art</h4>
+<section>
+<h5>Shape &amp; Path Manipulation</h5>
+<ul>
+  <li><strong>beginShape()</strong> / <strong>endShape()</strong>: Start and finish a custom shape. [<a href="https://p5js.org/reference/p5/beginShape/">beginShape()</a> <a href="https://p5js.org/reference/p5/endShape/">endShape()</a>]</li>
+  <li><strong>vertex(x, y)</strong>: Define a point in a custom shape. <a href="https://p5js.org/reference/p5/vertex/">[vertex()]</a></li>
+  <li><strong>curveVertex(x, y)</strong>: Similar to vertex(), but creates smooth curves. <a href="https://p5js.org/reference/p5/curveVertex/">[curveVertex()]</a></li>
+  <li><strong>bezierVertex()</strong>: Adds Bézier control points to your shape. <a href="https://p5js.org/reference/p5/bezierVertex">[bezierVertex()]</a></li>
+</ul>
+</section><section>
+<h5>Color &amp; Style</h5>
+<ul>
+  <li><strong>lerpColor(c1, c2, amt)</strong>: Blend two colors by a value between 0 and 1. <a href="https://p5js.org/reference/p5/lerpColor">[Reference]</a></li>
+  <li><strong>colorMode(mode, [max1], [max2], [max3], [maxA])</strong>: Switch between RGB, HSB etc. <a href="https://p5js.org/reference/p5/colorMode">[Reference]</a></li>
+  <li><strong>blendMode(mode)</strong>: Set how shapes blend (e.g., ADD, MULTIPLY). <a href="https://p5js.org/reference/p5/blendMode">[Reference]</a></li>
+</ul>
+</section><section>
+<h5>Math &amp; Vectors</h5>
+<ul>
+  <li><strong>random(min, max)</strong>: Random float in range. <a href="https://p5js.org/examples/calculating-values-random/">[random()]</a></li>
+  <li><strong>map(val, inMin, inMax, outMin, outMax)</strong>: Maps a value to another range. <a href="https://p5js.org/reference/p5/map/">[map()]</a></li>
+  <li><strong>dist(x1, y1, x2, y2)</strong>: Distance between two points. <a href="https://p5js.org/reference/p5/dist/">[dist()]</a></li>
+  <li><strong>p5.Vector</strong>: Class for vector math. <a href="https://p5js.org/reference/p5/p5.Vector/">[p5js.Vector]</a></li>
+</ul>
+<h5>Transformations</h5>
+<ul>
+  <li><strong>push()</strong> / <strong>pop()</strong>: Save and restore drawing style and transforms. <a href="https://p5js.org/reference/p5/push">[Reference]</a></li>
+  <li><strong>translate(x, y)</strong>: Move origin to new location. <a href="https://p5js.org/reference/p5/translate">[Reference]</a></li>
+  <li><strong>rotate(angle)</strong>: Rotate the drawing context. <a href="https://p5js.org/reference/p5/rotate">[Reference]</a></li>
+  <li><strong>scale(s)</strong>: Scale the drawing context. <a href="https://p5js.org/reference/p5/scale">[Reference]</a></li>
+</ul>
+</section><section>
+<h5>Math &amp; Noise</h5>
+<ul>
+  <li><strong>noise(x, [y], [z])</strong>: Perlin noise (smoother randomness). <a href="https://p5js.org/reference/p5/noise">[Reference]</a></li>
+  <li><strong>lerp(start, stop, amt)</strong>: Linearly interpolate between values. <a href="https://p5js.org/reference/p5/lerp">[Reference]</a></li>
+  <li><strong>constrain(val, min, max)</strong>: Restrict value between a min and max. <a href="https://p5js.org/reference/p5/constrain">[Reference]</a></li>
+</ul>
+</section><section>
+<h5>Pixels &amp; Image</h5>
+<ul>
+  <li><strong>loadPixels()</strong> / <strong>updatePixels()</strong>: Directly access and modify canvas pixels. <a href="https://p5js.org/reference/p5/loadPixels">[Reference]</a></li>
+  <li><strong>get(x, y)</strong>: Reads pixel color at position. <a href="https://p5js.org/reference/p5/get">[Reference]</a></li>
+  <li><strong>set(x, y, color)</strong>: Sets pixel at position. <a href="https://p5js.org/reference/#/p5/set">[Reference]</a></li>
+</ul>
+</section>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-content">
+    <p>DTC 477: Advanced Web Design & Development</p>
+    <p>
+      <a href="mailto:youremail@university.edu">Contact Instructor</a> |
+      <a href="https://youruniversity.edu" target="_blank">University Home</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

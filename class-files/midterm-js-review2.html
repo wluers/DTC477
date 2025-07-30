@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Step-by-Step Learning</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; transition: background 0.5s ease; }
+        button { font-size: 16px; padding: 10px; cursor: pointer; }
+        #output { margin-top: 20px; font-size: 18px; }
+        #inputBox, #submit { display: none; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Step-by-Step Learning</h1>
+    <button id="myButton">Click Me</button>
+    <p id="output">Click the button to change the background color.</p>
+    <input type="text" id="inputBox" placeholder="Type your answer...">
+    <button id="submit">Submit</button>
+    
+    <script>
+        // Step 1: Use a nested array to store background colors, corresponding texts, and optional HTML
+        /*const colors = [
+            ["red", "Roses are red", ""],
+            ["blue", "Violets are blue", ""],
+            ["green", "What is green?", "<input type='text' id='inputBox' placeholder='Type your answer...'> <button id='submit'>Submit</button>"]
+        ];*/
+        const colors = [
+            ["red", "Roses are red"],
+            ["blue", "Violets are blue"],
+            ["green", "Envy is green"]
+        ];
+
+
+        let i = 0;
+
+        // Step 2: Select the button, output paragraph, and input elements
+        const button = document.querySelector("#myButton");
+        const output = document.querySelector("#output");
+        const inputBox = document.querySelector("#inputBox");
+        const submit = document.querySelector("#submit");
+
+        // Step 3: Add an event listener to the button
+        button.addEventListener("click", changeBackground);
+
+        function changeBackground() {
+            // let index = i % colors.length; // Optional modulus approach
+            //index = counter;
+
+            if (i >= colors.length) {
+                i = 0;
+            }
+        
+            document.body.style.backgroundColor = colors[i][0];
+            output.textContent = colors[i][1];
+            
+            if (colors[i][2]) {
+                inputBox.style.display = "block";
+                submit.style.display = "block";
+                inputBox.focus();
+            } else {
+                inputBox.style.display = "none";
+                submit.style.display = "none";
+            }
+            i++;
+        }
+
+
+        /*button.addEventListener("click", () => {
+            // let index = counter % colors.length; // Optional modulus approach
+            let index;
+            if (counter >= colors.length) {
+                counter = 0;
+            }
+            index = counter;
+            
+            document.body.style.backgroundColor = colors[index][0];
+            output.textContent = colors[index][1];
+            
+            if (colors[index][2]) {
+                inputBox.style.display = "block";
+                submit.style.display = "block";
+                inputBox.focus();
+            } else {
+                inputBox.style.display = "none";
+                submit.style.display = "none";
+            }
+            counter++;
+        });*/
+
+        // Step 4: Capture user input when submit is clicked
+        /*submit.addEventListener("click", () => {
+            if (inputBox.value !== "") { // Checks if input is not empty
+                output.textContent = inputBox.value;
+                inputBox.style.display = "none";
+                submit.style.display = "none";
+                inputBox.value = "";
+            }
+        });*/
+    </script>
+</body>
+</html>

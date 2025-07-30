@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Pairing</title>
+    <style>
+        .student, .button {
+            display: inline-block;
+            width: 20%;
+            padding: 1%;
+            margin: 1%;
+            border: 1px solid black;
+        }
+
+        input[type="radio"] {
+            transform: scale(1);
+        }
+
+        .button {
+            background: #666;
+            color: white;
+        }
+
+        #pairings {
+            position: fixed;
+            left: 20%;
+            top: 0;
+            width: 40%;
+           
+            margin-top: 10%;
+            background-color: white;
+            border: 2px solid black;
+            display: none;
+            padding: 5%;
+            font-size: 1.4em;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<form id="form">
+    <div id="students"></div>
+</form>
+
+<div id="pairings"></div>
+
+<button id="submit-button" class="button">Get Pairs</button>
+<button id="reset-button" class="button">Reset</button>
+<button id="set-shaky-button" class="button">Set All Shaky</button>
+<button id="set-confident-button" class="button">Set All Confident</button>
+
+<script>
+    const names = [
+        'Luke Auretto-Piper', 
+        'Carissa Bruneau', 
+        'Scott Daron',
+        'Isatou Dumbuya', 
+        'Neely Ellis',  
+        'Hailey Gebhart', 
+        'Shannon Guo', 
+        'Zach Heller', 
+        /*'Zoe Kapela', */
+        'Gunner Kipp', 
+        'James Lesperance',
+        'Zelin Ma', 
+        'Austin Melo',
+        'Cuong Nguyen', 
+        'Jenn Nguyen', 
+        'Mary Nguyen', 
+        'Tommy Ortale', 
+        'Monica Patanne',
+        'Lyndsey Roberts',
+        'Salina Salazar',
+        'Annaliese Sanders',
+        'Aaron Shannon',
+        'Jaxon Stephens',
+        'Torin Tashima',
+        'Rich Te',
+        'Will Luers'
+    ];
+
+    const form = document.querySelector("#form");
+    const studentsDiv = document.querySelector("#students");
+    const pairingsDiv = document.querySelector("#pairings");
+
+    function generateStudentHTML(name, index) {
+        return `
+            <div class='student'>
+                <h3>${name}</h3>
+                <input type='radio' name='student${index}' value='1'>Confident<br>
+                <input type='radio' name='student${index}' value='2'>Shaky<br>
+            </div>
+        `;
+    }
+
+    function renderStudents() {
+        const studentsHTML = names.map((name, index) => generateStudentHTML(name, index)).join('');
+        studentsDiv.innerHTML = studentsHTML;
+    }
+
+    function computeForm() {
+        let confidentStudents = [];
+        let shakeyStudents = [];
+        
+        // get radio values for each student
+        for (let i = 0; i < names.length; i++) {
+            let radioInputs = document.getElementsByName(`student${i}`);
+            let radioValue = 0;
+
+
+            radioInputs.forEach(function(radioInput) {
+                
+                if (radioInput.checked) {
+                    radioValue = radioInput.value;
+                }
+            });
+
+            if (radioValue == 1) { // Confident
+                confidentStudents.push(names[i]);
+            }
+            else if (radioValue == 2) { // Shakey
+                shakeyStudents.push(names[i]);
+            }
+            
+        } // end for loop
+        
+        // randomize the lists of students for random pairings
+        confidentStudents.sort(function() {
+            return 0.5 - Math.random(); 
+        });
+        shakeyStudents.sort(function() {
+            return 0.5 - Math.random(); 
+        });
+        
+        // generate pairings
+        let studentPairings = [];
+        while (confidentStudents.length) {
+            let student1 = confidentStudents.pop();
+            let student2 = "self";
+            if (shakeyStudents.length) {
+                student2 = shakeyStudents.pop();
+            }
+            else if (confidentStudents.length) {
+                student2 = confidentStudents.pop();
+            }
+            let pairing = [student1, student2];
+            studentPairings.push(pairing);
+        }
+        while (shakeyStudents.length) {
+            let student1 = shakeyStudents.pop();
+            let student2 = "self";
+            if (shakeyStudents.length) {
+                student2 = shakeyStudents.pop();
+            }
+            let pairing = [student1, student2];
+            studentPairings.push(pairing);
+        }
+        
+        // display results
+        pairings.innerHTML = "";
+        studentPairings.forEach(function(pairing) {
+            pairings.innerHTML += `${pairing[0]} with ${pairing[1]} <br>`;
+        });
+        pairings.style.display = "block";
+    } // end computeForm function
+
+    function resetForm() {
+        form.reset();
+        pairingsDiv.innerHTML = "";
+    }
+
+    function setRadioValues(value) {
+        for (let i = 0; i < names.length; i++) {
+            const radioInputs = document.getElementsByName(`student${i}`);
+            radioInputs.forEach((radioInput) => {
+                if (radioInput.value == value) {
+                    radioInput.checked = true;
+                }
+            });
+        }
+    }
+
+    function setShaky() {
+        setRadioValues(2);
+    }
+
+    function setConfident() {
+        setRadioValues(1);
+    }
+
+    renderStudents();
+
+    const submitButton = document.getElementById('submit-button');
+    const resetButton = document.getElementById('reset-button');
+    const setShakyButton = document.getElementById('set-shaky-button');
+    const setConfidentButton = document.getElementById('set-confident-button');
+
+    submitButton.addEventListener('click', computeForm);
+    resetButton.addEventListener('click', resetForm);
+    setShakyButton.addEventListener('click', setShaky);
+    setConfidentButton.addEventListener('click', setConfident);
+
+</script>
+</body>
+</html>

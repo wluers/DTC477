@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Canvas Game</title>
+    <style>
+        canvas {
+            background-color: #f0f0f0;
+            display: block;
+            margin: 5% auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 700;
+    canvas.height = 700;
+
+    const keys = {
+        right: false,
+        left: false
+    };
+
+    // Load images
+    const playerImg = new Image();
+    playerImg.src = 'player.png'; // Replace with the path to your actual file name
+
+    const objectImg = new Image();
+    objectImg.src = 'object.png'; // Replace with the path to your actual file name
+
+    class Player {
+        constructor(x, y, width, height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.speed = 5;
+        }
+
+        draw() {
+            ctx.drawImage(playerImg, this.x, this.y, this.width, this.height);
+        }
+
+        update() {
+            this.draw();
+            if (keys.right && this.x + this.width < canvas.width) {
+                this.x += this.speed;
+            }
+            if (keys.left && this.x > 0) {
+                this.x -= this.speed;
+            }
+        }
+    }
+
+    class FallingObject {
+        constructor(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.speed = speed;
+        }
+
+        draw() {
+            ctx.drawImage(objectImg, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+        }
+
+        update() {
+            this.y += this.speed;
+            this.draw();
+        }
+    }
+
+    const player = new Player(canvas.width / 2 - 50, canvas.height - 60, 100, 50);
+    const fallingObjects = [];
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowRight") keys.right = true;
+        else if (event.key === "ArrowLeft") keys.left = true;
+    });
+
+    document.addEventListener('keyup', function(event) {
+        if (event.key === "ArrowRight") keys.right = false;
+        else if (event.key === "ArrowLeft") keys.left = false;
+    });
+
+    function spawnFallingObject() {
+        const radius = 20;
+        const x = Math.random() * (canvas.width - radius * 2) + radius;
+        const speed = 2;
+        fallingObjects.push(new FallingObject(x, 0, radius, speed));
+    }
+
+    function gameLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        player.update();
+
+        if (fallingObjects.length < 10) {
+            spawnFallingObject();
+        }
+
+        fallingObjects.forEach((object, index) => {
+            object.update();
+
+            // Collision detection
+            if (
+                player.x < object.x + object.radius &&
+                player.x + player.width > object.x - object.radius &&
+                player.y < object.y + object.radius &&
+                player.y + player.height > object.y - object.radius
+            ) {
+                console.log('Collision detected!');
+                fallingObjects.splice(index, 1);
+            }
+
+            if (object.y - object.radius > canvas.height) {
+                fallingObjects.splice(index, 1);
+            }
+        });
+
+        requestAnimationFrame(gameLoop);
+    }
+
+    // Wait until both the player and object images are fully loaded before starting the game loop.
+    // A "Promise" is a special JavaScript object that represents the result of an asynchronous operation — something that hasn't finished yet, but will in the future (hopefully).
+    // This ensures that drawImage() calls won't fail due to missing image data.
+    Promise.all([
+        new Promise(resolve => playerImg.onload = resolve),
+        new Promise(resolve => objectImg.onload = resolve)
+    ]).then(() => {
+        requestAnimationFrame(gameLoop);
+    });
+</script>
+
+</body>
+</html>

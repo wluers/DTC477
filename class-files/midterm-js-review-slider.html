@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider Controlled Object Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        .slider-container { margin: 20px; }
+        input[type=range] { width: 80%; }
+        button { font-size: 16px; padding: 10px; cursor: pointer; margin-top: 20px; }
+        #output { margin-top: 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>Slider Controlled Object Demo</h1>
+    
+    <div class="slider-container">
+        <label>Size:</label>
+        <input type="range" id="size" min="1" max="3" step="1">
+    </div>
+    <div class="slider-container">
+        <label>Color:</label>
+        <input type="range" id="color" min="1" max="3" step="1">
+    </div>
+    <div class="slider-container">
+        <label>Shape:</label>
+        <input type="range" id="shape" min="1" max="3" step="1">
+    </div>
+    
+    <button id="applySettings">Apply Settings</button>
+    <p id="output">Adjust sliders and click the button.</p>
+    
+    <script>
+        // Object storing different settings based on slider values
+        const settings = {
+            size: { 1: "Small", 2: "Medium", 3: "Large" },
+            color: { 1: "Red", 2: "Blue", 3: "Green" },
+            shape: { 1: "Circle", 2: "Square", 3: "Triangle" }
+        };
+        
+        // Select elements
+        const sizeSlider = document.getElementById("size");
+        const colorSlider = document.getElementById("color");
+        const shapeSlider = document.getElementById("shape");
+        const button = document.getElementById("applySettings");
+        const output = document.getElementById("output");
+        
+        // Event listener for button click
+        button.addEventListener("click", function() {
+            const selectedSize = settings.size[sizeSlider.value];
+            const selectedColor = settings.color[colorSlider.value];
+            const selectedShape = settings.shape[shapeSlider.value];
+            
+            // Display selected values
+            output.textContent = `Size: ${selectedSize}, Color: ${selectedColor}, Shape: ${selectedShape}`;
+            
+            // Apply color change to the background
+            document.body.style.backgroundColor = selectedColor.toLowerCase();
+        });
+    </script>
+</body>
+</html>

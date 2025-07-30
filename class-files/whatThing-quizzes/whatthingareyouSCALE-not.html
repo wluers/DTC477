@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>What Thing Are You Quiz</title>
+	<style>
+		#submit  {margin-top: 20px;}
+	</style>
+</head>
+<body>
+
+	<h1>What Stationary Item Are You? (Scale)</h1>
+    
+    <form name="quiz">
+    
+  <section>
+           <h3>How do you see yourself?<br></h3>
+
+		  <div>  
+			<input type="radio" name="question1" value="1">Confidant
+		  </div>
+
+		   <div>
+			<input type="radio" name="question1" value="2">Curious
+		   </div>
+
+			<div>
+				<input type="radio" name="question1" value="3">Flexible
+			</div>
+			
+			<div>
+				<input type="radio" name="question1" value="4">Empathetic
+			</div>
+			
+		</section>
+			
+			
+			
+	    <section>
+           <h3>How are you with strangers?<br></h3>
+
+		  <div>  
+			<input type="radio" name="question2" value="1">Skeptical
+		  </div>
+
+		   <div>
+			<input type="radio" name="question2" value="2">Cautious
+		   </div>
+
+			<div>
+				<input type="radio" name="question2" value="3">Gregarious
+			</div>
+			
+			<div>
+				<input type="radio" name="question2" value="4">Helpful
+			</div>
+			
+		</section>
+			
+			
+	    <section>
+           <h3>How do you describe your thinking style?<br></h3>
+
+		  <div>  
+			<input type="radio" name="question3" value="1">Analytical
+		  </div>
+
+		   <div>
+			<input type="radio" name="question3" value="2">Logical  
+		   </div>
+
+			<div>
+				<input type="radio" name="question3" value="3">Imaginative
+			</div>
+			
+			<div>
+				<input type="radio" name="question3" value="4">Associational
+			</div>
+			
+		</section>
+		
+		
+	    <section>
+           <h3>How do others see you?<br></h3>
+
+		  <div>  
+			<input type="radio" name="question4" value="1">Assertive
+		  </div>
+
+		   <div>
+			<input type="radio" name="question4" value="2">Critical
+		   </div>
+
+			<div>
+				<input type="radio" name="question4" value="3">Open
+			</div>
+			
+			<div>
+				<input type="radio" name="question4" value="4">Self-critical
+			</div>
+			
+		</section>
+	    
+	
+
+	  
+			<div id="submit"> 
+			 <input type="button" value="What are You?" onClick="computeForm(this.form)">
+			</div> 
+			
+			<div id="reset"> 
+			 <input type="button" value="Reset" onClick="reset(this.form)">
+			</div> 
+
+    </form>
+    
+    
+    
+   <script>
+   
+ 
+
+    function computeForm(form) {
+        
+      let questNum = 1;  
+      let choice = 0;
+      let  total = 0;
+    
+
+	  for (questNum = 1; questNum <= 4; questNum++) {
+		  let radioInputs = document.forms['quiz'].elements['question'+ questNum];
+			   for (let i = 0; i < radioInputs.length; i++) {
+				   if (radioInputs[i].checked) {
+					  choice = radioInputs[i].value;
+					  }  // closes condition on checked
+			   } // closes for loop on radios
+					
+          //total = total + parseInt(choice);
+          total += parseInt(choice);
+          
+         }  // closes for loop on questions
+       
+/// as an example, this script use Switch statement instead of "if and else if" (either will work!)
+
+		switch(total) {
+		case 4:
+		  alert(`value is: ${total}. You are a pair of scissors`);
+		  break;
+		case 5:
+		  alert(`value is: ${total}. You are a small pair of scissors`);
+		  break;
+		case 6:
+		  alert(`value is: ${total}. You are a  letter-opener.`);
+		  break;
+		case 7:
+		  alert(`value is: ${total}. You are a compass.`);
+		  break;
+		case 8:
+		  alert(`value is: ${total}. You are a metal ruler.`);
+		  break;
+		case 9:
+		  alert(`value is: ${total}. You are a  wooden ruler.`);
+		  break;
+		case 10:
+		  alert(`value is: ${total}. You are a file folder.`);
+		  break;
+		case 11:
+		  alert(`value is: ${total}. You are a pad of graph paper.`);
+		  break;
+		case 12:
+		  alert(`value is: ${total}. You are a ruled notebook.`);
+		  break;
+		case 13:
+		  alert(`value is: ${total}. You are a sketchbook.`);
+		  break;
+		case 14:
+		  alert(`value is: ${total}. You are a bottle of white-out.`);
+		  break;
+		case 11:
+		  alert(`value is: ${total}. You are a an eraser.`);
+		  break;
+		case 15:
+		  alert(`value is: ${total}. You are a  gummy eraser.`);
+		  break;
+		case 16:
+		  alert(`value is: ${total}. You are a  gummy eraser.`);
+		  break;
+
+		// add case here
+
+		default:
+		  alert(`value is: ${total}. I really don't know what you are.`);
+	  } 
+
+    
+    
+    }  // this closes computeForm
+    
+
+
+    </script>
+
+
+
+
+</body>
+</html>

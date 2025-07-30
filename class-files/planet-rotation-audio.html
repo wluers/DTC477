@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive 3D Solar System with Dynamic Audio</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+        #startAudioButton {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="startAudioButton">Start Audio</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Audio setup
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.type = 'sine'; // Sine wave for a smooth tone
+        oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // Default frequency
+        oscillator.start();
+
+        // Set initial gain (volume)
+        gainNode.gain.setValueAtTime(0.01, audioContext.currentTime); // Start quietly
+
+        // Lighting
+        const pointLight = new THREE.PointLight(0xffffff, 1, 500);
+        pointLight.position.set(0, 0, 0);
+        scene.add(pointLight);
+
+        // Sun
+        const sunGeometry = new THREE.SphereGeometry(1, 32, 32);
+        const sunMaterial = new THREE.MeshBasicMaterial({color: 0xffff00});
+        const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+        scene.add(sun);
+
+        // Planet
+        const planetGeometry = new THREE.SphereGeometry(0.2, 32, 32);
+        const planetMaterial = new THREE.MeshLambertMaterial({color: 0x8888ff});
+        const planet = new THREE.Mesh(planetGeometry, planetMaterial);
+        scene.add(planet);
+        planet.position.x = 3; // Start position
+
+        camera.position.z = 5;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Update planet position
+            const time = Date.now() * 0.001;
+            planet.position.x = Math.cos(time) * 3;
+            planet.position.z = Math.sin(time) * 3;
+
+            // Calculate distance from the planet to the sun
+            const distance = planet.position.length();
+
+            // Adjust audio volume based on distance
+            const volume = mapRange(distance, 2.5, 5, 0.1, 0.01); // Closer is louder
+            gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+
+            // Render scene
+            renderer.render(scene, camera);
+        }
+
+        function startAudio() {
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            document.getElementById('startAudioButton').style.display = 'none';
+            animate(); // Start animation when audio is activated
+        }
+
+        document.getElementById('startAudioButton').addEventListener('click', startAudio);
+
+        // Utility function to map distance to volume range
+        function mapRange(value, inMin, inMax, outMin, outMax) {
+            return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+        }
+    </script>
+</body>
+</html>

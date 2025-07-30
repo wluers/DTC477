@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>What Thing Are You Quiz</title>
+	<style>
+		#submit  {margin-top: 20px;}
+	</style>
+</head>
+<body>
+
+	<h1>What Stationary Item Are You? (Vote)</h1>
+    
+    <form name="quiz">
+    
+  <section class="questions" id="quest1">
+           <h3>How do you see yourself?<br></h3>
+
+		  <div>  
+			<input TYPE="radio" NAME="question1" VALUE="1">Confidant
+		  </div>
+
+		   <div>
+			<input TYPE="radio" NAME="question1" VALUE="2">Curious
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question1" VALUE="3">Flexible
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question1" VALUE="4">Empathetic
+			</div>
+			
+		</section>
+			
+			
+			
+	    <section class="questions" id="quest2">
+           <h3>How are you with strangers?<br></h3>
+
+		  <div>  
+			<input TYPE="radio" NAME="question2" VALUE="1">Skeptical
+		  </div>
+
+		   <div>
+			<input TYPE="radio" NAME="question2" VALUE="2">Cautious
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question2" VALUE="3">Gregarious
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question2" VALUE="4">Helpful
+			</div>
+			
+		</section>
+			
+			
+	    <section class="questions" id="quest3">
+           <h3>How do you describe your thinking style?<br></h3>
+
+		  <div>  
+			<input TYPE="radio" NAME="question3" VALUE="1">Analytical
+		  </div>
+
+		   <div>
+			<input TYPE="radio" NAME="question3" VALUE="2">Logical  
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question3" VALUE="3">Imaginative
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question3" VALUE="4">Associational
+			</div>
+			
+		</section>
+		
+		
+	    <section class="questions" id="quest4">
+           <h3>How do others see you?<br></h3>
+
+		  <div>  
+			<input TYPE="radio" NAME="question4" VALUE="1">Assertive
+		  </div>
+
+		   <div>
+			<input TYPE="radio" NAME="question4" VALUE="2">Critical
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question4" VALUE="3">Open
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question4" VALUE="4">Self-critical
+			</div>
+			
+		</section>
+	    
+	  
+			<div id="submit"> 
+			 <input TYPE="button" VALUE="What are You?" onClick="computeForm(this.form)">
+			</div> 
+			
+			<div id="reset"> 
+			 <input TYPE="button" VALUE="Reset" onClick="reset(this.form)">
+			</div> 
+
+    </form>
+    
+    
+    
+  <script>
+   
+   let result;
+
+   function computeForm(form) {
+        
+         let qNum = 1;
+      	let scissors = 0;
+      	let ruler = 0;
+      	let pen = 0;
+      	let paper = 0;
+      	let choice;
+      
+
+	  for (qNum = 1; qNum <= 4; qNum++) {
+		  let radioInputs = document.forms['quiz'].elements['question'+ qNum];
+		  
+			   for (let i = 0; i < radioInputs.length; i++) {
+				   if (radioInputs[i].checked) {
+					  choice = radioInputs[i].value;
+					  }  // closes condition on checked
+			   } // closes for loop on radios         
+					  
+
+			  if (choice == "1") {
+				   scissors++;
+				}
+
+			   else if (choice == "2") {
+				   ruler++;
+				}
+
+			   else if (choice == "3") {
+				   pen++;
+				}
+
+			   else if (choice == "4") {
+				   paper++;
+				}
+
+			   else {
+			   	alert("oops");
+			   }
+					  
+	    }  // closes for loop on questions
+
+        
+    
+      if (scissors >= ruler && scissors >= pen && scissors >= paper && scissors > 0)     {
+         // scissors is the highest
+         result = "scissors";
+      }
+      else if (ruler > scissors && ruler >= pen && ruler >= paper && ruler > 0) {
+         // ruler is the highest
+         result = "ruler";
+      }
+      else if (pen > scissors && pen > ruler && pen >= paper && pen > 0) {
+         // pen is the highest
+         result = "pen";
+      }
+      else if (paper > scissors && paper > ruler && paper > pen && paper > 0) {
+         // paper is the highest
+         result = "paper";
+      }
+      else {
+         result = "oops";
+      }
+        
+      
+        alert(`You are a ${result}. The values are: scissors is ${scissors}, ruler is ${ruler}, pen is ${pen}, paper is ${paper}`);
+        
+    
+    
+    }  // this closes computeForm
+    
+
+
+    </script>
+
+
+
+
+</body>
+</html>

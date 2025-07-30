@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p5.js Project</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+    <script>
+        // Your p5.js code goes here
+
+        let x, y; // Current position
+        let angle = 30; // Fixed angle of 30 degrees
+        let stepSize = 100; // Arbitrary step size, adjust based on canvas size
+        let density = 0; // To measure how "dense" the canvas is
+        let densityThreshold = 1000; // When to stop, adjust based on your density criteria
+
+        function setup() {
+            createCanvas(400, 400);
+            background(220);
+            x = random(width); // Start from a random x position on the canvas
+            y = 0; // Start from the top of the canvas
+        }
+
+        function draw() {
+            // Calculate the next point using trigonometry
+            let nextX = x + cos(radians(angle)) * stepSize;
+            let nextY = y + sin(radians(angle)) * stepSize;
+
+            // Draw a line from the current position to the next
+            line(x, y, nextX, nextY);
+
+            // Update current position
+            x = nextX;
+            y = nextY;
+
+            // Check if the next point is outside the canvas and adjust
+            if (x < 0 || x > width || y < 0 || y > height) {
+                // Choose a new side and angle randomly for the next starting point
+                angle = random(360);
+                x = random(width);
+                y = random(height);
+            }
+
+            // Update density and check if we should stop
+            density++;
+            if (density > densityThreshold) {
+                noLoop(); // Stop drawing
+            }
+        }
+    </script>
+</body>
+</html>

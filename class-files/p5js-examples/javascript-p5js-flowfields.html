@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flow Field in p5.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; }
+    </style>
+</head>
+<body>
+    <script>
+        let inc = 0.1; // Increment value for noise
+        let cols, rows;
+        let zoff = 0; // Third dimension in noise
+        let particles = [];
+        let flowField;
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            cols = floor(width / 10);
+            rows = floor(height / 10);
+            flowField = new Array(cols * rows);
+
+            for (let i = 0; i < 500; i++) { // Number of particles
+                particles[i] = new Particle();
+            }
+            background(255, 10); // Slight transparency to see trails
+        }
+
+        function draw() {
+            let yoff = 0;
+            for (let y = 0; y < rows; y++) {
+                let xoff = 0;
+                for (let x = 0; x < cols; x++) {
+                    let index = x + y * cols; // Position in the flow field array
+                    let angle = noise(xoff, yoff, zoff) * TWO_PI * 4; // Generate a vector based on noise
+                    let v = p5.Vector.fromAngle(angle); // Create a vector from this angle
+                    v.setMag(2); // Set the magnitude of the vector
+                    flowField[index] = v;
+                    xoff += inc;
+                    // Uncomment below to visualize the flow field with lines
+                    // stroke(0, 50);
+                    // push();
+                    // translate(x * scl, y * scl);
+                    // rotate(v.heading());
+                    // strokeWeight(1);
+                    // line(0, 0, scl, 0);
+                    // pop();
+                }
+                yoff += inc;
+                zoff += 0.0003; // Slowly change the flow field over time
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].follow(flowField);
+                particles[i].update();
+                particles[i].edges();
+                particles[i].show();
+            }
+        }
+
+        class Particle {
+            constructor() {
+                this.pos = createVector(random(width), random(height));
+                this.vel = createVector(0, 0);
+                this.acc = createVector(0, 0);
+                this.maxSpeed = 4;
+
+                this.prevPos = this.pos.copy();
+            }
+
+            update() {
+                this.vel.add(this.acc);
+                this.vel.limit(this.maxSpeed);
+                this.pos.add(this.vel);
+                this.acc.mult(0);
+            }
+
+            follow(vectors) {
+                let x = floor(this.pos.x / 10);
+                let y = floor(this.pos.y / 10);
+                let index = x + y * cols;
+                let force = vectors[index];
+                this.applyForce(force);
+            }
+
+            applyForce(force) {
+                this.acc.add(force);
+            }
+
+            show() {
+                stroke(0, 50); // Darker color with more opacity for visibility
+                strokeWeight(2); // Thicker line for visibility
+                line(this.prevPos.x, this.prevPos.y, this.pos.x, this.pos.y);
+                this.updatePrev();
+            }
+
+            updatePrev() {
+                this.prevPos.x = this.pos.x;
+                this.prevPos.y = this.pos.y;
+            }
+
+            edges() {
+                if (this.pos.x > width) this.pos.x = 0;
+                else if (this.pos.x < 0) this.pos.x = width;
+                if (this.pos.y > height) this.pos.y = 0;
+                else if (this.pos.y < 0) this.pos.y = height;
+
+                this.updatePrev();
+            }
+        }
+    </script>
+</body>
+</html>

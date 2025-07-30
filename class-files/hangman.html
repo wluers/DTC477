@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+</head>
+<body>
+    <h1>Hangman Game</h1>
+    <p id="word-display">_ _ _ _ _ _ _ _ _ _</p> <!-- Word display -->
+    <p id="guessed-letters">Guessed letters: </p> <!-- Guessed letters -->
+    <p id="remaining-guesses">Guesses left: 6</p> <!-- Remaining guesses -->
+    
+    <input type="text" id="guess-input" maxlength="1" />
+    <button onclick="makeGuess()">Guess</button>
+
+    <script>
+        // 1. Set up variables for game state
+        let wordToGuess = "javascript";       // The secret word
+        let guessedLetters = [];              // Array to track guessed letters
+        let remainingGuesses = 6;             // Number of guesses allowed
+
+        // 2. Function to handle player's guess
+        function makeGuess() {
+            let guess = document.getElementById("guess-input").value.toLowerCase();
+            
+            // Check if the letter has already been guessed
+            if (guessedLetters.includes(guess)) {
+                alert("You already guessed that letter!");
+                return;
+            }
+
+            guessedLetters.push(guess); // Add the guessed letter to the list
+
+            if (wordToGuess.includes(guess)) {
+                // Reveal the guessed letter in the word display
+                updateWordDisplay();
+            } else {
+                remainingGuesses--; // Reduce remaining guesses
+            }
+
+            updateGameState(); // Update the game state after the guess
+        }
+
+        // 3. Function to update the displayed word
+        function updateWordDisplay() {
+            let display = wordToGuess.split("").map(letter => 
+                guessedLetters.includes(letter) ? letter : "_"
+            ).join(" ");
+            document.getElementById("word-display").innerText = display;
+        }
+
+        // 4. Function to update the game state (win/loss check)
+        function updateGameState() {
+            document.getElementById("guessed-letters").innerText = "Guessed letters: " + guessedLetters.join(", ");
+            document.getElementById("remaining-guesses").innerText = "Guesses left: " + remainingGuesses;
+
+            if (!document.getElementById("word-display").innerText.includes("_")) {
+                alert("You win!");
+            } else if (remainingGuesses <= 0) {
+                alert("Game over! The word was " + wordToGuess);
+            }
+        }
+    </script>
+</body>
+</html>

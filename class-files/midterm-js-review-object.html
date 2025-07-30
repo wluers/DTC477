@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Literal Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        button { font-size: 16px; padding: 10px; cursor: pointer; }
+        #output { margin-top: 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>Object Literal Demo</h1>
+    <button id="button">Show Info</button>
+    <p id="output">Click the button to see information.</p>
+    
+    <script>
+        // Step 1: Create an object literal with data and a function
+        const person = {
+            name: "Yoda",
+            age: 500,
+            job: "Jedi",
+            getInfo: function() {
+                return `The applicant is ${this.name}, aged ${this.age}. Says he works as a ${this.job}`;
+            }
+        };
+         
+        // Step 2: Select the button and output elements
+        const button = document.querySelector("#button");
+        const output = document.querySelector("#output");
+        
+        // Step 3: Add an event listener to the button
+        button.addEventListener("click", function() {
+            // Step 4: Call the object function and display the result
+            output.textContent = person.getInfo();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Concentric Circles Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<script>
+    let circleSets = [];
+
+    function setup() {
+        createCanvas(800, 800);
+        colorMode(RGB, 255, 255, 255, 1);
+        // Define properties for three sets of circles
+        for (let i = 0; i < 3; i++) {
+            let circleSet = {
+                x: random(width),
+                y: random(height),
+                color: [color(255, 0, 0, 0.2), color(0, 255, 0, 0.2), color(0, 0, 255, 0.2)][i],
+                circles: []
+            };
+            for (let j = 1; j <= 10; j++) { // 10 circles per set, increasing in size
+                circleSet.circles.push(j * 10); // Initial radius for concentric circles
+            }
+            circleSets.push(circleSet);
+        }
+    }
+
+    function draw() {
+        background(255);
+        // Draw and expand circles
+        circleSets.forEach(set => {
+            strokeWeight(4); // Increased stroke weight for thicker lines
+            set.circles = set.circles.map(radius => {
+                stroke(set.color);
+                ellipse(set.x, set.y, radius * 2);
+                radius += 0.5; // Expand circles
+                if (radius > 200) { // Reset circle size to create infinite loop illusion
+                    radius = 10;
+                }
+                return radius;
+            });
+        });
+    }
+</script>
+</body>
+</html>

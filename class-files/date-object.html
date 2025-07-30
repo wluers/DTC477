@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Date Object Demo</title>
+</head>
+<body>
+    <h1>JavaScript Date Object Demo</h1>
+    <p id="dateDisplay"></p>
+    
+    <script>
+        // Create a new Date object
+        const now = new Date();
+        console.log(now); // Print full date object to console
+
+        // Create an object literal with date properties
+        const dateInfo = {
+            fullDate: now.toDateString(),
+            fullTime: now.toTimeString(),
+            year: now.getFullYear(),
+            month: now.getMonth() + 1, // Months are zero-indexed, so add 1
+            date: now.getDate(),
+            day: now.getDay(),
+            hours: now.getHours(),
+            minutes: now.getMinutes(),
+            seconds: now.getSeconds()
+        };
+
+        console.log(dateInfo); // Print object literal to console
+
+        // Display in browser
+        document.getElementById("dateDisplay").innerHTML = `
+            <strong>Full Date:</strong> ${dateInfo.fullDate} <br>
+            <strong>Full Time:</strong> ${dateInfo.fullTime} <br>
+       
+            <strong>Year:</strong> ${dateInfo.year} <br>
+            <strong>Month:</strong> ${dateInfo.month} <br>
+            <strong>Day:</strong> ${dateInfo.day} (0=Sunday, 6=Saturday) <br>
+            <strong>Hours:</strong> ${dateInfo.hours} <br>
+            <strong>Minutes:</strong> ${dateInfo.minutes} <br>
+            <strong>Seconds:</strong> ${dateInfo.seconds} <br>
+        `;
+    </script>
+</body>
+</html>

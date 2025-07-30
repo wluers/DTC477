@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 10: Canvas Drawing/Animation</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html"><div class="course-info">DTC 477: Advanced Web Design & Development</div></a>
+    <nav class="main-nav">
+      <a href="syllabus.html">Syllabus</a>
+      <a href="index.html">Modules</a>
+      <a href="projects.html">Projects</a>
+      <a href="tutorials.html">Tutorials</a>
+    </nav>
+  </header>
+
+  <main class="module-page">
+    <h1>Week 10: Canvas Drawing/Animation</h1>
+
+    <h3>To Do This Week:</h3>
+Work on Map Projects. <strong><span style="color: #ff0000;">Due Wednesday March 19th</span></strong>
+
+<hr>
+
+<h3>Module Notes</h3>
+<a href="https://will-luers.com/DTC/dtc477/elit-477-spring2025.html">Elit project student list</a>
+
+&nbsp;
+<h4>Storing Stuff:</h4>
+<ul>
+  <li><a href="http://www.w3schools.com/js/js_variables.asp">Variables</a></li>
+  <li><a href="http://www.w3schools.com/js/js_arrays.asp">Arrays</a></li>
+  <li><a href="http://www.w3schools.com/js/js_object_definition.asp">Objects / Methods / Properties</a>:
+<ul>
+  <li>Object Literals</li>
+  <li>Object Constructors</li>
+</ul>
+</li>
+  <li><a href="https://www.w3schools.com/js/js_classes.asp">Classes</a></li>
+</ul>
+<h4>variables are objects</h4>
+<pre>let str = "Hello, World!";
+str.length; // Output: 13 (length property)
+str.toUpperCase(); // Output: "HELLO, WORLD!" (method)
+</pre>
+<h4>js date object&nbsp;</h4>
+<a href="https://will-luers.com/DTC/dtc477/date-object.html">Date() Demo</a>
+<pre>const now = new Date();
+console.log(now.toDateString()); // Output: "Sun Mar 16 2025"
+</pre>
+<h4>&nbsp;</h4>
+<h4>Object Literals</h4>
+<pre>let car = {
+  make: "Toyota",
+  year: 2022,
+  getMessage: function () {
+    return `This car is a ${this.year} ${this.make}.`;
+  }
+};
+
+// Changing property values
+car.make = "Honda"; 
+car.year = 2025; 
+
+console.log(car.getMessage()); // Output: This car is a 2025 Honda.
+</pre>
+<h4>Object Constructors</h4>
+<pre>function Car(make, year) {
+  this.make = make;
+  this.year = year;
+}
+
+// Creating an instance
+const myCar = new Car("Toyota", 2022);
+
+// Changing property values
+myCar.make = "Honda";
+myCar.year = 2025;
+
+console.log(myCar.make); // Output: Honda
+console.log(myCar.year); // Output: 2025
+
+</pre>
+<h4>Classes</h4>
+<pre>class Car {
+  constructor(make, year) {
+    this.make = make;
+    this.year = year;
+  }
+
+  getMessage() {
+    return `This car is a ${this.year} ${this.make}.`;
+  }
+}
+
+const myCar = new Car("Toyota", 2022);
+// Changing property values
+myCar.make = "Honda";
+myCar.year = 2025;
+
+
+console.log(myCar.getMessage()); // Output: This car is a 2025 Honda.
+</pre>
+<h4>Class Inheritance</h4>
+<pre>// Subclass that extends Car
+class Ev extends Car {
+  constructor(make, year, batteryRange) {
+    super(make, year); // Call the parent constructor
+    this.batteryRange = batteryRange; // New property for Ev
+  }
+
+  getBatteryInfo() {
+    return `The ${this.year} ${this.make} has a battery range of ${this.batteryRange} miles.`;
+  }
+}
+
+// Creating an instance of Ev
+const myEv = new Ev("Honda Prologue", 2025, 300);
+
+// Using methods from both Car and Ev
+console.log(myEv.getMessage()); 
+// Output: This car is a 2025 Honda Prologue.
+
+console.log(myEv.getBatteryInfo()); 
+// Output: The 2025 Honda Prologue has a battery range of 300 miles.
+
+</pre>
+
+<hr>
+
+<h3>Maps Q &amp; A</h3>
+<a href="https://will-luers.com/DTC/dtc477/map-projects-477-spring2025.html">Map Projects List</a>
+
+<hr>
+
+<h3>Workshop Canvas</h3>
+<h4>Intro to Canvas:</h4>
+<ul>
+  <li><a href="https://www.w3schools.com/graphics/canvas_intro.asp">Canvas Element</a>: Introduction to JavaScript Drawing and Animation</li>
+  <li><a href="https://www.w3schools.com/graphics/canvas_reference.asp">Canvas Reference</a></li>
+  <li data-start="77" data-end="146"><strong data-start="79" data-end="96"><code data-start="81" data-end="94">beginPath()</code></strong> – Begins a new path or resets the current path.</li>
+  <li data-start="147" data-end="245"><strong data-start="149" data-end="167"><code data-start="151" data-end="165">moveTo(x, y)</code></strong> – Moves the "pen" to a specific starting position without drawing anything.</li>
+  <li data-start="246" data-end="344"><strong data-start="248" data-end="266"><code data-start="250" data-end="264">lineTo(x, y)</code></strong> – Draws a straight line from the current position to the given coordinates.</li>
+  <li data-start="345" data-end="437"><strong data-start="347" data-end="410"><code data-start="349" data-end="408">ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise)</code></strong> – Draws a circle or arc.</li>
+  <li data-start="528" data-end="584"><strong data-start="530" data-end="561"><code data-start="532" data-end="559">rect(x, y, width, height)</code></strong> – Draws a rectangle.</li>
+  <li data-start="585" data-end="679"><strong data-start="587" data-end="599"><code data-start="589" data-end="597">fill()</code></strong> – Fills the current shape with the active fill style (color, gradient, etc.).</li>
+  <li data-start="680" data-end="756"><strong data-start="682" data-end="696"><code data-start="684" data-end="694">stroke()</code></strong> – Outlines the current path with the active stroke style.</li>
+  <li data-start="757" data-end="837"><strong data-start="759" data-end="776"><code data-start="761" data-end="774">closePath()</code></strong> – Connects the last point to the first, closing the shape.</li>
+  <li data-start="757" data-end="837">Adding text
+<code><strong>ctx.font = "30px Arial";</strong></code>
+<strong><code>ctx.fillText("Hello, Canvas!", 50, 200);</code></strong>
+ctx.fillText(text, x, y, [maxWidth]) - maxWidth scales box to fit text.</li>
+  <li data-start="757" data-end="837">Use <code data-start="2564" data-end="2576"><strong>ctx.save()</strong></code> and <strong><code data-start="2581" data-end="2596">ctx.restore()</code></strong> to reset settings and avoid affecting future drawings.</li>
+</ul>
+<h4><strong>Drawing Circles and Arcs:</strong></h4>
+<strong>ctx.arc(<em>x, y, radius, startAngle, endAngle, counterclockwise</em>);</strong>
+<em><strong>x, y:</strong></em> The center of the arc
+<em><strong>radius:</strong> </em>The distance from the center to the edge
+<em><strong>startAngle:</strong></em> Where the arc begins (in radians)
+<strong><em>endAngle</em>:</strong> Where the arc ends (in radians)
+<em><strong>counterclockwise (optional</strong>):</em> true (clockwise if default!)
+<h4>Create a Drawing/Animation with Canvas:</h4>
+<a href="https://will-luers.com/DTC/dtc477/js-canvas-draw-demo.html">JavaScript Canvas Drawing Demo</a>
+
+<strong>In-Class Activity:</strong> Change the JavaScript to create your own face animation. Examples:
+<ul>
+  <li><a href="https://will-luers.com/DTC/dtc477/smiley-face-animate1.html">Example Face 1</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/smiley-face-drift.html">Example Face 2</a></li>
+</ul>
+<a href="https://will-luers.com/DTC/dtc477/clock.html">Canvas Clock Example</a>
+
+<a href="http://will-luers.com/DTC/dtc477/student-pairings4.html">Student Pairings</a>
+
+<hr>
+
+<h3>Canvas Project: 5%
+<span style="color: #ff0000;"><strong>(Due March 26)</strong></span></h3>
+<p data-start="47" data-end="322">For this project, you will use the HTML5 <code data-start="88" data-end="98">&lt;canvas&gt;</code> element and JavaScript to create a digital drawing. Your artwork can be static or animated. The goal is to experiment with the canvas rendering API&nbsp; to draw 2D shapes, lines, and colors, and optionally add movement.</p>
+<p data-start="324" data-end="550">You are welcome to use AI tools for guidance, but you should actively modify and experiment with the code to create something unique. Try adjusting colors, shapes, positions, and animations until you get the effect you want. The goal in this mini-project is to get comfortable working with the canvas, not to create a masterpiece.</p>
+<p data-start="552" data-end="571"><strong data-start="552" data-end="569">Requirements:</strong></p>
+
+<ul data-start="572" data-end="841">
+  <li data-start="572" data-end="619">Use the <code data-start="582" data-end="592">&lt;canvas&gt;</code> element in an HTML file.</li>
+  <li data-start="620" data-end="720">Write JavaScript to draw at least <strong data-start="656" data-end="682">three different shapes</strong> (e.g., circles, rectangles, lines).</li>
+  <li data-start="721" data-end="779">Use at least <strong data-start="736" data-end="760">two different colors</strong> in your drawing.</li>
+  <li data-start="780" data-end="841">(Optional) Add animation using <code data-start="813" data-end="838">requestAnimationFrame()</code>.</li>
+</ul>
+<p data-start="1079" data-end="1185" data-is-last-node="" data-is-only-node="">&nbsp;</p>
+
+  </main>
+  <footer class="site-footer">
+  <div class="footer-content">
+    <p>DTC 477: Advanced Web Design & Development</p>
+    <p>
+      <a href="mailto:youremail@university.edu">Contact Instructor</a> |
+      <a href="https://youruniversity.edu" target="_blank">University Home</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

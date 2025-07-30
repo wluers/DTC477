@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Centered Radiating Circles</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<script>
+    const circleSets = [];
+    const maxRadius = 200;
+    const animationDelay = 60; // Delay in frames before starting each color's animation
+
+    function setup() {
+        createCanvas(3000, 3000);
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const colors = [color(255, 0, 0), color(0, 255, 0), color(0, 0, 255)]; // Opaque colors
+
+        // Initialize circle sets
+        for (let i = 0; i < 3; i++) {
+            circleSets.push({
+                x: centerX,
+                y: centerY,
+                color: colors[i],
+                radius: 0,
+                delay: i * animationDelay, // Staggered start
+                active: false
+            });
+        }
+    }
+
+    function draw() {
+        background(255);
+        strokeWeight(30);
+
+        circleSets.forEach(set => {
+            if (frameCount >= set.delay) {
+                set.active = true;
+            }
+
+            if (set.active) {
+                stroke(set.color);
+                if (set.radius < maxRadius) {
+                    ellipse(set.x, set.y, set.radius * 2);
+                    set.radius += 2; // Increase radius for expansion
+                } else {
+                    // Reset the circle to create a continuous loop
+                    set.radius = 0;
+                    set.delay = frameCount + animationDelay * 2; // Ensure delay for continuous loop effect
+                    set.active = false;
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

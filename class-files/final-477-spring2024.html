@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Final Project - DTC 477, Spring 2024</title>
+    <style type="text/css">
+      body {
+        margin: 50px;
+        color: #666666;
+        font-family: Helvetica, Verdana, sans-serif;
+      }
+      p {
+        margin-bottom: 40px;
+      }
+      a:link, a:visited
+      {
+        color: red;
+        text-decoration: none;
+      }
+      a:hover, a:focus
+      {
+        color: orange;
+      }
+    </style>
+  </head>
+  <div id="content">
+    
+  
+  </div>
+  <body>
+    <script type="text/javascript">
+    let content = document.getElementById('content');
+    
+    let people = [
+
+      ["cbruneau23", "Carissa Bruneau"],
+      ["idumbuya22", "Isatou Dumbuya"],
+      ["nellis23", "Neely Ellis"],
+      ["hgebhart23","Hailey Gebhart"],
+      ["sguo23", "Shannon Guo"],
+      ["zheller22", "Zach Heller"],
+      ["gkipp22", "Gunner Kipp"],
+      ["jlesperance23", "James Lesperanc"],
+      ["zma23", "Zelin Ma"],
+      ["amelo20", "Austin Melo"],
+      ["cnguyen24", "Cuong Nguyen"],
+      ["jnguyen23", "Jenn Nguyen"],
+      ["mnguyen20", "Mary Nguyen"],
+      ["tortale23", "Tommy Ortale"],
+      ["mpatanne23", "Monica Patanne"],
+      ["lroberts23", "Lyndsey Roberts"],
+      ["asanders23","Annaliese Sanders"],
+      ["ashannon23", "Aaron Shannon"],
+      ["jstephens23", "Jaxon Stephens"],
+      ["ttashima22", "Torin Tashima"],
+      ["laurettopiper23", "Luke Auretto-Piper"],
+      ["sdaron23","Scott Daron"]
+    ];
+    
+    function get_student_url(student, project_number)
+    {
+      return "http://dtc-wsuv.org/" + student[0] + "/final/";
+    }
+    
+    function get_miniproject_list(project_number)
+    {
+      let result = "<h2>Final Projects for DTC 477 - Spring, 2024</h2>";
+      people.forEach(function(each)
+      {
+        result += "<a href='" + get_student_url(each, project_number) + "'>" + each[1] + "</a><br />";
+      });
+      return result;
+    }
+    
+    for (let project_number = 1; project_number <= 1; project_number++)
+    {
+      content.innerHTML += get_miniproject_list(project_number);
+    }
+    </script>
+  </body>
+</html>
+

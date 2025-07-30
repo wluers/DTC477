@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WSU Map - Fullscreen with Slide-In Panels</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+
+    <style>
+        /* Basic page styling */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header styling */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: darkred;
+            padding: 0;
+            z-index: 10;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 10px;
+            color: white;
+        }
+
+        /* Fullscreen map container */
+        #map {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 50px);
+        }
+
+        /* Slide-in panel styling */
+        .info-panel {
+            position: fixed;
+            top: 250px;
+            right: -450px; /* Start offscreen */
+            width: 400px;
+            height: 400px;
+            /*height: calc(100% - 50px);*/
+            background: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            transition: right 0.5s ease;
+            padding: 20px;
+        }
+
+        /* Marker styling */
+        .marker {
+            background-image: url('img/icon.png');
+            background-size: cover;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Reset button styling */
+        #reset-btn {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid darkred;
+            cursor: pointer;
+            z-index: 10;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>WSU Map</h1>
+    </header>
+
+    <!-- Map Container -->
+    <div id='map'></div>
+
+    <!-- Info Panels for Each Location -->
+    <div class='info-panel' id='vancouver'>
+        <h2>WSU Vancouver</h2>
+        <p>This is information about the Vancouver campus.</p>
+    </div>
+    <div class='info-panel' id='pullman'>
+        <h2>WSU Pullman</h2>
+        <p>This is information about the Pullman campus.</p>
+    </div>
+    <div class='info-panel' id='tricities'>
+        <h2>WSU Tri-Cities</h2>
+        <p>This is information about the Tri-Cities campus.</p>
+    </div>
+
+    <!-- Reset Button -->
+    <button id='reset-btn'>RESET MAP</button>
+
+    <script>
+        // Mapbox access token
+        mapboxgl.accessToken = 'pk.eyJ1Ijoid2x1ZXJzIiwiYSI6ImNqcWFpZ3hsNjB0aTUzeG9ndjQ4anRzc2cifQ.K7rYgm5t0kj7cEVIXHg-Tw';
+
+        // Initialize Map
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            center: [-119.262833, 46.329140],
+            zoom: 5
+        });
+
+        // Marker data
+        const locations = [
+            { id: 'vancouver', coords: [-122.636844, 45.730661], title: 'WSU Vancouver' },
+            { id: 'pullman', coords: [-117.165539, 46.731055], title: 'WSU Pullman' },
+            { id: 'tricities', coords: [-119.262833, 46.329140], title: 'WSU Tri-Cities' }
+        ];
+
+        let activePanel = null;
+
+        // Add markers to the map
+        locations.forEach(location => {
+            const el = document.createElement('div');
+            el.className = 'marker';
+
+            // Marker click event
+            el.addEventListener('click', () => {
+                // Fly to the marker location
+                map.flyTo({ center: location.coords, zoom: 14 });
+
+                // Hide any open panel
+                if (activePanel) {
+                    document.getElementById(activePanel).style.right = '-400px';
+                }
+
+                // Show the clicked location's panel
+                const panel = document.getElementById(location.id);
+                panel.style.right = '0px';
+                activePanel = location.id;
+
+                // Show reset button
+                document.getElementById('reset-btn').style.display = 'block';
+            });
+
+            // Add the marker to the map
+            new mapboxgl.Marker(el)
+                .setLngLat(location.coords)
+                .setPopup(new mapboxgl.Popup({ offset: 25 })
+                .setHTML(`<h3>${location.title}</h3>`))
+                .addTo(map);
+        });
+
+        // Reset button functionality
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            map.flyTo({ center: [-119.262833, 46.329140], zoom: 5 });
+            if (activePanel) {
+                document.getElementById(activePanel).style.right = '-400px';
+                activePanel = null;
+            }
+            document.getElementById('reset-btn').style.display = 'none';
+        });
+
+        // Disable scroll zoom for a better UX
+        map.scrollZoom.disable();
+    </script>
+</body>
+</html>

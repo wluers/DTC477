@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>What Thing Are You Quiz</title>
+	<style>
+		#submit  {margin-top: 20px;}
+	</style>
+</head>
+<body>
+
+	<h1>What Stationary Item Are You? (Scale)</h1>
+
+	<form name="quiz">
+	  <!-- Question 1 -->
+	  <fieldset class="questions" id="quest1">
+	    <legend>How do you see yourself?</legend>
+	    <div>
+	      <input type="radio" id="confidant" name="question1" value="1">
+	      <label for="confidant">Confidant</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="curious" name="question1" value="2">
+	      <label for="curious">Curious</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="flexible" name="question1" value="3">
+	      <label for="flexible">Flexible</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="empathetic" name="question1" value="4">
+	      <label for="empathetic">Empathetic</label>
+	    </div>
+	  </fieldset>
+
+	  <!-- Question 2 -->
+	  <fieldset class="questions" id="quest2">
+	    <legend>How are you with strangers?</legend>
+	    <div>
+	      <input type="radio" id="skeptical" name="question2" value="1">
+	      <label for="skeptical">Skeptical</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="cautious" name="question2" value="2">
+	      <label for="cautious">Cautious</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="gregarious" name="question2" value="3">
+	      <label for="gregarious">Gregarious</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="helpful" name="question2" value="4">
+	      <label for="helpful">Helpful</label>
+	    </div>
+	  </fieldset>
+
+	  <!-- Question 3 -->
+	  <fieldset class="questions" id="quest3">
+	    <legend>How do you describe your thinking style?</legend>
+	    <div>
+	      <input type="radio" id="analytical" name="question3" value="1">
+	      <label for="analytical">Analytical</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="logical" name="question3" value="2">
+	      <label for="logical">Logical</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="imaginative" name="question3" value="3">
+	      <label for="imaginative">Imaginative</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="associational" name="question3" value="4">
+	      <label for="associational">Associational</label>
+	    </div>
+	  </fieldset>
+
+	  <!-- Question 4 -->
+	  <fieldset class="questions" id="quest4">
+	    <legend>How do others see you?</legend>
+	    <div>
+	      <input type="radio" id="assertive" name="question4" value="1">
+	      <label for="assertive">Assertive</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="critical" name="question4" value="2">
+	      <label for="critical">Critical</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="open" name="question4" value="3">
+	      <label for="open">Open</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="self-critical" name="question4" value="4">
+	      <label for="self-critical">Self-critical</label>
+	    </div>
+	  </fieldset>
+
+	  <!-- Buttons -->
+	  <div class="form-actions">
+	    <button type="button" onclick="computeForm()">What are You?</button>
+	    <button type="reset">Reset</button>
+	  </div>
+
+
+	</form>
+    
+    <!-- <div id="answer"></div>
+     -->
+    
+    
+   <script>
+   
+   	function computeForm() {
+   		//grouping variables
+		      let scissors = 0, 
+				    ruler = 0, 
+				    pen = 0, 
+				    paper = 0;
+		    
+				// Iterate over each question
+				document.querySelectorAll('.questions').forEach(function(questionElement) {
+				    let selectedAnswer = questionElement.querySelector('input[type="radio"]:checked');
+				    // this selects an element "input" along with attribute selector for a radio and the pseudo-class "checked"
+
+				    if (selectedAnswer) {
+				        switch (selectedAnswer.value) {
+				            case "1":
+				                scissors++;
+				                break;
+				            case "2":
+				                ruler++;
+				                break;
+				            case "3":
+				                pen++;
+				                break;
+				            case "4":
+				                paper++;
+				                break;
+				        }
+				    }
+				});
+
+
+		    let maxVotes = Math.max(scissors, ruler, pen, paper); //returns the variable with the highest value
+		    let result = []; // an empty array waiting for the push of items, this accounts for possible ties on score
+
+		    if (scissors === maxVotes) result.push("scissors");
+		    if (ruler === maxVotes) result.push("ruler");
+		    if (pen === maxVotes) result.push("pen");
+		    if (paper === maxVotes) result.push("paper");
+
+		    if (result.length === 0) {
+		        result = "oops";
+		    } else if (result.length > 1) {
+		        result = `tie between ${result.join(", ")}` //"tie between " + result.join(", ");
+		    } else {
+		        result = result[0];
+		    }
+
+		    alert(`You are a ${result}. The values are: scissors = ${scissors}, ruler = ${ruler}, pen = ${pen}, paper = ${paper}`);
+		}
+
+//computeForm();
+
+
+    </script>
+
+
+
+
+</body>
+</html>

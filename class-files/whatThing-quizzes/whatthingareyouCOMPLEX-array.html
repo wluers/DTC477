@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>What Thing Are You Quiz</title>
+	<style>
+		#submit  {margin-top: 20px;}
+		#answer  {display: none;position: fixed; right: 30%; top: 30%; width: 30%; border: 2px solid black; padding: 5%;}
+
+		  
+	</style>
+</head>
+<body>
+
+	<h1>What Stationary Item Are You? (complex, arrays)</h1>
+    
+    <form name="quiz">
+    
+  <section class="questions" id="quest1">
+           <h3>How do you see yourself?<br></h3>
+
+		  <div>  
+			<input TYPE="radio" NAME="question1" VALUE="1">Confidant
+		  </div>
+
+		   <div>
+			<input TYPE="radio" NAME="question1" VALUE="2">Curious
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question1" VALUE="3">Flexible
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question1" VALUE="4">Empathetic
+			</div>
+			
+		</section>
+			
+			
+			
+	    <section class="questions" id="quest2">
+           <h3>How are you with strangers?<br></h3>
+
+		  <div>  
+			<input TYPE="radio" NAME="question2" VALUE="1">Skeptical
+		  </div>
+
+		   <div>
+			<input TYPE="radio" NAME="question2" VALUE="2">Cautious
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question2" VALUE="3">Gregarious
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question2" VALUE="4">Helpful
+			</div>
+			
+		</section>
+			
+			
+	    <section class="questions" id="quest3">
+           <h3>How do you describe your thinking style?<br></h3>
+
+		  <div>  
+			<input TYPE="radio" NAME="question3" VALUE="1">Analytical
+		  </div>
+
+		   <div>
+			<input TYPE="radio" NAME="question3" VALUE="2">Logical  
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question3" VALUE="3">Imaginative
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question3" VALUE="4">Associational
+			</div>
+			
+		</section>
+		
+		
+	    <section class="questions" id="quest4">
+           <h3>How do others see you?<br></h3>
+
+		  <div>  
+			<input TYPE="radio" NAME="question4" VALUE="1">Assertive
+		  </div>
+
+		   <div>
+			<input TYPE="radio" NAME="question4" VALUE="2">Critical
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question4" VALUE="3">Open
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question4" VALUE="4">Self-critical
+			</div>
+			
+		</section>
+	    
+	
+
+	  
+			<div id="submit"> 
+			 <input TYPE="button" VALUE="What are You?" onClick="computeForm(this.form)">
+			</div> 
+			
+			<div id="reset"> 
+			 <input TYPE="button" VALUE="Reset" onClick="refreshPage()">
+			</div> 
+
+    </form>
+    
+    <div id="answer"></div>
+    
+  <script>
+   
+   let result;
+   	
+	let resultsArray =  [
+		['an exacto knife', 'img/exacto.png', 'You cut to the chase.'],
+		['a brush pen', 'img/brushpen.png', 'You create your own path.'],
+		['string', 'img/string.png', 'When you know how to unwind.'],
+		['this thing', 'img/this.png', 'You do whatever this thing does.'],
+		['that thing', 'img/that.png', 'You do whatever that thing does.'],			
+		['this thing', 'img/this.png', 'You do whatever this thing does.'],
+		['that thing', 'img/that.png', 'You do whatever that thing does.'],
+		['this thing', 'img/this.png', 'You do whatever this thing does.'],
+		['that thing', 'img/that.png', 'You do whatever that thing does.'],
+		['this thing', 'img/this.png', 'You do whatever this thing does.'],
+		['that thing', 'img/that.png', 'You do whatever that thing does.'],
+		['this thing', 'img/this.png', 'You do whatever this thing does.'],
+		['that thing', 'img/that.png', 'You do whatever that thing does.'],
+		['this thing', 'img/this.png', 'You do whatever this thing does.'],
+		['scissors', 'img/scissors.png', 'You shape your own destiny.'],
+		['that thing', 'img/that.png', 'You do whatever that thing does.'],
+		['that thing', 'img/that.png', 'You do whatever that thing does.']
+		  ];
+  			  
+  
+	function computeForm(form) {
+	     
+	  let qNum = 1;
+	  let active = 0;
+	  let analytical = 0;
+	  let expressive = 0;
+	  let inquisitive = 0;
+	  let outwardValue= 0;
+	  let inwardValue = 0;
+	   
+
+	  for (qNum = 1; qNum <= 4; qNum++) {
+		  let radioInputs = document.forms['quiz'].elements['question'+ qNum];
+			   for (let i = 0; i < radioInputs.length; i++) {
+				   if (radioInputs[i].checked) {
+					  choice = radioInputs[i].value;
+					  }  // closes condition on checked
+			   } // closes for loop on radios
+					  
+				if (choice == "1") {
+	                active++;
+				}
+				if (choice == "2") {
+				   analytical++;
+				}
+				if (choice == "3") {
+				   expressive++;
+				}
+				if (choice == "4") {
+				   inquisitive++;
+				}
+		      
+	    }  // closes for loop on questions
+	    
+
+	    
+	    outwardValue= active - analytical;   
+	     /* a positive value: outward, active, 
+	       a negative value : outward, analytical */
+	       
+		 inwardValue = expressive - inquisitive;
+		 /* a positive value :  inward, expressive 
+		   a negative value : inward, inquisitive */
+			  
+	     
+	 
+	   if (outwardValue > 0 && inwardValue > 0 && active > expressive) {
+	      // mainly active, also expressive 
+	      result = 0;
+	   }
+	   else if (outwardValue > 0 && inwardValue > 0 && expressive > active) {
+	      // mainly expressive, also active
+	      result =  1;
+	   }
+	   else if (outwardValue > 0 && inwardValue > 0 && expressive == active) {
+	      // expressive and active equally
+	      result = 2;
+	   }
+	   else if (outwardValue > 0 && inwardValue < 0 && active > inquisitive) {
+	      // mainly active, also inquisitive
+	      result = 3;
+	   }
+	   else if (outwardValue > 0 && inwardValue < 0 && inquisitive > active) {
+	      // mainly inquisitive, also active
+	      result =  4;
+	   }
+	   else if (outwardValue > 0 && inwardValue < 0 && inquisitive == active) {
+	      // inquisitive and active equally
+	      result = 5;
+	   }
+	   else if (outwardValue< 0 && inwardValue > 0 && analytical > expressive) {
+	      // mainly analytical, also expressive
+	      result = 6;
+	   }
+	   else if (outwardValue< 0 && inwardValue > 0 && expressive > analytical) {
+	      // mainly expressive, also analytical
+	      result = 7;
+	   }
+	   else if (outwardValue< 0 && inwardValue > 0 && expressive == analytical) {
+	      // expressive and analytical equally
+	      result = 8;
+	   }
+	   else if (outwardValue< 0 && inwardValue < 0 && analytical > inquisitive) {
+	      // mainly analytical, also inquisitive
+	      result = 9;
+	   }
+	   else if (outwardValue< 0 && inwardValue < 0 && inquisitive > analytical) {
+	      // mainly inquisitive, also analytical
+	      result = 10;
+	   }
+	   else if (outwardValue< 0 && inwardValue < 0 && inquisitive == analytical) {
+	      // inquisitive and analytical equally
+	      result = 11;
+	   }
+	   else if (outwardValue == 0 && inwardValue > 0) {
+	      // neutral active/analytical, expressive
+	      result = 12;
+	   }
+	   else if (outwardValue == 0 && inwardValue < 0) {
+	      // neutral active/analytical, inquisitive
+	      result = 13;
+	   }
+	   else if (outwardValue > 0 && inwardValue == 0) {
+	      // neutral expressive/inquisitive, active
+	      result = 14;
+	   }
+	   else if (outwardValue< 0 && inwardValue == 0) {
+	      // neutral expressive/inquisitive, analytical
+	      result = 15;
+	   }
+	   else if (outwardValue == 0 && inwardValue == 0) {
+	      // neutral
+	      result = 16;
+	   }
+	   else {
+	      // no result found
+	      result = 17;
+	   }
+	     
+
+	   
+	  // pop-up an answer
+	   document.getElementById("answer").style.display = "block";
+	   document.getElementById("answer").innerHTML =  `<img src='${resultsArray[result][1]}'> <br> The result is: ${result}. You are ${resultsArray[result][0]}. ${resultsArray[result][2]}`;
+	 
+	
+	 
+	 }  // this closes computeForm
+
+
+	 function refreshPage() {
+	 	window.location.reload();
+	 }
+    
+
+
+ </script>
+
+
+
+
+</body>
+</html>

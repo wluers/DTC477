@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bouncing Colored Balls</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+    }
+    canvas {
+      display: block;
+      margin: 5% auto;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    let balls = []; // Array to store all ball objects
+
+    // p5.js setup() runs once at the start
+    function setup() {
+      createCanvas(1200, 700); // Create a canvas 1200px wide and 700px tall
+
+      // Create 30 Ball objects and store in array
+      for (let i = 0; i < 30; i++) {
+        balls.push(new Ball());
+      }
+    }
+
+    // p5.js draw() loops continuously — roughly 60 frames per second
+    function draw() {
+      background(20); // Clear background with dark gray every frame
+
+      // Update and display each ball
+      for (let ball of balls) {
+        ball.move();    // Update position
+        ball.bounce();  // Handle bouncing off walls
+        ball.display(); // Draw the ball
+      }
+    }
+
+    // Ball class to define behavior and appearance
+    class Ball {
+      constructor() {
+        // Start ball at random position
+        this.x = random(width);  // width is a p5.js variable for canvas width
+        this.y = random(height); // height is the canvas height
+
+        // Random radius between 15 and 40 pixels
+        this.r = random(15, 40);
+
+        // Random speed in both x and y direction, including negative (left/up)
+        this.xSpeed = random(-3, 3);
+        this.ySpeed = random(-3, 3);
+
+        // Random fill color using RGB values
+        this.color = color(random(255), random(255), random(255));
+      }
+
+      // Move ball according to its speed
+      move() {
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+      }
+
+      // Check for wall collisions and bounce if necessary
+      bounce() {
+        // Bounce on left or right edge
+        if (this.x < this.r || this.x > width - this.r) {
+          this.xSpeed *= -1; // Reverse x direction
+        }
+
+        // Bounce on top or bottom edge
+        if (this.y < this.r || this.y > height - this.r) {
+          this.ySpeed *= -1; // Reverse y direction
+        }
+      }
+
+      // Draw the ball on canvas
+      display() {
+        noStroke();         // No outline
+        fill(this.color);   // Fill with the ball's color
+        ellipse(this.x, this.y, this.r * 2); // Draw circle at (x, y)
+      }
+    }
+  </script>
+</body>
+</html>

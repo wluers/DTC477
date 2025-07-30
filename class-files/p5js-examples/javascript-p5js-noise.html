@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noise Demo with p5.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+    <script>
+        /*This code sets up a p5.js sketch that draws a series of vertical lines across the canvas. The vertical position of each line's end point is determined by the Perlin noise value at that point, creating a wave-like pattern. The noise() function takes a value (xoff in this case) that changes incrementally with each iteration of the loop, producing a smooth transition of noise values. The noLoop() function call stops the draw function from continuously executing, making this a static visualization. If you want to see the noise animate over time, you can remove noLoop() and adjust xoff within the draw() function.
+
+*/
+        let xoff = 0;
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+
+            noLoop(); // stops autom loop of draw()
+            //frameRate(10); // Sets the frame rate to 10 frames per second
+        }
+        
+
+        //by default, p5.js automatically calls the draw() function in a continuous loop at a default frame rate of 60 frames per second. 
+        function draw() {
+            background(220);
+
+            // Draw a series of vertical lines with varying x positions using noise
+            for (let x = 0; x <= width; x += 10) {
+                // Generate a Perlin noise value for the current x
+                let n = noise(xoff) * height;
+                // Increment xoff for the next point to get a new noise value
+                xoff += 0.05;
+                // Draw a line using the noise value
+                stroke(0); //sets stroke to black
+
+                // Set a random color for each line
+                //stroke(random(255), random(255), random(255));
+
+                // draw the line(xStart, yStart, xEnd, yEnd);
+                line(x, height, x, n);
+            }
+        }
+        
+        // Redraw when the window is resized
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
+</html>

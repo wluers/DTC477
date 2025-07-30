@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head> 
+	<meta charset="utf-8">
+	<script src="script.js"></script>
+	
+	<style>
+
+      h1 {
+        text-align: center;
+      }
+      #box {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 5px;
+      }
+
+      #box div {
+         height: 200px;
+          padding: 3%;
+          border: 1px solid black;
+
+      }
+
+      button {
+        opacity: 1;
+      }
+
+  </style>
+
+</head>
+<body>
+
+  <button>CLICK</button>
+
+
+  <h1></h1>
+  <div id="box"></div>
+
+	  
+
+
+<script>
+
+let box = document.querySelector('#box');
+
+
+
+// THIS
+/*document.querySelector("button").addEventListener("click", disappear);
+
+function disappear() {
+  this.style.display ='none';
+}
+*/
+
+
+// JavaScript Objects are versatile structures for storing keyed collections and complex entities. They have properties and methods
+
+
+// JS OBJECT LITERAL
+/*let person = {
+  firstName:"Margie", 
+  lastName:"Pepper", 
+  age:50, 
+  eyeColor:"blue",
+  fullName:  function() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+};
+
+box.innerHTML = `My name is ${person.firstName} ${person.lastName}. I am ${person.age} and have ${person.eyeColor} eyes.`;
+box.innerHTML = `My name is ${person.fullName()}. I am ${person.age} and have ${person.eyeColor} eyes.`;*/
+
+
+
+
+// JSON (JavaScript Object Notation) OBJECT LITERAL
+
+/*  myJSON =  '{"firstName": "Margie", "lastName": "Pepper", "age": 50, "eyeColor": "blue"}';
+
+ myJSObj = JSON.parse(myJSON);
+ console.log(myJSObj);
+ let firstname = myJSObj.firstName;
+ alert(`Hi, ${firstname}`);*/
+
+
+
+//Prototypes are the foundation of JavaScript's inheritance mechanism, allowing objects to inherit properties and methods from other objects.*/
+
+//Date.prototype.
+
+/*let d = new Date(); // an instance inherited from the Date.prototype
+box.innerHTML = `Now: ${d}`;
+box.innerHTML = `The time is ${d.getHours()}`;
+console.log(Date.prototype);*/
+
+
+
+// An Object as just a variable with an Object Literal
+
+/*let Mealplanner = {
+  breakfast : ["eggs", "bagel", "yogurt"],
+  lunch : ["avocado sandwich", "soup","cheese and fruit"],
+  dinner :  function() { alert("Remember, no red meat (Moo!)"); }, 
+  diet : "vegetarian"
+};
+
+box.innerHTML = `breakfast is ${Mealplanner.breakfast[2]}`;
+box.innerHTML += `<br>lunch is ${Mealplanner.lunch[1]}`;
+Mealplanner.dinner();
+*/
+
+
+
+// Object Constructor - a function that builds an object type or template to construct a new object
+
+/*function Mealplanner(breakfast, lunch, dinner) {
+    this.breakfast = breakfast;
+    this.lunch = lunch;
+    this.dinner = dinner;
+    this.message = function() {
+        alert("Animals feel. Don't eat them.");
+    }
+}
+
+let myMeals = new Mealplanner('bagel', 'soup', 'chicken');
+myMeals.breakfast = ['yogurt','cereal', 'eggs'];
+document.getElementById("box").innerHTML = myMeals.breakfast[1];
+
+let myOtherMeals = new Mealplanner();
+document.getElementById("box").innerHTML += `<br>breakfast is ${myMeals.breakfast}, lunch is ${myMeals.lunch}, dinner is ${myMeals.dinner}`;*/
+
+
+
+
+
+
+
+
+// ES6 introduced Classes, providing a clearer and more familiar syntax for object creation and inheritance, while under the hood, it still uses JavaScript's prototypal inheritance. JavaScript Classes are Constructor functions with a prototype property - or rather the constructor is built into the object prototype. This been missing in Javascript until ES6. The Class keyword starts a Class declaration, which allows us to define a Constructor AND a set of methods all in a single place.
+
+/*
+class Mealplanner {
+  constructor(breakfast, lunch, dinner) {
+    // the underscore indicates that these properties are cannot/should not be changed - private and public code
+    this._breakfast = breakfast;
+    this._lunch = lunch;
+    this._dinner = dinner;
+  }
+  
+  //add methods
+  // add getters >  get properties via method
+  // add setter >  set properties via method
+
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+
+
+</body>
+</html>

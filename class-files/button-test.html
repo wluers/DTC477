@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Background Color</title>
+</head>
+<body>
+    <button id="changeButton">CHANGE</button>
+
+    <script>
+      
+        document.getElementById('changeButton').addEventListener('click', function() {
+            let randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            document.body.style.backgroundColor = randomColor;
+        });
+        
+
+    </script>
+</body>
+</html>

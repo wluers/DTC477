@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mary Had a Little Lamb</title>
+    <style>
+        #lyricDisplay {
+            font-size: 30em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="lyricDisplay"></div>
+
+    <script>
+        // Lyrics of the song in an array, word by word
+        const lyrics = 'Mary had a little lamb its fleece was white as snow and every where that Mary went the lamb was sure to go'.split(' ');
+
+        // Function to display each word
+        let currentWordIndex = 0;
+        function displayWord() {
+            // Selecting the element where the word will be displayed
+            const displayElement = document.getElementById('lyricDisplay');
+
+            // Displaying the current word
+            displayElement.textContent = lyrics[currentWordIndex];
+
+            // Incrementing the index, and resetting if at the end of the array
+            currentWordIndex = (currentWordIndex + 1) % lyrics.length;
+        }
+
+        // Setting an interval to call the display function every 2000 milliseconds (2 seconds)
+        setInterval(displayWord, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Game</title>
+    <style>
+        canvas { background-color: #eee; display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+    <script>
+
+        const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+let player = { x: 50, y: canvas.height / 2, width: 20, height: 20, speed: 5 };
+let obstacles = [];
+let gameInterval;
+let obstacleInterval;
+
+function drawPlayer() {
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+}
+
+function addObstacle() {
+    let size = Math.random() * 50 + 10; // Random size between 10 and 60
+    obstacles.push({ x: canvas.width, y: Math.random() * (canvas.height - size), width: size, height: size });
+}
+
+function drawObstacles() {
+    ctx.fillStyle = 'red';
+    obstacles.forEach(obstacle => {
+        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        obstacle.x -= 3; // Move obstacle
+    });
+}
+
+function checkCollision() {
+    for (let obstacle of obstacles) {
+        if (player.x < obstacle.x + obstacle.width &&
+            player.x + player.width > obstacle.x &&
+            player.y < obstacle.y + obstacle.height &&
+            player.y + player.height > obstacle.y) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function updateGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPlayer();
+    drawObstacles();
+    
+    if (checkCollision()) {
+        clearInterval(gameInterval);
+        clearInterval(obstacleInterval);
+        alert('Game Over!');
+    }
+
+    obstacles = obstacles.filter(obstacle => obstacle.x > 0);
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowUp') player.y -= player.speed;
+    if (event.key === 'ArrowDown') player.y += player.speed;
+    if (event.key === 'ArrowLeft') player.x -= player.speed;
+    if (event.key === 'ArrowRight') player.x += player.speed;
+});
+
+gameInterval = setInterval(updateGame, 20);
+obstacleInterval = setInterval(addObstacle, 2000);
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head> 
+	<meta charset="utf-8">
+	<script src="script.js"></script>
+	
+	<style>
+
+      h1 {
+        text-align: center;
+      }
+      #box {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 5px;
+      }
+
+      #box div {
+         height: 200px;
+          padding: 3%;
+          border: 1px solid black;
+
+      }
+
+      
+
+  </style>
+
+</head>
+<body>
+
+  <button>CLICK</button>
+
+
+  <h1></h1>
+  <div id="box"></div>
+
+	  
+
+<script>
+
+// Selecting necessary elements
+const box = document.querySelector('#box');
+const button = document.querySelector('button');
+
+// Function to hide the button when clicked
+button.addEventListener("click", function () {
+    this.style.display = 'none';
+});
+
+// JavaScript Object Literal Example
+const person = {
+    firstName: "Margie",
+    lastName: "Pepper",
+    age: 50,
+    eyeColor: "blue",
+    fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+};
+
+// Displaying object properties in the box
+box.innerHTML = `My name is ${person.fullName()}. I am ${person.age} years old and have ${person.eyeColor} eyes.`;
+
+// JSON Object Example
+/*const myJSON = '{"firstName": "Margie", "lastName": "Pepper", "age": 50, "eyeColor": "blue"}';
+const myJSObj = JSON.parse(myJSON);
+console.log(myJSObj);
+alert(`Hi, ${myJSObj.firstName}`);*/
+
+// Date Object Example
+/*const currentDate = new Date();
+box.innerHTML += `<br>Current Time: ${currentDate.getHours()}:${currentDate.getMinutes()}`;*/
+
+// Mealplanner Object Literal
+/*const Mealplanner = {
+    breakfast: ["eggs", "bagel", "yogurt"],
+    lunch: ["avocado sandwich", "soup", "cheese and fruit"],
+    dinner() {
+        alert("Remember, no red meat (Moo!)");
+    },
+    diet: "vegetarian"
+};
+
+// Displaying Mealplanner properties
+box.innerHTML += `<br>Breakfast: ${Mealplanner.breakfast[2]}`;
+box.innerHTML += `<br>Lunch: ${Mealplanner.lunch[1]}`;
+Mealplanner.dinner();*/
+
+// Constructor Function for Mealplanner
+/*function MealPlan(breakfast, lunch, dinner) {
+    this.breakfast = breakfast;
+    this.lunch = lunch;
+    this.dinner = dinner;
+    this.message = function () {
+        alert("Animals feel. Don't eat them.");
+    };
+}
+
+const myMeals = new MealPlan(["yogurt", "cereal", "eggs"], "soup", "chicken");
+box.innerHTML += `<br>Breakfast Option: ${myMeals.breakfast[1]}`;*/
+
+/*const myOtherMeals = new MealPlan();
+box.innerHTML += `<br>Breakfast: ${myMeals.breakfast.join(", ")}, Lunch: ${myMeals.lunch}, Dinner: ${myMeals.dinner}`;
+
+// ES6 Class Example
+class MealPlannerClass {
+    constructor(breakfast, lunch, dinner) {
+        this._breakfast = breakfast;
+        this._lunch = lunch;
+        this._dinner = dinner;
+    }
+    
+    // Getter Methods
+    get breakfast() {
+        return this._breakfast;
+    }
+    get lunch() {
+        return this._lunch;
+    }
+    get dinner() {
+        return this._dinner;
+    }
+    
+    // Setter Methods
+    set breakfast(value) {
+        this._breakfast = value;
+    }
+    set lunch(value) {
+        this._lunch = value;
+    }
+    set dinner(value) {
+        this._dinner = value;
+    }
+}
+
+// Creating an instance of MealPlannerClass
+const myClassMeal = new MealPlannerClass("Pancakes", "Salad", "Pasta");
+box.innerHTML += `<br>Class-based Meal: Breakfast - ${myClassMeal.breakfast}, Lunch - ${myClassMeal.lunch}, Dinner - ${myClassMeal.dinner}`;
+*/
+
+
+
+
+
+  </script>
+
+
+
+</body>
+</html>

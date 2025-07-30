@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head> 
+	<meta charset="utf-8">
+	<style>
+
+
+      #box {
+         border: 1px solid black;
+         padding: 3%;
+      }
+
+
+  </style>
+
+</head>
+<body>
+
+  <button>CLICK</button>
+
+  <div id="box"></div>
+
+	  
+
+<script>
+// Selecting necessary elements
+const box = document.querySelector('#box');
+const button = document.querySelector('button');
+
+// Initially hide the content box
+box.style.display = "none";
+
+// Function to handle button click
+button.addEventListener("click", function () {
+    this.style.display = 'none'; // Hide button
+    displayInformation(); // Trigger events to display information
+});
+
+// JavaScript Object Literal Example
+const person = {
+    firstName: "Margie",
+    lastName: "Pepper",
+    age: 50,
+    eyeColor: "blue",
+    fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+};
+
+
+// Object Constructor 
+function Person(firstName, lastName, age, eyeColor) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.eyeColor = eyeColor;
+    this.fullName = function () {
+        return `${this.firstName} ${this.lastName}`;
+    };
+}
+
+// Creating an instance of Constructor above
+const margie = new Person("Margie", "Pepper", 50, "blue");
+console.log(margie.fullName()); // Output: "Margie Pepper"
+
+
+
+
+// Mealplanner Object Literal
+/*const Mealplanner = {
+    breakfast: ["eggs", "bagel", "yogurt"],
+    lunch: ["avocado sandwich", "soup", "cheese and fruit"],
+    dinner() {
+        return "Remember, no red meat (Moo!)";
+    },
+    diet: "vegetarian"
+};*/
+
+// Constructor Function for Mealplanner
+function MealPlan(breakfast, lunch, dinner) {
+    this.breakfast = breakfast;
+    this.lunch = lunch;
+    this.dinner = dinner;
+    this.message = function () {
+        alert("Animals feel. Don't eat them.");
+    };
+}
+
+const margiesMeals = new MealPlan(["yogurt", "cereal", "eggs"], "soup", "chicken");
+
+
+// Function to display information about Margie and her food preferences
+function displayInformation() {
+    const currentDate = new Date();
+    box.innerHTML = `<h2>About Margie</h2>`;
+    box.innerHTML += `<p><strong>Name:</strong> ${person.fullName()}</p>`;
+    box.innerHTML += `<p><strong>Age:</strong> ${person.age}</p>`;
+    box.innerHTML += `<p><strong>Eye Color:</strong> ${person.eyeColor}</p>`;
+    box.innerHTML += `<h3>Margie's Favorite Meals:</h3>`;
+    box.innerHTML += `Breakfast Option: ${margiesMeals.breakfast[0]}, ${margiesMeals.breakfast[1]} or ${margiesMeals.breakfast[3]}`;
+    box.innerHTML += `<br>Lunch: ${margiesMeals.lunch}`;
+    box.innerHTML += `</br>Dinner: ${margiesMeals.dinner}`;
+    box.innerHTML += `<p><strong>Current Time:</strong> ${currentDate.getHours()}:${currentDate.getMinutes()}</p>`;
+    box.style.display = "block"; // Show the content box after clicking the button
+}
+
+
+  </script>
+
+
+
+</body>
+</html>

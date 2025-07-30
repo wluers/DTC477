@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Student Pairing</title>
+<style>
+.student, #submit, #reset {
+	display: inline-block;
+	width: 20%;
+	padding: 1%;
+	margin: 1%;
+	border: 1px solid black;
+}
+input[type="radio"] {
+	transform: scale(1);
+}
+#submit, #reset {
+	background: #666;
+	color: white;
+}
+
+#pairings {
+            position: fixed;
+            left: 20%;
+            top: 0;
+            width: 40%;
+            margin-top: 10%;
+            background-color: white;
+            border: 2px solid black;
+            display: none;
+            padding: 5%;
+            font-size: 1.4em;
+            line-height: 1.5;
+        }
+
+</style>
+</head>
+<body>
+
+<form id="form">
+	<div id="students"></div>
+</form>
+
+<div id="pairings"></div>
+<!--<div id="message"></div>-->
+
+
+
+<script>
+let names = [
+    'Keegan Bankowski',
+    'Conner Batson',
+    'Leanne Beltman',
+    'Hailey Betts',
+    'Xanthia Bullis',
+    'Evan Cable',
+    'Quinn Carrick',
+    'Chelsea Cowsert',
+    'Angelina Dobrolezha',
+    'Oliver Garcia-Farina',
+    'Joel Hamersley',
+    'Elijah Houston',
+    'Zavien Houston',
+    'Ariel Jackam',
+    'Kelsi James',
+    'Benjamin Lechuga',
+    'Jackson Lester',
+    'Tristan Mattole',
+    'Quid Melton',
+    'Daniel Mitryanu',
+    'Gissell Ortega-Villanueva',
+    'Callum Robinson',
+    'Gianella Singhose',
+    'Zoe Thompson',
+    'Graci Vandervort',
+    'Joel Waite',
+    'Autumn Yothers'
+];
+	
+let form = document.getElementById("form");
+let students = document.getElementById("students");
+let pairings = document.getElementById("pairings");
+
+
+names.forEach(function(name, index) {
+	students.innerHTML += `<div class='student'><h3>${name}</h3><input type='radio' name='student${index}' value='1'>Confident<br><input type='radio' name='student${index}' value='2'>Shakey<br></div>`;
+
+});
+
+//adds buttons to end of list
+students.innerHTML += `<div id='submit'><input type='button' value='Get Pairs' onClick='computeForm()'></div><div id='reset'><input type='reset' value='Reset' onClick='resetForm()'></div></div><div id='reset'><input type='button' value='Set All Shakey' onClick='setShakey()'></div></div><div id='reset'><input type='button' value='Set All Confident' onClick='setConfident()'></div></div>`;
+
+function computeForm() {
+	let confidentStudents = [];
+	let shakeyStudents = [];
+	
+	// get radio values for each student
+	for (let i = 0; i < names.length; i++) {
+		let radioInputs = document.getElementsByName(`student${i}`);
+		let radioValue = 0;
+
+
+		radioInputs.forEach(function(radioInput) {
+			
+			if (radioInput.checked) {
+				radioValue = radioInput.value;
+			}
+		});
+
+		if (radioValue == 1) { // Confident
+			confidentStudents.push(names[i]);
+		}
+		else if (radioValue == 2) { // Shakey
+			shakeyStudents.push(names[i]);
+		}
+		
+	} // end for loop
+	
+	// randomize the lists of students for random pairings
+	confidentStudents.sort(function() {
+		return 0.5 - Math.random(); 
+	});
+	shakeyStudents.sort(function() {
+		return 0.5 - Math.random(); 
+	});
+	
+	// generate pairings
+	let studentPairings = [];
+	while (confidentStudents.length) {
+		let student1 = confidentStudents.pop();
+		let student2 = "self";
+		if (shakeyStudents.length) {
+			student2 = shakeyStudents.pop();
+		}
+		else if (confidentStudents.length) {
+			student2 = confidentStudents.pop();
+		}
+		let pairing = [student1, student2];
+		studentPairings.push(pairing);
+	}
+	while (shakeyStudents.length) {
+		let student1 = shakeyStudents.pop();
+		let student2 = "self";
+		if (shakeyStudents.length) {
+			student2 = shakeyStudents.pop();
+		}
+		let pairing = [student1, student2];
+		studentPairings.push(pairing);
+	}
+	
+	// display results
+	studentPairings.forEach(function(pairing) {
+		pairings.innerHTML += `${pairing[0]} with ${pairing[1]} <br>`;
+	});
+	pairings.style.display = "block";
+} // end computeForm function
+
+
+function resetForm()  {
+	form.reset();
+	pairings.innerHTML = "";
+	pairings.style.display = "none";
+} // end resetForm function
+
+function setShakey() {
+     
+     // get radio values for each student
+	for (let i = 0; i < names.length; i++) {
+		let radioInputs = document.getElementsByName(`student${i}`);
+		let radioValue = 0;
+
+		radioInputs.forEach(function(radioInput) {
+			
+			if (radioInput.value == 2) {
+				radioInput.checked = true;
+			}
+		});
+		
+	} // end for loop
+}
+
+function setConfident() {
+     
+     // get radio values for each student
+	for (let i = 0; i < names.length; i++) {
+		let radioInputs = document.getElementsByName(`student${i}`);
+		let radioValue = 0;
+
+		radioInputs.forEach(function(radioInput) {
+			
+			if (radioInput.value == 1) {
+				radioInput.checked = true;
+			}
+		});
+		
+	} // end for loop
+}
+		
+</script>
+</body>
+</html>

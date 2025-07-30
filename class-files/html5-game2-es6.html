@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Canvas Game</title>
+    <style>
+        canvas {
+            background-color: #f0f0f0;
+            display: block;
+            margin: 5% auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<script>
+    // Game setup
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 700;
+    canvas.height = 700;
+
+    // Track the state of arrow keys
+    const keys = {
+        right: false,
+        left: false
+    };
+
+    // Player class
+    class Player {
+        constructor(x, y, width, height, color) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.color = color;
+            this.speed = 5; // Speed of the player movement
+        }
+
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+
+        update() {
+            this.draw();
+            // Move player based on arrow key input
+            if (keys.right && this.x + this.width < canvas.width) {
+                this.x += this.speed;
+            }
+            if (keys.left && this.x > 0) {
+                this.x -= this.speed;
+            }
+        }
+    }
+
+    // FallingObject class
+    class FallingObject {
+        constructor(x, y, radius, color, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.color = color;
+            this.speed = speed;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+
+        update() {
+            this.y += this.speed;
+            this.draw();
+        }
+    }
+
+    // Initialize player and falling objects array
+    const player = new Player(canvas.width / 2 - 50, canvas.height - 60, 100, 50, 'blue');
+    const fallingObjects = [];
+
+    // Keydown and keyup event listeners to track arrow key state
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowRight") {
+            keys.right = true;
+        } else if (event.key === "ArrowLeft") {
+            keys.left = true;
+        }
+    });
+
+    document.addEventListener('keyup', function(event) {
+        if (event.key === "ArrowRight") {
+            keys.right = false;
+        } else if (event.key === "ArrowLeft") {
+            keys.left = false;
+        }
+    });
+
+    // Function to add new falling objects
+    function spawnFallingObject() {
+        const radius = 20;
+        const x = Math.random() * (canvas.width - radius * 2) + radius;
+        const speed = 2;
+        fallingObjects.push(new FallingObject(x, 0, radius, 'red', speed));
+    }
+
+    // Game loop
+    function gameLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        player.update();
+        
+        if (fallingObjects.length < 10) { // Limit the number of falling objects
+            spawnFallingObject();
+        }
+
+        fallingObjects.forEach((object, index) => {
+            object.update();
+            // Check for collision with the player
+            if (player.x < object.x + object.radius &&
+                player.x + player.width > object.x - object.radius &&
+                player.y < object.y + object.radius &&
+                player.y + player.height > object.y - object.radius) {
+                console.log('Collision detected!');
+                fallingObjects.splice(index, 1); // Remove the object on collision
+            }
+            
+            // Remove the object if it falls beyond the canvas
+            if (object.y - object.radius > canvas.height) {
+                fallingObjects.splice(index, 1);
+            }
+        });
+         
+
+        // requestAnimationFrame() creates smooth and efficient animations in web browsers
+        requestAnimationFrame(gameLoop);
+    }
+
+    // Start the game loop
+    requestAnimationFrame(gameLoop);
+
+
+</script>
+</body>
+</html>

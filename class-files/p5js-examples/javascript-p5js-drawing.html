@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced City Skyline with Stars and Mountains</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+    <script>
+        function setup() {
+            createCanvas(800, 600);
+            noLoop();
+        }
+
+        function draw() {
+            background('darkblue'); // Night sky
+
+            drawStars(); // Draw stars in the sky
+            drawMountains(); // Then mountains
+            drawBuildings(); // Finally, draw buildings
+        }
+
+        function drawStars() {
+            let starsAmount = random(50, 100); // Random number of stars
+            for (let i = 0; i < starsAmount; i++) {
+                let starX = random(width);
+                let starY = random(height / 2); // Keep stars in the upper half of the sky
+                let starSize = random(1, 3); // Stars vary slightly in size
+                fill('white');
+                noStroke();
+                ellipse(starX, starY, starSize, starSize); // Draw star
+            }
+        }
+
+        function drawMountains() {
+            fill('green');
+            beginShape(); // Start defining a custom shape
+            vertex(0, height); // Set the first vertex at the bottom-left corner of the canvas
+
+            // Increase the range of mountain heights for higher peaks
+            let xoff = 0; // Offset for Perlin noise
+            for (let x = 0; x <= width; x += 10) {
+                // Adjust map function for higher peak potential
+                let mountainHeight = map(noise(xoff), 0, 1, height/2, height - 50);
+                vertex(x, mountainHeight);
+                xoff += 0.1;
+            }
+            vertex(width, height);
+            endShape(CLOSE);
+        }
+
+        function drawBuildings() {
+            // Building drawing code remains the same
+            let buildingWidth, buildingHeight;
+            for (let x = 0; x <= width; x += buildingWidth + 5) {
+                buildingWidth = random(40, 80);
+                buildingHeight = random(100, 300);
+                let buildingColors = ['darkgrey', 'lightgrey', 'slategray', 'lightsteelblue', 'black'];
+                let colorIndex = floor(random(0, buildingColors.length));
+                fill(buildingColors[colorIndex]);
+                rect(x, height - buildingHeight, buildingWidth, buildingHeight);
+                addWindows(x, height - buildingHeight, buildingWidth, buildingHeight);
+            }
+        }
+
+        function addWindows(x, y, w, h) {
+            // Window drawing code remains the same
+            let windowWidth = 5;
+            let windowHeight = 10;
+            for (let yPos = y + 20; yPos < y + h - 20; yPos += 25) {
+                for (let xPos = x + 10; xPos < x + w - 10; xPos += 15) {
+                    fill('yellow');
+                    rect(xPos, yPos, windowWidth, windowHeight);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Lesson 1 - Basics</title>
+</head>
+<body>
+  <h1>Choose Your Own Adventure - JS Lesson 1</h1>
+  <p id="story">Welcome, adventurer! Your journey begins here...</p>
+  <div id="choices"></div>
+  <div id="mathDemo"></div>
+
+  <script>
+    // Lesson 1: Introduction to JavaScript Basics
+
+    // Declaring a variable to store the player's name
+    let playerName = ""; // The variable is empty for now
+
+    // Prompt the player to enter their name
+    playerName = prompt("What is your name, brave adventurer?");
+
+    // Using template literals (ES6) to display a greeting message
+    document.getElementById("story").innerHTML = `Hello, ${playerName}. You stand at the entrance of a dark forest.`;
+
+    // Declaring a variable to store the player's initial choice
+    let choice = prompt("Do you want to go left or right? (Type 'left' or 'right')");
+
+    // Using a simple conditional statement to change the story based on the player's choice
+    if (choice === "left") {
+      document.getElementById("choices").innerHTML = `You go left and find a mysterious glowing stone.`;
+    } else if (choice === "right") {
+      document.getElementById("choices").innerHTML = `You go right and encounter a friendly traveler who offers you advice.`;
+    } else {
+      document.getElementById("choices").innerHTML = `You stand still, unsure of which direction to take.`;
+    }
+
+    //Using console.log to display debug information (this helps during development)
+    console.log(`Player name: ${playerName}`);
+    console.log(`Player choice: ${choice}`);
+
+    // Math demonstration
+    //alert(Math.random());
+    let goldCoins = Math.floor(Math.random() * 10) + 1; // Generate a random number between 1 and 10
+    let healthPoints = 100;
+    let bonusHealth = 20;
+    let totalHealth = healthPoints + bonusHealth;
+
+    document.getElementById("mathDemo").innerHTML = `You start your journey with ${goldCoins} gold coins and ${healthPoints} health points. After receiving a magical boost, your total health is ${totalHealth}.`;
+
+    console.log(`Gold coins: ${goldCoins}`);
+    console.log(`Initial health: ${healthPoints}`);
+    console.log(`Total health after boost: ${totalHealth}`);
+  </script>
+</body>
+</html>

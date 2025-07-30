@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head> 
+	<meta charset="utf-8">
+	<style>
+
+      h1 {
+        text-align: center;
+      }
+      #box {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 5px;
+      }
+
+      #box div {
+         height: 200px;
+          padding: 3%;
+          border: 1px solid black;
+
+      }
+
+      
+
+  </style>
+
+</head>
+<body>
+
+  <button>CLICK</button>
+
+
+  <h1></h1>
+  <div id="box"></div>
+
+	  
+
+<script>
+// Selecting necessary elements
+const box = document.querySelector('#box');
+const button = document.querySelector('button');
+
+// Initially hide the content box
+box.style.display = "none";
+
+// Function to handle button click
+button.addEventListener("click", function () {
+    this.style.display = 'none'; // Hide button
+    displayInformation(); // Trigger events to display information
+});
+
+// JavaScript Object Literal Example
+const person = {
+    firstName: "Margie",
+    lastName: "Pepper",
+    age: 50,
+    eyeColor: "blue",
+    fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+};
+
+// Object Constructor 
+function Person(firstName, lastName, age, eyeColor) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.eyeColor = eyeColor;
+    this.fullName = function () {
+        return `${this.firstName} ${this.lastName}`;
+    };
+}
+
+// Creating an instance of Constructor above
+const margie = new Person("Margie", "Pepper", 50, "blue");
+console.log(margie.fullName()); // Output: "Margie Pepper"
+
+
+
+
+
+// Mealplanner Object Literal
+const Mealplanner = {
+    breakfast: ["eggs", "bagel", "yogurt"],
+    lunch: ["avocado sandwich", "soup", "cheese and fruit"],
+    dinner() {
+        return "Remember, no red meat (Moo!)";
+    },
+    diet: "vegetarian"
+};
+
+// ES6 Class Example
+class MealPlannerClass {
+    constructor(breakfast, lunch, dinner) {
+        this._breakfast = breakfast;
+        this._lunch = lunch;
+        this._dinner = dinner;
+    }
+
+    //A getter (get) retrieves a property value. It acts like a function but is accessed like a property. Useful when you want to compute a value dynamically.
+
+    
+    get breakfast() {
+        return this._breakfast;
+    }
+    get lunch() {
+        return this._lunch;
+    }
+    get dinner() {
+        return this._dinner;
+    }
+
+    //A setter (set) modifies a property value. It allows validation or transformation before assigning a new value. Useful for controlling how values are updated.
+    
+    set breakfast(value) {
+        this._breakfast = value;
+    }
+    set lunch(value) {
+        this._lunch = value;
+    }
+    set dinner(value) {
+        this._dinner = value;
+    }
+}
+
+// Creating an instance of MealPlannerClass
+const myClassMeal = new MealPlannerClass("Pancakes", "Salad", "Pasta");
+
+// Function to display information about Margie and her food preferences
+function displayInformation() {
+    const currentDate = new Date();
+    box.innerHTML = `<h2>About Margie</h2>`;
+    box.innerHTML += `<p><strong>Name:</strong> ${person.fullName()}</p>`;
+    box.innerHTML += `<p><strong>Age:</strong> ${person.age}</p>`;
+    box.innerHTML += `<p><strong>Eye Color:</strong> ${person.eyeColor}</p>`;
+    box.innerHTML += `<h3>Margie's Favorite Meals</h3>`;
+    box.innerHTML += `<p><strong>Breakfast:</strong> ${Mealplanner.breakfast.join(", ")}</p>`;
+    box.innerHTML += `<p><strong>Lunch:</strong> ${Mealplanner.lunch.join(", ")}</p>`;
+    box.innerHTML += `<p><strong>Dinner:</strong> ${myClassMeal.dinner}</p>`;
+    box.innerHTML += `<p><strong>Dietary Preference:</strong> ${Mealplanner.diet}</p>`;
+    box.innerHTML += `<p><strong>Note:</strong> ${Mealplanner.dinner()}</p>`;
+    box.innerHTML += `<p><strong>Current Time:</strong> ${currentDate.getHours()}:${currentDate.getMinutes()}</p>`;
+    box.style.display = "block"; // Show the content box after clicking the button
+}
+
+
+  </script>
+
+
+
+</body>
+</html>

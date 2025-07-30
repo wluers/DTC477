@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+	<div id="mealplan"></div>
+
+
+<script>
+	const mealplan = document.querySelector("#mealplan");
+	
+	const proteins = ["chicken", "tofu", "fish", "beef"];
+    const vegetables = ["broccoli", "carrots", "spinach", "peas"];
+    const carbs = ["rice", "pasta", "bread", "quinoa"];
+    const desserts = ["cake", "ice cream", "cookies", "fruit salad"];
+
+    function getRandomItem(array) {
+	  const index = Math.floor(Math.random() * array.length);
+	  return array[index];
+	}
+
+	function generateMeal() {
+	  const protein = getRandomItem(proteins);
+	  const vegetable = getRandomItem(vegetables);
+	  const carb = getRandomItem(carbs);
+	  const dessert = getRandomItem(desserts);
+
+	  let meal = `Your meal is ${protein} with ${vegetable}, served with ${carb}, and ${dessert} for dessert.`;
+
+	  if (protein === "tofu") {
+	    meal += " (Vegetarian-friendly!)";
+	  }
+
+	  if (dessert === "fruit salad") {
+	    meal += " Healthy choice!";
+	  }
+
+	  return meal;
+	}
+
+console.log(generateMeal());
+
+mealplan.innerHTML = generateMeal();
+
+
+
+
+</script>
+</body>
+</html>

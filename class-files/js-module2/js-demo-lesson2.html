@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Demo Lesson 2 - Functions, Arrays, and Loops</title>
+</head>
+<body>
+  <h1>JS Demo Lesson 2: Functions, Arrays, and Loops</h1>
+  <p>Open the console to see outputs.</p>
+  <button onclick="handleClick()">button 1</button>
+  <button id="button2">button 2</button>
+
+  <script>
+    // JS Demo Lesson 2: Functions, Arrays, and Loops
+
+    //Printing to the Document
+document.write("Hello, Adventurer! Prepare for your quest.<br>");
+
+    // 7. Using querySelector to change content
+/*document.querySelector("h1").innerHTML = "JS Demo Lesson 2: Loops in Action";*/
+
+    // 1. Functions
+    // Function Declaration (greet a player)
+/*    function greetPlayer(name) {
+      console.log(`Hello, ${name}! Welcome to the adventure.`);
+    }
+    greetPlayer("Adventurer");*/
+
+
+    // Function Expression (assigned to a variable)
+/*    const greetPlayer = function(name) {
+      console.log(`Hello, ${name}! Welcome to the adventure.`);
+    };
+    greetPlayer("Adventurer");*/
+
+
+    //Arrow Function (ES6) - a shorter script
+   /* const greetPlayer = (name) => {
+      console.log(`Hello, ${name}! Welcome to the adventure.`);
+    };
+    greetPlayer("Adventurer");*/
+
+
+    // Getting 'name' inside the function
+/*    function greetPlayer() {
+      const name = prompt("What's your name, Adventurer?");
+      console.log(`Hello, ${name}! Welcome to the adventure.`);
+    }
+
+    // Call the function
+    greetPlayer();
+*/
+
+    // 2. Function Scope (Example with a score)
+   /* let score = 0;
+
+    function increaseScore() {
+      let bonus; = 10; // Local scope variable
+      score += bonus;
+      console.log(`Score increased by ${bonus}. Total score: //${score}`);
+    }
+
+    increaseScore();*/
+    //console.log(bonus); // Uncommenting this will cause an error because 'bonus' is not in global scope
+
+
+    // function return
+    /*function myFunction(a,b){
+      total = a + b;
+      return total;
+    }
+    console.log(`Your total is: ${myFunction(4,3)}`);*/
+
+
+    // 3. onClick vs addEventListener
+/*   function handleClick() {
+      alert("Button 1 clicked using onclick!");
+    }
+
+    let button2 = document.querySelector("#button2");
+  
+    button2.addEventListener("click", function () {
+      alert("Button 2 clicked using addEventListener!");
+    });*/
+
+
+
+    // 3. Arrays
+/*    let inventory = ["sword", "shield", "potion"];
+    console.log("Initial inventory:", inventory);
+
+    // Adding an item to the inventory
+    inventory.push("magic ring");
+    console.log("Updated inventory:", inventory);
+
+    // Accessing an item from the array
+    console.log(`First item: ${inventory[0]}`);*/
+
+
+    // 4. Nested Arrays
+    /*let grid = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9]
+    ];
+    console.log("Grid:", grid);
+    console.log("Accessing grid[1][2]:", grid[1][2]);*/
+
+
+    // 5. For Loop
+    // Iterating through the inventory array
+/*    for (let i = 0; i < inventory.length; i++) {
+      console.log(`Item ${i + 1}: ${inventory[i]}`);
+    }*/
+
+   // 6. While loop
+/*  let coin = Math.floor(Math.random() * 2);
+    while(coin === 0) {
+      document.querySelector("p").innerHTML +=("Heads! Flipping again...");
+      coin = Math.floor(Math.random() * 2);
+      }
+    document.querySelector("p").innerHTML+=("Tails! Done flipping.");*/
+
+    //6. DOM Manipulation
+/*    let story = document.createElement("p");
+     story.innerHTML = "You find a treasure chest containing a golden key.";
+    document.body.appendChild(story);*/
+
+
+
+    // 8. Random Number with Math.random()
+    /*alert(Math.random());*/
+/*     let randomGold = Math.floor(Math.random() * 100) + 1;
+     console.log(`You found ${randomGold} gold coins.`);*/
+
+
+
+
+  </script>
+</body>
+</html>

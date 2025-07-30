@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+  
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+
+   
+    <style>
+        html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        }
+        
+        header {
+            position: fixed;
+            top:0;
+            left:0;
+            width: 100%;
+            height: 50px;
+            background: darkred;
+            padding: 0%;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: .5%;
+            color: white;
+        }
+
+        #map-container {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 70%;
+            height: 100%;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+       #content-container {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 30%;
+            height: 100%;
+       }
+       
+       #content {   
+            width: 100%;
+            height: 100%;
+            margin-top: 70px;
+            overflow: hidden;
+        }
+
+       .places  {
+            font-family: helvetica, sans-serif;
+            padding: 2%;
+            border: 1px solid red;
+            height: 100%;
+        }
+
+        button  {
+           position: absolute;
+           top: 8%;
+           right: 2%;
+           font-size: .8em;
+           padding: 1%;
+           z-index: 10;
+           background: white;
+           opacity: 0;
+        }
+
+        .marker {
+            background-image: url(img/icon.png);
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .mapboxgl-popup {
+            max-width: 200px;
+        }
+        .mapboxgl-popup-content {
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        /*for css fades*/
+        .show {
+          transition: opacity 1000ms;
+          opacity: 1;
+        }
+        .hide {
+          opacity: 0;
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    <header><h1>WSU Map</h1></header>
+    <div id="map-container">
+       <div id='map'></div>
+       <button>RESET MAP</button>
+    </div>
+    <div id="content-container">
+       <div id='content'>
+           <div class="places" id="campuses"><h2>WSU Campuses</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vestibulum velit non auctor rhoncus. Fusce porttitor ligula quis iaculis vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed arcu blandit, volutpat leo non, feugiat nisi. Cras vel tellus at lectus dignissim pretium a id nisi.</p> </div>
+            <div class="places" id="vancouver"><h2>WSU Vancouver</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vestibulum velit non auctor rhoncus. Fusce porttitor ligula quis iaculis vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed arcu blandit, volutpat leo non, feugiat nisi. Cras vel tellus at lectus dignissim pretium a id nisi.</p> </div>
+            <div class="places" id="pullman"><h2>WSU Pullman</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vestibulum velit non auctor rhoncus. Fusce porttitor ligula quis iaculis vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed arcu blandit, volutpat leo non, feugiat nisi. Cras vel tellus at lectus dignissim pretium a id nisi.</p> </div>
+            <div class="places" id="tricities"><h2>WSU Tri-cities</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vestibulum velit non auctor rhoncus. Fusce porttitor ligula quis iaculis vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed arcu blandit, volutpat leo non, feugiat nisi. Cras vel tellus at lectus dignissim pretium a id nisi.</p> </div>
+       </div>
+    </div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoid2x1ZXJzIiwiYSI6ImNqcWFpZ3hsNjB0aTUzeG9ndjQ4anRzc2cifQ.K7rYgm5t0kj7cEVIXHg-Tw';
+
+
+// JSON - javascript object notation
+// object properties inside { }
+// arrays inside [ ]
+
+    let geojson = {
+    "type": "FeatureCollection",
+    "features": [{
+         "type": "Feature",
+         "geometry": {
+             "type": "Point",
+             "coordinates": [-122.636844, 45.730661]
+         },
+         "properties": {
+             "title": "WSU",
+             "description": "Vancouver",
+             "url": '#vancouver'
+         }
+     },
+     {
+         "type": "Feature",
+         "geometry": {
+         "type": "Point",
+         "coordinates": [-117.165539, 46.731055]
+        },
+         "properties": {
+             "title": "WSU",
+             "description": "Pullman",
+             "url": '#pullman'
+         }
+     },
+     {
+         "type": "Feature",
+         "geometry": {
+         "type": "Point",
+         "coordinates": [-119.262833, 46.329140]
+        },
+         "properties": {
+             "title": "WSU",
+             "description": "Tri-cities",
+             "url": '#tricities'
+         }
+     }]
+    };
+
+
+
+     // a variable for the reset button to appear and disappear
+    let reset = document.querySelector('button');
+
+    
+    let map = new mapboxgl.Map({
+        container: 'map',
+        //style: 'mapbox://styles/wluers/clt6h149j00fc01o847szgmdm',
+        //style: 'mapbox://styles/wluers/ck6h6xicr0bag1iqkvoyp4pwk',
+        //style: 'mapbox://styles/wluers/cjs0x705m06t81fmqlxmfelql',
+        style: 'mapbox://styles/mapbox/satellite-v9',
+        center: [-119.262833, 46.329140], // starting position [lng, lat]
+        zoom: 5 // starting zoom
+    });
+
+
+        // add markers to map using a forEach method
+    geojson.features.forEach(function(marker) {
+
+        // create an HTML element for each "feature" or marker
+        let el = document.createElement('div');
+        el.className = 'marker';
+        //el.style.backgroundImage = marker.properties.icon;
+
+
+        el.addEventListener('click', function() {
+            map.flyTo({
+                center: marker.geometry.coordinates, 
+                zoom: 18
+            });
+            window.location = marker.properties.url;
+
+            reset.classList.remove('hide');
+            reset.classList.add('show');
+        });
+
+    
+        // make a marker for each feature and add it to the map
+        new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .setPopup(new mapboxgl.Popup({offset: 25}) // add popups
+            .setHTML(`<h3>${marker.properties.title}</h3><p>${marker.properties.description}</p>`))
+            .addTo(map);
+
+
+    }); // end Marker settings
+
+
+    // disable map zoom when using scroll
+    map.scrollZoom.disable();
+
+    // click event for reset button
+   reset.addEventListener('click', function() {
+            map.flyTo({
+                center:[-119.262833, 46.329140], 
+                zoom: 5
+            });
+            //this.style.display = 'none';
+            reset.classList.remove('show');
+            reset.classList.add('hide');
+
+        });
+
+
+    
+
+
+</script>
+
+</body>
+</html>

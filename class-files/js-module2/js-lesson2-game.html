@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Game Lesson 2 - Functions, Arrays, and Loops</title>
+</head>
+<body>
+  <h1>Choose Your Own Adventure - JS Game Lesson 2</h1>
+  <p id="story">Your adventure continues! This time, you'll collect items and face random challenges.</p>
+  <div id="choices"></div>
+  <div id="characterInfo"></div>
+  <button id="continueBtn">Continue Adventure</button>
+
+  <script>
+    // Lesson 2: Functions, Arrays, and For Loops in the Adventure Game
+
+    // 1. Declaring variables
+    let playerName = "Adventurer";
+    let health = 100;
+    let inventory = [];
+
+    // 2. Function to add an item to the inventory
+    function addItem(item) {
+      inventory.push(item);
+      console.log(`You collected a ${item}.`);
+    }
+
+    // 3. Function to display the inventory using a for loop
+    function displayInventory() {
+      if (inventory.length === 0) {
+        console.log("Your inventory is empty.");
+      } else {
+        console.log("Inventory:");
+        for (let i = 0; i < inventory.length; i++) {
+          console.log(`- ${inventory[i]}`);
+        }
+      }
+    }
+
+    // 4. Array of possible items to find
+    let items = ["sword", "shield", "potion", "magic ring"];
+
+    // 5. Function to handle the 'Continue Adventure' button click
+    function continueAdventure() {
+      // Generate a random item and add it to the inventory
+      let randomIndex = Math.floor(Math.random() * items.length);
+      let foundItem = items[randomIndex];
+      addItem(foundItem);
+
+      // Update the story and character info
+      document.getElementById("choices").innerHTML = `You found a ${foundItem}.`;
+      document.getElementById("characterInfo").innerHTML = `Name: ${playerName}, Health: ${health}, Inventory: ${inventory.join(', ')}`;
+
+      // Display the inventory in the console
+      displayInventory();
+    }
+
+    // 6. Adding an event listener to the button
+    document.getElementById("continueBtn").addEventListener("click", continueAdventure);
+  </script>
+</body>
+</html>

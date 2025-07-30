@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 4: Array Methods and Iterators</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html"><div class="course-info">DTC 477: Advanced Web Design & Development</div></a>
+    <nav class="main-nav">
+      <a href="syllabus.html">Syllabus</a>
+      <a href="index.html">Modules</a>
+      <a href="projects.html">Projects</a>
+      <a href="tutorials.html">Tutorials</a>
+    </nav>
+  </header>
+
+  <main class="module-page">
+    <h1>Week 4: Array Methods and Iterators</h1>
+
+    <h3>To Do This Week:</h3>
+<strong>CodeAcademy:</strong> Complete the following lessons (not the projects) from the <a href="https://www.codecademy.com/learn/introduction-to-javascript">Learn JavaScript</a> module:
+<ol>
+  <li><em>"Iterators"</em></li>
+  <li><em>"Objects"</em></li>
+</ol>
+<strong>Read (Optional):</strong> Chapters from <a href="http://eloquentjavascript.net/index.html">Eloquent JavaScript</a>:
+<ul>
+  <li><a href="http://eloquentjavascript.net/08_error.html">Bugs and Error Handling</a></li>
+  <li><a href="http://eloquentjavascript.net/09_regexp.html">Regular Expressions</a></li>
+  <li><a href="http://eloquentjavascript.net/12_browser.html">JavaScript and the Browser</a></li>
+  <li><a href="http://eloquentjavascript.net/13_dom.html">The Document Object Model</a></li>
+</ul>
+<b>Interactive Website </b><span style="color: #ff0000;">(<strong>Due Feb 5</strong>)</span>
+
+<hr>
+
+<h3>Module Notes</h3>
+<h4>Hangman Game</h4>
+<ul>
+  <li>Extension until Friday January 31</li>
+  <li>Add you natural language steps using Javascript terms, as best you can</li>
+  <li>Comment out your list inside &lt;script&gt; and before your JavaScript&nbsp;</li>
+  <li>Read carefully the script and try to understand each step. If you don't understand a part of the script, go back to the same chat and ask for an explanation</li>
+</ul>
+<hr>
+<h3>Hangman Part 3</h3>
+<p>Tba...</p>
+
+<strong>Hangman Examples:</strong>
+<ul>
+  <li><a href="https://dtc-wsuv.org/cbatson24/hangman/">https://dtc-wsuv.org/cbatson24/hangman/</a></li>
+  <li><a href="https://dtc-wsuv.org/lbeltman23/hangman/index.html">https://dtc-wsuv.org/lbeltman23/hangman/index.html</a></li>
+  <li><a href="https://dtc-wsuv.org/qcarrick24/Hangman/">https://dtc-wsuv.org/qcarrick24/Hangman/</a></li>
+</ul>
+
+<hr>
+
+<h4>Review JS Terms -m use them in your steps:</h4>
+<ul>
+  <li><strong>Variables:</strong> Declare and initialize variables. Use <code>let</code> for values that can change and <code>const</code> for constants.</li>
+  <li><strong>Strings:</strong> Text treated as literal strings, enclosed in quotes.</li>
+  <li><strong>Increment/Decrement:</strong> Use <code>i++</code> or <code>i--</code> to increment or decrement a variable.</li>
+  <li><strong>Comparison Operators:</strong> Use <code>&gt;</code>, <code>&lt;</code>, <code>&amp;&amp;</code>, and <code>||</code> to compare values.</li>
+  <li><strong>Conditionals:</strong> Use <code>if</code>, <code>else if</code>, and <code>else</code> for conditional logic.</li>
+  <li><strong>Arrays:</strong> Store lists of items that can be accessed by index.</li>
+  <li><strong>Functions:</strong> Encapsulate reusable logic with or without parameters.</li>
+  <li><strong>Scope:</strong> Understand the difference between global and local variables.</li>
+  <li><strong>For Loops:</strong> Perform repetitive tasks efficiently.</li>
+</ul>
+&nbsp;
+<h4>Arrays: Storage and Manipulation</h4>
+Many of your projects used Arrays to store words for the game. As well as variables for the amount of guessed letters. To manipulate the words - ie. select a random word and hide the letters, etc, draws on Array Methods. There are a lot of them! Here are some common ones:
+<ul>
+  <li><code><strong>join()</strong></code>: Combines guessed letters or the current game word into a readable string (<code>guessedWord.join(" ")</code> for display).
+<code>
+const guessedWord = ['h', '_', 'l', '_', 'o']; // Current guessed letters
+const displayWord = guessedWord.join(" "); // Combine with spaces
+console.log(displayWord); // Output: "h _ l _ o"
+</code></li>
+  <li><code><strong>split()</strong></code>: Converts strings into arrays for easier iteration or manipulation (e.g., splitting <code>selectedWord</code> for checking letters).
+<code><code>
+const selectedWord = "hello";
+const lettersArray = selectedWord.split(""); // Split into individual letters
+console.log(lettersArray); // Output: ["h", "e", "l", "l", "o"]</code></code>&nbsp;</li>
+  <li><code><strong>fill()</strong></code>: Used to initialize arrays with placeholder values like underscores (<code>Array(selectedWord.length).fill('_')</code>).</li>
+  <li><strong><code>forEach()</code></strong>: Used to iterate over arrays when you want to perform an action on each element without creating a new array.<code>
+const guessedWord = ['h', '_', 'l', '_', 'o'];</code>
+<code>const displayWord = [];</code> // Empty array to store the transformed elements
+<code>guessedWord.forEach(function(char) {
+&nbsp; &nbsp;if (char === '_') {
+&nbsp; &nbsp;displayWord.push('_');
+} else {
+&nbsp; &nbsp;displayWord.push(char.toUpperCase());
+}
+});</code>
+<code>console.log(displayWord.join(" ")); // Output: "H _ L _ O"</code></li>
+  <li><code><strong>map()</strong></code>: Applied to transform arrays for display purposes, such as converting <code>_</code> to readable underscores with spaces.
+<code>
+const guessedWord = ['h', '_', 'l', '_', 'o'];
+const displayWord = guessedWord.map(char =&gt; (char === '_' ? '_' : char.toUpperCase()));
+console.log(displayWord.join(" ")); // Output: "H _ L _ O"
+</code></li>
+  <li><strong>Indexing</strong>: Arrays are accessed and updated to track guessed letters or hangman part visibility.
+<code>
+const guessedWord = ['_', '_', '_', '_', '_']; // Initially blank
+guessedWord[1] = 'e'; // Correct guess for the second letter
+guessedWord[3] = 'l'; // Correct guess for the fourth letter
+console.log(guessedWord); // Output: ["_", "e", "_", "l", "_"]</code><code>
+</code></li>
+</ul>
+<h4>Functions: Modular Game Features</h4>
+Functions are heavily used to modularize tasks such as initializing the game, updating the word display, checking guesses, and managing the game state.
+<ul>
+  <li><strong>Helper Functions</strong>: Small, single-purpose functions like <code>updateWordDisplay()</code> or <code>revealHangmanPart()</code>.</li>
+  <li><strong>Event Handlers</strong>: Handle user interaction with buttons, such as letter clicks or resetting the game.</li>
+  <li><strong>Game Logic</strong>: Core functions like <code>checkGameStatus()</code> to handle win/loss conditions.</li>
+</ul>
+<strong>Game Initialization:</strong>
+<code>
+function startGame() {
+&nbsp; &nbsp;selectedWord = words[Math.floor(Math.random() * words.length)];
+&nbsp; &nbsp;guessedWord = Array(selectedWord.length).fill('_');
+&nbsp; &nbsp;incorrectGuesses = 0;
+&nbsp; &nbsp;displayWord();
+&nbsp; &nbsp;displayLetters();
+}
+</code>
+
+<strong>Word Display Update:</strong>
+<code>
+function displayWord() {
+&nbsp; &nbsp;wordDisplay.textContent = guessedWord.join(" ");
+}
+</code>
+<h4>&nbsp;</h4>
+<h4>DOM Manipulation</h4>
+The scripts rely heavily on DOM methods to update the UI dynamically based on game state.
+<ul>
+  <li><code>createElement</code> and <code>appendChild</code>: Generate letter buttons dynamically.</li>
+  <li>Traversing elements: <code>document.querySelector()</code>, <code>document.querySelectorAll()</code></li>
+  <li><code>querySelectorAll</code>: Select hangman parts or buttons for batch updates (e.g., disabling after a loss).</li>
+  <li><code>addEventListener</code>: Attach click handlers for user interactions.</li>
+</ul>
+
+<hr>
+
+<h3>In-class Exercise:</h3>
+<a href="https://will-luers.com/DTC/dtc477/quickreview-empty.html">Quick Review: Change Background Color</a>
+<a href="https://will-luers.com/DTC/dtc477/bkgd-color-change-dowhile.html">Background Change Do While</a>
+<ul>
+  <li>variables</li>
+  <li>click &gt; function</li>
+  <li>conditional</li>
+  <li>increment</li>
+  <li>loop</li>
+</ul>
+<a href="https://will-luers.com/DTC/dtc477/foreach-js-demo.html">forEach() Demo</a>
+
+<a href="http://will-luers.com/DTC/dtc477/student-pairings4.html">Student Pairings</a>
+<h4>"What Thing Are You?" Quiz</h4>
+Build a "What Thing Are You?" personality quiz that uses input and conditionals to display a fun result. Students expand the quiz with arrays and add personalized styling.
+
+In class with a partner, describe in detail Quiz using “natural language” in ChatGPT to output the JavaScript based on your specific steps. <strong>Specify ES6, but no arrow functions....</strong>
+
+Quiz Examples
+<ul>
+  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyou-empty.html">Quiz Form Template</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyouVOTE-new.html">Vote Example</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyouSCALE-new.html">Scale Example</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyouCOMPLEX-new.html">Complex Example</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes.zip">Download Example Quiz ZIP</a></li>
+</ul>
+<strong>Main Concepts</strong>: Variables, data types, conditionals, logical operators, user input, and basic JavaScript functions.
+
+<hr>
+
+<h3>Hangman Game <span>(10%)</span></h3>
+<p>Design and build your own Hangman game using JavaScript, HTML, and CSS. Use the class developed script to start. The goal is to style your game with CSS and showcase how JavaScript interacts with HTML elements. Add your oww visual hangman figure using HTML (not Canvas), and control visibility with JavaScript. Get creative with your style and theme.</p>
+
+<hr>
+
+<h3>Review JavaScript and the DOM:</h3>
+<h4><strong>Traversing </strong>// get to elements on the page</h4>
+<ul>
+  <li><code>document.querySelector('#bio")</code></li>
+  <li><code>document.querySelectorAll(".stanza")</code></li>
+</ul>
+<h4>Math Methods:</h4>
+<ul>
+  <li><code>Math.random()</code> // returns a random number from 0 (inclusive) up to but not including 1</li>
+  <li><code>Math.round()</code> // rounds a number to the nearest integer</li>
+  <li><code>Math.floor()</code> // rounds a number DOWN to the nearest integer</li>
+  <li><code>Math.max()</code> // returns the number with the highest value</li>
+  <li><code>Math.min()</code> // returns the number with the lowest valu</li>
+</ul>
+<h4>String Methods:</h4>
+<ul>
+  <li><code>charAt()</code> // returns the character at a specified index</li>
+  <li><code>concat()</code> // joins two or more strings</li>
+  <li><code>includes()</code> // checks if a string contains a specified value, returns <code>true</code> or <code>false</code></li>
+  <li><code>indexOf()</code> // returns the index of the first occurrence of a specified value</li>
+  <li><code>lastIndexOf()</code> // returns the index of the last occurrence of a specified value</li>
+  <li><code>replace()</code> // replaces specified value(s) with another value in a string</li>
+  <li><code>slice()</code> // extracts a section of a string and returns it as a new string</li>
+  <li><code>split()</code> // splits a string into an array of substrings</li>
+  <li><code>startsWith()</code> // checks if a string begins with specified characters, returns <code>true</code> or <code>false</code></li>
+  <li><code>endsWith()</code> // checks if a string ends with specified characters, returns <code>true</code> or <code>false</code></li>
+  <li><code>toLowerCase()</code> // converts the entire string to lowercase</li>
+  <li><code>toUpperCase()</code> // converts the entire string to uppercase</li>
+  <li><code>trim()</code> // removes whitespace from both ends of a string</li>
+  <li><code>substring()</code> // returns the part of the string between the start and end indexes</li>
+  <li><code>repeat()</code> // repeats a string for a specified number of times</li>
+</ul>
+<h4>Array Methods:</h4>
+<ul>
+  <li><code>pop()</code> // remove the last element of an array</li>
+  <li><code>push()</code> // add a new item to an array</li>
+  <li><code>shift()</code> // remove the first item of an array</li>
+  <li><code>unshift()</code> // add new items to the beginning of an array</li>
+  <li><code>splice()</code> // adds/removes items to/from an array, and returns the removed item(s)</li>
+  <li><code>sort(), reverse()</code> // the <code>sort()</code> method sorts an array alphabetically; for numbers, it sorts ascending/descending. <code>reverse()</code> reverses the order of elements</li>
+  <li><code>slice()</code> // returns the selected elements in an array as a new array object</li>
+  <li><code>join()</code> // method returns an array as a string and does not change the original array</li>
+  <li><code>map()</code> // creates a new array by applying a function to each element of the original array</li>
+  <li><code>forEach()</code> // executes a provided function once for each array element, but does not return a new array</li>
+</ul>
+<h4>Switch vs Conditionals</h4>
+<code>
+// Example using switch
+let day = 3;</code>
+<code>
+switch (day) {
+&nbsp;case 1:
+&nbsp; console.log("Monday");
+&nbsp; break;
+&nbsp;case 2:
+&nbsp; console.log("Tuesday");
+&nbsp; break;
+&nbsp;case 3:
+&nbsp; console.log("Wednesday");
+&nbsp; break;
+&nbsp;default:
+&nbsp; console.log("Other day");
+}</code>
+
+// Example using else if
+let day = 3;
+<code>
+if (day === 1) {
+&nbsp; console.log("Monday");
+} else if (day === 2) {
+&nbsp; console.log("Tuesday");
+} else if (day === 3) {
+c&nbsp; onsole.log("Wednesday");
+} else {
+&nbsp; console.log("Other day");
+}</code>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-content">
+    <p>DTC 477: Advanced Web Design & Development</p>
+    <p>
+      <a href="mailto:youremail@university.edu">Contact Instructor</a> |
+      <a href="https://youruniversity.edu" target="_blank">University Home</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

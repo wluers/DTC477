@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dual Blob Interaction</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        background: black;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let blobA, blobB;
+      let state = "chaseUser"; // chaseUser -> engageBlob -> chaseUser (loop)
+      let timer = 0;
+      const chaseUserDuration = 3000; // Blob A chases mouse for 3 seconds
+      const engageDuration = 2000;    // Blob A engages with Blob B for 2 seconds
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        blobA = new Blob(width / 2, height / 2, color(0, 200, 255, 150));
+        blobB = new Blob(random(width), random(height), color(255, 100, 200, 150));
+      }
+
+      function draw() {
+        background(0, 30); // ghost trail effect
+
+        // Time-based state switching
+        if (millis() - timer > (state === "chaseUser" ? chaseUserDuration : engageDuration)) {
+          state = state === "chaseUser" ? "engageBlob" : "chaseUser";
+          timer = millis();
+        }
+
+        // Blob A behavior
+        if (state === "chaseUser") {
+          blobA.follow(mouseX, mouseY); // chase the user
+        } else if (state === "engageBlob") {
+          blobA.follow(blobB.pos.x, blobB.pos.y); // chase Blob B
+        }
+
+        // Blob B always follows Blob A (like it's curious)
+        blobB.follow(blobA.pos.x, blobA.pos.y);
+
+        // Update and display both blobs
+        blobA.update();
+        blobB.update();
+        blobA.show();
+        blobB.show();
+      }
+
+      class Blob {
+        constructor(x, y, c) {
+          this.pos = createVector(x, y);
+          this.vel = createVector(0, 0);
+          this.acc = createVector(0, 0);
+          this.maxSpeed = 5;
+          this.c = c;
+        }
+
+        // Move toward a target
+        follow(x, y) {
+          let target = createVector(x, y);
+          let force = p5.Vector.sub(target, this.pos);
+          force.setMag(0.4);
+          this.acc.add(force);
+        }
+
+        // Update motion
+        update() {
+          this.vel.add(this.acc);
+          this.vel.limit(this.maxSpeed);
+          this.pos.add(this.vel);
+          this.acc.mult(0);
+        }
+
+        // Draw the blob
+        show() {
+          noStroke();
+          fill(this.c);
+          ellipse(this.pos.x, this.pos.y, 40 + sin(frameCount * 0.1) * 5);
+        }
+      }
+    </script>
+  </body>
+</html>

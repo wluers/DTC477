@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      text-align: center;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 5px;
+      margin-bottom: 20px;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      border: 1px solid #333;
+      cursor: pointer;
+      background-color: #fff;
+    }
+    .cell.taken {
+      pointer-events: none;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tic Tac Toe</h1>
+    <div class="board" id="board"></div>
+    <button onclick="restartGame()">Restart</button>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    // Select the board element and status text
+    const board = document.getElementById('board');
+    const statusText = document.getElementById('status');
+
+    // Initialize current player to 'X' and set game as active
+    let currentPlayer = 'X';
+    let gameActive = true;
+
+    // Create an empty game state array to track the moves
+    let gameState = ["", "", "", "", "", "", "", "", ""];
+
+    // Define all possible winning conditions (indices of cells that form a win)
+    const winningConditions = [
+      [0, 1, 2], // Top row
+      [3, 4, 5], // Middle row
+      [6, 7, 8], // Bottom row
+      [0, 3, 6], // Left column
+      [1, 4, 7], // Middle column
+      [2, 5, 8], // Right column
+      [0, 4, 8], // Top-left to bottom-right diagonal
+      [2, 4, 6]  // Top-right to bottom-left diagonal
+    ];
+
+    // Function to handle a cell click event
+    function handleCellClick(e) {
+      // Get the index of the clicked cell from its data attribute
+      const cellIndex = e.target.getAttribute('data-index');
+
+      // If the cell is already filled or the game is over, ignore the click
+      if (gameState[cellIndex] !== "" || !gameActive) {
+        return;
+      }
+
+      // Update the game state with the current player's symbol (X or O)
+      gameState[cellIndex] = currentPlayer;
+
+      // Display the current player's symbol in the clicked cell
+      e.target.textContent = currentPlayer;
+      e.target.classList.add('taken'); // Add a class to mark the cell as taken
+
+      // Check if there's a winner or a draw after the move
+      checkWinner();
+
+      // Switch to the other player for the next turn
+      //currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      if (currentPlayer === 'X') {
+        currentPlayer = 'O';
+      } else {
+        currentPlayer = 'X';
+      }
+      
+    }
+
+    // Function to check for a winner or a draw
+    function checkWinner() {
+      let roundWon = false;
+
+      // Loop through each winning condition to check if any is met
+      for (let i = 0; i < winningConditions.length; i++) {
+        const [a, b, c] = winningConditions[i]; // Destructure the winning condition array
+
+        // Check if the same player's symbol is in all three cells of the condition
+        if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+          roundWon = true; // Set roundWon to true if a winning condition is met
+          break;
+        }
+      }
+
+      // If a player has won, display the winner and end the game
+      if (roundWon) {
+        statusText.textContent = `Player ${currentPlayer} wins!`;
+        gameActive = false; // Set gameActive to false to prevent further moves
+        return;
+      }
+
+      // If all cells are filled and there's no winner, declare a draw
+      if (!gameState.includes("")) {
+        statusText.textContent = 'Draw!';
+        gameActive = false;
+        return;
+      }
+
+      // If no winner or draw, display the next player's turn
+      statusText.textContent = `Player ${currentPlayer}'s turn`;
+    }
+
+    // Function to restart the game
+    function restartGame() {
+      // Reset the game variables to their initial states
+      currentPlayer = 'X';
+      gameActive = true;
+      gameState = ["", "", "", "", "", "", "", "", ""];
+
+      // Reset the status text
+      statusText.textContent = `Player ${currentPlayer}'s turn`;
+
+      // Clear the board and recreate the cells
+      board.innerHTML = '';
+      createBoard();
+    }
+
+    // Function to create the game board dynamically
+    function createBoard() {
+      // Loop through the gameState array to create cells
+      gameState.forEach((_, index) => {
+        const cell = document.createElement('div'); // Create a div for each cell
+        cell.classList.add('cell'); // Add the 'cell' class for styling
+        cell.setAttribute('data-index', index); // Set a data attribute with the cell index
+
+        // Add a click event listener to handle the cell click
+        cell.addEventListener('click', handleCellClick);
+
+        // Append the cell to the board
+        board.appendChild(cell);
+      });
+    }
+
+    // Initial setup: create the board and set the initial status text
+    createBoard();
+    statusText.textContent = `Player ${currentPlayer}'s turn`;
+  </script>
+</body>
+</html>

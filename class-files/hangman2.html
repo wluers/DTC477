@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hangman Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      text-align: center;
+    }
+    .word {
+      font-size: 2rem;
+      margin: 20px 0;
+    }
+    .message {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>JavaScript Hangman Game</h1>
+    <div class="word" id="wordDisplay"></div>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    // List of possible words for the game
+    const words = ["variable", "array", "object", "function", "loop", "conditional", "string", "number", "boolean", "operator", "statement"];
+
+
+    // Select random word from the list
+    let selectedWord = words[Math.floor(Math.random() * words.length)];
+
+    // Initialize game variables
+    let guessedWord = new Array(selectedWord.length).fill("_");
+    let remainingGuesses = 6;
+    let guessedLetters = [];
+
+    const wordDisplay = document.getElementById('wordDisplay');
+    const message = document.getElementById('message');
+
+    // Function to display the word with underscores for unguessed letters
+    function updateWordDisplay() {
+      wordDisplay.textContent = guessedWord.join(" ");
+    }
+
+    // Function to handle a guessed letter
+    function handleGuess(letter) {
+      if (guessedLetters.indexOf(letter) !== -1) {
+        return; // Ignore if letter was already guessed
+      }
+
+      guessedLetters.push(letter);
+
+      if (selectedWord.indexOf(letter.toLowerCase()) !== -1) {
+        // Correct guess: update the guessedWord array
+        for (let i = 0; i < selectedWord.length; i++) {
+          if (selectedWord[i] === letter.toLowerCase()) {
+            guessedWord[i] = letter;
+          }
+        }
+      } else {
+        // Incorrect guess: decrement remaining guesses
+        remainingGuesses--;
+      }
+
+      updateWordDisplay();
+      checkGameStatus();
+    }
+
+    // Function to check the game status (win or lose)
+    function checkGameStatus() {
+      if (guessedWord.join("") === selectedWord) {
+        message.textContent = "You win!";
+        document.removeEventListener('keydown', handleKeydown);
+      } else if (remainingGuesses === 0) {
+        message.textContent = "Game over! The word was: " + selectedWord;
+        document.removeEventListener('keydown', handleKeydown);
+      } else {
+        message.textContent = "Remaining guesses: " + remainingGuesses;
+      }
+    }
+
+    // Function to handle keyboard input
+    function handleKeydown(event) {
+      let letter = event.key.toLowerCase();
+      if (letter >= 'a' && letter <= 'z' && letter.length === 1) {
+        handleGuess(letter);
+      }
+    }
+
+    // Initial setup: display the word and add keyboard event listener
+    updateWordDisplay();
+    message.textContent = "Remaining guesses: " + remainingGuesses;
+    document.addEventListener('keydown', handleKeydown);
+  </script>
+</body>
+</html>

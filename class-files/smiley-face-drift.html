@@ -1,0 +1,159 @@
+
+<DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>canvas</title>
+	<style>
+
+	#myCanvas {
+		border: 1px solid black;
+	}
+
+
+   </style>
+ </head>
+
+ <body>
+
+ 	<canvas width="400" height="400" id='myCanvas'>
+ 		
+ 	</canvas>
+
+
+   <script>
+
+
+       // Random Generator
+       function getRandomInt(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}  
+
+
+       	let c = document.getElementById("myCanvas");
+	    let ctx = c.getContext("2d");
+        
+       //iterators that changes x,y coordinates everytime the function runs
+        let incremement = 0;
+        let incremement2 = 0;
+        let incremement3 = 0;
+       //iterator for the eye circle radius
+        let incremement4 = 0;
+
+        
+        function drawFace() {
+
+	        let EyeballX = getRandomInt(145, 160),
+	        	EyeballY = getRandomInt(145, 160);
+	        	
+            
+	        ctx.clearRect(0, 0, ctx.width, ctx.height);//clear canvas
+    			
+
+             // start drawing
+			ctx.beginPath();
+			
+
+	        // FACE
+            ctx.arc(200, 180, 160, 0, 2*Math.PI); // Mouth (clockwise)
+            ctx.fillStyle = "yellow";
+                ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+                // end drawing
+			ctx.closePath();
+
+              // start drawing
+			ctx.beginPath();
+
+	        // MOUTH
+			ctx.moveTo(150, 260);
+			ctx.arc(200-incremement3, 260-incremement3, 50, 0, Math.PI); // Mouth (clockwise)
+			ctx.fillStyle = "white";
+            ctx.fill();
+
+            // Left Eye
+			ctx.moveTo(170, 150);
+			ctx.arc(150, 150, 20+incremement4, 0, 2*Math.PI); 
+			ctx.fillStyle = "white";
+                ctx.fill();
+
+			//Right Eye
+			ctx.moveTo(270, 150);
+			ctx.arc(250, 150, 20+incremement4, 0, 2*Math.PI); 
+			ctx.fillStyle = "white";
+                ctx.fill();
+
+			// NOSE
+		    ctx.moveTo(210, 150-incremement2);
+			ctx.arc(210+incremement2, 230, 15, 0, Math.PI); // Mouth (clockwise)
+
+			// Left Eyebrow
+			ctx.moveTo(90, 120+incremement);
+			ctx.lineTo(180+incremement, 100+incremement);
+			
+
+			// Right Eyebrow
+			ctx.moveTo(310+incremement, 120+incremement);
+			ctx.lineTo(220+incremement, 100);  
+
+
+			// Left Eyeball
+			//ctx.moveTo(180, 170);
+			ctx.fillStyle = "black";
+			ctx.fillRect(EyeballX,EyeballY,5,5);
+	
+
+			//Right Eyeball
+			ctx.moveTo(280, 170);
+			ctx.fillStyle = "black";
+			ctx.fillRect(EyeballX + 100,EyeballY,5,5);
+
+
+			// Make lines visible
+			ctx.stroke();
+
+           // end drawing
+			ctx.closePath();
+            
+            //changes the position every time the function is run
+            incremement += 5;
+            
+            //timing device to allow a different effect happen once conditional becomes true
+            if (incremement < 300){
+                if (incremement > 50){
+                    incremement2 += 5;
+                }  
+
+                if (incremement > 100){
+                    incremement3 += 5;
+                }
+
+                if (incremement > 150){
+                    incremement4 += 3;
+                }
+            }
+    	}
+
+
+    	function animateFace() {
+
+    			ctx.clearRect(0, 0, ctx.width, ctx.height);//clear canvas
+    			ctx.fillStyle = "#ffffff";
+                ctx.fill();
+
+                drawFace();  
+    		   // requestAnimationFrame(animateFace);
+    	}
+        //set on a faster time cycle
+    	setInterval(animateFace, 250);
+
+        //animateFace();
+            
+	
+
+    
+    </script>
+ </body>
+ </html>

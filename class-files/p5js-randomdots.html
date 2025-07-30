@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Random Dots</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        background: black;
+        overflow: hidden;
+      }
+
+      canvas {
+        display: block;
+        margin: 5% auto;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+
+      function setup() {
+        createCanvas(800, 800);
+        noStroke();
+        fill(0,0,0);
+        background(240);
+      }
+
+      function draw() {
+        for(let x = 0; x < width; x+=3) {
+
+          //random dots
+          let rY = random(height * 0.05,height * 0.4);
+          ellipse(x, rY, 3);
+
+          //perlimn noise
+          let n = noise(x * 0.01);
+          let nY = map(n, 0, 1, height*0.6, height*0.95);
+          ellipse(x, nY, 3);
+          
+        }
+
+        loop();
+      }
+      
+    </script>
+  </body>
+</html>

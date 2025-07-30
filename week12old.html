@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 12: GitHub Collaborations</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="course-info">DTC 477: Advanced Web Design & Development</div>
+    <nav class="main-nav">
+      <a href="syllabus.html">Syllabus</a>
+      <a href="index.html">Modules</a>
+      <a href="projects.html">Projects</a>
+      <a href="tutorials.html">Tutorials</a>
+    </nav>
+  </header>
+
+  <main class="module-page">
+    <h1>Week 12: GitHub Collaborations</h1>
+
+    <h3>To Do This Week</h3>
+<strong>HTML Game Project&nbsp;<span style="color: #ff0000;">DUE Wednesday April 9th</span></strong>
+
+<em>This week, please post to the class Slack channel your Final project description. It can be quite brief and general.&nbsp;</em>
+
+<hr>
+
+<h3>Collaborative Research Paper&nbsp;</h3>
+Learning JavaScript with AI: Thinking Like a Coder Before Writing Code
+<a href="https://docs.google.com/document/d/1XQgUr3cOYCi9oIlfoQhaqTmCYTJf-bF5a8ch1hUdM64/edit?tab=t.0">&gt;LINK to Google Doc</a>
+
+<hr>
+
+<h3>Weather App Project (5%)
+<strong><span style="color: #ff0000;">Due: Wednesday April 16th</span></strong></h3>
+Use the <a href="http://openweathermap.org/api">OpenWeather API</a> (Application Programming Interface) to create your own weather app using JavaScript's <code>fetch()</code> method to get the current weather by city and state. Design your results page and upload the project in a folder called <em>weather</em>. Validate your HTML and CSS, then submit your project link on Canvas.
+
+Refer to this <a href="https://will-luers.com/DTC/dtc477/weatherapp-js.html">weather app template</a> to get started. Get an API key from the <a href="http://openweathermap.org/api">OpenWeather API</a>, selecting the free option. Replace the placeholder key in the template with your own.
+<h4>Project Objectives</h4>
+<ul>
+  <li><strong>API Integration:</strong> Use the OpenWeather API to fetch real-time weather data.</li>
+  <li><strong>User Interface Design:</strong> Create an engaging and intuitive interface for your app.</li>
+  <li><strong>JavaScript Proficiency:</strong> Use JavaScript to dynamically manipulate the DOM based on the fetched data. You can integrate media or Canvas drawing/animations.</li>
+</ul>
+<h4>Evaluation Criteria</h4>
+<ul>
+  <li><strong>Functionality (40%):</strong> The app must fetch and display accurate weather data based on user input.</li>
+  <li><strong>Interface Design (30%):</strong> Evaluate creativity, usability, and aesthetics of the design.</li>
+  <li><strong>Code Quality (30%):</strong> Ensure clean, well-commented JavaScript code that dynamically updates the UI. Include natural language steps in script comments.</li>
+</ul>
+<h4>Submission Guidelines</h4>
+The folder should be named "<em>weather"</em>, with an <em>index.html</em>. Validate your HTML and CSS, then upload your project to a web server. Submit the URL of your weather app through Canvas.
+
+<hr>
+
+<h3>Weather App Workshop</h3>
+<h4>Server Requests</h4>
+<ul>
+  <li><em>OLD WAY:</em> <a href="https://www.w3schools.com/xml/ajax_intro.asp">Ajax</a> - asynchronous JavaScript and XML, used for passing data (GET or POST) without refreshing the page. <a href="https://www.w3schools.com/xml/default.asp">XML</a> - extensible markup language, was used for storing and exchanging the data.</li>
+  <li class="" data-start="749" data-end="784">
+<p class="" data-start="751" data-end="784"><em>NEW WAY (with ES6)</em>:<a href="https://www.w3schools.com/js/js_api_fetch.asp"> JavaScript Fetch API</a> &nbsp;along with&nbsp;<a href="https://www.w3schools.com/js/js_json_intro.asp">JSON</a> - JavaScript Object Notation, a format for storing and exchanging data.</p>
+The <strong data-start="563" data-end="576">fetch API</strong> is a built-in browser feature. It's a <strong data-start="616" data-end="640">JavaScript interface</strong> (i.e. a set of methods) that lets you make <strong data-start="684" data-end="704">network requests</strong> like:
+<ul>
+  <li class="" data-start="712" data-end="729">
+<p class="" data-start="714" data-end="729">GET (grab data)</p>
+</li>
+  <li class="" data-start="730" data-end="748">
+<p class="" data-start="732" data-end="748">POST (send data)</p>
+</li>
+  <li class="" data-start="749" data-end="784">
+<p class="" data-start="751" data-end="784">PUT / DELETE (update/remove data)</p>
+</li>
+</ul>
+<p data-start="551" data-end="608">&nbsp;</p>
+</li>
+</ul>
+<p data-start="551" data-end="608"><span style="color: #1e1e1e; font-family: inherit; font-size: 0.875em; font-weight: bold; letter-spacing: 3px; text-transform: uppercase;">Weather App Resources</span></p>
+
+<ul>
+  <li><a href="http://openweathermap.org/api">OpenWeather API</a>&nbsp;</li>
+  <li><a href="http://api.openweathermap.org/data/2.5/weather?q=chicago&amp;units=imperial&amp;APPID=your_api_key">Example Output: Chicago</a> / <a href="https://jsonformatter.org/json-pretty-print">JSON Prettify</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/weather-json.js">JSON Weather Data</a></li>
+  <li><a href="https://openweathermap.org/weather-conditions">Weather Conditions</a> - a list of all weather descriptions.</li>
+  <li><a href="https://openweathermap.org/current">Accessing Current Weather Data</a></li>
+  <li><a href="https://openweathermap.org/api/geocoding-api">Geocoding API</a> - options for searching with names or coordinates.</li>
+  <li><a href="https://will-luers.com/DTC/dtc477/weatherapp-js.html">weather app template</a></li>
+  <li><a href="https://www.dtc-wsuv.org/cmdc/gallery/archives/05.21/sbrower/index.html">student example using canvas</a></li>
+  <li><a href="https://www.w3schools.com/jsref/jsref_includes_array.asp">JavaScript <code>includes()</code></a> - search a result for a word or phrase:</li>
+</ul>
+<pre><code>if (response.weather[0].description.includes('clouds')) {
+   // Do something
+}</code></pre>
+<h4>To Get Weather by Geolocation</h4>
+<ul>
+  <li><a href="https://www.w3schools.com/html/html5_geolocation.asp">HTML5 Geolocation API</a></li>
+  <li><a href="https://dtc-wsuv.org/wluers/geolocationstory-wsu.html">Geolocation Template</a></li>
+</ul>
+
+<hr>
+
+<h3 id="final">Final&nbsp;Project: 20%</h3>
+<em>Sites Completed for Informal Class Critique</em> <strong><span style="color: #ff0000;">: Wednesday April 23&nbsp;
+</span></strong>
+<h4>Overview</h4>
+<p class="" data-start="363" data-end="619">Your Final Project is your chance to build something original and meaningful using the skills you’ve gained in this class.&nbsp; You may build on a previous project (like your HTML5 Game) as long as you <strong data-start="579" data-end="618">significantly expand and improve it</strong>.</p>
+<p class="" data-start="621" data-end="870">Use this project to showcase your creativity, programming logic, and ability to design a clear user experience. Whether you're building a game, interactive infographic, or multimedia story, make it something you’d be proud to include in a portfolio.</p>
+
+<h4 class="" data-start="872" data-end="893">Requirements</h4>
+<ul data-start="894" data-end="1503">
+  <li class="" data-start="894" data-end="1019">
+<p class="" data-start="896" data-end="1019"><strong data-start="896" data-end="912">Originality:</strong> You can expand a past project, but it must go <strong data-start="959" data-end="974">well beyond</strong> the original with new features and design elements.</p>
+</li>
+  <li class="" data-start="1020" data-end="1158">
+<p class="" data-start="1022" data-end="1158"><strong data-start="1022" data-end="1043">JavaScript Logic:</strong> Include clear, natural language comments outlining your logic in plain English—use as many JS terms as possible.</p>
+</li>
+  <li class="" data-start="1159" data-end="1277">
+<p class="" data-start="1161" data-end="1277"><strong data-start="1161" data-end="1191">Usability &amp; Visual Design:</strong> Apply <strong data-start="1198" data-end="1218">visual hierarchy</strong> or clear <strong data-start="1228" data-end="1249">user instructions</strong> so users know what to do.</p>
+</li>
+  <li class="" data-start="1278" data-end="1339">
+<p class="" data-start="1280" data-end="1339"><strong data-start="1280" data-end="1296">Header Info:</strong> Include a title and your name in the UI.</p>
+</li>
+  <li class="" data-start="1340" data-end="1503">
+<p class="" data-start="1342" data-end="1385"><strong data-start="1342" data-end="1383">Project Statement (in code comments):</strong></p>
+
+<ul data-start="1388" data-end="1503">
+  <li class="" data-start="1388" data-end="1433">
+<p class="" data-start="1390" data-end="1433">How you built it—your thinking and steps.</p>
+</li>
+  <li class="" data-start="1436" data-end="1503">
+<p class="" data-start="1438" data-end="1503">How AI, if applicable, helped with planning, coding, or debugging.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 class="" data-start="1505" data-end="1539">What You’ll Be Graded On</h4>
+<ul data-start="1540" data-end="1906">
+  <li class="" data-start="1540" data-end="1632">
+<p class="" data-start="1542" data-end="1632"><strong data-start="1542" data-end="1564">JS Scripting (30%)</strong> – Using JS to create interactive features and control multimedia.</p>
+</li>
+  <li class="" data-start="1633" data-end="1728">
+<p class="" data-start="1635" data-end="1728"><strong data-start="1635" data-end="1663">Interface &amp; Design (30%)</strong> – Thoughtful UX, visuals, and how easy it is to interact with.</p>
+</li>
+  <li class="" data-start="1729" data-end="1804">
+<p class="" data-start="1731" data-end="1804"><strong data-start="1731" data-end="1759">Content Completion (30%)</strong> – Fully built, multimedia-rich experience.</p>
+</li>
+  <li class="" data-start="1805" data-end="1906">
+<p class="" data-start="1807" data-end="1906"><strong data-start="1807" data-end="1833">Progress Reviews (10%)</strong> – Weekly class updates required. Lack of progress will lower your grade.</p>
+</li>
+</ul>
+<h4 class="" data-start="2385" data-end="2421">Ideas to Spark Inspiration</h4>
+<ul data-start="2422" data-end="2687">
+  <li class="" data-start="2422" data-end="2492">
+<p class="" data-start="2424" data-end="2492"><strong data-start="2424" data-end="2451">Upgrade your HTML5 Game</strong> with levels, images, media, animations, or level-ups.</p>
+</li>
+  <li class="" data-start="2493" data-end="2554">
+<p class="" data-start="2495" data-end="2554"><strong data-start="2495" data-end="2522">Interactive infographic</strong> with scroll-based animations.</p>
+</li>
+  <li class="" data-start="2555" data-end="2626">
+<p class="" data-start="2557" data-end="2626"><strong data-start="2557" data-end="2585">Multimedia learning tool</strong> using quizzes, videos, or audio along with images.</p>
+</li>
+  <li class="" data-start="2627" data-end="2687">
+<p class="" data-start="2629" data-end="2687"><strong data-start="2629" data-end="2647">Generative art</strong> or sound visualizations using Canvas.</p>
+</li>
+</ul>
+
+<hr>
+
+<h3>APIs for Final Project Ideas:</h3>
+<a href="https://dtc-wsuv.org/qmelton24/interactive_website/">Quid's interactive site</a>
+<h4 data-start="2109" data-end="2129">NASA Open APIs</h4>
+<ul data-start="2130" data-end="2530">
+  <li class="" data-start="2130" data-end="2187">
+<p class="" data-start="2132" data-end="2187"><strong data-start="2132" data-end="2139">URL</strong>: <a class="" href="https://api.nasa.gov/" target="_new" rel="noopener" data-start="2141" data-end="2187">https://api.nasa.gov/</a></p>
+</li>
+  <li class="" data-start="2188" data-end="2335">
+<p class="" data-start="2190" data-end="2335"><strong data-start="2190" data-end="2205">Description</strong>: NASA offers numerous APIs, such as the Astronomy Picture of the Day (APOD), Mars Rover Photos, Earth observation data, and more.</p>
+</li>
+  <li class="" data-start="2336" data-end="2530">
+<p class="" data-start="2338" data-end="2356"><strong data-start="2338" data-end="2355">Ideas: </strong>Show the “Astronomy Picture of the Day” on your site with details and a short description.
+
+</p>
+</li>
+</ul>
+<h4 data-start="3690" data-end="3724">Trivia API (Open Trivia DB)</h4>
+<ul data-start="3725" data-end="4043">
+  <li class="" data-start="3725" data-end="3808">
+<p class="" data-start="3727" data-end="3808"><strong data-start="3727" data-end="3734">URL</strong>: <a class="cursor-pointer" target="_new" rel="noopener" data-start="3736" data-end="3808">https://opentdb.com/api_config.php</a></p>
+</li>
+  <li class="" data-start="3809" data-end="3894">
+<p class="" data-start="3811" data-end="3894"><strong data-start="3811" data-end="3826">Description</strong>: Provides trivia questions on various topics and difficulty levels.</p>
+</li>
+  <li class="" data-start="3895" data-end="4043">
+<p class="" data-start="3897" data-end="3915"><strong data-start="3897" data-end="3914">Ideas</strong>: 1) Build a quiz application with multiple-choice questions. 2) Create a trivia challenge game where users track their scores.</p>
+</li>
+</ul>
+<h4 data-start="364" data-end="392">&nbsp;</h4>
+<h4 data-start="364" data-end="392">U.S. Census Bureau API</h4>
+<ul data-start="393" data-end="817">
+  <li class="" data-start="393" data-end="494">
+<p class="" data-start="395" data-end="494"><strong data-start="395" data-end="402">URL</strong>: <a class="cursor-pointer" target="_new" rel="noopener" data-start="404" data-end="494">https://www.census.gov/data/developers.html</a></p>
+</li>
+  <li class="" data-start="495" data-end="617">
+<p class="" data-start="497" data-end="617"><strong data-start="497" data-end="512">Description</strong>: Provides detailed demographic, socioeconomic, and housing data at various geographic levels in the U.S.</p>
+</li>
+  <li class="" data-start="618" data-end="817">
+<p class="" data-start="620" data-end="634"><strong data-start="620" data-end="633">Ideas</strong>: 1) <span style="font-family: inherit;">Build a data visualization dashboard highlighting population changes in different states/counties. 2) </span><span style="font-family: inherit;">Compare demographics (income, educational attainment, etc.) across regions.</span></p>
+</li>
+</ul>
+<h4 data-start="1356" data-end="1398">&nbsp;</h4>
+<h4 data-start="1356" data-end="1398">Data.gov (U.S. Government Open Data)</h4>
+<ul data-start="1399" data-end="1907">
+  <li class="" data-start="1399" data-end="1456">
+<p class="" data-start="1401" data-end="1456"><strong data-start="1401" data-end="1408">URL</strong>: <a class="" href="https://api.data.gov/" target="_new" rel="noopener" data-start="1410" data-end="1456">https://api.data.gov/</a></p>
+</li>
+  <li class="" data-start="1457" data-end="1736">
+<p class="" data-start="1459" data-end="1613"><strong data-start="1459" data-end="1474">Description</strong>: A central repository of U.S. government datasets, including health, environment, science, energy, and more. Many sub-APIs exist, such as: <span style="font-family: inherit;">EPA (Environmental Protection Agency). </span><span style="font-family: inherit;">USDA (U.S. Department of Agriculture). </span><span style="font-family: inherit;">FDA (Food and Drug Administration)</span></p>
+</li>
+  <li class="" data-start="1737" data-end="1907">
+<p class="" data-start="1739" data-end="1753"><strong data-start="1739" data-end="1752">Ideas</strong>: 1) <span style="font-family: inherit;">Visualize air quality data, water data, or other environmental metrics. 2) </span><span style="font-family: inherit;">Create a local or state-level data explorer for various government stats.</span></p>
+&nbsp;</li>
+</ul>
+<h4 data-start="3959" data-end="3981">Open Library API</h4>
+<ul data-start="3982" data-end="4405">
+  <li class="" data-start="3982" data-end="4073">
+<p class="" data-start="3984" data-end="4073"><strong data-start="3984" data-end="3991">URL</strong>: <a class="cursor-pointer" target="_new" rel="noopener" data-start="3993" data-end="4073">https://openlibrary.org/developers/api</a></p>
+</li>
+  <li class="" data-start="4074" data-end="4214">
+<p class="" data-start="4076" data-end="4214"><strong data-start="4076" data-end="4091">Description</strong>: Internet Archive’s Open Library project provides book metadata (title, author, publication year), cover images, and more.</p>
+</li>
+  <li class="" data-start="4215" data-end="4405">
+<p class="" data-start="4217" data-end="4231"><strong data-start="4217" data-end="4230">Ideas</strong>: <span style="font-family: inherit;">Create a book search/lookup tool that fetches cover images and details by ISBN or title.</span></p>
+&nbsp;</li>
+</ul>
+<h4 data-start="4886" data-end="4938">The Metropolitan Museum of Art Collection API</h4>
+<ul data-start="4939" data-end="5329">
+  <li class="" data-start="4939" data-end="5010">
+<p class="" data-start="4941" data-end="5010"><strong data-start="4941" data-end="4948">URL</strong>: <a class="cursor-pointer" target="_new" rel="noopener" data-start="4950" data-end="5010">https://metmuseum.github.io/</a></p>
+</li>
+  <li class="" data-start="5011" data-end="5138">
+<p class="" data-start="5013" data-end="5138"><strong data-start="5013" data-end="5028">Description</strong>: Access over 400,000 artworks in The Met’s open access collection with images, artist info, object data, etc.</p>
+</li>
+  <li class="" data-start="5139" data-end="5329">
+<p class="" data-start="5141" data-end="5155"><strong data-start="5141" data-end="5154">Ideas</strong>: 1) <span style="font-family: inherit;">Make an “art of the day” feature that highlights a random piece from The Met.&nbsp; 2) </span><span style="font-family: inherit;">Allow users to search for artworks by period or medium and display them in a custom UI.</span></p>
+&nbsp;</li>
+</ul>
+<h4 data-start="2337" data-end="2382">Free Dictionary API (dictionaryapi.dev)</h4>
+<ul data-start="2383" data-end="2882">
+  <li class="" data-start="2383" data-end="2450">
+<p class="" data-start="2385" data-end="2450"><strong data-start="2385" data-end="2392">URL</strong>: <a class="" href="https://dictionaryapi.dev/" target="_new" rel="noopener" data-start="2394" data-end="2450">https://dictionaryapi.dev/</a></p>
+</li>
+  <li class="" data-start="2451" data-end="2592">
+<p class="" data-start="2453" data-end="2592"><strong data-start="2453" data-end="2468">Description</strong>: A completely free, open-source dictionary API. Provides definitions, phonetics, and examples without requiring an API key.</p>
+</li>
+  <li class="" data-start="2593" data-end="2756">
+<p class="" data-start="2595" data-end="2610"><strong data-start="2595" data-end="2609">Key Points</strong>: <span style="font-family: inherit;">Completely free and open to the public. P</span><span style="font-family: inherit;">rimarily English, but they have some other languages in progress.</span></p>
+</li>
+</ul>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-content">
+    <p>DTC 477: Advanced Web Design & Development</p>
+    <p>
+      <a href="mailto:youremail@university.edu">Contact Instructor</a> |
+      <a href="https://youruniversity.edu" target="_blank">University Home</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

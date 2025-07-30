@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 7: MapBox API</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html"><div class="course-info">DTC 477: Advanced Web Design & Development</div></a>
+    <nav class="main-nav">
+      <a href="syllabus.html">Syllabus</a>
+      <a href="index.html">Modules</a>
+      <a href="projects.html">Projects</a>
+      <a href="tutorials.html">Tutorials</a>
+    </nav>
+  </header>
+
+  <main class="module-page">
+    <h1>Week 7: MapBox API</h1>
+
+    <h3>To Do This Week:</h3>
+<!-- NO CLASS Monday Feb 17 - President's Day -->
+
+<strong>E-lit Projects<span style="color: #ff0000;"> (DUE Wednesday, February 26)</span></strong>
+
+<em><strong>Final Submission Instructions:</strong></em>
+<ul>
+  <li>Place your <code>index.html</code> file in a folder called <code>elit</code>.</li>
+  <li>Validate your HTML and CSS.</li>
+  <li>Upload your project folder to the server.</li>
+  <li>Submit the correct URL on Canvas.</li>
+</ul>
+
+<hr>
+
+<h3>Module Notes</h3>
+<h4>Interactive Assignment</h4>
+<ul>
+  <li><a href="https://dtc-wsuv.org/jwaite24/interactive/">https://dtc-wsuv.org/jwaite24/interactive/</a></li>
+  <li><a href="https://dtc-wsuv.org/xbullis24/Interactive/">https://dtc-wsuv.org/xbullis24/Interactive/</a></li>
+  <li><a href="https://dtc-wsuv.org/qcarrick24/interactive/">https://dtc-wsuv.org/qcarrick24/interactive/</a></li>
+  <li><a href="https://dtc-wsuv.org/jhamersley24/interactive-site/">https://dtc-wsuv.org/jhamersley24/interactive-site/</a></li>
+</ul>
+
+
+<h4>Intro: GitHub CoPilot</h4>
+<p>Optional switch to use the professional developer workspace combining <a href="https://github.com/features/copilot">CoPilot and GitHub</a></p>
+
+
+<h4>Map Story (15%)</h4>
+<strong><span style="color: #ff0000;">DUE March 19</span></strong>
+
+For this project, you'll be creating a&nbsp; web-based storytelling experience that uses the <a href="https://www.mapbox.com/">Mapbox API</a> to convey a narrative through geographical markers. This project requires a blend of creative storytelling, technical web development skills, and a thoughtful integration of multimedia elements. Follow these structured guidelines, using the MapBox API resources and examples as well as ChatGPT for brainstorming, planning, and problem-solving throughout your project's development:
+<h5>Project Statement:</h5>
+Include a statement at the top of your &lt;script&gt;.&nbsp;This statement should:
+<ul>
+  <li>A brief description of how ChatGPT assisted in the ideation, planning, and/or debugging phases of your work.</li>
+  <li>Outline the sequence of technical steps for your JavaScript with the Mapbox API.</li>
+  <li>Include comments within the script as well.</li>
+</ul>
+<h5>Your Steps:</h5>
+<ol>
+  <li><strong>Explore the MapBox API:&nbsp;</strong>What is possible? What are the interactive map techniques you want to work with?</li>
+  <li><strong>Theme and Storyline Ideation:</strong> Select a theme for your map-based narrative, such as a personal journey, historical exploration, or fictional adventure.</li>
+  <li><strong>Storyboarding Locations:</strong> Identify at least five key locations to serve as markers on your map. How will they be displayed? How will the user interact with these locations?</li>
+  <li><strong>Consultation with ChatGPT:</strong> Use ChatGPT to refine your storyline and ensure the technical feasibility of your plan with the Mapbox API and JavaScript.</li>
+  <li><strong>Interactive Design:</strong> Plan the Mapbox styles, the layout, JavaScript functions needed, including marker placement, customized popups, and multimedia integration.</li>
+  <li><strong>Implementing JavaScript and Mapbox API:</strong> Code your project with the MapBox API code samples, ensuring the HTML structure supports map and narrative elements. Use ChatGPT for JavaScript and Mapbox API assistance.</li>
+  <li><strong>Testing and Debugging:</strong> Test your map thoroughly, paying close attention to interactive features and multimedia playback.</li>
+  <li><strong>CSS Styling:</strong> Apply CSS to complement your narrative, ensuring the design enhances the storytelling experience.</li>
+  <li><strong>Integration Statement:</strong> In your source code comments, summarize your JavaScript steps and highlight ChatGPT’s role in your project.</li>
+  <li><strong>Final Submission:</strong> Place your <code>index.html</code> file in a folder called <code>map</code>, validate your HTML and CSS, upload the folder to the server, and submit the URL through Canvas.</li>
+</ol>
+<h5>Suggested Innovative Map Ideas:</h5>
+<ul>
+  <li><strong>Personal Travel Story:</strong> Map a vacation or event with images, text, or audio to tell the story.</li>
+  <li><strong>Historical Journey:</strong> Highlight key events or discoveries on a significant historical expedition using period media.</li>
+  <li><strong>Literary Pilgrimage:</strong> Map locations featured in a novel or the life of an author, with excerpts or audio readings.</li>
+  <li><strong>Environmental Impact:</strong> Showcase climate change effects or conservation efforts with before-and-after imagery or data visualizations.</li>
+  <li><strong>Cultural Exploration:</strong> Highlight music, cuisine, or art from various regions, with media samples at each location.</li>
+  <li><strong>Interactive Fiction:</strong> Craft a fictional narrative where users make choices at each marker, influencing the story’s direction.</li>
+</ul>
+
+<hr>
+
+<h4>JS Methods for the Map Project:</h4>
+Key JavaScript methods for building your map:
+
+<a href="https://www.w3schools.com/jsref/prop_element_classlist.asp">classList</a>: Add or remove CSS classes for an element.
+<pre>const reset = document.querySelector('button');
+reset.classList.remove('show');
+reset.classList.add('hide');</pre>
+<h5>Get Started:</h5>
+<strong>Sign in to <a href="https://www.mapbox.com/">Mapbox</a>.</strong> You will need an API access token to configure maps. Follow the instructions on the site to get started.
+<ul>
+  <li><a href="https://www.mapbox.com/mapbox-gljs">Mapbox GL JS API</a></li>
+  <li><a href="https://docs.mapbox.com/mapbox-gl-js/example/">Mapbox GL JS Examples</a></li>
+  <li><a href="https://docs.mapbox.com/mapbox-gl-js/api/">Mapbox API Reference</a></li>
+  <li><a href="https://docs.mapbox.com/help/tutorials/">Mapbox Tutorials</a></li>
+</ul>
+<h4>How to Find Latitude and Longitude:</h4>
+<ol>
+  <li>Open Google Maps and search for a place.</li>
+  <li>Right-click on the map and select “What’s Here?”</li>
+  <li>The latitude and longitude will appear at the bottom. Click to copy the coordinates.</li>
+</ol>
+<h5>Custom Styles:</h5>
+<ul>
+  <li><a href="https://docs.mapbox.com/studio-manual/reference/styles/">Mapbox Styles Reference</a></li>
+  <li><a href="https://www.mapbox.com/designer-maps/">Mapbox Styles Gallery</a></li>
+  <li><a href="https://studio.mapbox.com/">Mapbox Studio</a></li>
+</ul>
+<h5>Example of an Interactive Map:</h5>
+<ul>
+  <li><a href="http://will-luers.com/DTC/dtc477/mapbox-markers/">Interactive Map Example</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/mapbox-markers.zip">Download Example (ZIP)</a></li>
+</ul>
+
+<hr>
+
+<h3>JSON (JavaScript Object Notation):</h3>
+JSON is used for storing and exchanging data. Here’s an example of an object literal:
+<pre>let meal = {
+  vegetable: "peppers",
+  protein: "chicken",
+  carb: "rice",
+  spicy: ["none", "mild", "medium", "hot"],
+  country: {
+    name: "Mexico",
+    location: [lat, long]
+  },
+  expression: function() {
+    alert("buen provecho!");
+  }
+};
+
+meal.protein;          // returns "chicken"
+meal.expression();     // alerts "buen provecho!"
+meal.spicy[1];         // returns "mild"
+meal.country.location[0]; // returns latitude</pre>
+Learn more about JSON and objects:
+<ul>
+  <li><a href="https://www.w3schools.com/js/js_object_definition.asp">Intro to Objects</a></li>
+  <li><a href="https://www.w3schools.com/js/js_json_intro.asp">Intro to JSON</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a></li>
+</ul>
+
+<hr>
+
+<h3>Student Map Examples:</h3>
+<ul>
+  <li><a href="https://dtc-wsuv.org/bhanrahan18/map/">Student Example 1</a></li>
+  <li><a href="https://dtc-wsuv.org/aradcliffe18/map/">Student Example 2</a></li>
+  <li><a href="https://dtc-wsuv.org/mlidbetter18/map/">Student Example 3</a></li>
+  <li><a href="https://dtc-wsuv.org/veldridge18/map/">Student Example 4</a></li>
+</ul>
+For more inspiration:
+<ul>
+  <li><a href="http://will-luers.com/DTC/map-projects-spring2020.html">Spring 2020 Projects</a></li>
+  <li><a href="http://will-luers.com/DTC/map-projects-fall2019.html">Fall 2019 Projects</a></li>
+  <li><a href="http://will-luers.com/DTC/map-projects-spring2019.html">Spring 2019 Projects</a></li>
+</ul>
+More Examples
+<ul>
+  <li><a href="https://dtc-wsuv.org/bhanrahan18/map/">https://dtc-wsuv.org/bhanrahan18/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/aradcliffe18/map/">https://dtc-wsuv.org/aradcliffe18/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/mlidbetter18/map/">https://dtc-wsuv.org/mlidbetter18/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/veldridge18/map/">https://dtc-wsuv.org/veldridge18/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/ebancroft18/map/#1">https://dtc-wsuv.org/ebancroft18/map/#1</a></li>
+  <li><a href="https://dtc-wsuv.org/bparsons19/map/">https://dtc-wsuv.org/bparsons19/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/tchilton18/map/">https://dtc-wsuv.org/tchilton18/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/kzoller18/map/">https://dtc-wsuv.org/kzoller18/map/</a></li>
+</ul>
+&nbsp;
+
+&nbsp;
+  </main>
+  <footer class="site-footer">
+  <div class="footer-content">
+    <p>DTC 477: Advanced Web Design & Development</p>
+    <p>
+      <a href="mailto:youremail@university.edu">Contact Instructor</a> |
+      <a href="https://youruniversity.edu" target="_blank">University Home</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

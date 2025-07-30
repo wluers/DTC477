@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>What Thing Are You Quiz</title>
+	<style>
+		#submit  {margin-top: 20px;}
+	</style>
+</head>
+<body>
+
+<h1>What Stationary Item Are You? (Scale)</h1>
+
+	<form name="quiz">
+	  <!-- Question 1 -->
+	  <fieldset class="questions" id="quest1">
+	    <legend>How do you see yourself?</legend>
+	    <div>
+	      <input type="radio" id="confidant" name="question1" value="1">
+	      <label for="confidant">Confidant</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="curious" name="question1" value="2">
+	      <label for="curious">Curious</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="flexible" name="question1" value="3">
+	      <label for="flexible">Flexible</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="empathetic" name="question1" value="4">
+	      <label for="empathetic">Empathetic</label>
+	    </div>
+	  </fieldset>
+
+	  <!-- Question 2 -->
+	  <fieldset class="questions" id="quest2">
+	    <legend>How are you with strangers?</legend>
+	    <div>
+	      <input type="radio" id="skeptical" name="question2" value="1">
+	      <label for="skeptical">Skeptical</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="cautious" name="question2" value="2">
+	      <label for="cautious">Cautious</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="gregarious" name="question2" value="3">
+	      <label for="gregarious">Gregarious</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="helpful" name="question2" value="4">
+	      <label for="helpful">Helpful</label>
+	    </div>
+	  </fieldset>
+
+	  <!-- Question 3 -->
+	  <fieldset class="questions" id="quest3">
+	    <legend>How do you describe your thinking style?</legend>
+	    <div>
+	      <input type="radio" id="analytical" name="question3" value="1">
+	      <label for="analytical">Analytical</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="logical" name="question3" value="2">
+	      <label for="logical">Logical</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="imaginative" name="question3" value="3">
+	      <label for="imaginative">Imaginative</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="associational" name="question3" value="4">
+	      <label for="associational">Associational</label>
+	    </div>
+	  </fieldset>
+
+	  <!-- Question 4 -->
+	  <fieldset class="questions" id="quest4">
+	    <legend>How do others see you?</legend>
+	    <div>
+	      <input type="radio" id="assertive" name="question4" value="1">
+	      <label for="assertive">Assertive</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="critical" name="question4" value="2">
+	      <label for="critical">Critical</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="open" name="question4" value="3">
+	      <label for="open">Open</label>
+	    </div>
+	    <div>
+	      <input type="radio" id="self-critical" name="question4" value="4">
+	      <label for="self-critical">Self-critical</label>
+	    </div>
+	  </fieldset>
+
+	  <!-- Buttons -->
+	  <div class="form-actions">
+	    <button type="button" onclick="computeForm()">What are You?</button>
+	    <button type="reset">Reset</button>
+	  </div>
+
+
+	</form>
+    
+    <!-- <div id="answer"></div>
+     -->
+    
+   
+    
+    
+   <script>
+   
+ 
+    function computeForm() {
+	    let total = 0;
+
+	   
+	    // Iterate over each question
+	    document.querySelectorAll('.questions').forEach(function(questionElement) {
+	        // Iterate over each radio input within the question
+	        questionElement.querySelectorAll('input[type="radio"]').forEach(function(inputElement) {
+	            if (inputElement.checked) {
+	                total += parseInt(inputElement.value, 10);
+	            }
+	        });
+	    });
+
+	 
+	    const results = [
+	        "scissors", 
+	        "small pair of scissors", 
+	        "letter-opener", 
+	        "compass", 
+	        "metal ruler",
+	        "wooden ruler", 
+	        "file folder", 
+	        "pad of graph paper", 
+	        "ruled notebook", 
+	        "sketchbook",
+	        "white-out", 
+	        "eraser", 
+	        "gummy eraser"
+	    ];
+
+	   let result;
+	   if (total >= 4 && total <= 16) {
+	       result = results[total - 4];
+	   } else {
+	       result = "I really don't know what you are.";
+	   }
+
+			alert(`Value is: ${total}. You are a ${result}.`);
+	}
+
+   //computeForm();
+    
+
+
+    </script>
+
+
+
+
+</body>
+</html>

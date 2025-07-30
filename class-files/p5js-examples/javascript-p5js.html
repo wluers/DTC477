@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Circle Expansion</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<style>
+  canvas {
+    margin: 5% 0 0 20%;
+    border: 1px solid black;
+  }
+</style>
+<body>
+
+<script>
+    /*"Develop an interactive art piece using p5.js that visually represents an endless animation of circles radiating outwards from the center of an 800px by 800px canvas. Each circle begins as a tiny point and gradually expands until it moves beyond the canvas edges, with new circles initiating their expansion before the previous ones complete their journey. This creates a mesmerizing effect of constant motion and transformation. Incorporate a random color generator to fill each circle with a color. Ensure your script includes comments explaining the creation, animation, and removal of circles, as well as the use of random colors."*/
+
+    let circles = []; // Array to hold information about each circle
+
+    function setup() {
+        createCanvas(800, 800);
+        frameRate(30); // Adjust frame rate as needed for smoother animation or performance
+    }
+
+    function draw() {
+        background(255); // Clear the canvas with a white background
+
+        // Add a new circle every few frames
+        if (frameCount % 20 == 0) { // Adjust timing for new circles
+            circles.push({radius: 0, color: randomColor()});
+        }
+
+        // Draw and expand each circle
+        for (let i = circles.length - 1; i >= 0; i--) {
+            noFill();
+            stroke(circles[i].color);
+            strokeWeight(20);
+            circle(width / 2, height / 2, circles[i].radius);
+            circles[i].radius += 2; // Adjust for speed of expansion
+
+            // Remove circle if it exceeds canvas bounds
+            if (circles[i].radius > width) {
+                circles.splice(i, 1);
+            }
+        }
+    }
+
+    // Generate a random RGBA color
+    function randomColor() {
+        return color(random(255), random(255), random(255), 100);
+    }
+</script>
+
+</body>
+</html>

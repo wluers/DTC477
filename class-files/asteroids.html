@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Asteroids - ES6 Class Version</title>
+  <style>
+    /* Basic styling: full-screen canvas, dark background */
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #2F4F4F;
+      color: #fff;
+      text-align:  center;
+      font-family: Arial, sans-serif;
+    }
+
+
+    canvas {
+      display: block;
+      margin: 3% auto;
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>Asteroids</h1>
+  <canvas id="gameCanvas"></canvas>
+
+  <script>
+    // ==== Get the canvas and 2D drawing context ====
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 800;
+    canvas.height = 600;
+
+    // ==== Utility Functions ====
+    const toRadians = (deg) => deg * Math.PI / 180;
+    const randomBetween = (min, max) => Math.random() * (max - min) + min;
+
+    // ==== Ship Class ====
+    class Ship {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = 15;         // Size of the ship
+        this.angle = 0;           // Direction the ship is pointing (degrees)
+        this.rotation = 0;        // How much to rotate each frame
+        this.thrust = { x: 0, y: 0 }; // Speed in X and Y direction
+        this.isThrusting = false;
+        this.bullets = [];        // Array to store bullets
+      }
+
+      rotate(direction) {
+        this.rotation = direction;
+      }
+
+      shoot() {
+        const angleRad = toRadians(this.angle);
+        const speed = 5;
+        const dx = Math.cos(angleRad) * speed;
+        const dy = Math.sin(angleRad) * speed;
+        this.bullets.push(new Bullet(this.x, this.y, dx, dy));
+      }
+
+      update() {
+        // Update angle
+        this.angle += this.rotation;
+
+        // Apply thrust if the ship is moving forward
+        if (this.isThrusting) {
+          const angleRad = toRadians(this.angle);
+          this.thrust.x += Math.cos(angleRad) * 0.1;
+          this.thrust.y += Math.sin(angleRad) * 0.1;
+        } else {
+          // Apply slight friction
+          this.thrust.x *= 0.99;
+          this.thrust.y *= 0.99;
+        }
+
+        // Move the ship
+        this.x += this.thrust.x;
+        this.y += this.thrust.y;
+
+        this.wrap(); // Wrap ship around screen edges
+
+        // Update bullets
+        this.bullets.forEach(bullet => bullet.update());
+        this.bullets = this.bullets.filter(bullet => !bullet.offscreen());
+      }
+
+      wrap() {
+        // Wrap around screen edges
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+
+      draw() {
+        // Draw the ship as a triangle
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(toRadians(this.angle));
+        ctx.beginPath();
+        ctx.moveTo(15, 0);
+        ctx.lineTo(-10, -10);
+        ctx.lineTo(-10, 10);
+        ctx.closePath();
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw bullets
+        this.bullets.forEach(bullet => bullet.draw());
+      }
+    }
+
+    // ==== Bullet Class ====
+    class Bullet {
+      constructor(x, y, dx, dy) {
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
+        this.life = 60; // Bullet disappears after 60 frames
+      }
+
+      update() {
+        this.x += this.dx;
+        this.y += this.dy;
+        this.life--;
+      }
+
+      offscreen() {
+        return (
+          this.x < 0 || this.x > canvas.width ||
+          this.y < 0 || this.y > canvas.height ||
+          this.life <= 0
+        );
+      }
+
+      draw() {
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // ==== Asteroid Class ====
+    class Asteroid {
+      constructor(x, y, radius = 40) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.dx = randomBetween(-1.5, 1.5);
+        this.dy = randomBetween(-1.5, 1.5);
+      }
+
+      update() {
+        this.x += this.dx;
+        this.y += this.dy;
+
+        // Wrap screen
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+
+      draw() {
+        ctx.strokeStyle = "white";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      isHit(bullet) {
+        const dx = this.x - bullet.x;
+        const dy = this.y - bullet.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        return distance < this.radius;
+      }
+    }
+
+    // ==== Game Class ====
+    class Game {
+      constructor() {
+        this.ship = new Ship(canvas.width / 2, canvas.height / 2);
+        this.asteroids = [];
+        this.createAsteroids(5); // Start with 5 asteroids
+        this.keys = {}; // Track which keys are pressed
+        this.bindKeys();
+        this.loop(); // Start the game loop
+      }
+
+      createAsteroids(count) {
+        for (let i = 0; i < count; i++) {
+          const x = randomBetween(0, canvas.width);
+          const y = randomBetween(0, canvas.height);
+          this.asteroids.push(new Asteroid(x, y));
+        }
+      }
+
+      bindKeys() {
+        // Keyboard input handling
+        document.addEventListener("keydown", (e) => {
+          this.keys[e.key] = true;
+          if (e.key === " ") this.ship.shoot(); // Shoot with spacebar
+        });
+
+        document.addEventListener("keyup", (e) => {
+          this.keys[e.key] = false;
+        });
+      }
+
+      handleInput() {
+        // Rotate ship with arrow keys
+        if (this.keys["ArrowLeft"]) this.ship.rotate(-5);
+        else if (this.keys["ArrowRight"]) this.ship.rotate(5);
+        else this.ship.rotate(0);
+
+        // Move forward with arrow up
+        this.ship.isThrusting = !!this.keys["ArrowUp"];
+      }
+
+      update() {
+        this.handleInput();
+        this.ship.update();
+        this.asteroids.forEach(a => a.update());
+
+        // Check bullet-asteroid collisions
+        this.ship.bullets.forEach((bullet, bIndex) => {
+          this.asteroids.forEach((asteroid, aIndex) => {
+            if (asteroid.isHit(bullet)) {
+              this.ship.bullets.splice(bIndex, 1); // Remove bullet
+              this.asteroids.splice(aIndex, 1);    // Remove asteroid
+            }
+          });
+        });
+      }
+
+      draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear screen
+        this.ship.draw();
+        this.asteroids.forEach(a => a.draw());
+      }
+
+      loop = () => {
+        this.update();
+        this.draw();
+        requestAnimationFrame(this.loop); // Repeat
+      }
+    }
+
+    // ==== Start the game! ====
+    new Game();
+  </script>
+</body>
+</html>

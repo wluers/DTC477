@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 9: Objects</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html"><div class="course-info">DTC 477: Advanced Web Design & Development</div></a>
+    <nav class="main-nav">
+      <a href="syllabus.html">Syllabus</a>
+      <a href="index.html">Modules</a>
+      <a href="projects.html">Projects</a>
+      <a href="tutorials.html">Tutorials</a>
+    </nav>
+  </header>
+
+  <main class="module-page">
+    <h1>Week 9: Objects</h1>
+
+    <h3>To Do This Week:</h3>
+Work on Map Projects...
+
+<hr>
+
+<h3>Module Notes</h3>
+Elit projects - add your name and project name! also, instructions if the interface makes it unclear what to do
+<h4>Map Project</h4>
+<a href="https://will-luers.com/DTC/dtc477/map-projects-477-spring2025.html">Map Projects List</a>
+
+<strong><span style="color: #ff0000;">Map Project DUE Monday March 19th</span></strong>
+<h4>Grading Criteria:</h4>
+<ul>
+  <li>Effort in scripting and utilizing the MapBox API</li>
+  <li>JS steps articulated in the script (please break lines!)</li>
+  <li>Interaction design quality</li>
+  <li>Applied Visual hierarchy&nbsp;</li>
+</ul>
+<h4>Requirements:</h4>
+<ul>
+  <li><strong>Markers:</strong> Ensure your map contains a minimum of 5 markers.</li>
+  <li><strong>Functional JavaScript:</strong> Verify that your Map's JavaScript functions properly and is free of errors. Check the console for any issues.&nbsp;</li>
+  <li><strong>User Experience:</strong> Design the map's interaction with the user in mind. Ensure clarity and accessibility in interactions.</li>
+  <li><strong>Color Scheme:</strong> Maintain a harmonious color scheme across the map and page elements.</li>
+  <li><strong>Visual Hierarchy:</strong> Implement thoughtful typography and graphic elements with clear visual hierarchy.</li>
+  <li><strong>Image Presentation:</strong> Ensure images are proportionally presented within the narrative.</li>
+  <li><strong>Project Comments:</strong> Include comments in the <code>&lt;script&gt;</code> section for your natural language steps,&nbsp; and any info about how you used ChatGPT.</li>
+  <li><strong>JavaScript Comments:</strong> Add your own comments within your script to describe the purpose of the JavaScript statements.</li>
+  <li><strong>Folder Structure:</strong> Upload your project in a folder named "map", including the "index.html" file, external JavaScript file if applicable, and the images folder.</li>
+  <li><strong>Submission Check:</strong> Before submission, verify that the your project url works correctly. Validate and then submit the working URL to Canvas.</li>
+  <li><strong>Communication for Delays:</strong> If you anticipate being late with your project submission, notify me via Slack beforehand with your expected completion time.</li>
+</ul>
+<h4>JS Review:</h4>
+<ul>
+  <li><a href="http://www.w3schools.com/js/js_statements.asp">Statements</a></li>
+  <li><a href="http://www.w3schools.com/js/js_variables.asp">Variables</a></li>
+  <li><a href="http://www.w3schools.com/js/js_datatypes.asp">Data Types:</a> Strings, numbers, booleans, arrays</li>
+  <li><a href="http://www.w3schools.com/js/js_operators.asp">Basic Operators and “Shortcut” Operators</a></li>
+  <li><a href="http://www.w3schools.com/js/js_comparisons.asp">Comparison Operators</a></li>
+  <li><a href="http://www.w3schools.com/js/js_arrays.asp">Arrays</a></li>
+  <li><a href="http://www.w3schools.com/js/js_comments.asp">JavaScript Commenting</a></li>
+  <li><a href="http://www.w3schools.com/js/js_object_definition.asp">Objects / Methods / Properties</a></li>
+  <li><a href="http://www.w3schools.com/js/js_functions.asp">Functions</a></li>
+  <li><a href="http://www.w3schools.com/js/js_loop_for.asp">For Loops</a></li>
+  <li><a href="http://www.w3schools.com/js/js_loop_while.asp">While Loops</a></li>
+  <li><a href="http://www.w3schools.com/js/js_if_else.asp">Conditional Statements</a></li>
+  <li><a href="http://www.w3schools.com/js/js_scope.asp">Scope</a></li>
+</ul>
+<h4>In-Class Exercise:</h4>
+<a href="https://will-luers.com/DTC/dtc477/midterm-js-review.html">JS step-by-step</a>
+
+<hr>
+
+<h4>Objects and Classes:</h4>
+<em>Object Literal</em> (simple object):
+<pre>let dog = { 
+   name: "Buddy", 
+   breed: "Golden Retriever", 
+   age: 3, 
+   bark: function() { 
+      console.log("Woof!"); 
+   } 
+};
+</pre>
+<em>Object Constructor</em> (an abstract object to generate specific "instances" of a dog):
+<pre>function Dog(name, breed, age) {
+   this.name = name;
+   this.breed = breed;
+   this.age = age;
+   this.bark = function() {
+      console.log("Woof!");
+   };
+}
+
+let myDog = new Dog("Buddy", "Golden Retriever", 3);
+</pre>
+<em>Instantiation</em> of the Map object from the MapBox API:
+<pre>let map = new mapboxgl.Map({
+   container: 'map',
+   style: 'mapbox://styles/mapbox/satellite-v9',
+   center: [-119.262833, 46.329140], // starting position [lng, lat]
+   zoom: 5 // starting zoom
+});
+</pre>
+<em>Object Constructor</em> (a template for creating multiple objects with similar properties and methods):
+<pre>function Mealplanner(breakfast, lunch, dinner) {
+   this.breakfast = breakfast;
+   this.lunch = lunch;
+   this.dinner = dinner;
+   this.message = function() {
+      alert("Bon appetit!");
+   };
+}
+
+let myMeals = new Mealplanner("bagel", "soup", "chicken");
+</pre>
+<em>Classes</em> (a more convenient way to write code that in pre-ES6 would be more complex):
+<pre>class Dog { 
+   constructor(name, breed, age) { 
+      this.name = name; 
+      this.breed = breed; 
+      this.age = age; 
+   } 
+   bark() { 
+      console.log("Woof!"); 
+   } 
+}
+
+let myDog = new Dog("Buddy", "Golden Retriever", 3);
+</pre>
+<h4>in-class exercise</h4>
+<a href="http://will-luers.com/DTC/dtc477/midterm-js-review-object-empty.html">JS Object review</a>
+
+<hr>
+
+WORKSHOP
+  </main>
+  <footer class="site-footer">
+  <div class="footer-content">
+    <p>DTC 477: Advanced Web Design & Development</p>
+    <p>
+      <a href="mailto:youremail@university.edu">Contact Instructor</a> |
+      <a href="https://youruniversity.edu" target="_blank">University Home</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

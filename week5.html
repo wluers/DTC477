@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 5: Audio/Video API</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html"><div class="course-info">DTC 477: Advanced Web Design & Development</div></a>
+    <nav class="main-nav">
+      <a href="syllabus.html">Syllabus</a>
+      <a href="index.html">Modules</a>
+      <a href="projects.html">Projects</a>
+      <a href="tutorials.html">Tutorials</a>
+    </nav>
+  </header>
+
+  <main class="module-page">
+    <h1>Week 5: Audio/Video API</h1>
+
+    <h3>To Do This Week:</h3>
+Start <strong>Javascript Codecademy #2</strong> (<span style="color: #ff0000;"><strong>DUE February 19</strong></span>)
+
+<hr>
+
+<a href="https://github.com/features/copilot?utm_campaign=copilot_free_jan_tl_dr_newsletter&amp;utm_medium=newsletter&amp;utm_source=Newsletter">GitHub Co-pilot is now a free -</a> you need a GitHub repository&nbsp;
+<h3>Research Paper&nbsp;</h3>
+<h4><span style="font-weight: 400;">Learning JavaScript with AI: Thinking Like a Coder Before Writing Code</span></h4>
+<span style="font-weight: 400;">This is your chance to </span><b>co-author a real academic paper</b><span style="font-weight: 400;">, sharing your perspective on learning with AI. Your experience—whether positive, negative, or mixed—matters. We can explore what AI can and can’t do in learning programming.</span>
+
+To track your learning, we’ll be using AI not just for coding but for conversation and reflection. Midway through the course and at the end, you’ll have a <b>guided chat</b> where you’ll reflect on what’s working, what’s challenging, and how your understanding of JavaScript is evolving. These chats will generate summaries that you’ll revise into short essays, and together, we will turn this into a paper about AI-assisted learning.
+
+<a href="https://docs.google.com/document/d/1XQgUr3cOYCi9oIlfoQhaqTmCYTJf-bF5a8ch1hUdM64/edit?tab=t.0">&gt;&gt;LINK to Google Doc</a>
+
+<hr>
+
+<h3>Review</h3>
+Loops: for loop, while loop, do/while loop
+
+Iterating through array: forEach() / map()
+<pre>let fruits = ["apple", "strawberry", "banana"];
+<strong>
+//forEach() with arrow function</strong>
+<span style="font-family: inherit;">fruits.forEach((fruit, index, array) =&gt; {
+</span>    if (fruit.endsWith("y")) {
+      array[index] = fruit.slice(0, -1) + "ies";
+    } else {
+    array[index] = fruit + "s";
+}
+});
+<span style="font-family: inherit;">console.log(fruits); // ["apples", "strawberries", "bananas"]&nbsp;</span></pre>
+<pre>let fruits = ["apple", "strawberry", "banana"];
+
+let pluralFruits = fruits.map(fruit =&gt; {
+  if (fruit.endsWith("y")) {
+    return fruit.slice(0, -1) + "ies";
+  } else {
+  return fruit + "s";
+}
+});
+
+console.log(fruits); // ["apple", "strawberry", "banana"] (unchanged)
+console.log(pluralFruits); // ["apples", "strawberries", "bananas"]</pre>
+<a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyouCOMPLEX-new2.html">Complex Example</a>
+
+<a href="http://will-luers.com/DTC/dtc477/student-pairings.html">Student Pairings</a>
+
+Inclass Coding
+<h3>New Stuff</h3>
+<ul>
+  <li>How to think inside the browser...</li>
+  <li>External scripts: <code>&lt;script src="myScript.js"&gt;&lt;/script&gt;</code></li>
+  <li>Inserting HTML content: <code><code>document.querySelector("#demo").innerHTML = "Paragraph changed."</code></code>document.querySelector("#demo").innerHTML += "Additional contact added."</li>
+  <li><a href="https://www.w3schools.com/jsref/dom_obj_style.asp">Style property:</a> Manipulating CSS with JS</li>
+  <li><a href="https://www.w3schools.com/css/css3_animations.asp">CSS animation</a> and JS: <a href="https://www.w3schools.com/jsref/prop_element_classlist.asp">add/remove classes</a></li>
+  <li><a href="https://www.w3schools.com/jsref/met_win_settimeout.asp">setTimeout</a>, <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval</a>: Timed execution</li>
+  <li><a href="https://www.w3schools.com/jsref/met_win_scrollto.asp">window.scrollTo()</a>: Scrolling control</li>
+  <li>Graphic elements: <a href="https://www.w3schools.com/howto/howto_js_progressbar.asp">progress bar</a>, <a href="https://www.w3schools.com/howto/howto_js_rangeslider.asp">range slider</a>, <a href="https://www.w3schools.com/howto/howto_css_flip_card.asp">flip card</a></li>
+  <li><a href="https://www.w3schools.com/jsref/prop_loc_href.asp">reload page</a>: location.<span class="jspropertycolor">href</span>&nbsp;=&nbsp;<span class="jsstringcolor">"currentpage.html"</span>;</li>
+</ul>
+<h3>Random Numbers:</h3>
+Generate a random number in a range:
+<pre>// Random generator
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+getRandomInt(5, 10);
+</pre>
+<h3>Audio/Video Element &amp; JavaScript:</h3>
+Important notes:
+<ul>
+  <li>Chrome requires user interaction (e.g., a click) before video or audio can play.</li>
+  <li>Learn more about <a href="https://www.w3schools.com/html/html5_video.asp">Video</a> and <a href="https://www.w3schools.com/html/html5_audio.asp">Audio</a> elements.</li>
+  <li><a href="https://www.w3schools.com/tags/ref_av_dom.asp">Audio/Video DOM reference</a></li>
+  <li><a href="https://www.w3schools.com/howto/howto_css_fullscreen_video.asp">fullscreen video</a>, <a href="https://www.w3schools.com/css/css_rwd_videos.asp">responsive videos</a></li>
+</ul>
+Examples:
+<ul>
+  <li><a href="https://will-luers.com/DTC/dtc477/av-javascript/video-pair.html">Video Pair</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/av-javascript/video-timer.html">Video Timer</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/av-javascript/video-menu.html">Video Menu</a></li>
+</ul>
+
+<hr>
+
+<h3>In-class Exercise</h3>
+<h4>Code samples</h4>
+Jump to a Specific Time:
+<pre>videoElement.<span class="hljs-property">currentTime</span> = <span class="hljs-number">10</span>; <span class="hljs-comment">// Jumps to 10 seconds </span></pre>
+Sync Audio and Video (or Multiple Videos)
+<pre>audioElement.<span class="hljs-property">currentTime</span> = videoElement.<span class="hljs-property">currentTime</span>;</pre>
+Slow Down or Speed Up Playback
+<pre>videoElement.<span class="hljs-property">playbackRate</span> = <span class="hljs-number">2.0</span>; <span class="hljs-comment">// Double speed </span> videoElement.<span class="hljs-property">playbackRate</span> = <span class="hljs-number">0.5</span>; <span class="hljs-comment">// Half speed </span></pre>
+Trigger Events at Specific Timestamps
+<pre>videoElement.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"timeupdate"</span>, <span class="hljs-function">() =&gt;</span> { <span class="hljs-keyword">if</span> (videoElement.<span class="hljs-property">currentTime</span> &gt; <span class="hljs-number">5</span> &amp;&amp; videoElement.<span class="hljs-property">currentTime</span> &lt; <span class="hljs-number">6</span>) { <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Triggered at 5 seconds!"</span>); } });</pre>
+<strong>Loop Only a Certain Section of the Video</strong>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950">
+<div class="sticky top-9 md:top-[5.75rem]">
+<div class="absolute bottom-0 right-2 flex h-9 items-center">
+<pre class="flex items-center rounded bg-token-sidebar-surface-primary px-2 font-sans text-xs text-token-text-secondary dark:bg-token-main-surface-secondary">videoElement.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"timeupdate"</span>, <span class="hljs-function">() =&gt;</span> { <span class="hljs-keyword">if</span> (videoElement.<span class="hljs-property">currentTime</span> &gt; <span class="hljs-number">10</span>) { videoElement.<span class="hljs-property">currentTime</span> = <span class="hljs-number">5</span>; <span class="hljs-comment">// Loops back </span> } });</pre>
+</div>
+</div>
+<div class="overflow-y-auto p-4" dir="ltr">Play/Pause the Video</div>
+<pre dir="ltr">videoElement.<span class="hljs-title function_">play</span>(); videoElement.<span class="hljs-title function_">pause</span>();</pre>
+</div>
+Restart Video from the Beginning
+<pre>videoElement.<span class="hljs-property">currentTime</span> = <span class="hljs-number">0</span>; videoElement.<span class="hljs-title function_">play</span>();</pre>
+Toggle Play/Pause with One Button
+<pre><span class="hljs-keyword">if</span> (videoElement.<span class="hljs-property">paused</span>) { videoElement.<span class="hljs-title function_">play</span>(); } <span class="hljs-keyword">else</span> { videoElement.<span class="hljs-title function_">pause</span>(); }</pre>
+Mute/Unmute Video
+<pre>videoElement.<span class="hljs-property">muted</span> = <span class="hljs-literal">true</span>; <span class="hljs-comment">// Mute </span> videoElement.<span class="hljs-property">muted</span> = <span class="hljs-literal">false</span>; <span class="hljs-comment">// Unmute </span></pre>
+Play Video in a Loop
+<pre>videoElement.<span class="hljs-property">loop</span> = <span class="hljs-literal">true</span>;</pre>
+Timestamps as Object Literal
+<pre><span class="hljs-keyword">const</span> lyrics = [ 
+{ <span class="hljs-attr">time</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">"First line of the song"</span> }, 
+{ <span class="hljs-attr">time</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">"Second line of the song"</span> }
+];</pre>
+<h4>&nbsp;</h4>
+<h4>&nbsp;</h4>
+<h4>Audio/Video Challenge</h4>
+<a href="http://will-luers.com/DTC/dtc477/student-pairings.html">Student Pairings</a>
+
+<strong style="font-family: inherit;">Select One of the Challenges below. </strong>You are to use these in a web page with Javascript. Pick one of the challenges and create a solution by thinking through step by step what you want the script to do. Use JavaScript language in your steps.The focus is on Javascript not on design with CSS.
+
+<a href="https://will-luers.com/DTC/dtc477/sandbox-media.zip">Download this ZIP folder</a> for sample video/audio files.
+
+<a href="https://will-luers.com/DTC/dtc477/alineddude2.zip">Alien guy ZIP folder</a>
+
+<strong style="font-family: inherit;">Main Concepts</strong><span style="font-family: inherit;">: Audio/Video elements, DOM manipulation, event listeners, and time-based updates.</span>
+
+&nbsp;
+<h4>1. Video &amp; Audio Tag Filter (Sort &amp; Display by Category)</h4>
+<strong>Challenge:</strong> Create a system where users can filter and display audio or video clips based on <strong>categories or tags</strong> (e.g., "spooky," "happy" "sad").
+Users select a tag, and only matching media clips appear on the page.
+
+When the user selects a category, the script dynamically updates the display, filtering the video or audio elements accordingly.
+
+Could be used for <strong>media libraries, educational video sorting, or interactive storytelling experiences</strong>.
+
+<hr>
+
+<h4><strong>2. Custom Video Player with Interactive Features</strong></h4>
+<strong>Challenge:</strong> Build a <strong>custom video player</strong> with additional features beyond the basic play/pause buttons.
+Allow users to control playback, change speed, apply effects, or modify audio/video settings dynamically.
+
+The player could include:
+<ul>
+  <li>Speed controls (slow motion, fast-forward).</li>
+  <li>Visual effects (CSS filters, color shifts, glitch effects).</li>
+  <li>Custom buttons for unique interactions (e.g., "Invert Colors," "Echo Audio").</li>
+</ul>
+Could be used to <strong>create a uniquely styled video experience, an interactive film, or a themed media player</strong>.
+
+<hr>
+
+<h4><strong>3. Time &amp; Scroll-Based Interactive Triggers</strong></h4>
+<strong>Challenge:</strong> Create an interactive experience where <strong>videos and/or sounds trigger events</strong> based on <strong>time in a video or scrolling on a webpage</strong>.
+
+The script detects <strong>either the user's scroll position or specific timestamps in a video/audio file</strong>, then <strong>modifies HTML elements</strong>, <strong>plays sounds</strong>, or <strong>adds animations</strong> dynamically.
+
+Could be used for <strong>interactive lectures, storytelling, or music-driven visual effects</strong>.
+
+<hr>
+
+<h4><strong>4. Video Audio Remix (Swap, Mix, or Manipulate Sounds)</strong></h4>
+<strong>Challenge:</strong> Allow users to <strong>swap background audio tracks</strong> for different moods while watching the same video.
+The script should sync the video with different audio files, letting users <strong>change the vibe on the fly</strong>.
+
+Users can pick between multiple <strong>audio tracks</strong> (e.g., "Lo-fi Chill," "Synthwave," "Epic Orchestral") and swap them in real time.
+
+Could be used for <strong>remixing experiences, interactive film scoring, or dynamic sound experimentation</strong>.
+
+<hr>
+
+<h4><strong>5. Video Memory Challenge (What Did You See?)</strong></h4>
+<strong>Challenge:</strong> Create a <strong>memory game</strong> where users watch a short video clip that then disappears. Afterward, they must <strong>recall and name objects</strong> or details from the video.
+
+The script plays the video for a set time, then hides it and prompts the user with <strong>multiple-choice questions</strong> or an input field to test their memory.
+
+Could be used for <strong>observation training, quick-recall challenges, or educational memory tests</strong>.
+
+
+  </main>
+  <footer class="site-footer">
+  <div class="footer-content">
+    <p>DTC 477: Advanced Web Design & Development</p>
+    <p>
+      <a href="mailto:youremail@university.edu">Contact Instructor</a> |
+      <a href="https://youruniversity.edu" target="_blank">University Home</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

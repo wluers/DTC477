@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 3:Functions, Arrays & Loops</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html"><div class="course-info">DTC 477: Advanced Web Design & Development</div></a>
+    <nav class="main-nav">
+      <a href="syllabus.html">Syllabus</a>
+      <a href="index.html">Modules</a>
+      <a href="projects.html">Projects</a>
+      <a href="tutorials.html">Tutorials</a>
+    </nav>
+  </header>
+
+  <main class="module-page">
+    <h1>Week 3: Functions, Arrays & Loops</h1>
+
+    <h3>To Do This Week:</h3>
+<strong>CodeAcademy:</strong> Complete the following lessons (not the projects) from the <a href="https://www.codecademy.com/learn/introduction-to-javascript">Learn JavaScript</a> module:
+<ol>
+  <li><em>"Functions"</em></li>
+  <li><em>"Scope"</em></li>
+  <li><em>"Arrays"</em></li>
+  <li><em>"Loops"</em></li>
+</ol>
+<strong>Optional Reading:</strong> Chapters from <a href="http://eloquentjavascript.net/index.html">Eloquent JavaScript</a>:
+<ul>
+  <li><a href="http://eloquentjavascript.net/03_functions.html">Functions</a></li>
+  <li><a href="http://eloquentjavascript.net/04_data.html">Data Structures: Objects and Arrays</a></li>
+  <li><a href="http://eloquentjavascript.net/05_higher_order.html">Higher-order Functions</a></li>
+  <li><a href="http://eloquentjavascript.net/06_object.html">The Secret Life of Objects</a></li>
+</ul>
+<strong>Hangman Game</strong> (complete with CSS design) (<span style="color: #ff0000;"><strong>Due January 22</strong></span>)
+
+<strong>JavaScript Codecademy #1</strong> (<span style="color: #ff0000;"><strong>DUE January 29</strong></span>)
+
+<hr>
+
+<h3>Module Notes</h3>
+<h4><strong>Opening the Console:</strong></h4>
+<ul>
+  <li>Windows: <strong>Ctrl-Shift-J</strong></li>
+  <li>Mac: <strong>Cmd-Option-J</strong></li>
+  <li>Open <a href="http://will-luers.com/DTC/dtc477/intro-javascript-circle-animation.html">Circles Script</a>&nbsp; and make an error</li>
+  <li>Check error with console</li>
+</ul>
+<h4>Functions, Arrays &amp; Loops:</h4>
+<ul>
+  <li><a href="https://www.w3schools.com/js/js_loop_for.asp">For Loops</a>, <a href="https://www.w3schools.com/js/js_loop_while.asp">While Loops</a></li>
+  <li><a href="https://www.w3schools.com/js/js_functions.asp">Functions</a></li>
+  <li><a href="https://www.w3schools.com/js/js_arrays.asp">Nested Arrays</a></li>
+</ul>
+<h4>Tutorial 2:&nbsp;</h4>
+<ul>
+  <li>Quick review: &nbsp;<a href="https://will-luers.com/DTC/dtc477/js-module1/js-lesson1-game.html">JS Game 1</a></li>
+  <li><a href="http://will-luers.com/DTC/dtc477/intro-javascript-circle-animation-letters.html">Circles Script – Letters</a> - how insert into circles</li>
+  <li><a href="https://will-luers.com/DTC/dtc477/js-module2/js-demo-lesson2.html">JS 2</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/js-module2/js-lesson2-game.html">JS Game 2</a></li>
+</ul>
+
+<hr>
+
+<h4>Traversing the DOM:</h4>
+Methods to access and manipulate elements on a webpage:
+<ul>
+  <li><a href="https://www.w3schools.com/jsref/met_document_queryselector.asp">document.querySelector()</a></li>
+  <li><a href="https://www.w3schools.com/jsref/met_document_queryselectorall.asp">document.querySelectorAll()</a></li>
+  <li><a href="https://www.w3schools.com/jsref/met_document_getelementbyid.asp">document.getElementById()</a></li>
+  <li><a href="https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp">document.getElementsByClassName()</a></li>
+</ul>
+<h4>Inserting HTML into specific elements:</h4>
+<a href="https://www.w3schools.com/jsref/prop_html_innerhtml.asp">innerHTML</a>
+<pre><code>div.innerHTML = "Hi, there.";</code></pre>
+<h4>Events:</h4>
+<ul>
+  <li><a href="https://www.w3schools.com/jsref/met_element_addeventlistener.asp">addEventListener()</a></li>
+</ul>
+<h4>Math.random:</h4>
+Learn generative/random scripting with <a href="http://www.w3schools.com/jsref/jsref_random.asp">Math.random</a>
+
+Useful short-cut function to generate a random number:
+<pre><code>function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+let x = getRandomInt(0, 20);</code></pre>
+
+<hr>
+
+<h3>In-class Exercise</h3>
+<a href="http://will-luers.com/DTC/dtc477/student-pairings4.html">Student Pairings</a>
+
+Make up a Generative Art work like the <a href="http://will-luers.com/DTC/dtc477/intro-javascript-circle-animation.html">Circles Script.</a>
+
+<hr>
+
+<h3>Hangman Part 1</h3>
+<p>Tba...</p>
+
+<hr>
+
+<h3>Interactive Website: 5%
+<strong style="color: #ff0000; font-family: inherit; font-size: 16px;">DUE: February 5&nbsp;</strong></h3>
+This assignment is designed to bring together your understanding of basic syntax, variables, conditionals, arrays, functions, and loops in JavaScript. The key objective is to create a dynamic website that allows for user interaction, resulting in changes on the webpage without altering the URL.
+
+<strong>*In all projects in this class you will include in the source code the natural language steps of your script whether you use ChatGPT or not. </strong>Add your commented out ( /*…*/ ) steps in a numbered list inside the &lt;script&gt; tag.&nbsp;
+<h4>Suggested Ideas for Your Website</h4>
+<ul>
+  <li><strong>Interactive Quiz</strong>: A simple quiz where users answer questions, and get immediate feedback.</li>
+  <li><strong>Dynamic Photo Gallery</strong>: A gallery where users can filter or sort images based on categories.</li>
+  <li><strong>To-Do List</strong>: A task manager where users can add, mark, and delete tasks.</li>
+  <li><strong>Customizable Timer</strong>: A timer where users can set and start a countdown for various activities.</li>
+  <li><strong>A Digital Art Work:</strong> User interactivity creates dynamic displays of image, text, sound and/or video. The weirder the better.</li>
+</ul>
+<h4>Working with ChatGPT</h4>
+Sketch your idea on paper or figma. Get a visualization of how things are going to work. Then try to write the scripting steps in natural language. Once you have your idea and the steps outlined, you will work with ChatGPT to refine and script your interactive elements. Here's how to proceed:
+<ol>
+  <li><strong>Describe Your Idea</strong>: Clearly describe your website idea and its layout to ChatGPT so you&nbsp; can quickly create an HTML structure to work with. Keep it simple!</li>
+  <li><strong>Detail Your JavaScript Steps</strong>: Explain the interactive elements and the steps you think are needed to implement them in JavaScript. Ask for help in the chat to convert your steps in into JavaScript.&nbsp;</li>
+  <li><strong>Start Coding</strong>: Begin scripting each step. ChatGPT will guide you, provide hints, and correct your code. You have to ask for how you want help!</li>
+  <li><strong>Iterative Learning</strong>: This process is iterative. You may not get everything right the first time, and that's okay! The goal is to learn and improve.</li>
+</ol>
+Remember, the key to this assignment is not just to write code but to understand the thought process behind scripting interactive elements on a webpage.
+
+  </main>
+  <footer class="site-footer">
+  <div class="footer-content">
+    <p>DTC 477: Advanced Web Design & Development</p>
+    <p>
+      <a href="mailto:youremail@university.edu">Contact Instructor</a> |
+      <a href="https://youruniversity.edu" target="_blank">University Home</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

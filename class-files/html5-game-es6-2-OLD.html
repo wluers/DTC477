@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Canvas Game Intro</title>
+  <style>
+    canvas {
+      border: 1px solid #d3d3d3;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body onload="startGame()">
+
+<!-- Control button (hold to fly) -->
+<br>
+<button onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">ACCELERATE</button>
+<p>Use the ACCELERATE button to stay in the air</p>
+<p>How long can you survive?</p>
+
+    <script>
+      // === Game State Variables ===
+      let player;
+      let obstacles = [];
+      let score;
+
+      // === Game Component Class ===
+      // This class handles both visual elements (like the player and obstacles)
+      // and text (like the score). It uses canvas drawing methods.
+      class Component {
+        constructor(width, height, color, x, y, type) {
+          this.type = type; // 'text' or 'box'
+          this.width = width;
+          this.height = height;
+          this.color = color;
+          this.x = x;
+          this.y = y;
+          this.speedX = 0;
+          this.speedY = 0;
+          this.gravity = 0;
+          this.gravitySpeed = 0;
+          if (this.type === 'text') {
+            this.text = '';
+          }
+        }
+
+        // Draw the component on the canvas
+        update() {
+          const ctx = gameArea.context;
+          // Set the canvas font using the 'width' and 'height' as parts of the font string.
+          // ctx.font = "size font" is how you add the info for the canvas font property
+          // In this case, 'width' is used as the font size (e.g., "30px")
+          // and 'height' is used as the font family (e.g., "Consolas")
+          // This results in a valid canvas font string: "30px Consolas" 
+          if (this.type === 'text') {
+            ctx.font = `${this.width} ${this.height}`;
+            ctx.fillStyle = this.color;
+            ctx.fillText(this.text, this.x, this.y);
+          } else {
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+          }
+        }
+
+        // Update the position based on speed and gravity
+        newPos() {
+          this.gravitySpeed += this.gravity;
+          this.x += this.speedX;
+          this.y += this.speedY + this.gravitySpeed;
+          this.hitTop();
+          this.hitBottom();
+        }
+
+        // Prevent player from falling through the bottom
+        hitBottom() {
+          const bottom = gameArea.canvas.height - this.height;
+          if (this.y > bottom) {
+            this.y = bottom;
+            this.gravitySpeed = 0;
+          }
+        }
+
+        // Prevent player from flying off the top
+        hitTop() {
+          if (this.y < 0) {
+            this.y = 0;
+            this.gravitySpeed = 0;
+          }
+        }
+
+        // Check for collision with another component (obstacle)
+        crashWith(other) {
+          const myLeft = this.x;
+          const myRight = this.x + this.width;
+          const myTop = this.y;
+          const myBottom = this.y + this.height;
+          const otherLeft = other.x;
+          const otherRight = other.x + other.width;
+          const otherTop = other.y;
+          const otherBottom = other.y + other.height;
+
+          // Return true if overlapping (a "crash")
+          return !(
+            myBottom < otherTop ||
+            myTop > otherBottom ||
+            myRight < otherLeft ||
+            myLeft > otherRight
+          );
+        }
+      }
+
+      // === Game Setup ===
+      function startGame() {
+        player = new Component(30, 30, 'red', 10, 120); // player box
+        player.gravity = 0.05; // simulate falling
+
+        score = new Component('30px', 'Consolas', 'black', 280, 40, 'text');
+        gameArea.start();
+      }
+
+      // === Game Area Object ===
+      const gameArea = {
+        canvas: document.createElement('canvas'),
+
+        start() {
+          this.canvas.width = 480;
+          this.canvas.height = 270;
+          this.context = this.canvas.getContext('2d');
+          document.body.insertBefore(this.canvas, document.body.firstChild);
+          this.frameNo = 0;
+          this.interval = setInterval(updateGameArea, 20); // game loop: 50 FPS
+        },
+
+        clear() {
+          this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        },
+
+        stop() {
+          clearInterval(this.interval);
+        }
+      };
+
+      // === Main Game Loop ===
+      function updateGameArea() {
+        // Check collisions
+        for (let obs of obstacles) {
+          if (player.crashWith(obs)) {
+            gameArea.stop(); // Game over!
+            return;
+          }
+        }
+
+        gameArea.clear(); // Clear previous frame
+        gameArea.frameNo++;
+
+        // Spawn new obstacles every 150 frames
+        if (gameArea.frameNo === 1 || everyInterval(150)) {
+          const x = gameArea.canvas.width;
+          const minHeight = 20;
+          const maxHeight = 200;
+          const height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+
+          const minGap = 50;
+          const maxGap = 200;
+          const gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+
+          // Top and bottom pipes
+          obstacles.push(new Component(10, height, 'green', x, 0));
+          obstacles.push(new Component(10, gameArea.canvas.height - height - gap, 'green', x, height + gap));
+        }
+
+        // Move obstacles left
+        for (let obs of obstacles) {
+          obs.x -= 1;
+          obs.update();
+        }
+
+        // Update score
+        score.text = `SCORE: ${gameArea.frameNo}`;
+        score.update();
+
+        // Update and draw player
+        player.newPos();
+        player.update();
+      }
+
+      // Check if frame number is divisible by n
+      function everyInterval(n) {
+        return gameArea.frameNo % n === 0;
+      }
+
+      // Gravity controller - makes the box rise or fall
+      function accelerate(n) {
+        player.gravity = n;
+      }
+    </script>
+
+</body>
+</html>

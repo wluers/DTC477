@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>What Thing Are You Quiz</title>
+	<style>
+		#submit  {margin-top: 20px;}
+		#answer  {display: none;position: fixed; right: 30%; top: 30%; width: 30%; border: 2px solid black; padding: 5%;}
+
+		  
+	</style>
+</head>
+<body>
+
+	<h1>What Stationary Item Are You? (Scale)</h1>
+
+	<form name="quiz">
+        
+        <section class="questions" id="quest1">
+           <h3>How do you see yourself?<br></h3>
+
+		  <div>  
+				<input TYPE="radio" NAME="question1" VALUE="1">Confidant
+		  </div>
+
+		   <div>
+				<input TYPE="radio" NAME="question1" VALUE="2">Curious
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question1" VALUE="3">Flexible
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question1" VALUE="4">Empathetic
+			</div>
+			
+		</section>
+			
+			
+			
+	    <section class="questions" id="quest2">
+           <h3>How are you with strangers?<br></h3>
+
+			   <div>  
+				  <input TYPE="radio" NAME="question2" VALUE="1">Skeptical
+			   </div>
+
+			   <div>
+				 <input TYPE="radio" NAME="question2" VALUE="2">Cautious
+			   </div>
+
+				<div>
+				  <input TYPE="radio" NAME="question2" VALUE="3">Gregarious
+				</div>
+				
+				<div>
+					<input TYPE="radio" NAME="question2" VALUE="4">Helpful
+				</div>
+			
+		</section>
+			
+			
+	    <section class="questions" id="quest3">
+           <h3>How do you describe your thinking style?<br></h3>
+
+		  <div>  
+				<input TYPE="radio" NAME="question3" VALUE="1">Analytical
+		  </div>
+
+		   <div>
+				<input TYPE="radio" NAME="question3" VALUE="2">Logical  
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question3" VALUE="3">Imaginative
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question3" VALUE="4">Associational
+			</div>
+			
+		</section>
+		
+		
+	    <section class="questions" id="quest4">
+           <h3>How do others see you?<br></h3>
+
+		  <div>  
+				<input TYPE="radio" NAME="question4" VALUE="1">Assertive
+		  </div>
+
+		   <div>
+				<input TYPE="radio" NAME="question4" VALUE="2">Critical
+		   </div>
+
+			<div>
+				<input TYPE="radio" NAME="question4" VALUE="3">Open
+			</div>
+			
+			<div>
+				<input TYPE="radio" NAME="question4" VALUE="4">Self-critical
+			</div>
+			
+		</section>
+	    
+	  
+			<div id="submit"> 
+			 	<input TYPE="button" VALUE="What are You?" onClick="computeForm(this.form)">
+			</div> 
+			
+			<div id="reset"> 
+			 	<input TYPE="button" VALUE="Reset" onClick="reset(this.form)">
+			</div> 
+    </form>
+    
+    <div id="answer"></div>
+    
+   <script>
+   
+   
+
+    function computeForm() {
+		    let active = 0, 
+		    	  analytical = 0, 
+		    	  expressive = 0, 
+		    	  inquisitive = 0;
+
+		    // Iterate over each question
+		    document.querySelectorAll('.questions').forEach(function(questionElement) {
+		        // Iterate over each radio input within the question
+		        questionElement.querySelectorAll('input[type="radio"]').forEach(function(inputElement) {
+		            if (inputElement.checked) {
+		                switch (inputElement.value) {
+		                    case "1":
+		                        active++;
+		                        break;
+		                    case "2":
+		                        analytical++;
+		                        break;
+		                    case "3":
+		                        expressive++;
+		                        break;
+		                    case "4":
+		                        inquisitive++;
+		                        break;
+		                }
+		            }
+		        });
+		    });
+
+		    let outwardValue = active - analytical;
+		    let inwardValue = expressive - inquisitive;
+		    let resultIndex = determineResult(outwardValue, inwardValue, active, analytical, expressive, inquisitive);
+
+		    // Assuming resultsArray is defined elsewhere in your script
+		    let result = resultsArray[resultIndex];
+		    displayResult(result);
+		}
+
+
+		function determineResult(outwardValue, inwardValue, active, analytical, expressive, inquisitive) {
+		    // Logic to determine the result based on the values
+		    // (This is a simplified example; adjust the logic to suit your quiz)
+		    if (outwardValue > 0 && inwardValue > 0) {
+		        return active >= expressive ? 0 : 1;
+		    } else if (outwardValue > 0 && inwardValue < 0) {
+		        return active >= inquisitive ? 2 : 3;
+		    } else if (outwardValue < 0 && inwardValue > 0) {
+		        return analytical >= expressive ? 4 : 5;
+		    } else if (outwardValue < 0 && inwardValue < 0) {
+		        return analytical >= inquisitive ? 6 : 7;
+		    } else if (outwardValue === 0 && inwardValue > 0) {
+		        return 8;
+		    } else if (outwardValue === 0 && inwardValue < 0) {
+		        return 9;
+		    } else if (outwardValue > 0 && inwardValue === 0) {
+		        return 10;
+		    } else if (outwardValue < 0 && inwardValue === 0) {
+		        return 11;
+		    } else {
+		        return 12; // Neutral or no clear result
+		    }
+		}
+
+		function displayResult(result) {
+		    document.getElementById("answer").style.display = "block";
+		    document.getElementById("answer").innerHTML = `<img src='${result[1]}' alt='${result[0]}'><br>You are ${result[0]}. ${result[2]}.`;
+		}
+
+		//computeForm(); // Call this function when the form is submitted
+
+		// Sample array for results
+		let resultsArray = [
+		    ['an exacto knife', 'img/exacto.png', 'You cut to the chase.'],
+		    ['scissors', 'img/scissors.png', 'You shape your own destiny.'],
+		    ['a stapler', 'img/stapler.png', 'You bring things together.'],
+		    ['a ruler', 'img/ruler.png', 'You measure twice, cut once.'],
+		    ['a magnifying glass', 'img/magnifying-glass.png', 'You focus on the details.'],
+		    ['a protractor', 'img/protractor.png', 'You see all the angles.'],
+		    ['a clipboard', 'img/clipboard.png', 'You keep everything in order.'],
+		    ['a mechanical pencil', 'img/mechanical-pencil.png', 'You’re precise and adaptable.'],
+		    ['a ballpoint pen', 'img/ballpoint-pen.png', 'You’re reliable and get the job done.'],
+		    ['a brush pen', 'img/brushpen.png', 'You create your own path.'],
+		    ['a highlighter', 'img/highlighter.png', 'You make the important things stand out.'],
+		    ['a fountain pen', 'img/fountain-pen.png', 'You bring elegance and flow.'],
+		    ['a sticky note', 'img/sticky-note.png', 'You leave thoughtful reminders for others.'],
+		    ['a roll of tape', 'img/tape.png', 'You hold things together when it matters.'],
+		    ['string', 'img/string.png', 'You know how to unwind.'],
+		    ['a notebook', 'img/notebook.png', 'You’re full of ideas waiting to be written.'],
+		    ['a sheet of paper', 'img/paper.png', 'You’re open to endless possibilities.'],
+		    ['an eraser', 'img/eraser.png', 'You’re not afraid to fix mistakes.'],
+		    ['a paperclip', 'img/paperclip.png', 'You connect and keep things in place.'],
+		    ['a bookmark', 'img/bookmark.png', 'You make sure nothing important gets lost.']
+		];
+    
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>

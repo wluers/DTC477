@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head> 
+<meta charset="utf-8">
+<style>
+body  {
+  padding: 0%;
+  margin: 0%;
+  overflow: hidden;
+  font-family: helvetica,sans-serif;
+  }
+  
+#wrapper  {
+  margin: 0 auto;
+  height:2000px;
+  }
+  
+.circle {
+  position: relative;
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;å
+  margin: 1%;
+  float: left;
+  border: 2px solid black;
+  position: relative;
+  opacity: .7;
+  font-size: 2em;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 60px; 
+  overflow: hidden;
+  background: url('gif/chaos.gif') center fixed;
+  background-size: cover;
+}
+
+
+.text {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+button {
+	position: fixed;
+	top: 5px;
+	right: 5px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+<button onclick="setCircles()">Run Function</button>
+
+<div id="wrapper">
+  <div class="circle"></div>
+</div>
+
+
+
+<script>
+
+	let wrapper = document.getElementById('wrapper');
+	
+
+	function  setCircles()  {
+		  for(let i=0; i<9; i++) {
+			  wrapper.insertAdjacentHTML('beforeend', '<div class="circle"></div>');
+		  }
+		  changeColors();
+		  let randInterval = Math.round(Math.random() * 2000);
+		  setInterval(changeColors, randInterval);
+	} 
+	
+	let colorcount = -1;
+	let usercolor = '#'+ Math.random().toString(16).substr(2,6); //prompt('Name your color:');
+	
+	function  changeColors()  {
+		  let letters = ['A', 'A','A','A','A','A','A','B','C','D','E', 'E','E','E','E','E','E','F', 'G', 'H','I', 'I', 'I', 'I', 'J','K','L','M','N','O','O','O','O','O','P','Q','R','S','Sh','T','Th','U', 'U','U','U','V','W','X','Y','Z'];
+		  //let letters2 = ['A','B','C'];
+		  //let colors = [usercolor, 'green', 'blue', 'yellow', 'orange', 'purple'];
+		  let colors  ='#'+Math.random().toString(16).substr(2,6);
+	      let circles = document.getElementsByClassName('circle');
+		  
+	     // colorcount++;
+	     // if (colorcount >= colors.length) { colorcount = 0; }
+        
+          wrapper.style.backgroundColor= colors; //colors[colorcount];
+    
+
+         for(let i = 0; i < circles.length; i++){
+         	let randmLetter = Math.round(Math.random() * letters.length);
+	        let randmcolor ='#'+Math.random().toString(16).substr(2,6);
+		 	let num1 = Math.round(Math.random() * 200);
+		 	let num2 = Math.round(Math.random() * 200);
+		 	let num3 = Math.round(Math.random() * 200);
+		 	let num4 = Math.round(Math.random() * 300)+10;
+		    let thisCircle = circles[i]; 
+		    thisCircle.style.backgroundColor = randmcolor;
+            thisCircle.style.top = num1 + 'px'; 
+            thisCircle.style.left = num2 + 'px'; 
+            thisCircle.style.zIndex = num3;
+
+            thisCircle.style.width = num4 + 'px'; 
+		    thisCircle.style.height= num4 + 'px'; 
+		    thisCircle.style.borderRadius = num4 + 'px'; 
+			  thisCircle.style.fontSize = num4.toString().substr(0,2) + 'em';
+		    thisCircle.innerHTML = '<p class="text">' + letters[randmLetter] + '</p>';
+            
+		 }
+               
+	
+	} //closes the changeColors() function 
+
+	
+
+
+</script>
+
+</body>
+</html>

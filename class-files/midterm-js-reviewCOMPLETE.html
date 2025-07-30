@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Step-by-Step</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; transition: background 0.5s ease; }
+        button { font-size: 16px; padding: 10px; cursor: pointer; }
+        #output { margin-top: 20px; font-size: 18px; }
+     
+    </style>
+</head>
+<body>
+    <h1>JavaScript Step-by-Step Learning</h1>
+    <button id="myButton">Click Me</button>
+    <p id="output">Click the button to change the background color.</p>
+    <input type="text" id="inputBox" placeholder="Type your answer...">
+    <button id="submit">Submit</button>
+    
+    <script>
+        //nested array of colors and messages
+        const colors = [
+            ["red", "Roses are red"],
+            ["blue", "Violets are blue"],
+            ["green", "Envy is green"]
+        ];
+
+        // use i as a counter to increment
+        let i = 0;
+
+        // Step 2: Select the button, output paragraph, and input elements
+        const button = document.querySelector("#myButton");
+        const output = document.querySelector("#output");
+          
+
+        // Step 3: Add an event listener to the button
+        button.addEventListener("click", changeBackground);
+
+        function changeBackground() {
+            // let i = counter % colors.length;
+            //check if "i" is the end of the array
+            if (i >= colors.length) {
+                i = 0;
+            }
+            //change background
+            document.body.style.backgroundColor = colors[i][0];
+            //change text
+            output.textContent = colors[i][1];
+            //increment count of i
+            i++;
+        }
+
+    </script>
+</body>
+</html>

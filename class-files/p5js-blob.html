@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ghost Blob Follower</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        background: black;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let blob;
+      let follow = true;
+      let timer = 0;
+      const followDuration = 5000; // 3 seconds follow
+      const wanderDuration = 2000; // 3 seconds wander
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        blob = new Blob(width / 2, height / 2);
+      }
+
+      function draw() {
+        background(0, 30); // ghost trail effect
+
+        if (millis() - timer > (follow ? followDuration : wanderDuration)) {
+          follow = !follow;
+          timer = millis();
+        }
+
+        if (follow) {
+          blob.follow(mouseX, mouseY);
+        } else {
+          blob.wander();
+        }
+
+        blob.update();
+        blob.show();
+      }
+
+      class Blob {
+        constructor(x, y) {
+          this.pos = createVector(x, y);
+          this.vel = createVector(0, 0);
+          this.acc = createVector(0, 0);
+          this.maxSpeed = 5;
+        }
+
+        follow(x, y) {
+          let target = createVector(x, y);
+          let force = p5.Vector.sub(target, this.pos);
+          force.setMag(0.5);
+          this.acc.add(force);
+        }
+
+        wander() {
+          let angle = random(TWO_PI);
+          let wanderForce = p5.Vector.fromAngle(angle);
+          wanderForce.setMag(0.2);
+          this.acc.add(wanderForce);
+        }
+
+        update() {
+          this.vel.add(this.acc);
+          this.vel.limit(this.maxSpeed);
+          this.pos.add(this.vel);
+          this.acc.mult(0);
+        }
+
+        show() {
+          noStroke();
+          fill(100, 200, 255, 150);
+          ellipse(this.pos.x, this.pos.y, 40 + sin(frameCount * 0.1) * 5);
+        }
+      }
+    </script>
+  </body>
+</html>

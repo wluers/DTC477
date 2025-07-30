@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Background Color</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      font-size: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Background Color</h1>
+  <p>Click the button to change the background color!</p>
+  <button id="colorButton" onclick="changeBackgroundColor()">Change Color</button>
+
+  <script>
+    // Define an array of colors
+    const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+    let paragraph = document.querySelector('p');
+
+    // Define the function to change the background color
+    function changeBackgroundColor() {
+      
+     // const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+      // Select a random color from the array
+      let currentColor = document.body.style.backgroundColor || "";
+      let randomColor;
+
+      
+/*      while(document.body.style.backgroundColor === randomColor) {
+          randomColor = colors[Math.floor(Math.random() * colors.length)];
+        }
+        document.body.style.backgroundColor = randomColor;*/
+      
+
+      // Ensure the new color is different from the current one
+      do {
+        randomColor = colors[Math.floor(Math.random() * colors.length)];
+      } while (randomColor === currentColor);
+
+      // Apply the new random color to the background
+      document.body.style.backgroundColor = randomColor;
+
+      // Update the paragraph to reflect the new color
+      paragraph.innerHTML = "The background color is now: " + randomColor;
+    
+    } // end function
+
+  </script>
+</body>
+</html>
+

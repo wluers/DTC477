@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Maze Line Follower</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        background: black;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let pos;         // Current position of the line
+      let dir;         // Direction vector (either up, down, left, or right)
+      let prevPos;     // Previous position to draw the line from
+      let stepSize = 10;           // How far the line moves each step
+      let changeInterval = 10;     // Change direction every N frames
+      let counter = 0;             // Frame counter
+
+      // p5.js setup function - runs once at start
+      function setup() {
+        createCanvas(windowWidth, windowHeight); // Full browser window canvas
+        background(0);                           // Black background
+        stroke(0, 255, 150);                     // Bright green stroke color
+        strokeWeight(2);                         // Thin line
+
+        // Start from the center
+        pos = createVector(width / 2, height / 2);
+
+        // Pick a random cardinal direction (90° increments)
+        dir = p5.Vector.fromAngle(random([0, HALF_PI, PI, PI + HALF_PI]));
+        dir.setMag(stepSize); // Set speed/distance per move
+
+        prevPos = pos.copy(); // Save the starting position
+      }
+
+      // p5.js draw function - runs every frame (60 FPS by default)
+      function draw() {
+        // Change direction every 'changeInterval' frames
+        if (counter % changeInterval === 0) {
+          if (movedRecently()) {
+            // If mouse has moved recently, head toward mouse in 90-degree steps
+            let toMouse = createVector(mouseX - pos.x, mouseY - pos.y);
+            let angle = toMouse.heading();
+
+            // Snap the direction to the nearest 90° (PI/2 radians)
+            let snapped = round(angle / HALF_PI) * HALF_PI;
+            dir = p5.Vector.fromAngle(snapped);
+          } else {
+            // Otherwise, choose a completely random 90° turn
+            let turn = random([0, HALF_PI, PI, PI + HALF_PI]);
+            dir = p5.Vector.fromAngle(turn);
+          }
+
+          dir.setMag(stepSize); // Maintain constant movement size
+        }
+
+        prevPos = pos.copy(); // Save current position before moving
+        pos.add(dir);         // Move in the current direction
+
+        // Wrap around screen edges
+        if (pos.x < 0) pos.x = width;
+        if (pos.x > width) pos.x = 0;
+        if (pos.y < 0) pos.y = height;
+        if (pos.y > height) pos.y = 0;
+
+        // Draw a line from the previous position to the current position
+        line(prevPos.x, prevPos.y, pos.x, pos.y);
+
+        counter++; // Increment the frame counter
+      }
+
+      let lastMouseMoved = 0; // Timestamp of last mouse move
+
+      // p5.js event: triggered whenever mouse is moved
+      function mouseMoved() {
+        lastMouseMoved = millis();
+      }
+
+      // Check if the mouse moved in the last second
+      function movedRecently() {
+        return millis() - lastMouseMoved < 1000;
+      }
+    </script>
+  </body>
+</html>

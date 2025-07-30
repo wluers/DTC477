@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 8: Object Literals, GeoJSON & MapBox</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html"><div class="course-info">DTC 477: Advanced Web Design & Development</div></a>
+    <nav class="main-nav">
+      <a href="syllabus.html">Syllabus</a>
+      <a href="index.html">Modules</a>
+      <a href="projects.html">Projects</a>
+      <a href="tutorials.html">Tutorials</a>
+    </nav>
+  </header>
+
+  <main class="module-page">
+    <h1>Week 8: Object Literals, GeoJSON & MapBox</h1>
+
+    <h3>To Do This Week:</h3>
+Gather info and plan Mapbox projects.
+
+<hr>
+
+<h3>Module Notes</h3>
+<h4>Elit Projects <span style="color: #ff0000;"><strong>DUE this Wed Feb 26</strong></span></h4>
+<a href="https://will-luers.com/DTC/dtc477/elit-477-spring2025.html">Elit project student list</a>
+<ul>
+  <li>Folder is "elit",&nbsp; use "index.html", no uppercase letter or spaces!</li>
+  <li>Always include a title, author name, and date on projects!</li>
+  <li>If needed, include an explanation for interaction.</li>
+  <li>Make your steps in the statement reflect the order for JS to build the script - use lists. No need to include HTML and CSS setup in the steps.</li>
+</ul>
+
+<hr>
+
+<h3>Map Project: <strong><span style="color: #ff0000;">DUE March 19</span></strong></h3>
+<a href="https://will-luers.com/DTC/dtc477/map-477-spring2025.html">Map project student list</a>
+
+Place <code>index.html</code> in a folder called <code>map</code>. Validate your HTML and CSS, then upload your project to a server. Submit the URL through your course management system.
+<h4>&nbsp;</h4>
+<h4>Student Map Projects:</h4>
+<ul>
+  <li><a href="https://dtc-wsuv.org/amelo20/map/">https://dtc-wsuv.org/amelo20/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/jnguyen23/map/">https://dtc-wsuv.org/jnguyen23/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/ashannon23/map/">https://dtc-wsuv.org/ashannon23/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/jstephens23/map/">https://dtc-wsuv.org/jstephens23/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/hgebhart23/map/">https://dtc-wsuv.org/hgebhart23/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/sguo23/map/">https://dtc-wsuv.org/sguo23/map/</a></li>
+  <li><a href="https://dtc-wsuv.org/nellis23/map/">https://dtc-wsuv.org/nellis23/map/</a></li>
+</ul>
+<h4>Map Ideas:</h4>
+Explore <a href="https://docs.mapbox.com/mapbox-gl-js/examples/">Mapbox GL JS examples</a>.
+<h4>Mapbox Styles:</h4>
+<a href="https://www.mapbox.com/designer-maps/">Mapbox Styles Gallery</a> | <a href="https://studio.mapbox.com/">Mapbox Studio</a>
+<h4>Objects, JSON, and Mapbox:</h4>
+<ul>
+  <li><a href="https://www.w3schools.com/js/js_json_intro.asp">Intro to JSON:</a> JavaScript Object Notation, used for storing and exchanging data.</li>
+  <li><a href="http://will-luers.com/DTC/dtc477/mapbox-markers/">Mapbox-markers-example</a> - Review GeoJSON</li>
+  <li><a href="http://will-luers.com/DTC/dtc477/mapbox-markers/alternate-map.html">Mapbox-markers alternate example</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/mapbox-markers.zip">Mapbox-markers-example-ZIP</a></li>
+</ul>
+<h4 data-start="177" data-end="315">&nbsp;</h4>
+<h4 data-start="177" data-end="315">Some Mapbox Examples</h4>
+<ol>
+  <li style="list-style-type: none;">
+<ol>
+  <li data-start="177" data-end="315"><strong data-start="177" data-end="203">Add a Clickable Marker</strong>: Learn how to add a marker to your map that responds to click events, displaying a popup with more information.&nbsp;
+URL:<a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/popup-on-click/?utm_source=chatgpt.com" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="368" data-end="487"><strong data-start="368" data-end="392">Add Multiple Markers</strong>: Discover how to add multiple markers to your map using GeoJSON data, each with custom popups.
+URL:<a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/help/tutorials/custom-markers-gl-js/?utm_source=chatgpt.com" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li><strong data-start="2542" data-end="2575">Add Custom Icons with Markers</strong>: Customize your map markers with unique icons to represent different types of data or points of interest.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/custom-marker-icons/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="540" data-end="679"><strong data-start="540" data-end="561">Fly to a Location</strong>: Use the <code data-start="571" data-end="578">flyTo</code> method to smoothly animate the map's camera to a new location upon an event, such as a button click.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/flyto/?utm_source=chatgpt.com" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="732" data-end="845"><strong data-start="732" data-end="762">Display a Map on a Webpage</strong>: Initialize and display a basic Mapbox map within an HTML element on your webpage.URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/simple-map/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="898" data-end="1037"><strong data-start="898" data-end="925">Add 3D Terrain to a Map</strong>: Enhance your map by incorporating 3D terrain using a raster terrain source for a more immersive visualization.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/add-terrain/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="1090" data-end="1245"><strong data-start="1090" data-end="1120">Display Navigation Directions</strong>: Utilize the Mapbox Directions API to show turn-by-turn driving directions on your map, offering interactive route guidance.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-directions/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="1298" data-end="1453"><strong data-start="1298" data-end="1327">Create a Draggable Marker</strong>: Add markers to your map that users can drag to different locations, useful for selecting points of interest or destinations.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/drag-a-marker/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="1506" data-end="1669"><strong data-start="1506" data-end="1541">Add a Geocoder (Search) Control</strong>: Incorporate a search box into your map, allowing users to find and zoom to addresses or places using the Mapbox Geocoding API.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="1722" data-end="1886"><strong data-start="1722" data-end="1755">Animate a Point Along a Route</strong>: Create animations that move a point smoothly along a predefined route, simulating movement such as a vehicle traveling on a path.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/animate-point-along-route/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="1940" data-end="2080"><strong data-start="1940" data-end="1966">Display Real-Time Data</strong>: Learn how to update your map dynamically with real-time data, such as live vehicle locations or sensor readings.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/live-geojson/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="2135" data-end="2256"><strong data-start="2135" data-end="2157">Cluster Point Data</strong>: Visualize large datasets by clustering point data, making your map more readable and interactive.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/cluster/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="2313" data-end="2485"><strong data-start="2313" data-end="2348">Filter Features Within Map View</strong>: Implement functionality to filter and display features that are within the current map view, enhancing performance and user experience.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="2313" data-end="2485"><strong style="font-family: inherit;" data-start="2738" data-end="2756">Draw a Polygon</strong><span style="font-family: inherit;">: Allow users to draw polygons on the map, which can be used for area selection or highlighting regions.
+</span>URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-draw/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+  <li data-start="2313" data-end="2485"><strong data-start="2917" data-end="2938">Measure Distances</strong>: Implement a tool that lets users measure distances between points on the map, useful for planning and analysis.
+URL: <a class="ml-1 inline-flex h-[22px] items-center rounded-xl bg-[#f4f4f4] px-2 text-[0.5em] font-medium text-token-text-secondary dark:bg-token-main-surface-secondary !text-token-text-secondary uppercase hover:bg-token-text-primary hover:!text-token-main-surface-secondary dark:hover:bg-token-text-primary group" href="https://docs.mapbox.com/mapbox-gl-js/example/measure/" target="_blank" rel="noopener"><span class="truncate">Mapbox Docs</span></a></li>
+</ol>
+</li>
+  <li style="list-style-type: none;">
+<h4>Design &amp; Development Process:</h4>
+<ol>
+  <li><strong>Choose a theme for your map-based narrative</strong>, such as a personal journey, historical exploration, or fictional adventure.</li>
+  <li><strong>Research MapBox API</strong>.&nbsp; What is possible?</li>
+  <li><strong>Sketch or storyboard the interaction of YOUR map</strong>. What is the best way to experience your map theme?</li>
+  <li><strong>Gather geolocations on Google Maps</strong> (right/control click to get long/lat and remember to reverse for MapBox.</li>
+  <li><strong>Create HTML and basic CSS with colored borders for the elements in the Map Project</strong>. Consider using CSS Grid, Flexbox, or position-fixed to place elements.For fixed body heights (no overflow), add the following CSS:
+<pre>html, body {
+  height: 100%;
+  overflow: hidden;
+}
+</pre>
+</li>
+  <li><strong>Plan the JavaScript steps for what you need</strong>. Keep it simple, but be detailed. Don't list features of the map interface. Think sequentially. To start you need a Geojson to hold necessary info, you need variables, etc.Then you need to think about what happens when the user interacts. What has to happen? What functions do you need?</li>
+  <li><strong>Build the very basics of the JavaScript</strong> (no effects or complex arrays) to ensure functionality. Try starting with just 3 locations.</li>
+  <li><strong>Add animations or transition effects</strong> using the <a href="https://www.w3schools.com/jsref/prop_element_classlist.asp">classList method</a> with <a href="https://www.w3schools.com/css/css3_animations.asp">CSS Animations</a> or <a href="https://www.w3schools.com/css/css3_transitions.asp">CSS transitions</a>.</li>
+  <li><strong>Add more markers, images, media, text, and graphic elements.</strong></li>
+  <li><strong>Complete CSS desig</strong>n for visual hierarchy.</li>
+  <li><strong>Test/Troubleshoot</strong></li>
+</ol>
+
+<hr>
+
+WORKSHOP
+
+Discuss ideas...
+<ul>
+  <li>Sketch interactive design</li>
+  <li>generate HTML</li>
+  <li>For next class, work out steps</li>
+  <li>Optional workshop on Wed- this will focus on the JS steps and getting better at it!</li>
+</ul>
+
+  </main>
+  <footer class="site-footer">
+  <div class="footer-content">
+    <p>DTC 477: Advanced Web Design & Development</p>
+    <p>
+      <a href="mailto:youremail@university.edu">Contact Instructor</a> |
+      <a href="https://youruniversity.edu" target="_blank">University Home</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

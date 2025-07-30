@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Game</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            display: block;
+            background-color: #222;
+            margin: 20px auto;
+            border: 2px solid white;
+        }
+
+        button {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+
+        #gameOverScreen {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pong Game</h1>
+    <button id="startButton">Start Game</button>
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="gameOverScreen">
+        <h2 id="winnerText"></h2>
+        <button id="playAgainButton">Play Again</button>
+    </div>
+
+    <script>
+        // Get canvas and drawing context
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 800;
+        canvas.height = 400;
+
+        // ==== CLASS: Paddle ====
+        class Paddle {
+          constructor(x) {
+            this.width = 10;
+            this.height = 80;
+            this.x = x; // x position (left or right side)
+            this.y = (canvas.height - this.height) / 2; // center vertically
+            this.speed = 5;
+            this.moveUp = false;
+            this.moveDown = false;
+          }
+
+          // Update paddle position based on key inputs
+          update() {
+            if (this.moveUp && this.y > 0) {
+              this.y -= this.speed;
+            }
+            if (this.moveDown && this.y < canvas.height - this.height) {
+              this.y += this.speed;
+            }
+          }
+
+          // Draw the paddle on the canvas
+          draw() {
+            ctx.fillStyle = "white";
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+          }
+        }
+
+        // ==== CLASS: Ball ====
+        class Ball {
+          constructor() {
+            this.size = 10;
+            this.reset(); // sets x, y, and speeds
+          }
+
+          // Set the ball back to the center and reverse its direction
+          reset() {
+            this.x = canvas.width / 2;
+            this.y = canvas.height / 2;
+            this.speedX = 4 * (Math.random() > 0.5 ? 1 : -1); // Random left or right
+            this.speedY = 4;
+          }
+
+          // Update ball position and handle bouncing and scoring
+          update(paddleLeft, paddleRight, score) {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            // Bounce off top and bottom
+            if (this.y <= 0 || this.y >= canvas.height - this.size) {
+              this.speedY *= -1;
+            }
+
+            // Bounce off left paddle
+            if (
+              this.x <= paddleLeft.x + paddleLeft.width &&
+              this.y > paddleLeft.y &&
+              this.y < paddleLeft.y + paddleLeft.height
+            ) {
+              this.speedX *= -1;
+            }
+
+            // Bounce off right paddle
+            if (
+              this.x + this.size >= paddleRight.x &&
+              this.y > paddleRight.y &&
+              this.y < paddleRight.y + paddleRight.height
+            ) {
+              this.speedX *= -1;
+            }
+
+            // Scoring
+            if (this.x <= 0) {
+              score.player2++;
+              this.reset();
+            } else if (this.x >= canvas.width) {
+              score.player1++;
+              this.reset();
+            }
+          }
+
+          // Draw ball
+          draw() {
+            ctx.fillStyle = "white";
+            ctx.fillRect(this.x, this.y, this.size, this.size);
+          }
+        }
+
+        // ==== Score Object ====
+        const score = {
+          player1: 0,
+          player2: 0
+        };
+
+        // ==== Create Game Objects ====
+        const leftPaddle = new Paddle(0); // left side
+        const rightPaddle = new Paddle(canvas.width - 10); // right side
+        const ball = new Ball();
+
+        // ==== Handle Key Presses ====
+        document.addEventListener("keydown", (e) => {
+          switch (e.key) {
+            case "w":
+              leftPaddle.moveUp = true;
+              break;
+            case "s":
+              leftPaddle.moveDown = true;
+              break;
+            case "ArrowUp":
+              rightPaddle.moveUp = true;
+              break;
+            case "ArrowDown":
+              rightPaddle.moveDown = true;
+              break;
+          }
+        });
+
+        document.addEventListener("keyup", (e) => {
+          switch (e.key) {
+            case "w":
+              leftPaddle.moveUp = false;
+              break;
+            case "s":
+              leftPaddle.moveDown = false;
+              break;
+            case "ArrowUp":
+              rightPaddle.moveUp = false;
+              break;
+            case "ArrowDown":
+              rightPaddle.moveDown = false;
+              break;
+          }
+        });
+
+        // ==== Draw Score on Canvas ====
+        function drawScore() {
+          ctx.font = "20px Arial";
+          ctx.fillStyle = "white";
+          ctx.fillText(`Player 1: ${score.player1}`, 50, 30);
+          ctx.fillText(`Player 2: ${score.player2}`, canvas.width - 150, 30);
+        }
+
+        // ==== Main Game Loop ====
+        function updateGame() {
+          // Clear the canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          // Update game elements
+          leftPaddle.update();
+          rightPaddle.update();
+          ball.update(leftPaddle, rightPaddle, score);
+
+          // Draw everything
+          leftPaddle.draw();
+          rightPaddle.draw();
+          ball.draw();
+          drawScore();
+
+          // Keep looping
+          requestAnimationFrame(updateGame);
+        }
+
+        // Start the game!
+        updateGame();
+
+
+    </script>
+</body>
+</html>
