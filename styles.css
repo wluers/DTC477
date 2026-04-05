@@ -1,0 +1,344 @@
+/* Base Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Rajdhani:wght@600;700&display=swap');
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.6;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+/* Hierarchical Sizing and Spacing */
+h1 {
+  font-size: 2.5rem;
+  margin-top: 2rem;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.3rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-top: 1.75rem;
+  border-left: 4px solid #c40000;
+  padding-left: 0.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  color: #c40000;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #555;
+}
+
+h5, h6 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #777;
+}
+
+img {
+  display: block;
+}
+
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.site-header,
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+
+header.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 1.5rem 0;
+  background-color: #fff;
+}
+
+.course-info {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+a:link, a:visited {
+  color: #000;
+  font-weight: bold;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+a:hover, a:focus {
+  opacity: .5;
+}
+
+nav.main-nav a,
+.tutorials-menu a,
+.project-menu a, 
+nav.main-nav a:visited, 
+.tutorials-menu a:visited,
+.project-menu a:visited {
+  color: #000;
+  margin-left: 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+nav.main-nav a:hover,
+.course-info a:hover,
+.tutorials-menu a:hover,
+.project-menu a:hover {
+  opacity: 0.6;
+}
+
+header a:link,
+header a:visited {
+  color: #000;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+header a:hover {
+  opacity: 0.6;
+}
+
+
+
+main h1 {
+  margin-bottom: 2rem;
+}
+
+/*.modules-list,
+.project-menu,
+.tutorials-menu ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+*/
+.modules-list,
+.project-menu,
+.tutorials-menu ul {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  padding: 0;
+  list-style: none;
+}
+
+.project-menu, .tutorials-menu ul {
+  text-transform: uppercase;
+}
+
+code {
+  font-size: 1.1rem;
+}
+
+.module,
+/*.project-detail,*/
+.tutorials-container section {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.module-thumb {
+  width: 100%;
+  /*height: 250px;*/
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.module-content,
+/*.project-detail,*/
+.tutorials-container section {
+  flex: 1;
+}
+
+.module-content h2,
+/*.project-detail h2,*/
+.tutorials-container h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+
+.project-detail h2 {
+   margin-top: 4rem;
+}
+
+.module-dates {
+  font-style: italic;
+  color: #444;
+}
+
+.module-tag {
+  display: inline-block;
+  background-color: #000;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  margin: 0.5rem 0;
+}
+
+.module-desc,
+.project-detail p,
+.tutorials-container p {
+  margin-top: 0.5rem;
+}
+
+.points {
+  font-size: 1.8rem;
+  font-weight: normal;
+  color: #666;
+}
+
+.module-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.responsive-video {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.responsive-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.site-footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+
+.site-footer a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Red links only in main content on module and project pages */
+.module-page a:not(.main-nav a),
+.projects-container a:not(.main-nav a) {
+  color: #c40000;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.module-page a:not(.main-nav a):hover,
+.projects-container a:not(.main-nav a):hover {
+  opacity: 0.6;
+}
+
+
+  .modules-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+.module {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  text-align: left;
+}
+
+.module-dates {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #c40000;
+}
+
+
+@media (max-width: 999px) {
+  .site-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+    nav.main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+
+  .module,
+  .project-detail,
+  .tutorials-container section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  .modules-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+
+}
+
