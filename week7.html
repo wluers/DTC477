@@ -3,8 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Week 7: MapBox API</title>
+  <title>Week 7: Objects, Object Literals & JSON</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .highlight {
+      background-color: lightyellow;
+      padding: 0.1em 0.2em;
+      border-radius: 2px;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -13,169 +21,386 @@
       <a href="syllabus.html">Syllabus</a>
       <a href="index.html">Modules</a>
       <a href="projects.html">Projects</a>
-      <a href="tutorials.html">Tutorials</a>
+      <!-- <a href="tutorials.html">Tutorials</a> -->
     </nav>
   </header>
 
   <main class="module-page">
-    <h1>Week 7: MapBox API</h1>
+    <h1>Week 7: Objects, Object Literals & JSON</h1>
 
     <h3>To Do This Week:</h3>
-<!-- NO CLASS Monday Feb 17 - President's Day -->
+     <p>Work on Hangman (Due Feb <s>26</s> 28) and Generative Literture Projects (Due March 12).</p>
+     <p>Try to finish Codecademy. Especially "Objects."</p>
 
-<strong>E-lit Projects<span style="color: #ff0000;"> (DUE Wednesday, February 26)</span></strong>
-
-<em><strong>Final Submission Instructions:</strong></em>
-<ul>
-  <li>Place your <code>index.html</code> file in a folder called <code>elit</code>.</li>
-  <li>Validate your HTML and CSS.</li>
-  <li>Upload your project folder to the server.</li>
-  <li>Submit the correct URL on Canvas.</li>
-</ul>
-
-<hr>
-
-<h3>Module Notes</h3>
-<h4>Interactive Assignment</h4>
-<ul>
-  <li><a href="https://dtc-wsuv.org/jwaite24/interactive/">https://dtc-wsuv.org/jwaite24/interactive/</a></li>
-  <li><a href="https://dtc-wsuv.org/xbullis24/Interactive/">https://dtc-wsuv.org/xbullis24/Interactive/</a></li>
-  <li><a href="https://dtc-wsuv.org/qcarrick24/interactive/">https://dtc-wsuv.org/qcarrick24/interactive/</a></li>
-  <li><a href="https://dtc-wsuv.org/jhamersley24/interactive-site/">https://dtc-wsuv.org/jhamersley24/interactive-site/</a></li>
-</ul>
-
-
-<h4>Intro: GitHub CoPilot</h4>
-<p>Optional switch to use the professional developer workspace combining <a href="https://github.com/features/copilot">CoPilot and GitHub</a></p>
-
-
-<h4>Map Story (15%)</h4>
-<strong><span style="color: #ff0000;">DUE March 19</span></strong>
-
-For this project, you'll be creating a&nbsp; web-based storytelling experience that uses the <a href="https://www.mapbox.com/">Mapbox API</a> to convey a narrative through geographical markers. This project requires a blend of creative storytelling, technical web development skills, and a thoughtful integration of multimedia elements. Follow these structured guidelines, using the MapBox API resources and examples as well as ChatGPT for brainstorming, planning, and problem-solving throughout your project's development:
-<h5>Project Statement:</h5>
-Include a statement at the top of your &lt;script&gt;.&nbsp;This statement should:
-<ul>
-  <li>A brief description of how ChatGPT assisted in the ideation, planning, and/or debugging phases of your work.</li>
-  <li>Outline the sequence of technical steps for your JavaScript with the Mapbox API.</li>
-  <li>Include comments within the script as well.</li>
-</ul>
-<h5>Your Steps:</h5>
+<!-- <h4>CodeAcademy:</h4> 
+<p>Complete the following final lessons (not the projects) from the <a href="https://www.codecademy.com/learn/introduction-to-javascript">Learn JavaScript</a> module:</p>
 <ol>
-  <li><strong>Explore the MapBox API:&nbsp;</strong>What is possible? What are the interactive map techniques you want to work with?</li>
-  <li><strong>Theme and Storyline Ideation:</strong> Select a theme for your map-based narrative, such as a personal journey, historical exploration, or fictional adventure.</li>
-  <li><strong>Storyboarding Locations:</strong> Identify at least five key locations to serve as markers on your map. How will they be displayed? How will the user interact with these locations?</li>
-  <li><strong>Consultation with ChatGPT:</strong> Use ChatGPT to refine your storyline and ensure the technical feasibility of your plan with the Mapbox API and JavaScript.</li>
-  <li><strong>Interactive Design:</strong> Plan the Mapbox styles, the layout, JavaScript functions needed, including marker placement, customized popups, and multimedia integration.</li>
-  <li><strong>Implementing JavaScript and Mapbox API:</strong> Code your project with the MapBox API code samples, ensuring the HTML structure supports map and narrative elements. Use ChatGPT for JavaScript and Mapbox API assistance.</li>
-  <li><strong>Testing and Debugging:</strong> Test your map thoroughly, paying close attention to interactive features and multimedia playback.</li>
-  <li><strong>CSS Styling:</strong> Apply CSS to complement your narrative, ensuring the design enhances the storytelling experience.</li>
-  <li><strong>Integration Statement:</strong> In your source code comments, summarize your JavaScript steps and highlight ChatGPT’s role in your project.</li>
-  <li><strong>Final Submission:</strong> Place your <code>index.html</code> file in a folder called <code>map</code>, validate your HTML and CSS, upload the folder to the server, and submit the URL through Canvas.</li>
-</ol>
-<h5>Suggested Innovative Map Ideas:</h5>
+  <li><em>"Iterators"</em></li>
+  <li><em>"Objects"</em></li>
+</ol> -->
+
+<hr>
+
+<h3>Notes</h3>
+<!-- <h4>Elit Projects <span style="color: #ff0000;"><strong>DUE this Wednesday morning (midterm grades are due Wed at 5pm)</strong></span></h4> -->
 <ul>
-  <li><strong>Personal Travel Story:</strong> Map a vacation or event with images, text, or audio to tell the story.</li>
-  <li><strong>Historical Journey:</strong> Highlight key events or discoveries on a significant historical expedition using period media.</li>
-  <li><strong>Literary Pilgrimage:</strong> Map locations featured in a novel or the life of an author, with excerpts or audio readings.</li>
-  <li><strong>Environmental Impact:</strong> Showcase climate change effects or conservation efforts with before-and-after imagery or data visualizations.</li>
-  <li><strong>Cultural Exploration:</strong> Highlight music, cuisine, or art from various regions, with media samples at each location.</li>
-  <li><strong>Interactive Fiction:</strong> Craft a fictional narrative where users make choices at each marker, influencing the story’s direction.</li>
+  <li>Always include a title, author name, and date on projects!</li>
+  <li>If needed, include an explanation for AI interaction.</li>
+  <li>Make sure your JS logic steps, description of AI use and chat urls are in commented out and <strong>placed inside and at the beginning of the script.</strong></li>
+</ul>
+
+
+<hr>
+
+<h3>Audio/Video Element &amp; JavaScript:</h3>
+Important notes:
+<ul>
+  <li>Chrome requires user interaction (e.g., a click) before video or audio can play.</li>
+  <li>Learn more about <a href="https://www.w3schools.com/html/html5_video.asp">Video</a> and <a href="https://www.w3schools.com/html/html5_audio.asp">Audio</a> elements.</li>
+  <li><a href="https://www.w3schools.com/tags/ref_av_dom.asp">Audio/Video DOM reference</a></li>
+  <li><a href="https://www.w3schools.com/howto/howto_css_fullscreen_video.asp">fullscreen video</a>, <a href="https://www.w3schools.com/css/css_rwd_videos.asp">responsive videos</a></li>
+</ul>
+Examples:
+<ul>
+  <li><a href="https://will-luers.com/DTC/dtc477/av-javascript/video-pair.html">Video Pair</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/av-javascript/video-timer.html">Video Timer</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/av-javascript/video-menu.html">Video Menu</a></li>
 </ul>
 
 <hr>
 
-<h4>JS Methods for the Map Project:</h4>
-Key JavaScript methods for building your map:
+<h3>Code samples</h3>
 
-<a href="https://www.w3schools.com/jsref/prop_element_classlist.asp">classList</a>: Add or remove CSS classes for an element.
-<pre>const reset = document.querySelector('button');
-reset.classList.remove('show');
-reset.classList.add('hide');</pre>
-<h5>Get Started:</h5>
-<strong>Sign in to <a href="https://www.mapbox.com/">Mapbox</a>.</strong> You will need an API access token to configure maps. Follow the instructions on the site to get started.
-<ul>
-  <li><a href="https://www.mapbox.com/mapbox-gljs">Mapbox GL JS API</a></li>
-  <li><a href="https://docs.mapbox.com/mapbox-gl-js/example/">Mapbox GL JS Examples</a></li>
-  <li><a href="https://docs.mapbox.com/mapbox-gl-js/api/">Mapbox API Reference</a></li>
-  <li><a href="https://docs.mapbox.com/help/tutorials/">Mapbox Tutorials</a></li>
-</ul>
-<h4>How to Find Latitude and Longitude:</h4>
-<ol>
-  <li>Open Google Maps and search for a place.</li>
-  <li>Right-click on the map and select “What’s Here?”</li>
-  <li>The latitude and longitude will appear at the bottom. Click to copy the coordinates.</li>
-</ol>
-<h5>Custom Styles:</h5>
-<ul>
-  <li><a href="https://docs.mapbox.com/studio-manual/reference/styles/">Mapbox Styles Reference</a></li>
-  <li><a href="https://www.mapbox.com/designer-maps/">Mapbox Styles Gallery</a></li>
-  <li><a href="https://studio.mapbox.com/">Mapbox Studio</a></li>
-</ul>
-<h5>Example of an Interactive Map:</h5>
-<ul>
-  <li><a href="http://will-luers.com/DTC/dtc477/mapbox-markers/">Interactive Map Example</a></li>
-  <li><a href="https://will-luers.com/DTC/dtc477/mapbox-markers.zip">Download Example (ZIP)</a></li>
-</ul>
+<p>Jump to a specific time.</p>
+<pre><code>videoElement.currentTime = 10; // jump to 10 seconds
+</code></pre>
 
 <hr>
 
-<h3>JSON (JavaScript Object Notation):</h3>
-JSON is used for storing and exchanging data. Here’s an example of an object literal:
-<pre>let meal = {
-  vegetable: "peppers",
-  protein: "chicken",
-  carb: "rice",
-  spicy: ["none", "mild", "medium", "hot"],
-  country: {
-    name: "Mexico",
-    location: [lat, long]
-  },
-  expression: function() {
-    alert("buen provecho!");
+<p>Sync audio to the current video time (works for multiple media elements too).</p>
+<pre><code>audioElement.currentTime = videoElement.currentTime;
+</code></pre>
+
+<hr>
+
+<p>Slow down or speed up playback.</p>
+<pre><code>videoElement.playbackRate = 2.0; // double speed
+videoElement.playbackRate = 0.5; // half speed
+</code></pre>
+
+<hr>
+
+<p>Trigger code when the video passes certain timestamps.</p>
+<pre><code>videoElement.addEventListener("timeupdate", function () {
+  if (videoElement.currentTime &gt; 5 &amp;&amp; videoElement.currentTime &lt; 6) {
+    console.log("Triggered at ~5 seconds");
   }
+});
+</code></pre>
+
+<hr>
+
+<p>Loop only a specific section (from 5s to 10s).</p>
+<pre><code>videoElement.addEventListener("timeupdate", function () {
+  if (videoElement.currentTime &gt; 10) {
+    videoElement.currentTime = 5; // loop back
+  }
+});
+</code></pre>
+
+<hr>
+
+<p>Play and pause the video.</p>
+<pre><code><span class="highlight">videoElement.play();
+videoElement.pause();</span>
+</code></pre>
+
+<hr>
+
+<p>Restart from the beginning and play.</p>
+<pre><code><span class="highlight">videoElement.currentTime = 0;
+videoElement.play();</span>
+</code></pre>
+
+<hr>
+
+<p>Toggle play/pause with one button.</p>
+<pre><code><span class="highlight">if (videoElement.paused) {
+  videoElement.play();
+} else {
+  videoElement.pause();
+}</span>
+</code></pre>
+
+<hr>
+
+<p>Mute and unmute.</p>
+<pre><code>videoElement.muted = true;  // mute
+videoElement.muted = false; // unmute
+</code></pre>
+
+<hr>
+
+<p>Play the video in a loop.</p>
+<pre><code>videoElement.loop = true;
+</code></pre>
+
+<hr>
+
+<p>Store timestamps and labels as objects (e.g., for lyrics or captions).</p>
+<pre><code><span class="highlight">const lyrics = [
+  { time: 0,  text: "First line of the song" },
+  { time: 5,  text: "Second line of the song" }
+];</span>
+</code></pre>
+
+<hr>
+
+
+<h3>Objects, Object Literals and Classes</h3>
+<p><a href="js-demo-date-math.html">built-in JavaScript Objects</a></p>
+
+
+<p>Objects are variables that store properties and methods.</p>
+<p>JSON (JavaScript Object Notation) is a format for storing and exchanging data.  
+It looks similar to a JavaScript object and behaves in a comparable way.</p>
+
+
+<h4>Simple Object Literal</h4>
+<pre><code>
+// JavaScript Object Literal Example
+const person = {
+    firstName: "Margie",
+    lastName: "Pepper",
+    age: 50,
+    eyeColor: "brown",
 };
 
-meal.protein;          // returns "chicken"
-meal.expression();     // alerts "buen provecho!"
-meal.spicy[1];         // returns "mild"
-meal.country.location[0]; // returns latitude</pre>
-Learn more about JSON and objects:
-<ul>
-  <li><a href="https://www.w3schools.com/js/js_object_definition.asp">Intro to Objects</a></li>
-  <li><a href="https://www.w3schools.com/js/js_json_intro.asp">Intro to JSON</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a></li>
-</ul>
+console.log(`Hi, ${person.firstName}`);
+</code></pre>
 
 <hr>
 
-<h3>Student Map Examples:</h3>
-<ul>
-  <li><a href="https://dtc-wsuv.org/bhanrahan18/map/">Student Example 1</a></li>
-  <li><a href="https://dtc-wsuv.org/aradcliffe18/map/">Student Example 2</a></li>
-  <li><a href="https://dtc-wsuv.org/mlidbetter18/map/">Student Example 3</a></li>
-  <li><a href="https://dtc-wsuv.org/veldridge18/map/">Student Example 4</a></li>
-</ul>
-For more inspiration:
-<ul>
-  <li><a href="http://will-luers.com/DTC/map-projects-spring2020.html">Spring 2020 Projects</a></li>
-  <li><a href="http://will-luers.com/DTC/map-projects-fall2019.html">Fall 2019 Projects</a></li>
-  <li><a href="http://will-luers.com/DTC/map-projects-spring2019.html">Spring 2019 Projects</a></li>
-</ul>
-More Examples
-<ul>
-  <li><a href="https://dtc-wsuv.org/bhanrahan18/map/">https://dtc-wsuv.org/bhanrahan18/map/</a></li>
-  <li><a href="https://dtc-wsuv.org/aradcliffe18/map/">https://dtc-wsuv.org/aradcliffe18/map/</a></li>
-  <li><a href="https://dtc-wsuv.org/mlidbetter18/map/">https://dtc-wsuv.org/mlidbetter18/map/</a></li>
-  <li><a href="https://dtc-wsuv.org/veldridge18/map/">https://dtc-wsuv.org/veldridge18/map/</a></li>
-  <li><a href="https://dtc-wsuv.org/ebancroft18/map/#1">https://dtc-wsuv.org/ebancroft18/map/#1</a></li>
-  <li><a href="https://dtc-wsuv.org/bparsons19/map/">https://dtc-wsuv.org/bparsons19/map/</a></li>
-  <li><a href="https://dtc-wsuv.org/tchilton18/map/">https://dtc-wsuv.org/tchilton18/map/</a></li>
-  <li><a href="https://dtc-wsuv.org/kzoller18/map/">https://dtc-wsuv.org/kzoller18/map/</a></li>
-</ul>
-&nbsp;
+<h4>Object Literal</h4>
+<pre><code>
 
-&nbsp;
+// JavaScript Object Literal Example
+const person = {
+    firstName: "Henry",
+    lastName: "Smith",
+    age: 24,
+    eyeColor: "green",
+    fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+};
+
+console.log(`Hi, ${person.fullName()}`);
+</code></pre>
+
+<hr>
+
+<h4>Simple JSON</h4>
+
+<p>
+JSON is just a text format for data. It is commonly used in APIs to pass data between a server and your JavaScript code.
+</p>
+
+<pre><code>
+// Start with a normal JavaScript object
+const personObj = {
+    firstName: "Nina",
+    lastName: "Lopez",
+    age: 29,
+    eyeColor: "brown"
+};
+
+// Convert JS object -> JSON string
+<span class="highlight">const personJSON = JSON.stringify(personObj);
+console.log(personJSON);
+// {"firstName":"Nina","lastName":"Lopez","age":29,"eyeColor":"brown"}</span>
+
+// Convert JSON string -> JS object
+<span class="highlight">const backToObject = JSON.parse(personJSON);
+console.log(backToObject.firstName); // "Nina"</span>
+
+// IMPORTANT NOTE:
+// JSON cannot store functions (methods). It only stores data (strings, numbers, booleans, arrays, objects).
+</code></pre>
+
+<hr>
+
+<h4>Person Object Constructor</h4>
+<pre><code>
+// JavaScript Object Constructor Example
+function Person(firstName, lastName, age, eyeColor) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.eyeColor = eyeColor;
+    this.fullName = function() {
+        return `${this.firstName} ${this.lastName}`;
+    };
+}
+
+// Create new Person objects
+const person1 = new Person("Alice", "Brown", 32, "blue");
+const person2 = new Person("Carlos", "Diaz", 28, "hazel");
+
+console.log(person1.fullName()); // "Alice Brown"
+console.log(person2.fullName()); // "Carlos Diaz"
+
+</code></pre>
+
+<hr>
+
+<h4>Simple Classes</h4>
+<p>
+A class is a modern way to create many objects that share the same structure and behavior.
+It is similar to the constructor function above, but cleaner to read.
+</p>
+
+<pre><code>
+// JavaScript Class Example (simple)
+<span class="highlight">class Person {
+    constructor(firstName, lastName, age, eyeColor) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.eyeColor = eyeColor;
+    }
+
+    fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+}
+
+const person1 = new Person("Alice", "Brown", 32, "blue");
+const person2 = new Person("Carlos", "Diaz", 28, "hazel");
+
+console.log(person1.fullName()); // "Alice Brown"
+console.log(person2.fullName()); // "Carlos Diaz"</span>
+</code></pre>
+
+<hr>
+
+<h4>Complex Classes</h4>
+<p>
+This example adds:
+</p>
+<ul>
+  <li>a <strong>default value</strong> (if age is not provided)</li>
+  <li>a <strong>computed property</strong> (isAdult)</li>
+  <li>a <strong>method that changes state</strong> (birthday)</li>
+  <li>a <strong>static method</strong> (helper function on the class itself)</li>
+</ul>
+
+<pre><code>
+// JavaScript Class Example (more features)
+<span class="highlight">class Person {
+    constructor(firstName, lastName, age, eyeColor) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+        // Default value if age is missing or undefined
+        if (age === undefined) {
+            age = 0;
+        }
+        this.age = age;
+
+        this.eyeColor = eyeColor;
+    }
+
+    fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+    // A getter is like a "computed property"
+    get isAdult() {
+        return this.age >= 18;
+    }
+
+    // A method that changes the object's data
+    birthday() {
+        this.age = this.age + 1;
+    }
+
+
+}
+
+const p = new Person("Tariq", "Nguyen", 17, "brown");
+console.log(p.fullName()); // "Tariq Nguyen"
+console.log(p.isAdult);    // false
+
+p.birthday();
+console.log(p.age);        // 18
+console.log(p.isAdult);    // true
+
+console.log(mina.fullName()); // "Mina Park"</span>
+</code></pre>
+
+<p>https://api.openweathermap.org/data/2.5/weather?q=${city},${state},us&appid=5d403b6b84ed210aa64a032618aa4156&units=imperial</p>
+
+<h2>In-Class Exercise</h2>
+<ul>
+  <li><a href="js-classes-sandbox.html">js-classes-sandbox</a></li>
+  <!-- <li><a href="js-classes-sandbox-extend2.html">js-classes-sandbox extended</a>
+</li> -->
+  <!-- <li><a href="js-demo-objects.html">Player Objects: literals, constructors and Classes</a></li> -->
+</ul>
+
+<p>In this exercise you'll start with a working two-player dice game and extend it by adding properties and methods to the Player class. Each challenge follows the same pattern: add something to the class, then make the changes needed so that something visible shows on screen. The goal is to sense how a class holds a state, how methods update that state, and how the DOM can reflect it. </p>
+
+
+  <h3>The Opacity Challenge</h3>
+
+  <p>Each challenge below builds on the last. Before writing any code, read the question and with your partner, think through the logic steps. What does the class need to store? What method changes it? Where in the compare function do you call that method?</p>
+
+  <ol>
+
+    <li>
+      <strong>Opacity as health.</strong> Add an opacity property to the Player class. Add a <code>win()</code> and a <code>lose()</code> method that increase or decrease it. Both players start at <code>0.5</code>. After each round, apply the updated value to the button.
+    </li>
+
+    <li>
+      <strong>Declare a winner.</strong> Once you have opacity changing each round, add a conditional that checks whether a player has reached full opacity. If they have, announce them as the winner and stop the game. Where in the code does that check belong?
+    </li>
+
+    <li>
+      <strong>Track a streak.</strong> Add a streak property to the class. Write a method that increments it on a win and resets it to zero on a loss. Add a conditional that messages the user when a player is on a streak of two or more. How would you show that message — and where would it appear on the page?
+    </li>
+
+    <li>
+      <strong>Add a bonus.</strong> When a player wins the opacity game, reset both players' opacity back to <code>0.5</code> and award the winner a bonus point. Add a bonus property to the class to track this. How would you carry the bonus forward into the next game? How would you show the player their current bonus on screen?
+    </li>
+
+  </ol>
+
+  <!-- <ol>
+    <li>
+      <strong>Opacity as health</strong> — add <code>this.opacity = 0.5</code> to the constructor. Call <code>win()</code> and <code>lose()</code> methods that add or subtract <code>0.1</code>. After each round apply the new value to the button with <code>btn.style.opacity</code>. The first player to reach full opacity <code>1</code> wins the game — disable both buttons and declare them the champion.
+    </li>
+    <li>
+      <strong>Streak counter</strong> — add <code>this.streak = 0</code> to the constructor. Every win increments it, every loss resets it to zero. When a player hits a streak of 3, change their button's <code>font-size</code> or <code>border</code> to signal they're on a run. Losing breaks the streak and the style resets.
+    </li>
+    <li>
+      <strong>Bonus dice</strong> — add <code>this.bonus = 0</code> to the constructor. After every win, increment bonus by 1. Inside <code>roll()</code>, add <code>this.bonus</code> to the result. A player on a winning run rolls bigger numbers — the game starts to snowball. Display the bonus value next to their name so both players can see it building.
+    </li>
+  </ol> -->
+
+
+<hr>
+
+<p>Learn more about JSON and objects:</p>
+<ul>
+  <li><a href="https://www.w3schools.com/js/js_objects.asp">Intro to Objects</a></li>
+  <li><a href="https://www.w3schools.com/js/js_json.asp">Intro to JSON</a></li>
+  <li><a href="https://www.w3schools.com/js/js_classes.asp">Intro to Classes</a></li>
+</ul>
+
+
+
+
   </main>
   <footer class="site-footer">
   <div class="footer-content">

@@ -13,225 +13,333 @@
       <a href="syllabus.html">Syllabus</a>
       <a href="index.html">Modules</a>
       <a href="projects.html">Projects</a>
-      <a href="tutorials.html">Tutorials</a>
+      <!-- <a href="tutorials.html">Tutorials</a> -->
     </nav>
+    <style>
+        .highlight {
+          background-color: lightyellow; /* bright yellow */
+          padding: 6px;
+        }
+    </style>
   </header>
 
   <main class="module-page">
     <h1>Week 4: Array Methods and Iterators</h1>
 
     <h3>To Do This Week:</h3>
-<strong>CodeAcademy:</strong> Complete the following lessons (not the projects) from the <a href="https://www.codecademy.com/learn/introduction-to-javascript">Learn JavaScript</a> module:
-<ol>
-  <li><em>"Iterators"</em></li>
-  <li><em>"Objects"</em></li>
-</ol>
-<strong>Read (Optional):</strong> Chapters from <a href="http://eloquentjavascript.net/index.html">Eloquent JavaScript</a>:
+
+    <h4>Assignments:</h4>
+    <p>Codecademy: Complete the lessons (not the projects) from the <a href="https://www.codecademy.com/learn/introduction-to-javascript">Learn JavaScript</a> module:</p>
+    <ol>
+      <li><em>"Iterators"</em></li>
+    </ol>
+
+    <p>Decribe your idea and the detailed logic steps for the Interactive Website.</p>
+
+<p>Read (Optional!): Chapters from <a href="http://eloquentjavascript.net/index.html">Eloquent JavaScript</a>:</p>
 <ul>
   <li><a href="http://eloquentjavascript.net/08_error.html">Bugs and Error Handling</a></li>
   <li><a href="http://eloquentjavascript.net/09_regexp.html">Regular Expressions</a></li>
   <li><a href="http://eloquentjavascript.net/12_browser.html">JavaScript and the Browser</a></li>
   <li><a href="http://eloquentjavascript.net/13_dom.html">The Document Object Model</a></li>
 </ul>
-<b>Interactive Website </b><span style="color: #ff0000;">(<strong>Due Feb 5</strong>)</span>
+
+
+<h4>Upcoming Assignments</h4>
+
+<ul>
+<li><strong>JavaScript Codecademy #1</strong> (<span style="color: #ff0000;"><strong>DUE Feb 5</strong></span>)</li>
+
+<li><strong>Interactive Website (5%)</strong> (complete with CSS design) (<span style="color: #ff0000;"><strong>Due Feb 19</strong></span>)</li>
+</ul>
 
 <hr>
 
 <h3>Module Notes</h3>
-<h4>Hangman Game</h4>
-<ul>
-  <li>Extension until Friday January 31</li>
-  <li>Add you natural language steps using Javascript terms, as best you can</li>
-  <li>Comment out your list inside &lt;script&gt; and before your JavaScript&nbsp;</li>
-  <li>Read carefully the script and try to understand each step. If you don't understand a part of the script, go back to the same chat and ask for an explanation</li>
-</ul>
-<hr>
-<h3>Hangman Part 3</h3>
-<p>Tba...</p>
-
-<strong>Hangman Examples:</strong>
-<ul>
-  <li><a href="https://dtc-wsuv.org/cbatson24/hangman/">https://dtc-wsuv.org/cbatson24/hangman/</a></li>
-  <li><a href="https://dtc-wsuv.org/lbeltman23/hangman/index.html">https://dtc-wsuv.org/lbeltman23/hangman/index.html</a></li>
-  <li><a href="https://dtc-wsuv.org/qcarrick24/Hangman/">https://dtc-wsuv.org/qcarrick24/Hangman/</a></li>
-</ul>
-
-<hr>
-
-<h4>Review JS Terms -m use them in your steps:</h4>
-<ul>
-  <li><strong>Variables:</strong> Declare and initialize variables. Use <code>let</code> for values that can change and <code>const</code> for constants.</li>
-  <li><strong>Strings:</strong> Text treated as literal strings, enclosed in quotes.</li>
-  <li><strong>Increment/Decrement:</strong> Use <code>i++</code> or <code>i--</code> to increment or decrement a variable.</li>
-  <li><strong>Comparison Operators:</strong> Use <code>&gt;</code>, <code>&lt;</code>, <code>&amp;&amp;</code>, and <code>||</code> to compare values.</li>
-  <li><strong>Conditionals:</strong> Use <code>if</code>, <code>else if</code>, and <code>else</code> for conditional logic.</li>
-  <li><strong>Arrays:</strong> Store lists of items that can be accessed by index.</li>
-  <li><strong>Functions:</strong> Encapsulate reusable logic with or without parameters.</li>
-  <li><strong>Scope:</strong> Understand the difference between global and local variables.</li>
-  <li><strong>For Loops:</strong> Perform repetitive tasks efficiently.</li>
-</ul>
-&nbsp;
-<h4>Arrays: Storage and Manipulation</h4>
-Many of your projects used Arrays to store words for the game. As well as variables for the amount of guessed letters. To manipulate the words - ie. select a random word and hide the letters, etc, draws on Array Methods. There are a lot of them! Here are some common ones:
-<ul>
-  <li><code><strong>join()</strong></code>: Combines guessed letters or the current game word into a readable string (<code>guessedWord.join(" ")</code> for display).
-<code>
-const guessedWord = ['h', '_', 'l', '_', 'o']; // Current guessed letters
-const displayWord = guessedWord.join(" "); // Combine with spaces
-console.log(displayWord); // Output: "h _ l _ o"
-</code></li>
-  <li><code><strong>split()</strong></code>: Converts strings into arrays for easier iteration or manipulation (e.g., splitting <code>selectedWord</code> for checking letters).
-<code><code>
-const selectedWord = "hello";
-const lettersArray = selectedWord.split(""); // Split into individual letters
-console.log(lettersArray); // Output: ["h", "e", "l", "l", "o"]</code></code>&nbsp;</li>
-  <li><code><strong>fill()</strong></code>: Used to initialize arrays with placeholder values like underscores (<code>Array(selectedWord.length).fill('_')</code>).</li>
-  <li><strong><code>forEach()</code></strong>: Used to iterate over arrays when you want to perform an action on each element without creating a new array.<code>
-const guessedWord = ['h', '_', 'l', '_', 'o'];</code>
-<code>const displayWord = [];</code> // Empty array to store the transformed elements
-<code>guessedWord.forEach(function(char) {
-&nbsp; &nbsp;if (char === '_') {
-&nbsp; &nbsp;displayWord.push('_');
-} else {
-&nbsp; &nbsp;displayWord.push(char.toUpperCase());
-}
-});</code>
-<code>console.log(displayWord.join(" ")); // Output: "H _ L _ O"</code></li>
-  <li><code><strong>map()</strong></code>: Applied to transform arrays for display purposes, such as converting <code>_</code> to readable underscores with spaces.
-<code>
-const guessedWord = ['h', '_', 'l', '_', 'o'];
-const displayWord = guessedWord.map(char =&gt; (char === '_' ? '_' : char.toUpperCase()));
-console.log(displayWord.join(" ")); // Output: "H _ L _ O"
-</code></li>
-  <li><strong>Indexing</strong>: Arrays are accessed and updated to track guessed letters or hangman part visibility.
-<code>
-const guessedWord = ['_', '_', '_', '_', '_']; // Initially blank
-guessedWord[1] = 'e'; // Correct guess for the second letter
-guessedWord[3] = 'l'; // Correct guess for the fourth letter
-console.log(guessedWord); // Output: ["_", "e", "_", "l", "_"]</code><code>
-</code></li>
-</ul>
-<h4>Functions: Modular Game Features</h4>
-Functions are heavily used to modularize tasks such as initializing the game, updating the word display, checking guesses, and managing the game state.
-<ul>
-  <li><strong>Helper Functions</strong>: Small, single-purpose functions like <code>updateWordDisplay()</code> or <code>revealHangmanPart()</code>.</li>
-  <li><strong>Event Handlers</strong>: Handle user interaction with buttons, such as letter clicks or resetting the game.</li>
-  <li><strong>Game Logic</strong>: Core functions like <code>checkGameStatus()</code> to handle win/loss conditions.</li>
-</ul>
-<strong>Game Initialization:</strong>
-<code>
-function startGame() {
-&nbsp; &nbsp;selectedWord = words[Math.floor(Math.random() * words.length)];
-&nbsp; &nbsp;guessedWord = Array(selectedWord.length).fill('_');
-&nbsp; &nbsp;incorrectGuesses = 0;
-&nbsp; &nbsp;displayWord();
-&nbsp; &nbsp;displayLetters();
-}
-</code>
-
-<strong>Word Display Update:</strong>
-<code>
-function displayWord() {
-&nbsp; &nbsp;wordDisplay.textContent = guessedWord.join(" ");
-}
-</code>
-<h4>&nbsp;</h4>
-<h4>DOM Manipulation</h4>
-The scripts rely heavily on DOM methods to update the UI dynamically based on game state.
-<ul>
-  <li><code>createElement</code> and <code>appendChild</code>: Generate letter buttons dynamically.</li>
-  <li>Traversing elements: <code>document.querySelector()</code>, <code>document.querySelectorAll()</code></li>
-  <li><code>querySelectorAll</code>: Select hangman parts or buttons for batch updates (e.g., disabling after a loss).</li>
-  <li><code>addEventListener</code>: Attach click handlers for user interactions.</li>
-</ul>
-
-<hr>
 
 <h3>In-class Exercise:</h3>
-<a href="https://will-luers.com/DTC/dtc477/quickreview-empty.html">Quick Review: Change Background Color</a>
-<a href="https://will-luers.com/DTC/dtc477/bkgd-color-change-dowhile.html">Background Change Do While</a>
+<a href="quickreview.html">Quick Review: Change Background Color</a>
+
 <ul>
   <li>variables</li>
   <li>click &gt; function</li>
+  <li>change CSS</li>
   <li>conditional</li>
   <li>increment</li>
   <li>loop</li>
 </ul>
-<a href="https://will-luers.com/DTC/dtc477/foreach-js-demo.html">forEach() Demo</a>
 
-<a href="http://will-luers.com/DTC/dtc477/student-pairings4.html">Student Pairings</a>
-<h4>"What Thing Are You?" Quiz</h4>
-Build a "What Thing Are You?" personality quiz that uses input and conditionals to display a fun result. Students expand the quiz with arrays and add personalized styling.
-
-In class with a partner, describe in detail Quiz using “natural language” in ChatGPT to output the JavaScript based on your specific steps. <strong>Specify ES6, but no arrow functions....</strong>
-
-Quiz Examples
+<h4>Changing CSS with JavaScript:</h4>
 <ul>
-  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyou-empty.html">Quiz Form Template</a></li>
-  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyouVOTE-new.html">Vote Example</a></li>
-  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyouSCALE-new.html">Scale Example</a></li>
-  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyouCOMPLEX-new.html">Complex Example</a></li>
-  <li><a href="https://will-luers.com/DTC/dtc477/example-quizzes.zip">Download Example Quiz ZIP</a></li>
+  <li><code>document.body.style.backgroundColor = "lightblue"</code>  
+      // change the background color of the whole page</li>
+  <li><code>document.getElementById("box").style.width = "300px"</code>  
+      // set the width of an element with id="box"</li>
+  <li><code>document.querySelector("h1").style.color = "red"</code>  
+      // change the text color of the first &lt;h1&gt;</li>
+  <li><code>
+  let box = document.getElementById("box");
+  box.style.border = "2px solid black"</code>  
+      // add a border around the element</li>
+  <li><code>document.querySelector(".demo").style.fontSize = "24px"</code>  
+      // change the font size of the first element with class="demo"</li>
+  <li><code>document.body.style.margin = "0"</code>  
+      // adjust the margin of the body (remove default spacing)</li>
 </ul>
-<strong>Main Concepts</strong>: Variables, data types, conditionals, logical operators, user input, and basic JavaScript functions.
+
 
 <hr>
 
-<h3>Hangman Game <span>(10%)</span></h3>
-<p>Design and build your own Hangman game using JavaScript, HTML, and CSS. Use the class developed script to start. The goal is to style your game with CSS and showcase how JavaScript interacts with HTML elements. Add your oww visual hangman figure using HTML (not Canvas), and control visibility with JavaScript. Get creative with your style and theme.</p>
+
+<!-- <h4>Hangman Game</h4>
+<ul>
+  <li><a href="hangman-empty.html">hangman starter page</a></li>
+  <li><a href="hangman-demo.html">hangman completed</a></li>
+  <li><a href="hangman-demo3.html">hangman with alphabet display</a></li>
+</ul>
+ -->
+
+<!-- <h3>Upcoming Projects</h3> -->
+
+<!-- <h4>Project AI Documentation</h4>
+<p><strong>IMPORTANT:</strong> For <em>every project</em>, you must:</p>
+<ul>
+  <li>
+    <strong>At the very top of your script (inside the &lt;script&gt; tag, before any code)</strong> write a multi-line comment listing the numbered, natural-language <em>logic steps</em> you planned for your program. (ie. what you developed with JS Mentor)
+  </li>
+  <li>
+    In that same comment, briefly explain <em>how you used an AI code tool</em> (if you did) and <strong>provide a link to the ChatGPT or other AI chat where you got help (you can share chats)</strong>.
+  </li>
+</ul>
+<p>This comment block is the most important part of your grading for documentation. Without it, the project is considered incomplete.</p> -->
+
+
+<!-- <h4>Interactive Website: 5%</h4>
+This assignment is designed to bring together your understanding of basic syntax, variables, conditionals, arrays, functions, and loops in JavaScript. The key objective is to create a dynamic website that allows for user interaction, resulting in changes on the webpage without altering the URL.
+
+<h5>Suggested Ideas for Your Website</h5>
+<ul>
+  <li><strong>Interactive Quiz</strong>: A simple quiz where users answer questions, and get immediate feedback.</li>
+  <li><strong>Dynamic Photo Gallery</strong>: A gallery where users can filter or sort images based on categories.</li>
+  <li><strong>To-Do List</strong>: A task manager where users can add, mark, and delete tasks.</li>
+  <li><strong>Customizable Timer</strong>: A timer where users can set and start a countdown for various activities.</li>
+  <li><strong>A Digital Art Work:</strong> User interactivity creates dynamic displays of image, text, sound and/or video. The weirder the better.</li>
+</ul> -->
+
+
+<!-- <h4>Hangman Game <span>(5%)</span></h4>
+<p>Design a Hangman game using JavaScript, HTML, and CSS. Start with the class-generated scripts or create a new one using ChatGPT. The goal is to understand the logic steps required for the game, to style your game with CSS and to showcase how JavaScript interacts with HTML elements. Add a visual hangman figure using HTML (no Canvas), and control visibility with JavaScript. Get creative with your style and theme!
+</p>
+
+<p>Hangman Examples:</p>
+<ul>
+  <li><a href="https://dtc-wsuv.org/cbatson24/hangman/">https://dtc-wsuv.org/cbatson24/hangman/</a></li>
+  <li><a href="https://dtc-wsuv.org/lbeltman23/hangman/index.html">https://dtc-wsuv.org/lbeltman23/hangman/index.html</a></li>
+  <li><a href="https://dtc-wsuv.org/qcarrick24/Hangman/">https://dtc-wsuv.org/qcarrick24/Hangman/</a></li>
+</ul> -->
+
+<!-- <hr>
+
+<h3>Working with the Custom ChatGPT: JS Mentor</h3>
+Sketch your idea on paper or figma. Get a visualization of how things are going to work. Then try to write the scripting steps in natural language using the <a href="https://chatgpt.com/g/g-688a52f67c40819189325205dcf51ba7-js-mentor">JS Mentor - patient JavaScript tutor</a>. Once you have your idea and the steps outlined, you will work with JS Mentor and begin scripting your interactive elements. Here's how to proceed:
+<ol>
+  <li><strong>Describe Your Idea</strong>: Clearly describe your website idea. Don't describe the look and style. Just focus on the functionality: what JavaScript needs to do. </li>
+  <li><strong>Detail Your JavaScript Steps</strong>: Work with JS Mentor to develop the clear logic steps that are needed to implement them in JavaScript.</li>
+  <li><strong>Complete Coding</strong>: Once the steps are clear, ask for help to convert your each logic step into JavaScript syntax. You will also need the basic HTML to work with. Try your best, and ChatGPT will guide you, provide hints, and correct your code. Ask for how you want help!</li>
+  <li><strong>Iterative Learning</strong>: This process is iterative. You may not get everything right the first time, and that's okay! The goal is to learn and improve.</li>
+</ol>
+Remember, the key to these first assignments is not just to write code but to understand the thought process behind scripting interactive elements on a webpage. -->
 
 <hr>
 
 <h3>Review JavaScript and the DOM:</h3>
 <h4><strong>Traversing </strong>// get to elements on the page</h4>
+
 <ul>
-  <li><code>document.querySelector('#bio")</code></li>
-  <li><code>document.querySelectorAll(".stanza")</code></li>
+
+  <li class="highlight">
+    <code>document.getElementById("bio")</code><br>
+    Selects one element by its ID.
+  </li>
+
+  <li class="highlight">
+    <code>document.getElementsByClassName("stanza")</code><br>
+    Selects all elements with a class name (returns an HTMLCollection).
+  </li>
+
+  <li>
+    <code>document.getElementsByTagName("p")</code><br>
+    Selects all elements by tag name (like all paragraphs).
+  </li>
+
+  <li class="highlight">
+    <code>document.querySelector("#bio")</code><br>
+    Selects the first element that matches a CSS selector.
+  </li>
+
+  <li class="highlight">
+    <code>document.querySelectorAll(".stanza")</code><br>
+    Selects all elements that match a CSS selector (returns a NodeList).
+  </li>
+
+  <li>
+    <code>element.parentElement</code><br>
+    Gets the parent of an element.
+  </li>
+
+  <li>
+    <code>element.children</code><br>
+    Gets all child elements inside a parent.
+  </li>
+
+  <li>
+    <code>element.firstElementChild</code><br>
+    Gets the first child element.
+  </li>
+
+  <li>
+    <code>element.lastElementChild</code><br>
+    Gets the last child element.
+  </li>
+
+  <li>
+    <code>element.nextElementSibling</code><br>
+    Gets the next element at the same level.
+  </li>
+
+  <li>
+    <code>element.previousElementSibling</code><br>
+    Gets the previous element at the same level.
+  </li>
+
 </ul>
+
+<h4><strong>Creating & Adding Elements</strong> // create new elements and add them to the page</h4>
+
+<ul>
+
+  <li class="highlight">
+    <code>document.createElement("tag")</code><br>
+    Creates a new HTML element (but does not add it to the page yet).
+    <pre><code>// Demo
+const p = document.createElement("p");
+p.textContent = "Hello world";</code></pre>
+  </li>
+
+  <li>
+    <code>parent.appendChild(element)</code><br>
+    Adds a new element inside a parent (at the end).
+    <pre><code>// Demo
+const div = document.getElementById("output");
+div.appendChild(p);</code></pre>
+  </li>
+
+  <li>
+    <code>parent.append(element)</code><br>
+    Adds an element (or text) inside a parent.
+    <pre><code>// Demo
+div.append("More text");</code></pre>
+  </li>
+
+  <li>
+    <code>parent.prepend(element)</code><br>
+    Adds an element to the beginning of a parent.
+    <pre><code>// Demo
+div.prepend(p);</code></pre>
+  </li>
+
+  <li>
+    <code>element.remove()</code><br>
+    Removes an element from the page.
+    <pre><code>// Demo
+p.remove();</code></pre>
+  </li>
+
+  <li>
+    <code>parent.removeChild(element)</code><br>
+    Removes a specific child element.
+    <pre><code>// Demo
+div.removeChild(p);</code></pre>
+  </li>
+
+  <li>
+    <code>element.cloneNode(true)</code><br>
+    Copies an element (true copies all children too).
+    <pre><code>// Demo
+const copy = p.cloneNode(true);
+div.appendChild(copy);</code></pre>
+  </li>
+
+  <li>
+    <code>element.insertAdjacentHTML(position, html)</code><br>
+    Inserts HTML directly into the page.
+    <pre><code>// Demo
+div.insertAdjacentHTML("beforeend", "&lt;p&gt;New paragraph&lt;/p&gt;");</code></pre>
+  </li>
+
+</ul>
+
+
+<h4><strong>Forms:</strong> Accessing Values</h4>
+<ul>
+
+  <li class="highlight">
+    <code>element.value</code> // gets the value of an input, textarea, or select
+    <pre><code>// Demo (text input)
+const nameInput = document.getElementById("name");
+console.log(nameInput.value);</code></pre>
+  </li>
+
+  <li class="highlight">
+    <code>element.checked</code> // returns true or false (checkbox or radio)
+    <pre><code>// Demo (checkbox)
+const agreeBox = document.getElementById("agree");
+console.log(agreeBox.checked);</code></pre>
+  </li>
+
+  
+
+</ul>
+
+
+
+
+<h3>JavaScript Methods (in-built functions):</h3>
 <h4>Math Methods:</h4>
 <ul>
-  <li><code>Math.random()</code> // returns a random number from 0 (inclusive) up to but not including 1</li>
-  <li><code>Math.round()</code> // rounds a number to the nearest integer</li>
-  <li><code>Math.floor()</code> // rounds a number DOWN to the nearest integer</li>
+  <li class="highlight"><code>Math.random()</code> // returns a random number from 0 (inclusive) up to but not including 1</li>
+  <li class="highlight"><code>Math.round()</code> // rounds a number to the nearest integer</li>
+  <li class="highlight"><code>Math.floor()</code> // rounds a number DOWN to the nearest integer</li>
   <li><code>Math.max()</code> // returns the number with the highest value</li>
   <li><code>Math.min()</code> // returns the number with the lowest valu</li>
 </ul>
-<h4>String Methods:</h4>
+
+<!-- <h4>String Methods:</h4>
 <ul>
   <li><code>charAt()</code> // returns the character at a specified index</li>
   <li><code>concat()</code> // joins two or more strings</li>
-  <li><code>includes()</code> // checks if a string contains a specified value, returns <code>true</code> or <code>false</code></li>
+  <li class="highlight"><code>includes()</code> // checks if a string contains a specified value, returns <code>true</code> or <code>false</code></li>
   <li><code>indexOf()</code> // returns the index of the first occurrence of a specified value</li>
   <li><code>lastIndexOf()</code> // returns the index of the last occurrence of a specified value</li>
   <li><code>replace()</code> // replaces specified value(s) with another value in a string</li>
-  <li><code>slice()</code> // extracts a section of a string and returns it as a new string</li>
-  <li><code>split()</code> // splits a string into an array of substrings</li>
+  <li class="highlight"><code>slice()</code> // extracts a section of a string and returns it as a new string</li>
+  <li class="highlight"><code>split()</code> // splits a string into an array of substrings</li>
   <li><code>startsWith()</code> // checks if a string begins with specified characters, returns <code>true</code> or <code>false</code></li>
   <li><code>endsWith()</code> // checks if a string ends with specified characters, returns <code>true</code> or <code>false</code></li>
-  <li><code>toLowerCase()</code> // converts the entire string to lowercase</li>
-  <li><code>toUpperCase()</code> // converts the entire string to uppercase</li>
+  <li class="highlight"><code>toLowerCase()</code> // converts the entire string to lowercase</li>
+  <li class="highlight"><code>toUpperCase()</code> // converts the entire string to uppercase</li>
   <li><code>trim()</code> // removes whitespace from both ends of a string</li>
-  <li><code>substring()</code> // returns the part of the string between the start and end indexes</li>
+  <li class="highlight"><code>substring()</code> // returns the part of the string between the start and end indexes</li>
   <li><code>repeat()</code> // repeats a string for a specified number of times</li>
-</ul>
-<h4>Array Methods:</h4>
-<ul>
-  <li><code>pop()</code> // remove the last element of an array</li>
-  <li><code>push()</code> // add a new item to an array</li>
-  <li><code>shift()</code> // remove the first item of an array</li>
-  <li><code>unshift()</code> // add new items to the beginning of an array</li>
-  <li><code>splice()</code> // adds/removes items to/from an array, and returns the removed item(s)</li>
-  <li><code>sort(), reverse()</code> // the <code>sort()</code> method sorts an array alphabetically; for numbers, it sorts ascending/descending. <code>reverse()</code> reverses the order of elements</li>
-  <li><code>slice()</code> // returns the selected elements in an array as a new array object</li>
-  <li><code>join()</code> // method returns an array as a string and does not change the original array</li>
-  <li><code>map()</code> // creates a new array by applying a function to each element of the original array</li>
-  <li><code>forEach()</code> // executes a provided function once for each array element, but does not return a new array</li>
-</ul>
-<h4>Switch vs Conditionals</h4>
-<code>
+</ul> -->
+
+
+
+<h3>Switch vs Conditionals</h3>
+<pre><code>
 // Example using switch
-let day = 3;</code>
-<code>
+let day = 3;</code></pre>
+<pre><code>
 switch (day) {
 &nbsp;case 1:
 &nbsp; console.log("Monday");
@@ -244,20 +352,259 @@ switch (day) {
 &nbsp; break;
 &nbsp;default:
 &nbsp; console.log("Other day");
-}</code>
+}</code></pre>
 
 // Example using else if
 let day = 3;
-<code>
+<pre><code>
 if (day === 1) {
 &nbsp; console.log("Monday");
 } else if (day === 2) {
 &nbsp; console.log("Tuesday");
 } else if (day === 3) {
-c&nbsp; onsole.log("Wednesday");
+&nbsp; console.log("Wednesday");
 } else {
 &nbsp; console.log("Other day");
-}</code>
+}</code></pre>
+
+<hr>
+
+<h3>Array Methods</h3>
+
+<ul>
+
+  <li class="highlight">
+    <strong>.split(separator)</strong><br>
+    Splits a string into an array of substrings.<br>
+    <pre><code>// Demo
+const word = "array";
+const letters = word.split(""); // ["a","r","r","a","y"]</code></pre>
+  </li>
+
+  <li class="highlight">
+    <strong>.join(separator)</strong><br>
+    Joins all array elements into a single string.<br>
+    <pre><code>// Demo
+["_","_","_"].join(" "); // "_ _ _"
+["c","a","t"].join("");   // "cat"</code></pre>
+  </li>
+
+  <li>
+    <strong>.indexOf(value)</strong><br>
+    Returns the index of the first match, or -1 if not found.<br>
+    <pre><code>// Demo
+const tried = ["a","e"];
+tried.indexOf("a"); // 0
+tried.indexOf("z"); // -1</code></pre>
+  </li>
+
+  <li class="highlight">
+    <strong>.push(value)</strong><br>
+    Adds an element to the end of an array.<br>
+    <pre><code>// Demo
+const tried = ["o","p"];
+tried.push("q"); // ["o","p","q"]</code></pre>
+  </li>
+
+  <li class="highlight">
+    <strong>.pop()</strong><br>
+    Removes the last element from an array.<br>
+    <pre><code>// Demo
+const letters = ["a","b","c"];
+letters.pop(); // removes "c"</code></pre>
+  </li>
+
+  <li class="highlight">
+    <strong>.shift()</strong><br>
+    Removes the first element from an array.<br>
+    <pre><code>// Demo
+const letters = ["a","b","c"];
+letters.shift(); // removes "a"</code></pre>
+  </li>
+
+  <li class="highlight">
+    <strong>.unshift(value)</strong><br>
+    Adds an element to the beginning of an array.<br>
+    <pre><code>// Demo
+const letters = ["b","c"];
+letters.unshift("a"); // ["a","b","c"]</code></pre>
+  </li>
+
+  <li class="highlight">
+    <strong>.includes(value)</strong><br>
+    Returns true if the value exists in the array.<br>
+    <pre><code>// Demo
+const letters = ["c","a","t"];
+letters.includes("a"); // true
+letters.includes("z"); // false</code></pre>
+  </li>
+
+  <li class="highlight">
+    <strong>.slice(start, end)</strong><br>
+    Returns a portion of an array without changing the original.<br>
+    <pre><code>// Demo
+const numbers = [1,2,3,4];
+numbers.slice(1,3); // [2,3]</code></pre>
+  </li>
+
+  <li class="highlight">
+    <strong>.splice(start, count)</strong><br>
+    Removes or replaces elements in an array.<br>
+    <pre><code>// Demo
+const numbers = [1,2,3,4];
+numbers.splice(1,2); // removes 2 and 3</code></pre>
+  </li>
+
+  <li class="highlight">
+  <strong>.sort()</strong><br>
+  Sorts the elements of an array. (Changes the original array.)
+  <pre><code>// Demo (strings)
+const letters = ["b","a","d","c"];
+letters.sort(); 
+// ["a","b","c","d"]</code></pre>
+</li>
+
+<li>
+  <strong>.sort(compareFunction)</strong><br>
+  When sorting numbers, you must provide a compare function.
+  <pre><code>// Demo (numbers)
+const numbers = [10, 2, 30, 4];
+
+// Without compare function (incorrect for numbers)
+numbers.sort(); 
+// [10, 2, 30, 4]  (sorted as text!)
+
+// Correct numeric sort
+numbers.sort(function (a, b) {
+  return a - b;
+});
+// [2, 4, 10, 30]</code></pre>
+</li>
+
+
+</ul>
+
+
+
+<h3>Array Iterators</h3>
+
+<ul>
+
+  <li class="highlight">
+    <strong>.forEach(callback)</strong><br>
+    Runs a function once for each element in the array.<br>
+    <pre><code>// Demo
+const letters = ["c","a","t"];
+letters.forEach(function (ch, i) {
+  console.log(i, ch);
+});</code></pre>
+  </li>
+
+  <li>
+    <strong>.map(callback)</strong><br>
+    Creates a new array by transforming each element.<br>
+    <pre><code>// Demo
+const letters = ["a","r","r","a","y"];
+const blanks = letters.map(function () {
+  return "_";
+}); // ["_","_","_","_","_"]</code></pre>
+  </li>
+
+  <li>
+    <strong>.filter(callback)</strong><br>
+    Creates a new array with elements that pass a test.<br>
+    <pre><code>// Demo
+const numbers = [1,2,3,4,5];
+const evens = numbers.filter(function (num) {
+  return num > 3;
+}); // [4,5]</code></pre>
+  </li>
+
+  <li>
+    <strong>.find(callback)</strong><br>
+    Returns the first element that passes a test.<br>
+    <pre><code>// Demo
+const numbers = [5,12,8,130];
+const big = numbers.find(function (num) {
+  return num > 10;
+}); // 12</code></pre>
+  </li>
+
+  <li>
+    <strong>.some(callback)</strong><br>
+    Returns true if at least one element passes a test.<br>
+    <pre><code>// Demo
+const numbers = [1,3,5,8];
+numbers.some(function (num) {
+  return num % 2 === 0;
+}); // true</code></pre>
+  </li>
+
+  <li>
+    <strong>.every(callback)</strong><br>
+    Returns true if all elements pass a test.<br>
+    <pre><code>// Demo
+const numbers = [2,4,6];
+numbers.every(function (num) {
+  return num % 2 === 0;
+}); // true</code></pre>
+  </li>
+
+</ul>
+
+
+<h3>forEach() (very useful)</h3>
+<a href="https://www.w3schools.com/jsref/jsref_foreach.asp">forEach() - w3schools</a><br>
+<a href="foreach-js-demo.html">forEach() Demo</a>
+
+
+<hr>
+  
+<h2>Interactive Website: 5%
+<strong style="color: #ff0000; font-family: inherit; font-size: 20px;">DUE: Thursday Feb 19&nbsp;</strong></h2>
+This assignment is designed to bring together your understanding of basic syntax, variables, conditionals, arrays, functions, and loops in JavaScript. The key objective is to create a dynamic website that allows for user interaction, resulting in changes on the webpage without altering the URL.
+
+<strong>*In all projects in this class you will include in the source code the natural language steps of your script.</strong>Add your commented out ( /*…*/ ) steps in a numbered list inside the &lt;script&gt; tag.&nbsp;
+<h3>Suggested Ideas for Your Website</h3>
+<ul>
+  <li><strong>Interactive Quiz</strong>: A simple quiz where users answer questions, and get immediate feedback.</li>
+  <li><strong>Dynamic Photo Gallery</strong>: A gallery where users can filter or sort images based on categories.</li>
+  <li><strong>To-Do List</strong>: A task manager where users can add, mark, and delete tasks.</li>
+  <li><strong>Customizable Timer</strong>: A timer where users can set and start a countdown for various activities.</li>
+  <li><strong>A Digital Art Work:</strong> User interactivity creates dynamic displays of image, text, sound and/or video. The weirder the better.</li>
+</ul>
+
+
+
+<h3>JS Mentor</h3>
+<p><a href="https://chatgpt.com/g/g-688a52f67c40819189325205dcf51ba7-js-mentor">JS Mentor</a> is a Custom GPT created for this class. Think of it like your personal JavaScript tutor — it helps you learn by guiding you through problems step by step.</p>
+
+<p>Here’s how to get the most out of it:</p>
+
+  <ol>
+    <li>
+      <strong>Describe Your Idea</strong><br>
+      Start by explaining what you want to build or what you're trying to solve — even in plain English. JS Mentor will help you turn that into code.
+    </li>
+    <li>
+      <strong>Break It Down</strong><br>
+      JS Mentor will ask you to think through your idea logically: What should happen first? Then what? You’ll write these <em>logic steps</em> in your own words before jumping into code.
+    </li>
+    <li>
+      <strong>Code One Step at a Time</strong><br>
+      Once your logic is clear, JS Mentor will help you write one JavaScript statement at a time. You’ll write the code, and it’ll give hints, corrections, or next steps if you get stuck.
+    </li>
+    <li>
+      <strong>Ask for Help</strong><br>
+      If you’re stuck, say so! You can ask for a <em>hint</em>, a <em>mini quiz</em>, or even a <em>code example</em> if needed.
+    </li>
+    <li>
+      <strong>Learn by Doing</strong><br>
+      Don’t worry about mistakes — JS Mentor is here to help you learn by trying. The more you engage and experiment, the more confident you’ll get.
+    </li>
+  </ol>
+
+
   </main>
   <footer class="site-footer">
   <div class="footer-content">

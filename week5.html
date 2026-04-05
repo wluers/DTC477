@@ -13,30 +13,342 @@
       <a href="syllabus.html">Syllabus</a>
       <a href="index.html">Modules</a>
       <a href="projects.html">Projects</a>
-      <a href="tutorials.html">Tutorials</a>
+      <!-- <a href="tutorials.html">Tutorials</a> -->
     </nav>
   </header>
 
   <main class="module-page">
-    <h1>Week 5: Audio/Video API</h1>
+    <h1>Week 5: Hangman</h1>
 
-    <h3>To Do This Week:</h3>
-Start <strong>Javascript Codecademy #2</strong> (<span style="color: #ff0000;"><strong>DUE February 19</strong></span>)
+    <!-- <h3>To Do This Week:</h3> -->
+    <h2>To Do This Week</h2>
+    <p>Work on Interactive Website.</p>
+  
+    <h3>Project 1: Interactive Website <span class="points">(5%)</span></h3>
+    <p>This first assignment brings together syntax, variables, conditionals, arrays, functions, and loops in JavaScript. Start with a simple idea for a website, just the basic elements and their interactions, and describe it in English. Use the Custom JS Mentor app to work out the logic steps based on your description and the line-by-line syntax. The site should be designed with CSS, but the majority of grading will be based on your documentation in GitHub of building a simple but dynamic website with user interaction that changes content on the page.</p>
+    <h4>Suggested Ideas:</h4>
+    <ul>
+      <li>Interactive Quiz</li>
+      <li>Dynamic Media Gallery</li>
+      <li>To-Do List</li>
+      <li>Customizable Timer</li>
+      <li>Generative or Digital Art Work</li>
+      <li>Branching Narrative</li>
+    </ul>
+    <h4>Working with JS Mentor:</h4>
+    <ol>
+      <li>Describe your idea and layout for HTML structure.</li>
+      <li>Detail your JavaScript steps in plain language.</li>
+      <li>Develop the logic steps.</li>
+      <li>Start coding with the GPT’s guidance.</li>
+      <li>Iteratively refine and troubleshoot.</li>
+    </ol>
+
+  <hr>
+  <section id="hangman" class="project-detail">
+    <h2>Project 2: Hangman Game <span class="points">(5%)</span></h2>
+    <p>Design a Hangman game using JavaScript, HTML, and CSS. Start with the in-class Logic Steps and the use JS Mentor to work of syntax for JavaScript. The goal of this pproject is to understand the logic steps required for the game, to get experience translating logic steps into syntax, and then to style your game with CSS and to showcase how JavaScript interacts with HTML elements. Add a visual hangman figure using HTML, and control visibility with JavaScript. Get creative with your style and theme!</p>
+  </section>
+
+
+    
+<!-- 
+    <h4>Hangman Game</h4>
+<ul>
+  <li><a href="hangman-empty.html">hangman starter page</a></li>
+  <li><a href="hangman-demo.html">hangman completed</a></li>
+  <li><a href="hangman-demo3.html">hangman with alphabet display</a></li>
+</ul>
+ -->
+<!-- <p>Hangman Examples:</p>
+<ul>
+  <li><a href="https://dtc-wsuv.org/cbatson24/hangman/">https://dtc-wsuv.org/cbatson24/hangman/</a></li>
+  <li><a href="https://dtc-wsuv.org/lbeltman23/hangman/index.html">https://dtc-wsuv.org/lbeltman23/hangman/index.html</a></li>
+  <li><a href="https://dtc-wsuv.org/qcarrick24/Hangman/">https://dtc-wsuv.org/qcarrick24/Hangman/</a></li>
+</ul> -->
+
+<h3>Hangman Project Steps</h3>
+<ul>
+  <li>Work out the logic steps for Hangman.</li>
+  <li>Set up HTML</li>
+  <li>Begin JS syntax with JS Mentor</li>
+  <li>Test at each stage</li>
+  <li>Add JS to change CSS display of the hangman</li>
+  <li>Design with CSS your own themed hangman game.</li>
+</ul>
+
+<p>Download <a href="hangman-empty.html">this file</a> for the exercise.</p>
+<p><strong><a href="hangman-demo.html">Hangman Demo</a></strong></p>
+
 
 <hr>
 
-<a href="https://github.com/features/copilot?utm_campaign=copilot_free_jan_tl_dr_newsletter&amp;utm_medium=newsletter&amp;utm_source=Newsletter">GitHub Co-pilot is now a free -</a> you need a GitHub repository&nbsp;
-<h3>Research Paper&nbsp;</h3>
+
+
+<h3>In-Class Work: The Hangman Logic Steps</h3>
+
+<section>
+  <h4>What are the main action and processes of Hangman?</h4>
+
+  <ul>
+    <li>What is the user doing? (clicking buttons, typing text, choosing options)</li>
+    <li>What changes on the page when they interact?</li>
+    <li>What needs to be stored?</li>
+    <li>What is the “win,” “result,” or “end state” of the experience?</li>
+  </ul>
+
+  
+ 
+</section>
+
+<section>
+  <h4><strong>Write the Logic in Natural Language (Numbered Steps)</strong></h4>
+  <p>
+    Write the program logic as a numbered list, ideally grouped in the function areas. Each line should be one clear action or decision.
+    Avoid code words at first—just describe what happens.
+  </p>
+  <ul>
+    <li>Set-up: What are the HTML/DOM elements? What variables and arrays are need?</li>
+    <li>Start state: what does the page show when it loads? What processes are needed to start the game?</li>
+    <li>Inputs: what does the user provide (click, input text, choice)?</li>
+    <li>Process: what does the program calculate, compare, or decide?</li>
+    <li>Output: what changes appear on the page?</li>
+    <li>Repeat or End: what happens again until the game stops? What needs to be checked?</li>
+  </ul>
+
+  <p>Add the numbered list of logic steps as commented-out text at the top and inside the script tag.</p>
+
+</section>
+
+<section>
+  <h4><strong>Mark the Steps That Need Variables, Conditionals, Arrays, Loops, and Functions</strong></h4>
+  <p>
+    Take your numbered steps and label them using simple tags:
+  </p>
+  <ul>
+    <li><strong>[LET/CONST]</strong> stored variable for DOM elements as well as values that are tracked in the game?</li>
+    <li><strong>[ARRAY]</strong> what lists or potential (empty) lists are needed</li>
+    <li><strong>[FUNC]</strong> what stored steps are going to be used multiple times in the game? Remember that funtion can be called within other functions.</li>
+    <li><strong>[IF]</strong> a decision tree (if correct, if count is 0, if something matches) for responses to certain checked conditions.</li>
+    <li><strong>[LOOP]</strong> repeated actions, to check an array for example</li>
+  </ul>
+
+  <p>
+    <strong>NOTE:</strong> Your Hangman game will likely need to use the following JavaScript actions:
+  </p>
+
+  <ul>
+    <li><code>Math.floor() / Math.random()</code> — select a random word from an array</li>
+    <li><code>secretWord.split("")</code> — turn a word into an array of letters</li>
+    <li><code>shownWord.push("_")</code> — add underscores to build the hidden word array</li>
+    <li><code>input.value</code> — get the letter typed by the user</li>
+    <li><code>shownWord.join(" ")</code> — combine array into spaced string for display</li>
+    <li><code>triedLetters.join(", ")</code> — display guessed letters as a comma list</li>
+  </ul>
+
+
+  <p>
+    As you label your steps, think carefully: Is this storing data? Repeating something? Making a decision? Updating the screen? That thinking process is more important than the final syntax.
+  </p>
+
+</section>
+
+<section>
+  <h4><strong>Translate to “Code-Like” Pseudocode</strong></h4>
+  <p>
+    Rewrite your steps so they sound closer to code, but still readable. Use short lines that map
+    cleanly into JavaScript later.
+  </p>
+  <ul>
+    <li>Example: “Set score to 0.”</li>
+    <li>Example: “When user clicks Submit, check answer.”</li>
+    <li>Example: “If answer is correct, add 1 to score.”</li>
+    <li>Example: “Show the next question.”</li>
+  </ul>
+</section>
+
+<h3>JS Mentor</h3>
+<p>
+  <a href="https://chatgpt.com/g/g-688a52f67c40819189325205dcf51ba7-js-mentor">JS Mentor</a>
+  is a Custom GPT created for this class. Think of it like your personal JavaScript tutor — it helps you learn by guiding you step by step (without jumping straight to the full solution).
+</p>
+
+<p><strong>How we’ll use it for the Hangman assignment:</strong></p>
+
+<ol>
+  <li>
+    <strong>Build the Logic as a Class (First)</strong><br>
+    In class, we will write the Hangman logic steps together and label each step with JS terms
+    (variables, arrays, conditionals, loops, and functions).
+  </li>
+
+  <li>
+    <strong>Translate Steps into Syntax (You + JS Mentor)</strong><br>
+    After class, you will take your numbered steps and turn them into JavaScript one line at a time.
+    Use JS Mentor to help you convert each step into correct syntax. If you get stuck, ask for a hint.
+  </li>
+
+  <li>
+    <strong>Work Function-by-Function</strong><br>
+    Focus on one function area at a time (Start Game, Guess, Update Display, Check Win/Lose, Reset).
+    Get each function working before moving on to the next.
+  </li>
+
+  <li>
+    <strong>Test as You Go</strong><br>
+    After adding a new line or small block of code, run the game and check what changed.
+    If something breaks, use JS Mentor to help you debug by describing what you expected vs. what happened.
+  </li>
+
+  <li>
+    <strong>Goal for Next Class</strong><br>
+    Arrive with a complete, very basic working Hangman script:
+    it can pick a word, accept guesses, reveal letters, track tried letters, count guesses left,
+    and detect win/lose.
+  </li>
+</ol>
+
+<p><strong>Coming next:</strong></p>
+<ul>
+  <li>Add a hangman visual that builds as wrong guesses increase.</li>
+  <li>Improve the CSS design (aim for a simple theme that matches your word list).</li>
+</ul>
+
+
+<hr>
+
+<details>
+  <summary><strong>Function Areas</strong></summary>
+
+  <pre><code>
+     A) startGame()  // setup a fresh round
+
+     B) guessLetter()  // handle the user's action (click or Enter)
+
+     C) updateGameState(letter)  // modify the core game data based on the guess
+
+     D) updateDisplay()  // reflect current state in the UI
+
+     E) checkWinLose()  // determine end conditions
+
+     F) resetGame()  // start over
+  </code></pre>
+  </details>
+
+
+<details>
+  <summary><strong>Function Areas & Logic Steps</strong></summary>
+
+  <pre><code>
+SET-UP (Before the game starts)
+1. Create an array of possible words (wordsArray).
+2. Store DOM elements in variables (so you can update the page):
+   - wordDisplay (where the underscores/letters show)
+   - message (where feedback shows)
+   - lettersTriedDisplay (where tried letters show)
+   - remainingDisplay (where guesses left show)
+   - input (text box for the letter)
+   - guessBtn (Guess button)
+   - resetBtn (New Word / Reset button)
+3. Create game-state variables (values that will change during play):
+   - secretWord (string)
+   - secretLetters (array)
+   - shownWord (array)
+   - triedLetters (array)
+   - guessesLeft (number)
+4. Connect event listeners:
+   - guessBtn click -> guessLetter()
+   - resetBtn click -> startGame()
+   (optional) input keydown Enter -> guessLetter()
+
+A) startGame()  // setup a fresh round
+1. Pick a random secret word from a list.
+2. Split the word into a letters array.
+3. Create a revealed array of underscores (same length).
+4. Reset letters tried and guesses left.
+5. Update the display (initial state: underscores, guesses, tried list cleared).
+6. Clear input and focus the input box.
+
+B) guessLetter()  // handle the user's action (click or Enter)
+1. Wait for user click or Enter key.
+2. Read the single letter from input.
+3. Validate it is a–z and only one character.
+4. If already tried, show message and stop.
+5. Add letter to letters tried.
+6. Call updateGameState(letter).
+7. Call updateDisplay().
+8. Call checkWinLose().
+9. Clear input and focus for the next guess.
+
+C) updateGameState(letter)  // modify the core game data
+1. Loop through the secret letters array.
+2. If letter matches, reveal it in the shownWord array.
+3. Track whether at least one match was found.
+4. If no match, subtract one from guessesLeft.
+
+D) updateDisplay()  // reflect current state in the UI
+1. Show shownWord (with spaces between letters).
+2. Show triedLetters (as a comma list).
+3. Show remaining guesses.
+4. Show any status messages.
+
+E) checkWinLose()  // determine end conditions
+1. If shownWord.join("") equals secretWord, player wins.
+2. If guessesLeft equals 0, player loses (show the word).
+3. If win or lose, disable input or Guess button.
+
+F) resetGame()  // start over
+1. Clear input field.
+2. Clear messages.
+3. Call startGame() to begin a new round.
+  </code></pre>
+
+</details>
+
+<hr>
+
+     <h2>Get GitHub Account & Download GitHub Desktop</h2>
+<p>Watch this video for assistance: <a href="https://www.youtube.com/watch?v=8Dd7KRpKeaE">Git, GitHub, & GitHub Desktop for beginners</a></p>
+<ol>
+  <li><strong>Sign-up or Sign-in</strong> to a <a href="https://github.com/">GitHub</a> account.
+  </li>
+  <li><strong>Install & Sign In</strong>  
+    Download <a href="https://desktop.github.com/">GitHub Desktop</a> and install it. Sign in with your GitHub account.
+  </li>
+  <li><strong>Create a Repository</strong>  
+    Go to <em>File → New Repository</em>. Choose a name like "DTC477" and a local folder that just holds your class projects. Click <em>Create Repository</em>.
+  </li>
+  <li><strong>Add Project Files</strong>  
+    You will be adding all class project folders and files to this local folder (you will also upload projects to your server!). GitHub Desktop will detect automatically all new folders and files in this local folder you set up. For now, add a test file to this local folder.
+  </li>
+  <li><strong>Commit Changes</strong>  
+    After adding a file or folder, review the changes in GitHub Desktop. Write a short summary message (e.g., “Initial commit”). Click <em>Commit to main</em>.
+  </li>
+  <li><strong>Publish to GitHub</strong>  
+    Click <em>Publish Repository</em>. Choose Public or Private. Click <em>Publish</em>. Your project is now on GitHub.com.
+  </li>
+  <li><strong>Make & Push Updates</strong>  
+    Edit files as needed. Return to GitHub Desktop, write a commit message, commit, then click <em>Push origin</em> to update GitHub.
+  </li>
+  <li><strong>Check on GitHub.com</strong>  
+    Go to your GitHub repository online. You’ll see your files and commit history.
+  </li>
+</ol>
+
+
+
+<!-- <a href="https://github.com/features/copilot?utm_campaign=copilot_free_jan_tl_dr_newsletter&amp;utm_medium=newsletter&amp;utm_source=Newsletter">GitHub Co-pilot is now a free -</a> you need a GitHub repository&nbsp;
+ --><!-- <h3>Research Paper&nbsp;</h3>
 <h4><span style="font-weight: 400;">Learning JavaScript with AI: Thinking Like a Coder Before Writing Code</span></h4>
 <span style="font-weight: 400;">This is your chance to </span><b>co-author a real academic paper</b><span style="font-weight: 400;">, sharing your perspective on learning with AI. Your experience—whether positive, negative, or mixed—matters. We can explore what AI can and can’t do in learning programming.</span>
 
 To track your learning, we’ll be using AI not just for coding but for conversation and reflection. Midway through the course and at the end, you’ll have a <b>guided chat</b> where you’ll reflect on what’s working, what’s challenging, and how your understanding of JavaScript is evolving. These chats will generate summaries that you’ll revise into short essays, and together, we will turn this into a paper about AI-assisted learning.
 
-<a href="https://docs.google.com/document/d/1XQgUr3cOYCi9oIlfoQhaqTmCYTJf-bF5a8ch1hUdM64/edit?tab=t.0">&gt;&gt;LINK to Google Doc</a>
+<a href="https://docs.google.com/document/d/1XQgUr3cOYCi9oIlfoQhaqTmCYTJf-bF5a8ch1hUdM64/edit?tab=t.0">&gt;&gt;LINK to Google Doc</a> -->
 
-<hr>
 
-<h3>Review</h3>
+
+<!-- <h3>Review</h3>
 Loops: for loop, while loop, do/while loop
 
 Iterating through array: forEach() / map()
@@ -50,7 +362,8 @@ Iterating through array: forEach() / map()
     array[index] = fruit + "s";
 }
 });
-<span style="font-family: inherit;">console.log(fruits); // ["apples", "strawberries", "bananas"]&nbsp;</span></pre>
+</pre> -->
+<!-- <span style="font-family: inherit;">console.log(fruits); // ["apples", "strawberries", "bananas"]&nbsp;</span></pre>
 <pre>let fruits = ["apple", "strawberry", "banana"];
 
 let pluralFruits = fruits.map(fruit =&gt; {
@@ -62,17 +375,13 @@ let pluralFruits = fruits.map(fruit =&gt; {
 });
 
 console.log(fruits); // ["apple", "strawberry", "banana"] (unchanged)
-console.log(pluralFruits); // ["apples", "strawberries", "bananas"]</pre>
-<a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyouCOMPLEX-new2.html">Complex Example</a>
+console.log(pluralFruits); // ["apples", "strawberries", "bananas"]</pre> -->
+<!-- <a href="https://will-luers.com/DTC/dtc477/example-quizzes/whatthingareyouCOMPLEX-new2.html">Complex Example</a> -->
 
-<a href="http://will-luers.com/DTC/dtc477/student-pairings.html">Student Pairings</a>
-
-Inclass Coding
-<h3>New Stuff</h3>
+<!-- <h4>Reminders</h4>
 <ul>
   <li>How to think inside the browser...</li>
   <li>External scripts: <code>&lt;script src="myScript.js"&gt;&lt;/script&gt;</code></li>
-  <li>Inserting HTML content: <code><code>document.querySelector("#demo").innerHTML = "Paragraph changed."</code></code>document.querySelector("#demo").innerHTML += "Additional contact added."</li>
   <li><a href="https://www.w3schools.com/jsref/dom_obj_style.asp">Style property:</a> Manipulating CSS with JS</li>
   <li><a href="https://www.w3schools.com/css/css3_animations.asp">CSS animation</a> and JS: <a href="https://www.w3schools.com/jsref/prop_element_classlist.asp">add/remove classes</a></li>
   <li><a href="https://www.w3schools.com/jsref/met_win_settimeout.asp">setTimeout</a>, <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval</a>: Timed execution</li>
@@ -80,7 +389,7 @@ Inclass Coding
   <li>Graphic elements: <a href="https://www.w3schools.com/howto/howto_js_progressbar.asp">progress bar</a>, <a href="https://www.w3schools.com/howto/howto_js_rangeslider.asp">range slider</a>, <a href="https://www.w3schools.com/howto/howto_css_flip_card.asp">flip card</a></li>
   <li><a href="https://www.w3schools.com/jsref/prop_loc_href.asp">reload page</a>: location.<span class="jspropertycolor">href</span>&nbsp;=&nbsp;<span class="jsstringcolor">"currentpage.html"</span>;</li>
 </ul>
-<h3>Random Numbers:</h3>
+<h4>Random Numbers:</h4>
 Generate a random number in a range:
 <pre>// Random generator
 function getRandomInt(min, max) {
@@ -89,121 +398,69 @@ function getRandomInt(min, max) {
 
 getRandomInt(5, 10);
 </pre>
-<h3>Audio/Video Element &amp; JavaScript:</h3>
-Important notes:
+
+
+
+<hr> -->
+
+<!-- <h3>GitHub Introduction</h3>
+<em>GitHub Intro</em>
 <ul>
-  <li>Chrome requires user interaction (e.g., a click) before video or audio can play.</li>
-  <li>Learn more about <a href="https://www.w3schools.com/html/html5_video.asp">Video</a> and <a href="https://www.w3schools.com/html/html5_audio.asp">Audio</a> elements.</li>
-  <li><a href="https://www.w3schools.com/tags/ref_av_dom.asp">Audio/Video DOM reference</a></li>
-  <li><a href="https://www.w3schools.com/howto/howto_css_fullscreen_video.asp">fullscreen video</a>, <a href="https://www.w3schools.com/css/css_rwd_videos.asp">responsive videos</a></li>
+  <li><a href="https://github.com/">GitHub</a> - a social and collaborative platform for development</li>
+  <li><a href="https://git-scm.com/">Git</a> -&nbsp;version control system for tracking changes in computer files and coordinating work on those files among multiple people. (command-line install)</li>
+  <li><a href="https://desktop.github.com/">desktop.github</a>&nbsp; no command line needed</li>
+  <li><a href="https://guides.github.com/activities/hello-world/">Github guide</a></li>
+ 
 </ul>
-Examples:
+
+
+<em>GitHub Desktop: Getting Started</em>
+<ol>
+  <li><strong>Install & Sign In</strong>  
+    Download GitHub Desktop and install it. Sign in with your GitHub account.
+  </li>
+  <li><strong>Create a Repository</strong>  
+    Go to <em>File → New Repository</em>. Choose a name and local folder. Optionally add a README and .gitignore. Click <em>Create Repository</em>.
+  </li>
+  <li><strong>Add or Create Project Files</strong>  
+    Place existing project files into the local folder, or create new files there. GitHub Desktop will detect them automatically.
+  </li>
+  <li><strong>Commit Changes</strong>  
+    Review the changes in GitHub Desktop. Write a short summary message (e.g., “Initial commit”). Click <em>Commit to main</em>.
+  </li>
+  <li><strong>Publish to GitHub</strong>  
+    Click <em>Publish Repository</em>. Choose Public or Private. Click <em>Publish</em>. Your project is now on GitHub.com.
+  </li>
+  <li><strong>Make & Push Updates</strong>  
+    Edit files as needed. Return to GitHub Desktop, write a commit message, commit, then click <em>Push origin</em> to update GitHub.
+  </li>
+  <li><strong>Check on GitHub.com</strong>  
+    Go to your GitHub repository online. You’ll see your files and commit history.
+  </li>
+</ol>
+
+<hr>
+
+<div class="responsive-video">
+  <iframe src="https://www.youtube.com/embed/8Dd7KRpKeaE?si=J6aAfq5xoGQMfQrk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+
+<em>Git Terms from <a href="https://help.github.com/articles/github-glossary/">Github Glossary</a></em>
 <ul>
-  <li><a href="https://will-luers.com/DTC/dtc477/av-javascript/video-pair.html">Video Pair</a></li>
-  <li><a href="https://will-luers.com/DTC/dtc477/av-javascript/video-timer.html">Video Timer</a></li>
-  <li><a href="https://will-luers.com/DTC/dtc477/av-javascript/video-menu.html">Video Menu</a></li>
-</ul>
-
-<hr>
-
-<h3>In-class Exercise</h3>
-<h4>Code samples</h4>
-Jump to a Specific Time:
-<pre>videoElement.<span class="hljs-property">currentTime</span> = <span class="hljs-number">10</span>; <span class="hljs-comment">// Jumps to 10 seconds </span></pre>
-Sync Audio and Video (or Multiple Videos)
-<pre>audioElement.<span class="hljs-property">currentTime</span> = videoElement.<span class="hljs-property">currentTime</span>;</pre>
-Slow Down or Speed Up Playback
-<pre>videoElement.<span class="hljs-property">playbackRate</span> = <span class="hljs-number">2.0</span>; <span class="hljs-comment">// Double speed </span> videoElement.<span class="hljs-property">playbackRate</span> = <span class="hljs-number">0.5</span>; <span class="hljs-comment">// Half speed </span></pre>
-Trigger Events at Specific Timestamps
-<pre>videoElement.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"timeupdate"</span>, <span class="hljs-function">() =&gt;</span> { <span class="hljs-keyword">if</span> (videoElement.<span class="hljs-property">currentTime</span> &gt; <span class="hljs-number">5</span> &amp;&amp; videoElement.<span class="hljs-property">currentTime</span> &lt; <span class="hljs-number">6</span>) { <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Triggered at 5 seconds!"</span>); } });</pre>
-<strong>Loop Only a Certain Section of the Video</strong>
-<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950">
-<div class="sticky top-9 md:top-[5.75rem]">
-<div class="absolute bottom-0 right-2 flex h-9 items-center">
-<pre class="flex items-center rounded bg-token-sidebar-surface-primary px-2 font-sans text-xs text-token-text-secondary dark:bg-token-main-surface-secondary">videoElement.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"timeupdate"</span>, <span class="hljs-function">() =&gt;</span> { <span class="hljs-keyword">if</span> (videoElement.<span class="hljs-property">currentTime</span> &gt; <span class="hljs-number">10</span>) { videoElement.<span class="hljs-property">currentTime</span> = <span class="hljs-number">5</span>; <span class="hljs-comment">// Loops back </span> } });</pre>
-</div>
-</div>
-<div class="overflow-y-auto p-4" dir="ltr">Play/Pause the Video</div>
-<pre dir="ltr">videoElement.<span class="hljs-title function_">play</span>(); videoElement.<span class="hljs-title function_">pause</span>();</pre>
-</div>
-Restart Video from the Beginning
-<pre>videoElement.<span class="hljs-property">currentTime</span> = <span class="hljs-number">0</span>; videoElement.<span class="hljs-title function_">play</span>();</pre>
-Toggle Play/Pause with One Button
-<pre><span class="hljs-keyword">if</span> (videoElement.<span class="hljs-property">paused</span>) { videoElement.<span class="hljs-title function_">play</span>(); } <span class="hljs-keyword">else</span> { videoElement.<span class="hljs-title function_">pause</span>(); }</pre>
-Mute/Unmute Video
-<pre>videoElement.<span class="hljs-property">muted</span> = <span class="hljs-literal">true</span>; <span class="hljs-comment">// Mute </span> videoElement.<span class="hljs-property">muted</span> = <span class="hljs-literal">false</span>; <span class="hljs-comment">// Unmute </span></pre>
-Play Video in a Loop
-<pre>videoElement.<span class="hljs-property">loop</span> = <span class="hljs-literal">true</span>;</pre>
-Timestamps as Object Literal
-<pre><span class="hljs-keyword">const</span> lyrics = [ 
-{ <span class="hljs-attr">time</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">"First line of the song"</span> }, 
-{ <span class="hljs-attr">time</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">"Second line of the song"</span> }
-];</pre>
-<h4>&nbsp;</h4>
-<h4>&nbsp;</h4>
-<h4>Audio/Video Challenge</h4>
-<a href="http://will-luers.com/DTC/dtc477/student-pairings.html">Student Pairings</a>
-
-<strong style="font-family: inherit;">Select One of the Challenges below. </strong>You are to use these in a web page with Javascript. Pick one of the challenges and create a solution by thinking through step by step what you want the script to do. Use JavaScript language in your steps.The focus is on Javascript not on design with CSS.
-
-<a href="https://will-luers.com/DTC/dtc477/sandbox-media.zip">Download this ZIP folder</a> for sample video/audio files.
-
-<a href="https://will-luers.com/DTC/dtc477/alineddude2.zip">Alien guy ZIP folder</a>
-
-<strong style="font-family: inherit;">Main Concepts</strong><span style="font-family: inherit;">: Audio/Video elements, DOM manipulation, event listeners, and time-based updates.</span>
-
-&nbsp;
-<h4>1. Video &amp; Audio Tag Filter (Sort &amp; Display by Category)</h4>
-<strong>Challenge:</strong> Create a system where users can filter and display audio or video clips based on <strong>categories or tags</strong> (e.g., "spooky," "happy" "sad").
-Users select a tag, and only matching media clips appear on the page.
-
-When the user selects a category, the script dynamically updates the display, filtering the video or audio elements accordingly.
-
-Could be used for <strong>media libraries, educational video sorting, or interactive storytelling experiences</strong>.
-
-<hr>
-
-<h4><strong>2. Custom Video Player with Interactive Features</strong></h4>
-<strong>Challenge:</strong> Build a <strong>custom video player</strong> with additional features beyond the basic play/pause buttons.
-Allow users to control playback, change speed, apply effects, or modify audio/video settings dynamically.
-
-The player could include:
-<ul>
-  <li>Speed controls (slow motion, fast-forward).</li>
-  <li>Visual effects (CSS filters, color shifts, glitch effects).</li>
-  <li>Custom buttons for unique interactions (e.g., "Invert Colors," "Echo Audio").</li>
-</ul>
-Could be used to <strong>create a uniquely styled video experience, an interactive film, or a themed media player</strong>.
-
-<hr>
-
-<h4><strong>3. Time &amp; Scroll-Based Interactive Triggers</strong></h4>
-<strong>Challenge:</strong> Create an interactive experience where <strong>videos and/or sounds trigger events</strong> based on <strong>time in a video or scrolling on a webpage</strong>.
-
-The script detects <strong>either the user's scroll position or specific timestamps in a video/audio file</strong>, then <strong>modifies HTML elements</strong>, <strong>plays sounds</strong>, or <strong>adds animations</strong> dynamically.
-
-Could be used for <strong>interactive lectures, storytelling, or music-driven visual effects</strong>.
-
-<hr>
-
-<h4><strong>4. Video Audio Remix (Swap, Mix, or Manipulate Sounds)</strong></h4>
-<strong>Challenge:</strong> Allow users to <strong>swap background audio tracks</strong> for different moods while watching the same video.
-The script should sync the video with different audio files, letting users <strong>change the vibe on the fly</strong>.
-
-Users can pick between multiple <strong>audio tracks</strong> (e.g., "Lo-fi Chill," "Synthwave," "Epic Orchestral") and swap them in real time.
-
-Could be used for <strong>remixing experiences, interactive film scoring, or dynamic sound experimentation</strong>.
-
-<hr>
-
-<h4><strong>5. Video Memory Challenge (What Did You See?)</strong></h4>
-<strong>Challenge:</strong> Create a <strong>memory game</strong> where users watch a short video clip that then disappears. Afterward, they must <strong>recall and name objects</strong> or details from the video.
-
-The script plays the video for a set time, then hides it and prompts the user with <strong>multiple-choice questions</strong> or an input field to test their memory.
-
-Could be used for <strong>observation training, quick-recall challenges, or educational memory tests</strong>.
-
-
+  <li><strong>Repository: </strong>A repository is the most basic element of GitHub. They're easiest to imagine as a project's folder. A repository contains all of the project files (including documentation), and stores each file's revision history. Repositories can have multiple collaborators and can be either public or private.</li>
+  <li><strong>Branch:</strong>A branch is a parallel version of a repository. It is contained within the repository, but does not affect the primary or main branch allowing you to work freely without disrupting the "live" version. When you've made the changes you want to make, you can merge your branch back into the main branch to publish your changes.</li>
+  <li><strong>Merge: </strong>Merging takes the changes from one branch (in the same repository or from a fork), and applies them into another. This often happens as a "pull request" (which can be thought of as a request to merge), or via the command line. A merge can be done through a pull request via the GitHub.com web interface if there are no conflicting changes, or can always be done via the command line.</li>
+  <li><strong>Clone: </strong>A clone is a copy of a repository that lives on your computer instead of on a website's server somewhere, or the act of making that copy. When you make a clone, you can edit the files in your preferred editor and use Git to keep track of your changes without having to be online. The repository you cloned is still connected to the remote version so that you can push your local changes to the remote to keep them synced when you're online.</li>
+  <li><strong>Pull: </strong>Pull refers to when you are fetching in changes and merging them. For instance, if someone has edited the remote file you're both working on, you'll want to pull in those changes to your local copy so that it's up to date. See also fetch.</li>
+  <li><strong>Pull request: </strong>Pull requests are proposed changes to a repository submitted by a user and accepted or rejected by a repository's collaborators. Like issues, pull requests each have their own discussion forum.</li>
+  <li><strong>Fork: </strong>A fork is a personal copy of another user's repository that lives on your account. Forks allow you to freely make changes to a project without affecting the original upstream repository. You can also open a pull request in the upstream repository and keep your fork synced with the latest changes since both repositories are still connected.</li>
+  <li><strong>Fetch: </strong>When you use&nbsp;<code>git fetch</code>, you're adding changes from the remote repository to your local working branch without committing them. Unlike&nbsp;<code>git pull</code>, fetching allows you to review changes before committing them to your local branch.</li>
+  <li><strong>Push: </strong>To push means to send your committed changes to a remote repository on GitHub.com. For instance, if you change something locally, you can push those changes so that others may access them.</li>
+  <li><strong>Commit: </strong>A commit, or "revision", is an individual change to a file (or set of files). When you make a commit to save your work, Git creates a unique ID (a.k.a. the "SHA" or "hash") that allows you to keep record of the specific changes committed along with who made them and when. Commits usually contain a commit message which is a brief description of what changes were made.</li>
+  <li><strong>Markdown: </strong>Markdown is an incredibly simple semantic file format, not too dissimilar from .doc, .rtf and .txt. Markdown makes it easy for even those without a web-publishing background to write prose (including with links, lists, bullets, etc.) and have it displayed like a website. GitHub supports Markdown and uses a particular form of Markdown called GitHub Flavored Markdown. See GitHub Flavored Markdown Spec or Getting started with writing and formatting on GitHub.markup</li>
+</ul> -->
+ 
   </main>
   <footer class="site-footer">
   <div class="footer-content">

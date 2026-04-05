@@ -13,14 +13,14 @@
       <a href="syllabus.html">Syllabus</a>
       <a href="index.html">Modules</a>
       <a href="projects.html">Projects</a>
-      <a href="tutorials.html">Tutorials</a>
+      <!-- <a href="tutorials.html">Tutorials</a> -->
     </nav>
   </header>
 
   <main class="module-page">
     <h1>Week 3: Functions, Arrays & Loops</h1>
 
-    <h3>To Do This Week:</h3>
+    <h2>To Do This Week:</h2>
 <strong>CodeAcademy:</strong> Complete the following lessons (not the projects) from the <a href="https://www.codecademy.com/learn/introduction-to-javascript">Learn JavaScript</a> module:
 <ol>
   <li><em>"Functions"</em></li>
@@ -35,37 +35,551 @@
   <li><a href="http://eloquentjavascript.net/05_higher_order.html">Higher-order Functions</a></li>
   <li><a href="http://eloquentjavascript.net/06_object.html">The Secret Life of Objects</a></li>
 </ul>
-<strong>Hangman Game</strong> (complete with CSS design) (<span style="color: #ff0000;"><strong>Due January 22</strong></span>)
 
-<strong>JavaScript Codecademy #1</strong> (<span style="color: #ff0000;"><strong>DUE January 29</strong></span>)
+<h3>Upcoming Assignments</h3>
+
+<p><strong>JavaScript Codecademy #1</strong> (<span style="color: #ff0000;"><strong>DUE Feb 5</strong></span>)</p>
+
+<p><strong>Interactive Website (5%)</strong> (complete with CSS design) (<span style="color: #ff0000;"><strong>Due Feb 19</strong></span>)</p>
+
+<p><strong>Hangman Game</strong> (complete with CSS design) (<span style="color: #ff0000;"><strong>Due Feb 26</strong></span>)</p>
 
 <hr>
 
-<h3>Module Notes</h3>
-<h4><strong>Opening the Console:</strong></h4>
-<ul>
-  <li>Windows: <strong>Ctrl-Shift-J</strong></li>
-  <li>Mac: <strong>Cmd-Option-J</strong></li>
-  <li>Open <a href="http://will-luers.com/DTC/dtc477/intro-javascript-circle-animation.html">Circles Script</a>&nbsp; and make an error</li>
-  <li>Check error with console</li>
-</ul>
-<h4>Functions, Arrays &amp; Loops:</h4>
+<h2>Module Notes</h2>
+
+<h3>Functions, Arrays &amp; Loops:</h3>
 <ul>
   <li><a href="https://www.w3schools.com/js/js_loop_for.asp">For Loops</a>, <a href="https://www.w3schools.com/js/js_loop_while.asp">While Loops</a></li>
   <li><a href="https://www.w3schools.com/js/js_functions.asp">Functions</a></li>
-  <li><a href="https://www.w3schools.com/js/js_arrays.asp">Nested Arrays</a></li>
+  <li><a href="https://www.w3schools.com/js/js_arrays.asp">Arrays</a></li>
 </ul>
-<h4>Tutorial 2:&nbsp;</h4>
-<ul>
-  <li>Quick review: &nbsp;<a href="https://will-luers.com/DTC/dtc477/js-module1/js-lesson1-game.html">JS Game 1</a></li>
-  <li><a href="http://will-luers.com/DTC/dtc477/intro-javascript-circle-animation-letters.html">Circles Script – Letters</a> - how insert into circles</li>
-  <li><a href="https://will-luers.com/DTC/dtc477/js-module2/js-demo-lesson2.html">JS 2</a></li>
-  <li><a href="https://will-luers.com/DTC/dtc477/js-module2/js-lesson2-game.html">JS Game 2</a></li>
-</ul>
+
+
+
 
 <hr>
 
-<h4>Traversing the DOM:</h4>
+<!-- <h3>Syntax Exercises</h3>
+<ol>
+  <li>DOM selection</li>
+  <li><em>"Functions"</em></li>
+  <li><em>"Scope"</em></li>
+  <li><em>"Loops"</em></li>
+</ol> -->
+
+<!-- <p>Download <a href="js-demo-lesson2.html">this file</a> for the exercises.</p> -->
+
+<h2>WORKSHOP</h2>
+<ul>
+  <li>Create a NEW page (new <code>.html</code> file) and write your own HTML + JavaScript from scratch.</li>
+  <li>Each challenge must be triggered by at least one button using <code>addEventListener("click", ...)</code>.</li>
+  <li>Every challenge must use: <strong>functions</strong>, <strong>arrays</strong>, <strong>conditionals</strong>, <strong>Math.random()</strong>, and at least one <strong>loop</strong>.</li>
+  <li>At least one challenge must include <strong>scope</strong>: global state that changes over time.</li>
+  <li><a href="js-demo-lesson2.html">JS Demo Lesson 2</a></li>
+</ul>
+
+
+<h3>Last Week's Challenging Challenges</h3>
+<section>
+  
+  <section>
+  <h4><strong>Challenge 2: Guess the Secret Word (Click Choices)</strong></h4>
+  <p>
+    The page picks one secret word. The player clicks one of three word buttons to guess it.
+  </p>
+
+  <h5>Logic Steps</h5>
+  <ol>
+    <li>Create an array of possible words.</li>
+    <li><strong>Select three array word, add them to a new array and make them buttons on the page.</strong></li>
+    <li>Randomly pick one secret word from the three and store it in a variable.</li>
+    <li><s>Show three word choices on the page (as buttons).</s></li>
+    <li>When a word button is clicked, run a function to see if the clicked word matches secret word.</li>
+    <li>If the clicked word matches the secret word, display “Correct” and stop the game.</li>
+    <li>If it does not match, display “Try again”.</li>
+  </ol>
+</section>
+<details>
+  <summary>Show one working solution</summary>
+  <pre><code>
+
+  const words = ["apple", "banana", "cherry", "grape", "orange"];
+
+  const word1 = words[Math.floor(Math.random() * words.length)];
+
+  let word2 = words[Math.floor(Math.random() * words.length)];
+  while (word2 === word1) {
+    word2 = words[Math.floor(Math.random() * words.length)];
+  }
+
+
+  let word3 = words[Math.floor(Math.random() * words.length)];
+  while (word3 === word1 || word3 === word2) {
+    word3 = words[Math.floor(Math.random() * words.length)];
+  }
+
+  const choices = [word1, word2, word3];
+  const secretWord = choices[Math.floor(Math.random() * choices.length)];
+
+  const btn1 = document.getElementById("btn1");
+  const btn2 = document.getElementById("btn2");
+  const btn3 = document.getElementById("btn3");
+
+  btn1.textContent = word1;
+  btn2.textContent = word2;
+  btn3.textContent = word3;
+
+  function checkGuess(clickedWord) {
+    if (clickedWord === secretWord) {
+      console.log(`Correct!`);
+    } else {
+      console.log(`Try again.`);
+    }
+  }
+
+  btn1.addEventListener("click", function () {
+    checkGuess(btn1.textContent);
+  });
+
+  btn2.addEventListener("click", function () {
+    checkGuess(btn2.textContent);
+  });
+
+  btn3.addEventListener("click", function () {
+    checkGuess(btn3.textContent);
+  });
+
+  console.log(`Secret word: ${secretWord}`);
+
+</code></pre>
+</details>
+
+
+
+<hr>
+
+<section>
+  <h4><strong>Challenge 3: Dice Race</strong></h4>
+  <p>
+    Two players roll a die each round. The player with the higher roll earns 1 point.
+    First player to reach the target score wins.
+  </p>
+
+  <h4>Logic Steps</h4>
+  <ol>
+    <li>Create two variables to store each player’s score.</li>
+    <li><strong>Create one button on the page (HTML)</strong></li>
+    <li><strong>Each button click runs one round of the game.</strong></li>
+    <li>Generate a random number between 1 and 6 for Player 1.</li>
+    <li>Generate a random number between 1 and 6 for Player 2.</li>
+    <li>
+      Compare the two rolls:
+      <ul>
+        <li>If Player 1’s roll is higher, Player 1 gains 1 point.</li>
+        <li>If Player 2’s roll is higher, Player 2 gains 1 point.</li>
+        <li>If the rolls are equal, no points are awarded.</li>
+      </ul>
+    </li>
+    <li>Display both dice rolls and the updated scores on the page.</li>
+    <li>If a player reaches the target score, display the winner and stop the game.</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Show one working solution</summary>
+  <pre><code>
+
+  // Assumes a button with id "rollBtn" and a div with id "output" in HTML
+
+  
+  let p1Score = 0;
+  let p2Score = 0;
+
+  const targetScore = 5;
+
+  const rollBtn = document.getElementById("rollBtn");
+  const output = document.getElementById("output");
+
+  function playRound() {
+    if (p1Score >= targetScore || p2Score >= targetScore) {
+      return;
+    }
+
+    const p1Roll = Math.floor(Math.random() * 6) + 1;
+    const p2Roll = Math.floor(Math.random() * 6) + 1;
+
+    let roundResult = "";
+
+    if (p1Roll > p2Roll) {
+      p1Score = p1Score++;
+      roundResult = "Player 1 wins the round.";
+    } else if (p2Roll > p1Roll) {
+      p2Score = p2Score++;
+      roundResult = "Player 2 wins the round.";
+    } else {
+      roundResult = "Tie round. No points awarded.";
+    }
+
+    output.innerHTML =
+      `Player 1 rolled: ${p1Roll}
+       Player 2 rolled: ${p2Roll}
+       ${roundResult}
+       Score — Player 1: ${p1Score} | Player 2: ${p2Score}`;
+
+    if (p1Score >= targetScore) {
+      output.innerHTML += `Player 1 wins the game!`;
+      rollBtn.disabled = true;
+    } else if (p2Score >= targetScore) {
+      output.innerHTML += `Player 2 wins the game!`;
+      rollBtn.disabled = true;
+    }
+  }
+
+  rollBtn.addEventListener("click", function () {
+    playRound();
+  });
+
+</code></pre>
+</details>
+
+
+
+<hr>
+
+<h3>BEGINNER CHALLENGES</h3>
+
+<p>
+Each challenge must include a button, an output element, and a script that connects the button to a function:
+
+<pre><code>
+&lt;button id="btn"&gt;Run&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+</code></pre>
+
+</p>
+
+
+<!-- ============================================ -->
+<section>
+  <h4><strong>Challenge 1: Is It In the List?</strong></h4>
+  <p>
+    The user types a word. The program checks if that word exists in an array.
+  </p>
+
+  <h5>Logic Steps</h5>
+  <ol>
+    <li>Create one array of words.</li>
+    <li>Add one button and connect it to a function.</li>
+    <li>When clicked, use <code>prompt()</code> to ask the user for a word.</li>
+    <li>Use one <strong>for loop</strong> to go through the array.</li>
+    <li>Use one conditional to check if the user’s word matches the current array word.</li>
+    <li>If a match is found, store that result (example: set a variable like “found” to true).</li>
+    <li>After the loop, use one conditional to display “Found” or “Not Found.”</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Show Example Solution</summary>
+  <pre><code>
+// Challenge 1: Is It In the List?
+
+const words = ["apple", "banana", "grape", "orange"];
+const btn = document.getElementById("btn");
+const output = document.getElementById("output");
+
+btn.addEventListener("click", checkList);
+
+function checkList() {
+  const input = prompt("Type a word:");
+  let found = false;
+
+  for (let i = 0; i < words.length; i++) {
+    if (words[i] === input) {
+      found = true;
+    }
+  }
+
+  if (found) {
+    output.textContent = `Found: ${input}`;
+  } else {
+    output.textContent = `Not found: ${input}`;
+  }
+}
+  </code></pre>
+</details>
+
+
+<hr>
+
+<!-- ============================================ -->
+<section>
+  <h4><strong>Challenge 2: Count the Matches</strong></h4>
+  <p>
+    The user types a number. The program counts how many times it appears in an array.
+  </p>
+
+  <h5>Logic Steps</h5>
+  <ol>
+    <li>Create one array of numbers (include some repeats).</li>
+    <li>Add one button and connect it to a function.</li>
+    <li>When clicked, use <code>prompt()</code> to ask the user for a number.</li>
+    <li>Create a counter variable starting at 0.</li>
+    <li>Use one <strong>for loop</strong> to go through the array.</li>
+    <li>Use one conditional to check if the current number matches the user’s input.</li>
+    <li>If it matches, increase the counter.</li>
+    <li>Display the final count.</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Show Example Solution</summary>
+  <pre><code>
+// Challenge 2: Count the Matches
+
+const nums = [2, 5, 7, 5, 9, 5, 1];
+const btn = document.getElementById("btn");
+const output = document.getElementById("output");
+
+btn.addEventListener("click", countMatches);
+
+function countMatches() {
+  const input = prompt("Type a number to count:");
+  let count = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] == input) {
+      count++;
+    }
+  }
+
+  output.textContent = `Matches for ${input}: ${count}`;
+}
+  </code></pre>
+</details>
+
+
+<hr>
+
+<!-- ============================================ -->
+<section>
+  <h4><strong>Challenge 3: Above or Below?</strong></h4>
+  <p>
+    The user types a threshold. The program counts how many array numbers are above it.
+  </p>
+
+  <h5>Logic Steps</h5>
+  <ol>
+    <li>Create one array of numbers.</li>
+    <li>Add one button and connect it to a function.</li>
+    <li>When clicked, use <code>prompt()</code> to ask the user for a threshold number.</li>
+    <li>Create a counter variable starting at 0.</li>
+    <li>Use one <strong>for loop</strong> to go through the array.</li>
+    <li>Use one conditional to check if the current number is greater than the threshold.</li>
+    <li>If it is greater, increase the counter.</li>
+    <li>Display how many numbers were above the threshold.</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Show Example Solution</summary>
+  <pre><code>
+// Challenge 3: Above or Below?
+
+const nums = [4, 12, 9, 27, 3, 18];
+const btn = document.getElementById("btn");
+const output = document.getElementById("output");
+
+btn.addEventListener("click", countAbove);
+
+function countAbove() {
+  const input = prompt("Type a threshold number:");
+  let count = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > input) {
+      count++;
+    }
+  }
+
+  output.textContent = `Numbers above ${input}: ${count}`;
+}
+  </code></pre>
+</details>
+
+
+<hr>
+
+<!-- ============================================ -->
+<section>
+  <h4><strong>Challenge 4: “Y/N” Survey Count</strong></h4>
+  <p>
+    The user answers a yes/no prompt. The program counts how many "yes" values exist in an array.
+  </p>
+
+  <h5>Logic Steps</h5>
+  <ol>
+    <li>Create one array that contains "yes" and "no" values.</li>
+    <li>Add one button and connect it to a function.</li>
+    <li>When clicked, use <code>prompt()</code> to ask the user to type either "yes" or "no".</li>
+    <li>Create a counter variable starting at 0.</li>
+    <li>Use one <strong>for loop</strong> to go through the array.</li>
+    <li>Use one conditional to count how many times the user’s input appears in the array.</li>
+    <li>Display the result.</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Show Example Solution</summary>
+  <pre><code>
+// Challenge 4: "Y/N" Survey Count
+
+const answers = ["yes", "no", "yes", "yes", "no", "no", "yes"];
+const btn = document.getElementById("btn");
+const output = document.getElementById("output");
+
+btn.addEventListener("click", countAnswer);
+
+function countAnswer() {
+  const input = prompt('Type "yes" or "no":');
+  let count = 0;
+
+  for (let i = 0; i < answers.length; i++) {
+    if (answers[i] === input) {
+      count++;
+    }
+  }
+
+  output.textContent = `${input} count: ${count}`;
+}
+  </code></pre>
+</details>
+
+
+<hr>
+
+<!-- ============================================ -->
+<section>
+  <h4><strong>Challenge 5: Random Score Adder (User Chooses Risk)</strong></h4>
+  <p>
+    The user decides whether to take a turn. If they confirm, the program adds a random number from the array to a running score.
+  </p>
+
+  <h5>Logic Steps</h5>
+  <ol>
+    <li>Create one array of numbers (positive and negative).</li>
+    <li>Create a variable called <code>score</code> that starts at 0 and persists between clicks.</li>
+    <li>Add one button and connect it to a function.</li>
+    <li>When clicked, use <code>confirm()</code> to ask “Take a risk?”</li>
+    <li>If the user cancels, stop the function (no changes).</li>
+    <li>If the user confirms, use <strong>Math.random</strong> and <strong>Math.floor</strong> to select a random number from the array.</li>
+    <li>Add it to <code>score</code> and display the updated score.</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Show Example Solution</summary>
+  <pre><code>
+// Challenge 5: Random Score Adder (User Chooses Risk)
+
+const nums = [5, -3, 10, -8, 2];
+let score = 0;
+
+const btn = document.getElementById("btn");
+const output = document.getElementById("output");
+
+btn.addEventListener("click", takeTurn);
+
+function takeTurn() {
+  const ok = confirm("Take a risk?");
+
+  if (!ok) {
+    output.textContent = `No risk taken. Score: ${score}`;
+    return;
+  }
+
+  const i = Math.floor(Math.random() * nums.length);
+  const value = nums[i];
+  score += value;
+
+  output.textContent = `Picked: ${value} | Score: ${score}`;
+}
+  </code></pre>
+</details>
+
+
+<hr>
+
+<!-- ============================================ -->
+<section>
+  <h4><strong>Challenge 6: Pick a Category</strong></h4>
+  <p>
+    The user types a category word. The program checks if it is one of the allowed categories in an array.
+  </p>
+
+  <h5>Logic Steps</h5>
+  <ol>
+    <li>Create one array of allowed categories (example: "action", "comedy", "drama").</li>
+    <li>Add one button and connect it to a function.</li>
+    <li>When clicked, use <code>prompt()</code> to ask the user for a category.</li>
+    <li>Use one <strong>for loop</strong> to check the array for a match.</li>
+    <li>Use one conditional to detect a match while looping.</li>
+    <li>After the loop, use one conditional to either accept the category or display “Not an option.”</li>
+    <li>Display the result on the page (and optionally also use <code>alert()</code>).</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Show Example Solution</summary>
+  <pre><code>
+// Challenge 6: Pick a Category
+
+const categories = ["action", "comedy", "drama"];
+const btn = document.getElementById("btn");
+const output = document.getElementById("output");
+
+btn.addEventListener("click", pickCategory);
+
+function pickCategory() {
+  const input = prompt("Pick a category: action, comedy, drama");
+  let allowed = false;
+
+  for (let i = 0; i < categories.length; i++) {
+    if (categories[i] === input) {
+      allowed = true;
+    }
+  }
+
+  if (allowed) {
+    output.textContent = `Accepted: ${input}`;
+  } else {
+    output.textContent = `Not an option: ${input}`;
+    alert("Try: action, comedy, or drama");
+  }
+}
+  </code></pre>
+</details>
+
+
+
+
+
+
+
+<!-- <h3>Hangman Part 1</h3>
+<ul>
+  <li>Work out the logic steps for Hangman.</li>
+  <li>Set up HTML</li>
+  <li>Begin JS syntax</li>
+  <li>Test at each stage</li>
+</ul>
+
+<p>Download <a href="hangman-empty.html">this file</a> for the exercise.</p> -->
+
+
+<hr>
+
+<!-- <h3>Traversing the DOM:</h3>
 Methods to access and manipulate elements on a webpage:
 <ul>
   <li><a href="https://www.w3schools.com/jsref/met_document_queryselector.asp">document.querySelector()</a></li>
@@ -77,9 +591,11 @@ Methods to access and manipulate elements on a webpage:
 <a href="https://www.w3schools.com/jsref/prop_html_innerhtml.asp">innerHTML</a>
 <pre><code>div.innerHTML = "Hi, there.";</code></pre>
 <h4>Events:</h4>
-<ul>
-  <li><a href="https://www.w3schools.com/jsref/met_element_addeventlistener.asp">addEventListener()</a></li>
-</ul>
+<a href="https://www.w3schools.com/jsref/met_element_addeventlistener.asp">addEventListener()</a>
+<pre><code>
+  element.addEventListener("click", myFunction);
+</code></pre>
+
 <h4>Math.random:</h4>
 Learn generative/random scripting with <a href="http://www.w3schools.com/jsref/jsref_random.asp">Math.random</a>
 
@@ -90,26 +606,15 @@ Useful short-cut function to generate a random number:
 
 let x = getRandomInt(0, 20);</code></pre>
 
-<hr>
 
-<h3>In-class Exercise</h3>
-<a href="http://will-luers.com/DTC/dtc477/student-pairings4.html">Student Pairings</a>
+<hr> -->
 
-Make up a Generative Art work like the <a href="http://will-luers.com/DTC/dtc477/intro-javascript-circle-animation.html">Circles Script.</a>
-
-<hr>
-
-<h3>Hangman Part 1</h3>
-<p>Tba...</p>
-
-<hr>
-
-<h3>Interactive Website: 5%
-<strong style="color: #ff0000; font-family: inherit; font-size: 16px;">DUE: February 5&nbsp;</strong></h3>
+<h2>Interactive Website: 5%
+<strong style="color: #ff0000; font-family: inherit; font-size: 20px;">DUE: Thursday Feb 19&nbsp;</strong></h2>
 This assignment is designed to bring together your understanding of basic syntax, variables, conditionals, arrays, functions, and loops in JavaScript. The key objective is to create a dynamic website that allows for user interaction, resulting in changes on the webpage without altering the URL.
 
-<strong>*In all projects in this class you will include in the source code the natural language steps of your script whether you use ChatGPT or not. </strong>Add your commented out ( /*…*/ ) steps in a numbered list inside the &lt;script&gt; tag.&nbsp;
-<h4>Suggested Ideas for Your Website</h4>
+<strong>*In all projects in this class you will include in the source code the natural language steps of your script.</strong>Add your commented out ( /*…*/ ) steps in a numbered list inside the &lt;script&gt; tag.&nbsp;
+<h3>Suggested Ideas for Your Website</h3>
 <ul>
   <li><strong>Interactive Quiz</strong>: A simple quiz where users answer questions, and get immediate feedback.</li>
   <li><strong>Dynamic Photo Gallery</strong>: A gallery where users can filter or sort images based on categories.</li>
@@ -117,15 +622,27 @@ This assignment is designed to bring together your understanding of basic syntax
   <li><strong>Customizable Timer</strong>: A timer where users can set and start a countdown for various activities.</li>
   <li><strong>A Digital Art Work:</strong> User interactivity creates dynamic displays of image, text, sound and/or video. The weirder the better.</li>
 </ul>
-<h4>Working with ChatGPT</h4>
-Sketch your idea on paper or figma. Get a visualization of how things are going to work. Then try to write the scripting steps in natural language. Once you have your idea and the steps outlined, you will work with ChatGPT to refine and script your interactive elements. Here's how to proceed:
+
+
+  <!-- <h3>Custom GPT: JS Mentor</h3>
+    <p>Use this GPT to help you work out logic steps, map the logic steps to JavaScript, then work on syntax line by line: <a href="https://chatgpt.com/g/g-688a52f67c40819189325205dcf51ba7-js-mentor">JS Mentor - patient JavaScript tutor</a></p>
+ -->
+
+<!-- <h4>Working with ChatGPT</h4>
+Sketch your idea on paper or figma. Get a visualization of how things are going to work. Then try to write the scripting steps in natural language using the JS Tutor. Once you have your idea and the steps outlined, you will work with ChatGPT to refine and script your interactive elements. Here's how to proceed:
 <ol>
   <li><strong>Describe Your Idea</strong>: Clearly describe your website idea and its layout to ChatGPT so you&nbsp; can quickly create an HTML structure to work with. Keep it simple!</li>
-  <li><strong>Detail Your JavaScript Steps</strong>: Explain the interactive elements and the steps you think are needed to implement them in JavaScript. Ask for help in the chat to convert your steps in into JavaScript.&nbsp;</li>
+  <li><strong>Detail Your JavaScript Steps</strong>: In a new Chat, use your steps from JS Tutor to explain the interactive elements and the logic steps that are needed to implement them in JavaScript. Ask for help in the chat to convert your steps into JavaScript. And make sure you ask for comments about what is happening in each stage of the script.&nbsp;</li>
   <li><strong>Start Coding</strong>: Begin scripting each step. ChatGPT will guide you, provide hints, and correct your code. You have to ask for how you want help!</li>
   <li><strong>Iterative Learning</strong>: This process is iterative. You may not get everything right the first time, and that's okay! The goal is to learn and improve.</li>
+  <li>Inside the index.html of you project, just before the script and inside the script tag, add a brief description of how you used ChaGPT. Floow this with a numbered list of your natural language logic steps.</li>
+  <li><strong>Document</strong>: Print to PDF your complete Chat with JS Mentor - or copy and paste to a Word Doc. This is to document your use of AI. This PDF/doc should be inside your project folder that you upload to the server. You can provide the url to the PDF inside your index.html comments.</li>
 </ol>
 Remember, the key to this assignment is not just to write code but to understand the thought process behind scripting interactive elements on a webpage.
+
+<hr> -->
+
+
 
   </main>
   <footer class="site-footer">

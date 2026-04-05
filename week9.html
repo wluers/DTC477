@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Week 9: Objects</title>
+  <title>Week 9: Weather App</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    img { width: 100%; margin: auto; }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -13,129 +16,546 @@
       <a href="syllabus.html">Syllabus</a>
       <a href="index.html">Modules</a>
       <a href="projects.html">Projects</a>
-      <a href="tutorials.html">Tutorials</a>
+      <!-- <a href="tutorials.html">Tutorials</a> -->
     </nav>
   </header>
 
   <main class="module-page">
-    <h1>Week 9: Objects</h1>
+    
+    <h1>Week 9: Weather App</h1>
 
-    <h3>To Do This Week:</h3>
-Work on Map Projects...
+
+    <h2>Project 4: Weather App + Canvas Animation <span class="points">(15%)</span> DUE April 2</h2>
+
+  <p>
+    Build an original <strong>weather app</strong> using the <strong>OpenWeather API</strong> and JavaScript
+    <code>fetch()</code>. Your app should let a user search a city/state (or city/country), then translate the JSON weather
+    response into a <strong>designed Canvas animation</strong> that expresses the
+    current conditions (clouds, rain, wind, temperature, etc.).
+  </p>
+
+  <p>
+    Your finished project must include:
+    <strong>(1)</strong> a search form, <strong>(2)</strong> a readable weather display for weather outputs, and
+    <strong>(3)</strong> at least 5 canvas-based animations that responds to real weather data.
+    Include as comments in the script a short <strong>project statement</strong>, logic steps and JS Mentor chat URLS.
+  </p>
+
+  <p><strong>Development Steps:</strong></p>
+  <ol>
+    <li><strong>Choose a concept</strong> (mood, style, theme, metaphor, visual language).</li>
+    <li><strong>Pick your data</strong>: decide which JSON fields you will use to display an info-card integrated in an interface along with Canvas animation based on data: temp, humidity, wind, clouds, precipitation, time of day.</li>
+    <li><strong>Sketch the UI</strong>: layout for search + results.</li>
+    <li><strong>Build the fetch workflow</strong>: input → request URL → JSON → update the page.</li>
+    <li><strong>Design the Canvas system</strong>: plan how each variable changes motion, density, color, scale, or behavior.</li>
+    <li><strong>Animate</strong> with <code>requestAnimationFrame()</code>.</li>
+    <li><strong>Handle errors</strong>: invalid city, network failure, missing data, empty input.</li>
+    <li><strong>Style and polish</strong>: readable typography, spacing, responsive layout, and a cohesive “weather mood.”</li>
+    <li><strong>Test + debug</strong> with at least 5-10 different cities and conditions.</li>
+  </ol>
+
+  
+  <h3>Minimum Requirements Checklist:</h3>
+  <ul>
+    <li>Uses OpenWeather API with <code>fetch()</code> (not a prebuilt weather library).</li>
+    <li>User can search (at least by city/state names) and see updated results.</li>
+    <li>Displays at least <strong>4</strong> data points (example: temp, feels_like, humidity, wind speed, cloud %).</li>
+    <li>At least 5 different Canvas animations based on live data .</li>
+    <li>Includes loading + error messages.</li>
+    <li>Includes a project statement, logic steps and chat urls in JS comments.</li>
+  </ul>
+
+  <h3>Evaluation Criteria</h3>
+    <ul>
+      <li><strong>Functionality (30%):</strong> The app must fetch and display accurate weather data based on user input.</li>
+      <li><strong>Interaction Design (40%):</strong> Evaluate creativity, usability, and aesthetics of the interface design and JS animations for different weather patterns.</li>
+      <li><strong>Code Quality (30%):</strong> Ensure clean, well-commented JavaScript code that dynamically updates the UI. Include natural language steps in script comments and chat urls.</li>
+    </ul>
+
+<hr>
+  
+    <h2>Weather App Project Details</h2>
+
+    <p>
+      Use the <a href="http://openweathermap.org/api">OpenWeather API</a> (Application Programming Interface) to create your own weather app
+      using JavaScript’s <code>fetch()</code> method to get the current weather by city and state.
+    </p>
+
+    <p>
+      Refer to this <a href="https://will-luers.com/DTC/dtc477/weatherapp-js.html">weather app template</a> to get started.</p>
+
+    <p>
+      Get an API key by signing up for the free version from the <a href="https://openweathermap.org/appid">OpenWeather API</a>, selecting the free option.</p> 
+
+      <p>Here is the <a href="https://home.openweathermap.org/users/sign_up">sign-up page for the free version</a>. Your Key will be emailed to you. 
+      Replace the placeholder key in the template with your own.
+    </p>
+
+    
+    <hr>
+
+    <h2>Weather App Workshop</h2>
+
+    <h3>Server Requests</h3>
+    <ul>
+      <li>
+        <em>Old way:</em>
+        <a href="https://www.w3schools.com/xml/ajax_intro.asp">Ajax</a> — asynchronous JavaScript and XML, used for passing data (GET or POST) without refreshing the page.
+        <a href="https://www.w3schools.com/xml/default.asp">XML</a> — extensible markup language, once used for storing and exchanging data.
+      </li>
+      <li>
+        <em>New way (with ES6):</em>
+        <a href="https://www.w3schools.com/js/js_api_fetch.asp">JavaScript Fetch API</a> along with
+        <a href="https://www.w3schools.com/js/js_json_intro.asp">JSON</a> — JavaScript Object Notation, a format for storing and exchanging data.
+      </li>
+    </ul>
+
+    <h3>JSON Methods</h3>
+<ul>
+    <li><strong>JSON.stringify()</strong> — Converts a JS object into a JSON string. Used when sending data to a server.</li>
+    <li><strong>JSON.parse()</strong> — Converts a JSON string into a JS object. Used when you already have a JSON string in hand.</li>
+    <li><strong>response.json()</strong> — A fetch-specific shortcut that reads the response body and parses it into a JS object in one step.</li>
+</ul>
+
+    <p>
+      The <strong>Fetch API</strong> is a built-in browser feature. It’s a <strong>JavaScript interface</strong> (a set of methods) that lets you make
+      <strong>network requests</strong> like:
+    </p>
+
+    <ul>
+      <li>GET (grab data)</li>
+      <li>POST (send data)</li>
+      <li>PUT / DELETE (update/remove data)</li>
+    </ul>
+
+    <p class="kicker">Weather App Resources</p>
+
+    <ul>
+      <li><a href="https://docs.openweather.co.uk/current">OpenWeather API: Current Weather Data </a></li>
+     <!--  <li>
+        <a href="http://api.openweathermap.org/data/2.5/weather?q=chicago&amp;units=imperial&amp;APPID=your_api_key">Example Output: Chicago</a> /
+        <a href="https://jsonformatter.org/json-pretty-print">JSON Prettify</a>
+      </li> -->
+      <li><a href="https://will-luers.com/DTC/dtc477/weather-json.js">JSON Weather Data</a></li>
+      <li><a href="https://openweathermap.org/weather-conditions">Weather Conditions</a> — a list of all weather descriptions.</li>
+      <li><a href="https://openweathermap.org/current">Accessing Current Weather Data</a></li>
+      <!-- <li><a href="https://openweathermap.org/api/geocoding-api">Geocoding API</a> — options for searching with names or coordinates.</li> -->
+      <li><a href="weatherapp-js.html">Weather app template (with two input fields)</a></li>
+      <li><a href="weatherapp-js2.html">Weather app template (with single search bar)</a></li>
+      <!-- <li><a href="https://www.dtc-wsuv.org/cmdc/gallery/archives/05.21/sbrower/index.html">Student example using Canvas</a></li> -->
+      <li>
+        <a href="https://www.w3schools.com/jsref/jsref_includes_array.asp">JavaScript <code>includes()</code></a> — search a result for a word or phrase:
+      </li>
+    </ul>
+
+    <pre><code>if (response.weather[0].description.includes('clouds')) {
+  // Do something
+}</code></pre>
+
+    <!-- <h3>To Get Weather by Geolocation</h3>
+    <ul>
+      <li><a href="https://www.w3schools.com/html/html5_geolocation.asp">HTML5 Geolocation API</a></li>
+      <li><a href="https://dtc-wsuv.org/wluers/geolocationstory-wsu.html">Geolocation Template</a></li>
+    </ul> -->
+
+    <hr>
+
+    
+
+    <h2>Generative Art</h2>
+
+<p>
+  <strong>Generative visual art</strong> is a type of digital art made using computer algorithms.
+  Artists use programming tools like <a href="https://processing.org/">Processing</a> or its JavaScript version
+  <a href="https://p5js.org/">p5.js</a> to set rules. The computer then creates art by following these rules,
+  leading to unique and sometimes changing images or animations. The artist decides the starting point, but the
+  computer’s actions create the final piece. It’s a way for artists to blend coding with art, creating new and
+  unexpected visual works.
+</p>
+
+<p class="term"><strong>GENERATIVE ART:</strong> Art created using autonomous processes</p>
+<p class="term"><strong>AUTONOMOUS PROCESS:</strong> A process not under direct human control</p>
+
+
+
+<ul>
+  <li><strong>Algorithmic/Rule-Based</strong>: Setting up strict rule systems to generate visual outputs.</li>
+  <li><strong>Randomness &amp; Noise</strong>: Introducing randomness (e.g., Perlin noise) to simulate organic or chaotic patterns.</li>
+  <li><strong>Iterative / Recursive Approaches</strong>: Fractals and other self-similar patterns, such as recursive subdivisions.</li>
+</ul>
+
+<p><em>— Amy Goodchild</em></p>
+
+<p>
+  The <strong>random()</strong> function in p5.js generates pseudorandom numbers. It can return a floating-point
+  number between 0 and 1, a number within a specified range, or a random element from an array, depending on how it’s used.
+  It’s useful for introducing unpredictability and variation in sketches.
+</p>
+
+<!-- <p><strong>Processing for JavaScript</strong></p>
+<ul>
+  <li><a href="https://p5js.org/">p5js.org</a></li>
+  <li><a href="https://p5js.org/reference/">p5.js Reference</a></li>
+</ul> -->
+
+<p>Below images are from Amy Goodchild's <a href="https://www.amygoodchild.com/blog/what-is-generative-art">What is Generative Art</a></p>
+
+<p>
+  <a href="images/Screenshot-2024-03-07-at-9.10.38-PM.png">
+    <img src="images/Screenshot-2024-03-07-at-9.10.38-PM.png"
+      alt="Example of p5.js random() output">
+  </a>
+</p>
+
+<p>
+  The <strong>noise()</strong> function in p5.js generates Perlin noise, which produces smooth, natural-looking sequences of numbers.
+  Unlike random numbers that jump abruptly, values from <strong>noise()</strong> change gradually and predictably, making them ideal for
+  creating organic patterns, textures, and motion in generative art and animations.
+</p>
+
+<p>
+  <a href="images/Screenshot-2024-03-08-at-9.37.00-AM.png">
+    <img src="images/Screenshot-2024-03-08-at-9.37.00-AM.png"
+      alt="Example of p5.js noise() output">
+  </a>
+</p>
 
 <hr>
 
-<h3>Module Notes</h3>
-Elit projects - add your name and project name! also, instructions if the interface makes it unclear what to do
-<h4>Map Project</h4>
-<a href="https://will-luers.com/DTC/dtc477/map-projects-477-spring2025.html">Map Projects List</a>
+<h4>John Conway</h4>
+<p></p>
+<p>John Conway’s <a href="https://editor.p5js.org/amygoodchild/sketches/RH_6RNRxs">Game of Life (p5.js simulation)</a></p>
 
-<strong><span style="color: #ff0000;">Map Project DUE Monday March 19th</span></strong>
-<h4>Grading Criteria:</h4>
-<ul>
-  <li>Effort in scripting and utilizing the MapBox API</li>
-  <li>JS steps articulated in the script (please break lines!)</li>
-  <li>Interaction design quality</li>
-  <li>Applied Visual hierarchy&nbsp;</li>
-</ul>
-<h4>Requirements:</h4>
-<ul>
-  <li><strong>Markers:</strong> Ensure your map contains a minimum of 5 markers.</li>
-  <li><strong>Functional JavaScript:</strong> Verify that your Map's JavaScript functions properly and is free of errors. Check the console for any issues.&nbsp;</li>
-  <li><strong>User Experience:</strong> Design the map's interaction with the user in mind. Ensure clarity and accessibility in interactions.</li>
-  <li><strong>Color Scheme:</strong> Maintain a harmonious color scheme across the map and page elements.</li>
-  <li><strong>Visual Hierarchy:</strong> Implement thoughtful typography and graphic elements with clear visual hierarchy.</li>
-  <li><strong>Image Presentation:</strong> Ensure images are proportionally presented within the narrative.</li>
-  <li><strong>Project Comments:</strong> Include comments in the <code>&lt;script&gt;</code> section for your natural language steps,&nbsp; and any info about how you used ChatGPT.</li>
-  <li><strong>JavaScript Comments:</strong> Add your own comments within your script to describe the purpose of the JavaScript statements.</li>
-  <li><strong>Folder Structure:</strong> Upload your project in a folder named "map", including the "index.html" file, external JavaScript file if applicable, and the images folder.</li>
-  <li><strong>Submission Check:</strong> Before submission, verify that the your project url works correctly. Validate and then submit the working URL to Canvas.</li>
-  <li><strong>Communication for Delays:</strong> If you anticipate being late with your project submission, notify me via Slack beforehand with your expected completion time.</li>
-</ul>
-<h4>JS Review:</h4>
-<ul>
-  <li><a href="http://www.w3schools.com/js/js_statements.asp">Statements</a></li>
-  <li><a href="http://www.w3schools.com/js/js_variables.asp">Variables</a></li>
-  <li><a href="http://www.w3schools.com/js/js_datatypes.asp">Data Types:</a> Strings, numbers, booleans, arrays</li>
-  <li><a href="http://www.w3schools.com/js/js_operators.asp">Basic Operators and “Shortcut” Operators</a></li>
-  <li><a href="http://www.w3schools.com/js/js_comparisons.asp">Comparison Operators</a></li>
-  <li><a href="http://www.w3schools.com/js/js_arrays.asp">Arrays</a></li>
-  <li><a href="http://www.w3schools.com/js/js_comments.asp">JavaScript Commenting</a></li>
-  <li><a href="http://www.w3schools.com/js/js_object_definition.asp">Objects / Methods / Properties</a></li>
-  <li><a href="http://www.w3schools.com/js/js_functions.asp">Functions</a></li>
-  <li><a href="http://www.w3schools.com/js/js_loop_for.asp">For Loops</a></li>
-  <li><a href="http://www.w3schools.com/js/js_loop_while.asp">While Loops</a></li>
-  <li><a href="http://www.w3schools.com/js/js_if_else.asp">Conditional Statements</a></li>
-  <li><a href="http://www.w3schools.com/js/js_scope.asp">Scope</a></li>
-</ul>
-<h4>In-Class Exercise:</h4>
-<a href="https://will-luers.com/DTC/dtc477/midterm-js-review.html">JS step-by-step</a>
+<h4>Vera Molnar</h4>
+<p>Vera Molnár (b. 1924) is a Hungarian-French artist often recognized as one of the earliest pioneers of generative and computer-based art. In the late 1960s, Molnár began systematically using computers—an uncommon practice at the time—to explore geometric forms and algorithmic variations. She embraced rule-based processes to create series of drawings that reveal slight, methodical permutations in composition. Her work anticipates generative art and processing: how simple computational rules can generate nuanced aesthetic complexity.</p>
 
-<hr>
+<p>
+  <a href="images/Screenshot-2024-03-07-at-11.51.52-PM.png">
+    <img src="images/Screenshot-2024-03-07-at-11.51.52-PM.png"
+      alt="Vera Molnar example">
+  </a>
+</p>
 
-<h4>Objects and Classes:</h4>
-<em>Object Literal</em> (simple object):
-<pre>let dog = { 
-   name: "Buddy", 
-   breed: "Golden Retriever", 
-   age: 3, 
-   bark: function() { 
-      console.log("Woof!"); 
-   } 
-};
-</pre>
-<em>Object Constructor</em> (an abstract object to generate specific "instances" of a dog):
-<pre>function Dog(name, breed, age) {
-   this.name = name;
-   this.breed = breed;
-   this.age = age;
-   this.bark = function() {
-      console.log("Woof!");
-   };
-}
 
-let myDog = new Dog("Buddy", "Golden Retriever", 3);
-</pre>
-<em>Instantiation</em> of the Map object from the MapBox API:
-<pre>let map = new mapboxgl.Map({
-   container: 'map',
-   style: 'mapbox://styles/mapbox/satellite-v9',
-   center: [-119.262833, 46.329140], // starting position [lng, lat]
-   zoom: 5 // starting zoom
-});
-</pre>
-<em>Object Constructor</em> (a template for creating multiple objects with similar properties and methods):
-<pre>function Mealplanner(breakfast, lunch, dinner) {
-   this.breakfast = breakfast;
-   this.lunch = lunch;
-   this.dinner = dinner;
-   this.message = function() {
-      alert("Bon appetit!");
-   };
-}
+<div class="responsive-video">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/372579247?h=6a400b246b"frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+</div>
 
-let myMeals = new Mealplanner("bagel", "soup", "chicken");
-</pre>
-<em>Classes</em> (a more convenient way to write code that in pre-ES6 would be more complex):
-<pre>class Dog { 
-   constructor(name, breed, age) { 
-      this.name = name; 
-      this.breed = breed; 
-      this.age = age; 
-   } 
-   bark() { 
-      console.log("Woof!"); 
-   } 
-}
 
-let myDog = new Dog("Buddy", "Golden Retriever", 3);
-</pre>
-<h4>in-class exercise</h4>
-<a href="http://will-luers.com/DTC/dtc477/midterm-js-review-object-empty.html">JS Object review</a>
+<!-- <figure>
+  <a href="images/tyler-hobbs-fidenza313.png">
+    <img src="images/tyler-hobbs-fidenza313.png"
+      alt="Tyler Hobbs, Fidenza 313">
+  </a>
+  <figcaption>
+    Tyler Hobbs, <em>Fidenza 313</em> /
+    <a href="https://tylerxhobbs.com/fidenza">About the making of</a>
+  </figcaption>
+</figure>
+
+
+
+<div class="responsive-video">
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/5369286?h=1e69a67574"frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+</div>
+
+<p>
+  <a href="http://dtc-wsuv.org/wp/dtc338-spring24-ai/files/2023/10/Screenshot-2024-03-07-at-10.06.14-PM.png">
+    <img src="images/Screenshot-2024-03-07-at-10.06.14-PM.png"
+      alt="Michael Hansmeyer example">
+  </a>
+  Michael Hansmeyer
+</p> -->
 
 <hr>
 
-WORKSHOP
+<h4>P5js Demos</h4>
+
+<p><em>Examples:</em></p>
+<ul>
+  <li><a href="https://will-luers.com/DTC/dtc338-AI/javascript-p5js.html">JavaScript Canvas with Processing (p5.js)</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc338-AI/javascript-p5js-noise.html">JavaScript Canvas with Processing (p5.js) — Perlin Noise</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc338-AI/javascript-p5js-flowfields.html">JavaScript Canvas with Processing (p5.js) — Flow Fields</a></li>
+</ul>
+
+<p>
+  <strong>What are Flow Fields?</strong> Creating a flow field with p5.js involves simulating fluid-like motion by placing particles in an invisible
+  vector field, where each vector influences the direction and speed of the particles moving over it.
+  The example above uses Perlin noise to generate vector directions for a more organic flow. Here is an explanation and more demos by <a href="https://tylerxhobbs.com/essays/2020/flow-fields">Tyler Hobbs.</a>.
+</p>
+
+
+<h4>P5js Methods</h4>
+
+<p><strong>draw():</strong> Executes the code inside its block repeatedly, allowing for animation and interaction within the canvas.</p>
+<p><strong>fill():</strong> Sets the color used to fill shapes.</p>
+<p><strong>arc():</strong> Draws an arc or a portion of an ellipse.</p>
+
+<p>
+  p5.js: <code>arc(x, y, w, h, start, stop, [mode], [detail]);</code><br>
+  HTML5 Canvas: <code>arc(x, y, radius, startAngle, endAngle, anticlockwise)</code>
+</p>
+
+<hr>
+
+<h3>P5js Resources:</h3>
+
+<p>Full reference: <a href="https://p5js.org/reference">https://p5js.org/reference</a></p>
+
+<p><a href="https://editor.p5js.org/">P5js online editor.</a> Use the editor or a work in the editor to play with values, then move an HTML page.</p>
+
+<h4>P5js Starter</h4>
+<ol>
+  <li><a href="https://editor.p5js.org/wluers/sketches/465iJc7kY">p5js shapes</a></li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/ro7O-umTw">p5js square grid</a></li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/Kz2IAxRnJ">p5js - animating with framecount</a></li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/qauYaDt2Q">p5js drawing</a></li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/7THLAKl3a">p5js velocity</a></li>
+  <li><a href="https://editor.p5js.org/wluers/sketches/xJUULxSHv">p5js bouncing balls</a></li>
+  <li><a href="https://editor.p5js.org/">p5js online editor</a></li>
+  <li><a href="https://will-luers.com/DTC/dtc477/p5js-starter-template.html">p5js html starter template</a></li>
+</ol>
+
+<h4>P5js Reference</h4>
+<ol>
+  <li><a href="https://p5js.org/examples/">p5js examples</a></li>
+  <li><a href="https://github.com/processing/p5.js/wiki/p5.js-overview">p5js overview</a></li>
+  <li><a href="https://p5js.org/reference/">p5js reference</a></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA">p5js video tutorial</a></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLnJOmsprq3bE0QLbe7wZ8yb1-Dt0FBcP5">how to code generative art with p5js</a></li>
+  <li><a href="https://showcase.p5js.org/#/2022-All">p5js showcase</a></li>
+</ol>
+
+
+
+<div class="responsive-video">
+  <iframe src="https://www.youtube.com/embed/ig0q6vfpD38" allowfullscreen></iframe>
+</div>
+
+<!-- <h4>Generative Art Examples</h4>
+<ul>
+  <li><a href="https://p5js.org/examples/math-and-physics-game-of-life/">Game of Life (P5js simulation)</a></li>
+  <li><a href="https://openprocessing.org/">Openprocessing.org</a> - community of generative artists.</li>
+  <li><a href="https://www.amygoodchild.com/art/code">Amy Goodchild</a> | <a href="https://www.amygoodchild.com/blog/what-is-generative-art">Amy Goodchild: What is generative art?</a></li>
+  <li><a href="https://www.tylerxhobbs.com/works/qql#info">Tyler Hobbs</a> | <a href="https://www.tylerxhobbs.com/words/fidenza">Fidenza series</a> (flow fields)</li>
+  <li><a href="https://emilyxie.art/projects">Emily Xie</a></li>
+  <li><a href="https://joshuadavis.com/ArtBlocks-Organized-Disruption">Joshua Davis</a></li>
+  <li><a href="https://ravenkwok.com/joint-intellect/">Raven Kwok</a></li>
+  <li><a href="https://generated.space/">Kjetil Golid</a></li>
+</ul>
+
+<hr> -->
+
+<!-- <h3>Generative Artists</h3>
+-->
+<!-- <h4>Vera Molnar</h4>
+
+<p>Vera Molnár (b. 1924) is a Hungarian-French artist often recognized as one of the earliest pioneers of generative and computer-based art. In the late 1960s, Molnár began systematically using computers—an uncommon practice at the time—to explore geometric forms and algorithmic variations. She embraced rule-based processes to create series of drawings that reveal slight, methodical permutations in composition. Her work anticipates generative art and processing: how simple computational rules can generate nuanced aesthetic complexity.</p>
+
+<img src="http://dtc-wsuv.org/wp/dtc338-spring24-ai/files/2023/10/Screenshot-2024-03-07-at-11.51.52-PM.png" alt="Vera Molnar artwork">
+
+<div class="responsive-video">
+  <iframe src="https://player.vimeo.com/video/372579247" allowfullscreen></iframe>
+</div>
+
+<hr> -->
+
+
+<!-- 
+<h4>Frieder Nake</h4>
+
+<p>Another key figure in early computer art who pioneered algorithmic and generative methods, Frieder Nake began creating computer-generated drawings in the 1960s. His work often explores mathematical and logical structures to produce abstract compositions, reflecting on the relationship between art, mathematics, and computation.</p>
+
+<div class="responsive-video">
+  <iframe src="https://www.youtube.com/embed/UGjB36RXWQ8" allowfullscreen></iframe>
+</div>
+
+<figure>
+  <img src="http://dtc-wsuv.org/wp/dtc477/files/2020/07/friedernake.jpg" alt="Frieder Nake - Matrix Multiplication Series 34">
+  <figcaption>Matrix Multiplication Series 34</figcaption>
+</figure>
+
+<p><a href="http://www.frieder-nake.de/">frieder-nake.de</a></p>
+
+<hr>
+
+<h4>Casey Reas</h4>
+
+<p>Co-founder of Processing (alongside Ben Fry), Casey Reas is deeply involved in computational and procedural art. His artwork blends organic forms generated by algorithmic rules, pushing the boundaries of what code-driven aesthetics can achieve. He has also curated numerous exhibitions and publications that bridge art, design, and technology.</p>
+
+<div class="responsive-video">
+  <iframe src="https://www.youtube.com/embed/_8DMEHxOLQE" allowfullscreen></iframe>
+</div>
+
+<p><a href="https://www.reas.com/">reas.com</a></p>
+
+<hr>
+
+<h4>Zach Lieberman</h4>
+
+<p>An artist and educator known for interactive installations and playful, poetic use of code. Zach Lieberman experiments with the boundaries between the body, gesture, and computational expression. He frequently shares works-in-progress on social media and open sources many of his creative coding projects, making his process accessible to the broader community.</p>
+
+<div class="responsive-video">
+  <iframe src="https://www.youtube.com/embed/P2YfRRJch7A" allowfullscreen></iframe>
+</div>
+
+<p><a href="https://zachlieberman.com/">zachlieberman.com</a><br>
+Instagram: <a href="https://instagram.com/zach.lieberman">@zach.lieberman</a></p>
+
+<hr>
+
+<h4>Sougwen Chung</h4>
+
+<p>Combines AI, robotics, and hand-drawn lines in her practice, exploring the interplay between human creativity and machine-generated gestures. Sougwen's performances and installations often feature collaborative drawing sessions with robots (guided by AI), raising questions about authorship, intimacy, and the evolving relationships between humans and intelligent systems.</p>
+
+<div class="responsive-video">
+  <iframe src="https://www.youtube.com/embed/wTFCl8ExqUo" allowfullscreen></iframe>
+</div>
+
+<p><a href="https://sougwen.com/">sougwen.com</a></p>
+
+<hr> -->
+
+<!-- <h4>Tyler Hobbs</h4>
+
+<p>Well-known within the digital art and NFT space—particularly for the <em>Fidenza</em> series on Art Blocks—Tyler Hobbs applies algorithmic processes to yield unique abstract compositions. His work is often lauded for blending chance with control, resulting in outputs that feel at once organic and meticulously designed.</p>
+
+<div class="responsive-video">
+  <iframe src="https://www.youtube.com/embed/MSArEkk1aDk" allowfullscreen></iframe>
+</div>
+
+<figure>
+  <img src="http://dtc-wsuv.org/wp/dtc338-spring24-ai/files/2023/10/tyler-hobbs-fidenza313.png" alt="Tyler Hobbs, Fidenza 313">
+  <figcaption>Tyler Hobbs, Fidenza 313 / <a href="https://tylerxhobbs.com/fidenza">About the making of</a></figcaption>
+</figure>
+
+<p><a href="https://tylerxhobbs.com/">tylerxhobbs.com</a><br>
+<a href="https://www.tylerxhobbs.com/works/qql#info">https://www.tylerxhobbs.com/works/qql#info</a></p> -->
+
+<hr>
+
+<h3>Advanced Generative Art Techniques</h3>
+
+<h4>Flow Fields</h4>
+<p>A grid-based technique where each cell contains a vector determining the direction of particle movement. By populating the field with small agents or particles, artists generate organic, undulating patterns that resemble fluid, wind, or magnetic currents. Subtle adjustments to vector generation—often via noise—produce continuously evolving, visually engaging animations.</p>
+
+<p>Example: <a href="https://will-luers.com/DTC/dtc338-AI/javascript-p5js-flowfields.html">https://will-luers.com/DTC/dtc338-AI/javascript-p5js-flowfields.html</a></p>
+<p><a href="https://tylerxhobbs.com/essays/2020/flow-fields">Description by Tyler Hobbs</a></p>
+<p><em>Prompt: "Write a p5.js sketch that creates a flow field using Perlin noise, where 100 particles move according to the flow vectors. The sketch should visualize the paths in real time."</em></p>
+
+<hr>
+
+<h4>Perlin Noise &amp; Noise-Based Techniques</h4>
+<p>The <strong>random()</strong> function in p5.js generates pseudorandom numbers. It can return a floating-point number between 0 and 1, a number within a specified range, or a random element from an array, depending on how it's used. It's useful for introducing unpredictability and variation in sketches.</p>
+
+<p>The <strong>noise()</strong> function in p5.js uses Perlin noise: a smooth, gradient-based form of randomness that avoids abrupt changes and is often used to add natural variation in movement, color, or shapes. By sampling noise at various scales or "octaves," artists produce effects of terrains, clouds, or fluid dynamics. Controlled yet unpredictable.</p>
+
+<p><a href="https://editor.p5js.org/wluers/sketches/zJ5TzLsxM">random() vs noise()</a></p>
+<p><em>Prompt: "Generate p5.js code that draws a 2D Perlin noise field in grayscale, continuously updating over time to look like clouds."</em></p>
+
+<hr>
+
+<h4>Particle Systems</h4>
+<p>Particle systems involve numerous small entities (particles) that each follow simple behavioral rules, typically with an emitter releasing new particles over time. By combining forces like gravity, drag, and random variation, these systems can simulate natural phenomena (like fire or smoke) or produce dense, mesmerizing compositions that evolve frame by frame.</p>
+
+<p><em>Prompt: "Create a p5.js sketch of a particle system where new particles are emitted from the bottom center of the screen and rise upwards, fading out over time."</em></p>
+
+<hr>
+
+<h4>Boids / Flocking</h4>
+<p>Originating from Craig Reynolds's model of bird flocking, boids follow rules of separation, alignment, and cohesion to create emergent group movement or <em>murmuration</em>. Even with minimal constraints, the resulting swarming, flocking, or schooling visuals evoke lifelike patterns and make for captivating, dynamic scenes.</p>
+
+<p><em>Prompt: "Write a p5.js sketch implementing boids flocking with 50 boids. They should avoid overlapping, try to move with neighbors, and stay within the canvas area."</em></p>
+
+<hr>
+
+<h4>Fractals &amp; Recursive Structures</h4>
+<p>Fractals use recursive functions or iterative processes to reveal self-similar patterns across multiple scales. Techniques like L-systems (<em>Lindenmayer systems</em>), the Mandelbrot set, or tree recursion create visually infinite layers of detail and demonstrate how simple equations can generate hypnotically complex imagery.</p>
+
+<p><em>Prompt: "Generate a p5.js fractal tree sketch that uses recursion to draw multiple branches from each node, with sliders to control branch angle and depth."</em></p>
+
+<hr>
+
+<h4>Cellular Automata</h4>
+<p>A grid-based system where each cell transitions between states based on rules involving its neighbors. Conway's Game of Life is the classic example, showing how seemingly complex organisms can arise from straightforward conditions. Artists extend these concepts to create evolving abstract patterns and even interactive art pieces.</p>
+
+<p><em>Prompt: "Create a p5.js version of Conway's Game of Life with a grid of 50×50 cells, using random initialization, and animate each generation."</em></p>
+
+<hr>
+
+<h4>Data Visualization &amp; Sonification</h4>
+<p>Turning data sets into visual or auditory experiences. This can range from straightforward charts to immersive representations where color, position, shape, or sound encodes underlying information. It blends aesthetic sensibilities with analytical rigor to offer deeper insights into complex data.</p>
+
+<p><em>Prompt: "Create a p5.js data visualization of US debt over 50 years."</em></p>
+
+<hr>
+
+<!-- <h3>Generative Art In-class Exercise</h3>
+<p>Play with the advanced techniques above. You can use/alter the sample prompts to get started.</p>
+
+<hr>
+
+<h4>p5.js Advanced Methods for Generative Art</h4>
+
+<section>
+  <h5>Shape &amp; Path Manipulation</h5>
+  <ul>
+    <li><strong>beginShape()</strong> / <strong>endShape()</strong>: Start and finish a custom shape. [<a href="https://p5js.org/reference/p5/beginShape/">beginShape()</a> <a href="https://p5js.org/reference/p5/endShape/">endShape()</a>]</li>
+    <li><strong>vertex(x, y)</strong>: Define a point in a custom shape. <a href="https://p5js.org/reference/p5/vertex/">[vertex()]</a></li>
+    <li><strong>curveVertex(x, y)</strong>: Similar to vertex(), but creates smooth curves. <a href="https://p5js.org/reference/p5/curveVertex/">[curveVertex()]</a></li>
+    <li><strong>bezierVertex()</strong>: Adds Bézier control points to your shape. <a href="https://p5js.org/reference/p5/bezierVertex">[bezierVertex()]</a></li>
+  </ul>
+</section>
+
+<section>
+  <h5>Color &amp; Style</h5>
+  <ul>
+    <li><strong>lerpColor(c1, c2, amt)</strong>: Blend two colors by a value between 0 and 1. <a href="https://p5js.org/reference/p5/lerpColor">[Reference]</a></li>
+    <li><strong>colorMode(mode, [max1], [max2], [max3], [maxA])</strong>: Switch between RGB, HSB, etc. <a href="https://p5js.org/reference/p5/colorMode">[Reference]</a></li>
+    <li><strong>blendMode(mode)</strong>: Set how shapes blend (e.g., ADD, MULTIPLY). <a href="https://p5js.org/reference/p5/blendMode">[Reference]</a></li>
+  </ul>
+</section>
+
+<section>
+  <h5>Math &amp; Vectors</h5>
+  <ul>
+    <li><strong>random(min, max)</strong>: Random float in range. <a href="https://p5js.org/examples/calculating-values-random/">[random()]</a></li>
+    <li><strong>map(val, inMin, inMax, outMin, outMax)</strong>: Maps a value to another range. <a href="https://p5js.org/reference/p5/map/">[map()]</a></li>
+    <li><strong>dist(x1, y1, x2, y2)</strong>: Distance between two points. <a href="https://p5js.org/reference/p5/dist/">[dist()]</a></li>
+    <li><strong>p5.Vector</strong>: Class for vector math. <a href="https://p5js.org/reference/p5/p5.Vector/">[p5.Vector]</a></li>
+  </ul>
+
+  <h5>Transformations</h5>
+  <ul>
+    <li><strong>push()</strong> / <strong>pop()</strong>: Save and restore drawing style and transforms. <a href="https://p5js.org/reference/p5/push">[Reference]</a></li>
+    <li><strong>translate(x, y)</strong>: Move origin to new location. <a href="https://p5js.org/reference/p5/translate">[Reference]</a></li>
+    <li><strong>rotate(angle)</strong>: Rotate the drawing context. <a href="https://p5js.org/reference/p5/rotate">[Reference]</a></li>
+    <li><strong>scale(s)</strong>: Scale the drawing context. <a href="https://p5js.org/reference/p5/scale">[Reference]</a></li>
+  </ul>
+</section>
+
+<section>
+  <h5>Math &amp; Noise</h5>
+  <ul>
+    <li><strong>noise(x, [y], [z])</strong>: Perlin noise (smoother randomness). <a href="https://p5js.org/reference/p5/noise">[Reference]</a></li>
+    <li><strong>lerp(start, stop, amt)</strong>: Linearly interpolate between values. <a href="https://p5js.org/reference/p5/lerp">[Reference]</a></li>
+    <li><strong>constrain(val, min, max)</strong>: Restrict value between a min and max. <a href="https://p5js.org/reference/p5/constrain">[Reference]</a></li>
+  </ul>
+</section>
+
+<section>
+  <h5>Pixels &amp; Image</h5>
+  <ul>
+    <li><strong>loadPixels()</strong> / <strong>updatePixels()</strong>: Directly access and modify canvas pixels. <a href="https://p5js.org/reference/p5/loadPixels">[Reference]</a></li>
+    <li><strong>get(x, y)</strong>: Reads pixel color at position. <a href="https://p5js.org/reference/p5/get">[Reference]</a></li>
+    <li><strong>set(x, y, color)</strong>: Sets pixel at position. <a href="https://p5js.org/reference/#/p5/set">[Reference]</a></li>
+  </ul>
+</section> -->
+
+
+
+
+
   </main>
   <footer class="site-footer">
   <div class="footer-content">
@@ -145,6 +565,6 @@ WORKSHOP
       <a href="https://youruniversity.edu" target="_blank">University Home</a>
     </p>
   </div>
-</footer>
+  </footer>
 </body>
 </html>

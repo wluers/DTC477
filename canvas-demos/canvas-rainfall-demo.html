@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Canvas Rainfall</title>
+    <style>
+        body {
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background: white;
+        }
+
+        #myCanvas { 
+            border: 1px solid #eee; 
+            display: block; 
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+
+
+    <script>
+
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+
+    /*────────────────────────────────────────
+    CREATE THE RAINDROPS
+    Each raindrop is stored as an object
+    with position, length, and speed.
+    ────────────────────────────────────────*/
+
+    const NUM_DROPS = 80;
+    const raindrops = [];
+
+    for (let i = 0; i < NUM_DROPS; i++) {
+
+        const drop = {
+            x: Math.random() * canvas.width,      // random horizontal position
+            y: Math.random() * -canvas.height,    // start somewhere above the canvas
+            length: Math.random() * 15 + 10,               // line length between 10–25
+            fallSpeed: Math.random() * 6 + 6               // falling speed between 6–12
+        };
+
+        raindrops.push(drop);
+    }
+
+
+    /*────────────────────────────────────────
+    ANIMATION LOOP
+    clear → update → draw
+    ────────────────────────────────────────*/
+
+    function loop() {
+
+        // clear previous frame
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 1.5;
+
+
+        // UPDATE + DRAW each raindrop
+        for (let i = 0; i < raindrops.length; i++) {
+
+            const drop = raindrops[i];
+
+
+            /* UPDATE POSITION */
+            drop.y += drop.fallSpeed;
+
+
+            // if drop moves past bottom, reset it above canvas
+            if (drop.y > canvas.height) {
+
+                drop.x = Math.random() * canvas.width;
+                drop.y = -drop.length;
+
+            }
+
+
+            /* DRAW THE RAINDROP */
+            ctx.beginPath();
+            ctx.moveTo(drop.x, drop.y);
+            ctx.lineTo(drop.x, drop.y + drop.length);
+            ctx.stroke();
+        }
+
+        requestAnimationFrame(loop);
+    }
+
+    loop();
+
+
+
+
+
+    </script>
+</body>
+</html>

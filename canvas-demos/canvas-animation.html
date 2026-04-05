@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Canvas Animation</title>
+
+    <style>
+    body{
+        font-family: monospace;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        padding:40px;
+    }
+
+    #myCanvas{
+        border:1px solid #eee;
+    }
+    </style>
+</head>
+
+<body>
+
+ <canvas id="myCanvas" width="800" height="600"></canvas>
+
+ <script>
+
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+
+        /*────────────────────────────────────────
+        CIRCLE STATE
+        These variables describe the "state" of the object.
+        The animation loop reads and updates them every frame.
+        ────────────────────────────────────────*/
+
+        let x = 50;            // horizontal position
+        let y = 200;           // vertical position
+        let radius = 25;       // size of the circle
+
+        let velocityX = 3;     // horizontal speed (pixels per frame)
+        let velocityY = 0;     // vertical speed (pixels per frame)
+
+
+        /*────────────────────────────────────────
+        INPUT (SPACE BAR)
+        Used in the rocket/thrust demo.
+        We track whether the key is currently held down.
+
+        // event.code identifies the physical key pressed using a string name.
+        // Examples: "ArrowLeft" (arrow key), "KeyA" (letter key), "Digit1" (number key).
+        // This is clearer and more modern than the old numeric keyCode system.
+        ────────────────────────────────────────*/
+
+        let spaceDown = false;
+        window.addEventListener("keydown", function(event){
+            if(event.code === "Space"){
+                spaceDown = true;
+                event.preventDefault();
+            }
+        });
+
+        window.addEventListener("keyup", function(event){
+            if(event.code === "Space"){
+                spaceDown = false;
+                event.preventDefault();
+            }
+        });
+
+
+
+
+        /*────────────────────────────────────────
+        ANIMATION LOOP
+
+        Every animation follows three steps:
+
+        1. CLEAR the previous frame
+        2. UPDATE the physics/state
+        3. DRAW the new frame
+
+        requestAnimationFrame() schedules the next frame
+        in sync with the browser's refresh rate (~60fps).
+        ────────────────────────────────────────*/
+
+        function loop(){
+            // clear the canvas
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+
+            //updateLinear();
+            //updateBounce();
+            //updateGravity();
+            //updateThrust();
+            drawCircle();
+            
+
+            // requestAnimationFrame() syncs your code with the browser’s screen refresh, while the animation speed comes from how much your variables change each frame.
+            requestAnimationFrame(loop);
+
+        }
+
+        loop();
+
+
+        /*────────────────────────────────────────
+        DRAWING FUNCTION
+        Keeps drawing separate from motion logic.
+        ────────────────────────────────────────*/
+
+        function drawCircle(){
+
+            ctx.beginPath();
+
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+
+            ctx.fillStyle = "red";
+            ctx.fill();
+
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+        }
+
+
+
+        /*────────────────────────────────────────
+        DEMO FUNCTIONS
+        Each demo only changes the UPDATE behavior.
+        ────────────────────────────────────────*/
+
+
+        /*────────────────
+        A) LINEAR MOTION
+        Object moves right and wraps around screen.
+        ────────────────*/
+
+        function updateLinear(){
+
+            x += velocityX;
+
+            if(x - radius > canvas.width){
+                x = -radius;
+            }
+
+        }
+
+
+        /*────────────────
+        B) BOUNCE
+        Object reverses direction when hitting edges.
+        ────────────────*/
+
+        function updateBounce(){
+
+            // If the ball starts with velocityY = 0, it won't move vertically.
+            // Try changing 3 to 0, 1, 6, -3 and observe what happens.
+            if (velocityY === 0) {
+                velocityY = 2; // initial downward push
+            }
+
+            x += velocityX;
+            y += velocityY;
+
+            if(x + radius >= canvas.width || x - radius <= 0) {
+                velocityX = -velocityX;
+            }
+
+            if(y + radius >= canvas.height || y - radius <= 0) {
+                velocityY = -velocityY;
+            }
+
+        }
+
+
+        /*────────────────
+        C) GRAVITY
+        Gravity is acceleration.
+        velocityY increases slightly each frame.
+        ────────────────*/
+
+        function updateGravity(){
+
+            velocityY += 0.4;
+
+            y += velocityY;
+
+            if(y + radius >= canvas.height) {
+                y = canvas.height - radius;
+                velocityY = velocityY * -0.75;
+            }
+
+        }
+
+
+        /*────────────────
+        D) GRAVITY + THRUST
+        Space bar applies upward acceleration
+        to counter gravity.
+        ────────────────*/
+
+        function updateThrust(){
+
+            // horizontal bounce
+            x += velocityX;
+
+            if(x + radius >= canvas.width || x - radius <= 0){
+                velocityX = -velocityX;
+            }
+
+
+            // gravity
+            velocityY += 0.4;
+
+            // rocket thrust
+            if(spaceDown){
+                velocityY -= 0.8;
+            }
+
+            // clamp upward speed
+            if(velocityY < -8){
+                velocityY = -8;
+            }
+
+            y += velocityY;
+
+            // floor
+            if(y + radius >= canvas.height){
+                y = canvas.height - radius;
+                velocityY = velocityY * -0.75;
+            }
+
+            // Ceiling bounce
+            if (y - radius <= 0) {
+                y = radius;
+                velocityY = -velocityY;
+            }
+
+        }
+
+ </script>
+
+</body>
+</html>

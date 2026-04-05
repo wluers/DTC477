@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SVG Interactive Smiley</title>
+    <style>
+        body {
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background: white;
+        }
+
+        /* Show pointer cursor on clickable elements */
+        #face, #leftEye, #rightEye {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+        SVG: every shape is a live DOM element.
+        In a real project this SVG would be exported from Illustrator.
+        Name your layers in Illustrator → the layer name becomes the id →
+        JavaScript can target it directly with getElementById.
+    -->
+    <svg id="svg" width="400" height="400" viewBox="0 0 600 600"
+         style="border: 1px solid #eee;"
+         xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Face -->
+        <circle id="face" cx="300" cy="300" r="200"
+                fill="yellow" stroke="black" stroke-width="4"/>
+
+        <!-- Mouth -->
+        <path id="mouth"
+              d="M 220,370 A 80,80 0 0,0 380,370 L 220,370"
+              fill="white" stroke="black" stroke-width="3"/>
+
+        <!-- Eyes -->
+        <circle id="leftEye"    cx="230" cy="250" r="30" fill="white" stroke="black" stroke-width="3"/>
+        <circle id="rightEye"   cx="370" cy="250" r="30" fill="white" stroke="black" stroke-width="3"/>
+        <circle id="leftPupil"  cx="234" cy="254" r="8"  fill="black"/>
+        <circle id="rightPupil" cx="374" cy="254" r="8"  fill="black"/>
+
+        <!-- Eyebrows -->
+        <line id="leftBrow"  x1="195" y1="207" x2="265" y2="190" stroke="black" stroke-width="4" stroke-linecap="round"/>
+        <line id="rightBrow" x1="335" y1="190" x2="405" y2="207" stroke="black" stroke-width="4" stroke-linecap="round"/>
+
+        <!-- Nose -->
+        <line id="noseBridge" x1="310" y1="265" x2="315" y2="305" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+        <path id="noseTip" d="M 290,322 A 20,15 0 0,0 330,322" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+
+    </svg>
+
+    <script>
+
+        // ── Get elements by id ───────────────────────────────────────────────
+        const svg        = document.getElementById("svg");
+        const face       = document.getElementById("face");
+        const leftEye    = document.getElementById("leftEye");
+        const rightEye   = document.getElementById("rightEye");
+        const leftPupil  = document.getElementById("leftPupil");
+        const rightPupil = document.getElementById("rightPupil");
+
+
+        // ── 1. CLICK FACE — cycle through colors ─────────────────────────────
+        // setAttribute("fill", value) changes any SVG attribute instantly.
+        // No redraw needed — the browser updates the display immediately.
+
+        const faceColors = ["yellow", "lightblue", "lightgreen", "lightsalmon", "plum"];
+        let colorIndex = 0;
+
+        face.addEventListener("click", () => {
+            colorIndex = (colorIndex + 1) % faceColors.length; // wrap back to 0 at the end
+            face.setAttribute("fill", faceColors[colorIndex]);
+        });
+
+
+        // ── 2. CLICK EYES — wink ────────────────────────────────────────────
+        // scaleY(0.1) squashes the circle to nearly flat, simulating a closed eye.
+        // transform-box: fill-box anchors the transform to the element's own center.
+        // setTimeout reopens the eye after 300ms.
+
+        function wink(eye, pupil) {
+            eye.style.transform       = "scaleY(0.1)";
+            eye.style.transformBox    = "fill-box";
+            eye.style.transformOrigin = "center";
+            pupil.style.opacity       = "0";  // hide pupil while closed
+
+            setTimeout(() => {
+                eye.style.transform = "scaleY(1)";
+                pupil.style.opacity = "1";
+            }, 300);
+        }
+
+        leftEye.addEventListener("click",  () => wink(leftEye,  leftPupil));
+        rightEye.addEventListener("click", () => wink(rightEye, rightPupil));
+
+
+        // ── 3. HOVER FACE — blush ───────────────────────────────────────────
+        // mouseenter / mouseleave fire once when the cursor enters or leaves.
+        // createElementNS creates a new SVG element from JavaScript.
+        // Note: SVG elements require createElementNS, not createElement.
+
+        function makeBlush(cx) {
+            const el = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+            el.setAttribute("cx", cx);
+            el.setAttribute("cy", "340");
+            el.setAttribute("rx", "38");
+            el.setAttribute("ry", "18");
+            el.setAttribute("fill", "hotpink");
+            el.setAttribute("opacity", "0.4");
+            el.style.pointerEvents = "none"; // prevent blush from blocking face clicks
+            return el;
+        }
+
+        const blushLeft  = makeBlush(175);
+        const blushRight = makeBlush(425);
+
+        face.addEventListener("mouseenter", () => {
+            svg.appendChild(blushLeft);
+            svg.appendChild(blushRight);
+        });
+
+        face.addEventListener("mouseleave", () => {
+            if (blushLeft.parentNode)  svg.removeChild(blushLeft);
+            if (blushRight.parentNode) svg.removeChild(blushRight);
+        });
+
+    </script>
+</body>
+</html>

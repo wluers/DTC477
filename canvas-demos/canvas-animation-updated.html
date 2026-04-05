@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Canvas Animation</title>
+    <style>
+        body {
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background: white;
+        }
+
+        #myCanvas { border: 1px solid #eee; display: block; }
+    </style>
+</head>
+<body>
+
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+
+    <script>
+
+        const canvas = document.getElementById("myCanvas");
+        const ctx    = canvas.getContext("2d");
+
+
+        // ── CIRCLE STATE ─────────────────────────────────────────────────────
+        // Everything that can change is stored as variables.
+        // The draw loop reads these values every frame.
+
+        let x = 50;          // horizontal position (pixels)
+        let y = 200;         // vertical position (pixels)
+        let radius = 25;     // circle radius (pixels)
+
+        let velocityX = 3;   // horizontal velocity (pixels per frame)
+        let velocityY = 0;   // vertical velocity (pixels per frame)
+
+
+        // ── INPUT (SPACE BAR) ────────────────────────────────────────────────
+        // Used by section D (gravity + thrust).
+        // "Held down" is better than "single press" for a simple demo.
+
+        let spaceDown = false;
+
+        window.addEventListener("keydown", function (event) {
+            if (event.code === "Space") {
+                spaceDown = true;
+                event.preventDefault(); // prevents page scroll
+            }
+        });
+
+        window.addEventListener("keyup", function (event) {
+            if (event.code === "Space") {
+                spaceDown = false;
+                event.preventDefault();
+            }
+        });
+
+
+
+        // ── THE ANIMATION LOOP ───────────────────────────────────────────────
+        // Every animation follows the same three steps:
+        //   1) clear  — wipe the previous frame
+        //   2) update — change the state variables
+        //   3) draw   — paint the new frame
+        // requestAnimationFrame schedules the next call (~60 times per second).
+
+        function loop() {
+
+            // 1) CLEAR
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+            // ── 2) UPDATE ───────────────────────────────────────────────────
+            // Uncomment ONE update block at a time.
+
+
+            // ── A) LINEAR MOVEMENT (WRAP) ────────────────────────────────────
+            // The circle moves right. When it exits the canvas it wraps to the left.
+
+            /*
+            x += velocityX;
+
+            if (x - radius > canvas.width) {
+                x = -radius;
+            }
+            */
+
+
+            // ── B) BOUNCE OFF EDGES ──────────────────────────────────────────
+            // The circle bounces off walls by reversing velocity.
+
+            /*
+            x += velocityX;
+            y += velocityY;
+
+            if (x + radius >= canvas.width || x - radius <= 0) {
+                velocityX = -velocityX; //flips the sign of the number — a positive value becomes negative, and a negative value becomes positive.
+            }
+
+            if (y + radius >= canvas.height || y - radius <= 0) {
+                velocityY = -velocityY;
+            }
+            */
+
+
+            // ── C) GRAVITY + BOUNCE ──────────────────────────────────────────
+            // Gravity is acceleration: velocityY grows a little each frame.
+            // When the ball hits the floor, velocityY reverses and shrinks (energy loss).
+            // NOTE: No toggle button — gravity is simply "on" in this section.
+
+            /*
+            // Horizontal motion (with bounce)
+            x += velocityX;
+
+            if (x + radius >= canvas.width || x - radius <= 0) {
+                velocityX = -velocityX;
+            }
+
+            // Gravity
+            velocityY += 0.4;
+
+            // Apply vertical motion
+            y += velocityY;
+
+            // Floor bounce
+            if (y + radius >= canvas.height) {
+                y = canvas.height - radius;
+                velocityY = velocityY * -0.75; // lose 25% energy on bounce
+            }
+
+            // Ceiling bounce (optional)
+            if (y - radius <= 0) {
+                y = radius;
+                velocityY = -velocityY;
+            }
+            */
+
+
+            // ── D) GRAVITY + SPACEBAR THRUST (ACCELERATE UP) ─────────────────
+            // Holding SPACE applies an upward acceleration to counter gravity.
+            // We clamp the max upward speed so it doesn't shoot up forever.
+
+            // Horizontal motion (with bounce)
+            x += velocityX;
+
+            if (x + radius >= canvas.width || x - radius <= 0) {
+                velocityX = -velocityX; 
+            }
+
+            // Gravity
+            velocityY += 0.4;
+
+            // Thrust (spacebar)
+            if (spaceDown) {
+                velocityY -= 0.8; // upward acceleration
+            }
+
+            // Clamp max upward speed (more negative = faster upward)
+            if (velocityY < -8) {
+                velocityY = -8;
+            }
+
+            // Apply vertical motion
+            y += velocityY;
+
+            // Floor (stop/bounce)
+            if (y + radius >= canvas.height) {
+                y = canvas.height - radius;
+                velocityY = velocityY * -0.75;
+            }
+
+            // Ceiling (stop)
+            if (y - radius <= 0) {
+                y = radius;
+                velocityY = 0; // simple stop at ceiling for clarity
+            }
+
+
+            // ── 3) DRAW ──────────────────────────────────────────────────────
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = "red";
+            ctx.fill();
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.closePath();
+
+
+
+            // requestAnimationFrame() syncs your code with the browser’s screen refresh, while the animation speed comes from how much your variables change each frame.
+            requestAnimationFrame(loop);
+        }
+
+        loop();
+
+    </script>
+</body>
+</html>

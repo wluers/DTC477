@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Canvas Rainfall</title>
+    <style>
+        /* Remove all default spacing so the canvas fills the full viewport */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { background: #1a1a2e; } /* dark background so rain is visible */
+
+        /*
+            CSS makes the canvas fill the full viewport.
+            The actual drawing resolution is set in JS — not here.
+            If you only set width/height in CSS, the canvas stretches
+            its pixels and looks blurry.
+        */
+        #myCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* HTML data overlay — positioned on top of the canvas */
+        #overlay {
+            position: fixed;
+            top: 30px;
+            left: 40px;
+            color: white;
+            font-family: monospace;
+            pointer-events: none; /* let clicks pass through to canvas */
+        }
+        #overlay .temp { font-size: 64px; }
+        #overlay .city { font-size: 16px; color: #aaa; margin-top: 4px; }
+    </style>
+</head>
+<body>
+
+    <!--
+        No width/height attributes here.
+        We set the drawing resolution in JS so it can match the window size
+        and update if the window is resized.
+    -->
+    <canvas id="myCanvas"></canvas>
+
+    <!-- HTML div floating over the canvas — standard pattern for weather apps -->
+    <div id="overlay">
+        <div class="temp">12°</div>
+        <div class="city">Montreal — Heavy Rain</div>
+    </div>
+
+    <script>
+
+        const canvas = document.getElementById("myCanvas");
+        const ctx    = canvas.getContext("2d");
+
+        let drops = [];
+
+
+        // ── RESIZE ───────────────────────────────────────────────────────────
+        // Sets the canvas drawing resolution to match the current window size.
+        // Must be called on load AND whenever the window is resized.
+        // Note: resizing the canvas clears it and wipes all existing pixels.
+
+        function resizeCanvas() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Recreate drops after resize so positions fill the new dimensions.
+            // Drop coordinates are based on canvas.width/height — if we kept
+            // the old drops they'd all cluster in the old canvas area.
+            createDrops();
+        }
+
+
+        // ── CREATE DROPS ─────────────────────────────────────────────────────
+        // NUM_DROPS scales with canvas area so density stays consistent
+        // at any screen size — not too sparse on large screens, not too
+        // crowded on small ones.
+
+        function createDrops() {
+            drops = [];
+            const NUM_DROPS = Math.floor((canvas.width * canvas.height) / 8000);
+
+            for (let i = 0; i < NUM_DROPS; i++) {
+                drops.push({
+                    x:   Math.random() * canvas.width,
+                    y:   Math.random() * -canvas.height,
+                    len: Math.random() * 15 + 10,
+                    vy:  Math.random() * 6 + 6,
+                });
+            }
+        }
+
+
+        // ── THE LOOP ─────────────────────────────────────────────────────────
+
+        function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = "rgba(174, 214, 241, 0.6)"; // semi-transparent blue-white
+            ctx.lineWidth   = 1.5;
+
+            for (let i = 0; i < drops.length; i++) {
+                const d = drops[i];
+
+                d.y += d.vy;
+
+                if (d.y > canvas.height) {
+                    d.x = Math.random() * canvas.width;
+                    d.y = -d.len;
+                }
+
+                ctx.beginPath();
+                ctx.moveTo(d.x, d.y);
+                ctx.lineTo(d.x, d.y + d.len);
+                ctx.stroke();
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+
+        // ── INIT ─────────────────────────────────────────────────────────────
+        // Set up canvas size, then start the loop.
+        // The resize event handles any subsequent window size changes.
+
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas(); // run once on load
+        loop();
+
+    </script>
+</body>
+</html>

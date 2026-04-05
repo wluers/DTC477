@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Canvas Snowfall</title>
+    <style>
+        body {
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background: white;
+        }
+
+        #myCanvas { border: 1px solid #eee; display: block; }
+    </style>
+</head>
+<body>
+
+    <canvas id="myCanvas" width="600" height="400"></canvas>
+
+    <script>
+
+        const canvas = document.getElementById("myCanvas");
+        const ctx    = canvas.getContext("2d");
+
+
+        // ── FROM ONE BALL TO MANY ────────────────────────────────────────────
+        // In the previous example, one ball had individual variables:
+        //   let x = 50, y = 0, r = 25, vy = 2;
+        //
+        // For many balls we store each one as an object in an array.
+        // Every ball has the same properties, but different values.
+
+
+        // ── CREATE THE BALLS ─────────────────────────────────────────────────
+        // Math.random() returns a number between 0 and 1.
+        // Multiply by canvas.width to get a random x across the full width.
+
+        const NUM_BALLS = 60;
+        const balls = [];
+
+        for (let i = 0; i < NUM_BALLS; i++) {
+            balls.push({
+                x:  Math.random() * canvas.width,   // random horizontal start
+                y:  Math.random() * -canvas.height, // start above the canvas (staggered)
+                r:  Math.random() * 6 + 3,          // random radius between 3 and 9
+                vy: Math.random() * 2 + 1,          // random fall speed between 1 and 3
+            });
+        }
+
+        // Starting y above the canvas (negative values) staggers the balls
+        // so they don't all appear at once on the first frame.
+
+
+        // ── THE LOOP ─────────────────────────────────────────────────────────
+        // Same three steps as before: clear → update → draw.
+        // The only difference: we loop through the array to update and draw each ball.
+
+        function loop() {
+
+            // 1. CLEAR
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 2. UPDATE + 3. DRAW — one pass through the array does both
+            for (let i = 0; i < balls.length; i++) {
+                const b = balls[i];
+
+                // UPDATE: move the ball down by its speed
+                b.y += b.vy;
+
+                // When a ball exits the bottom, reset it to a random x above the top
+                if (b.y - b.r > canvas.height) {
+                    b.x = Math.random() * canvas.width;
+                    b.y = -b.r; // just above the top edge
+                }
+
+                // DRAW: paint this ball at its current position
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.r, 0, 2 * Math.PI);
+                ctx.fillStyle = "steelblue";
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        loop();
+
+    </script>
+</body>
+</html>

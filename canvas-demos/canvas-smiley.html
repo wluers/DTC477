@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Canvas Smiley</title>
+    <style>
+        body {
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background: white;
+        }
+
+        #coords {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+        Canvas vs SVG
+        ─────────────
+        SVG: shapes are DOM elements. Change an attribute → instant update.
+        Canvas: a blank bitmap. You issue draw commands — pixels are baked in.
+                To change anything you must clear the canvas and redraw everything.
+    -->
+
+    <canvas id="myCanvas" width="400" height="400" style="border: 1px solid #eee;"></canvas>
+    <div id="coords">x, y</div>
+
+    <script>
+
+        // ── SETUP ────────────────────────────────────────────────────────────
+        // Get the canvas element and its 2D drawing context.
+        // All drawing commands live on ctx.
+
+        const canvas = document.getElementById("myCanvas");
+        const ctx    = canvas.getContext("2d");
+
+
+        // ── COORDINATE DISPLAY ───────────────────────────────────────────────
+        // Helps students find x,y positions while drawing.
+
+        const coordsEl = document.getElementById("coords");
+
+        canvas.addEventListener("mousemove", (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width  / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = Math.round((e.clientX - rect.left) * scaleX);
+            const y = Math.round((e.clientY - rect.top)  * scaleY);
+            coordsEl.textContent = `${x}, ${y}`;
+        });
+
+        canvas.addEventListener("mouseleave", () => {
+            coordsEl.textContent = "x, y";
+        });
+
+
+        // ── DRAW FUNCTION ────────────────────────────────────────────────────
+        // Everything goes inside drawFace() so we can call it again later
+        // when we add animation. clearRect wipes the canvas on each call.
+
+        function drawFace() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+            // FACE
+            // arc(x, y, radius, startAngle, endAngle)
+            // 2 * Math.PI = full circle
+            ctx.beginPath();
+            ctx.arc(200, 200, 150, 0, 2 * Math.PI);
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.closePath();
+
+
+            // MOUTH
+            // arc draws the bottom half. closePath() draws a straight line back
+            // to the start point, closing the top — must come before stroke().
+            ctx.beginPath();
+            ctx.arc(200, 255, 60, 0, Math.PI);
+            ctx.closePath();             // closes the top line before painting
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.stroke();
+
+
+            // LEFT EYE
+            ctx.beginPath();
+            ctx.arc(155, 175, 22, 0, 2 * Math.PI);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.stroke();
+            ctx.closePath();
+
+            // RIGHT EYE
+            ctx.beginPath();
+            ctx.arc(245, 175, 22, 0, 2 * Math.PI);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.stroke();
+            ctx.closePath();
+
+
+            // LEFT PUPIL
+            // beginPath() isolates this shape from the eye drawn above.
+            // Without it, fill() would repaint the previous path too.
+            ctx.beginPath();
+            ctx.arc(160, 179, 7, 0, 2 * Math.PI);
+            ctx.fillStyle = "black";
+            ctx.fill();
+            ctx.closePath();
+
+            // RIGHT PUPIL
+            ctx.beginPath();
+            ctx.arc(250, 179, 7, 0, 2 * Math.PI);
+            ctx.fillStyle = "black";
+            ctx.fill();
+            ctx.closePath();
+
+
+            // LEFT EYEBROW
+            // Lines use moveTo (lift pen) and lineTo (draw to point).
+            ctx.beginPath();
+            ctx.moveTo(128, 143);
+            ctx.lineTo(183, 130);
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 3;
+            ctx.lineCap = "round";
+            ctx.stroke();
+            ctx.closePath();
+
+            // RIGHT EYEBROW
+            ctx.beginPath();
+            ctx.moveTo(217, 130);
+            ctx.lineTo(272, 143);
+            ctx.stroke();
+            ctx.closePath();
+
+
+            // NOSE BRIDGE
+            ctx.beginPath();
+            ctx.moveTo(207, 178);
+            ctx.lineTo(210, 210);
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.closePath();
+
+            // NOSE TIP
+            // A half-circle arc for the nose tip.
+            ctx.beginPath();
+            ctx.arc(207, 222, 13, 0, Math.PI);
+            ctx.stroke();
+            ctx.closePath();
+
+        }
+
+
+        // Draw once on load
+        drawFace();
+
+    </script>
+</body>
+</html>

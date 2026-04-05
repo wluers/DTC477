@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>D3 Bar Chart</title>
+    <style>
+        body {
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background: white;
+        }
+
+        h2 {
+            font-size: 13px;
+            font-weight: normal;
+            color: #999;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        /* Bars change color on hover — pure CSS, no JS needed */
+        .bar {
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+        .bar:hover { opacity: 0.7; }
+
+        /* Tooltip */
+        #tooltip {
+            position: fixed;
+            background: #222;
+            color: white;
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>D3.js — Data bound to SVG</h2>
+
+    <!--
+        D3 creates and manages SVG elements for you.
+        It binds a data array to DOM elements — one element per data point.
+        The SVG is built entirely by JavaScript; there is no markup here.
+    -->
+    <svg id="chart"></svg>
+    <div id="tooltip"></div>
+
+    <!-- D3 loaded from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+
+    <script>
+
+        // ── 1. THE DATA ──────────────────────────────────────────────────────
+        // Plain JS objects. D3 will bind one SVG <rect> to each item.
+
+        const data = [
+            { language: "JavaScript", percent: 65 },
+            { language: "Python",     percent: 51 },
+            { language: "TypeScript", percent: 43 },
+            { language: "Java",       percent: 30 },
+            { language: "C#",         percent: 27 },
+            { language: "PHP",        percent: 21 },
+            { language: "Rust",       percent: 13 },
+        ];
+
+
+        // ── 2. DIMENSIONS ───────────────────────────────────────────────────
+        const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+        const width  = 500 - margin.left - margin.right;
+        const height = 320 - margin.top  - margin.bottom;
+
+
+        // ── 3. CREATE THE SVG CONTAINER ──────────────────────────────────────
+        // D3 selects the <svg> element and sets its size.
+        // The inner <g> (group) is offset by the margin so axes have room.
+
+        const svg = d3.select("#chart")
+            .attr("width",  width  + margin.left + margin.right)
+            .attr("height", height + margin.top  + margin.bottom)
+            .append("g")
+                .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+
+        // ── 4. SCALES ────────────────────────────────────────────────────────
+        // Scales map data values → pixel positions.
+
+        // xScale: maps language names to horizontal positions (band = evenly spaced)
+        const xScale = d3.scaleBand()
+            .domain(data.map(d => d.language)) // input: array of names
+            .range([0, width])                 // output: 0 → width in pixels
+            .padding(0.3);                     // gap between bars
+
+        // yScale: maps 0–100 percent to vertical pixels (inverted: 0 is at the top)
+        const yScale = d3.scaleLinear()
+            .domain([0, 100])   // input: data range
+            .range([height, 0]); // output: height → 0 (SVG y=0 is the top)
+
+
+        // ── 5. AXES ──────────────────────────────────────────────────────────
+        // D3 generates <line> and <text> elements for axes automatically.
+
+        svg.append("g")
+            .attr("transform", `translate(0, ${height})`) // move x-axis to the bottom
+            .call(d3.axisBottom(xScale))
+            .selectAll("text")
+                .attr("font-size", "11px")
+                .attr("font-family", "monospace");
+
+        svg.append("g")
+            .call(d3.axisLeft(yScale).ticks(5).tickFormat(d => d + "%"))
+            .selectAll("text")
+                .attr("font-size", "11px")
+                .attr("font-family", "monospace");
+
+        // Y axis label
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -height / 2)
+            .attr("y", -45)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "11px")
+            .attr("font-family", "monospace")
+            .attr("fill", "#999")
+            .text("% developers using");
+
+
+        // ── 6. DRAW THE BARS ─────────────────────────────────────────────────
+        // This is the core D3 pattern:
+        //   selectAll()  — select elements (even if they don't exist yet)
+        //   .data()      — bind the data array
+        //   .enter()     — for each new data item with no matching element...
+        //   .append()    — ...create a new element
+        // Then set attributes using the bound data value (d).
+
+        const colors = ["#4e79a7","#f28e2b","#e15759","#76b7b2","#59a14f","#edc948","#b07aa1"];
+
+        svg.selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("rect")
+                .attr("class", "bar")
+                .attr("x",      d => xScale(d.language))           // left edge of bar
+                .attr("y",      d => yScale(d.percent))            // top edge of bar
+                .attr("width",  xScale.bandwidth())                // bar width from scale
+                .attr("height", d => height - yScale(d.percent))   // bar height
+                .attr("fill",   (d, i) => colors[i]);              // i = index
+
+
+        // ── 7. TOOLTIP ON HOVER ──────────────────────────────────────────────
+        // mouseover / mousemove / mouseout on the bars.
+        // Each bar knows its data (d) because D3 bound it in step 6.
+
+        const tooltip = document.getElementById("tooltip");
+
+        svg.selectAll(".bar")
+            .on("mouseover", (event, d) => {
+                tooltip.textContent = `${d.language}: ${d.percent}%`;
+                tooltip.style.opacity = "1";
+            })
+            .on("mousemove", (event) => {
+                tooltip.style.left = (event.clientX + 12) + "px";
+                tooltip.style.top  = (event.clientY - 28) + "px";
+            })
+            .on("mouseout", () => {
+                tooltip.style.opacity = "0";
+            });
+
+    </script>
+</body>
+</html>
