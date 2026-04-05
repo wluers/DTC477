@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Hangman — ES6 Beginner Version</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    
+  </style>
+</head>
+<body>
+  <div class="game">
+    <h1>Hangman</h1>
+
+    <div id="wordDisplay">_ _ _</div>
+
+    <div id="message" class="label"></div>
+
+    <div class="row">
+      <label for="letterInput" class="label">Enter a letter:</label>
+      <input id="letterInput" type="text" maxlength="1" autocomplete="off" />
+      <button id="guessBtn">Guess</button>
+      <button id="resetBtn">New Word</button>
+    </div>
+
+    <div class="row label">
+      <div>Letters tried: <span id="lettersTried">—</span></div>
+      <div style="margin-left:auto;">Remaining guesses: <span id="remaining">6</span></div>
+    </div>
+  </div>
+
+  <script>
+
+    //---LOGIC STEPS---//
+
+    // 1. Pick a random secret word from the list.
+    // 2. Split that word into an array of letters.
+    // 3. Make an array of underscores (same length as the word).
+    // 4. Track letters already tried and how many wrong guesses are left.
+    // 5. When the player clicks the Guess button:
+    // 6.   - Read the typed letter (if any).
+    // 7.   - Add it to the list of tried letters.
+    // 8.   - Loop through the secret word; reveal any matches in the underscores.
+    // 9.   - If no matches, subtract one from guesses left.
+    // 10. Update the screen: revealed word, tried letters, guesses left.
+    // 11. If the revealed word matches the secret, the player wins.
+    // 12. If guesses left reach 0, the player loses (show the word).
+    // 13. Reset button starts a new round.
+
+    // Chat Log: 
+    // url
+    // url
+
+
+   
+  // --- Minimal Hangman with Comments ---
+
+  // 1. Words the game can choose from
+  const words = [
+    "loop", 
+    "array", 
+    "boolean", 
+    "string"
+  ];
+
+  // 2. Game state variables
+  let secret = "";   // the chosen secret word
+  let letters = [];  // the secret word split into an array of letters
+  let shown = [];    // what the player currently sees (underscores or letters)
+  let tried = [];    // letters the player has already guessed
+  let left = 6;      // number of wrong guesses allowed
+
+  // 3. Get references to the page elements (by their IDs)
+  const wordDisplay  = document.querySelector("#wordDisplay");
+  const message      = document.querySelector("#message");
+  const lettersTried = document.querySelector("#lettersTried");
+  const remaining    = document.querySelector("#remaining");
+  const input        = document.querySelector("#letterInput");
+  const guessBtn     = document.querySelector("#guessBtn");
+  const resetBtn     = document.querySelector("#resetBtn");
+
+  // 4. Start or restart the game
+  function start() {
+    // pick a random word from the list
+    const pick = Math.floor(Math.random() * words.length);
+    secret = words[pick];
+    letters = secret.split("");
+
+    // build an array of underscores (same length as the word)
+    for (let i = 0; i < letters.length; i++) {
+      shown.push("_");
+    }
+
+    // reset other state values
+    tried = [];
+    left = 6;
+
+    // update the screen
+    update();
+
+    // message for the player
+    message.textContent = "Type a letter and click Guess.";
+
+    // clear and focus input box
+    input.value = "";
+    //input.focus(); // cursor moves inside for element
+  }
+
+  // 5. Update the display on the page
+  function update() {
+    wordDisplay.textContent = shown.join(" ");
+
+    if (tried.length > 0) {
+      lettersTried.textContent = tried.join(", ");
+    } else {
+      lettersTried.textContent = "—";
+    }
+
+    remaining.textContent = left;
+  }
+
+  // 6. Handle a guess
+  function guess() {
+    // get the typed letter
+    const letter = input.value.toLowerCase();
+
+    //prevent function from processing no letter entered
+    if (letter === "") { return; }
+
+    // record this guess
+    tried.push(letter);
+
+    // check if the letter is in the secret word
+    let found = false;
+    for (let i = 0; i < letters.length; i++) {
+      if (letters[i] === letter) {
+        shown[i] = letter; // reveal the letter
+        found = true;
+      }
+    }
+
+
+    // forEach() instead of for loop
+    /*letters.forEach(function(char, i) {
+        if (char === letter) {
+          shown[i] = letter;
+          found = true;
+        }
+      });*/
+
+    // if not found, reduce guesses left
+    if (!found) {
+      left--;
+    }
+
+    // update the page and check win/lose
+    update();
+    check();
+
+    // clear input for next guess
+    input.value = "";
+    //input.focus();
+  }
+
+  // 7. Check win or lose conditions
+  function check() {
+    if (shown.join("") === secret) {
+      message.textContent = "You win!";
+      return; // leave the function
+    }
+    if (left === 0) {
+      message.textContent = `Game over! Word: ${secret}`;
+      return;  // leave the function
+    }
+    message.textContent = "Keep going!";
+  }
+
+  // 8. Button events
+  guessBtn.addEventListener("click", guess);
+  resetBtn.addEventListener("click", start);
+
+  // 9. Start the first game right away
+  start();
+
+  </script>
+</body>
+</html>

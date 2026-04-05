@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Ember Rise</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000;
+      overflow: hidden;
+      cursor: crosshair;
+      font-family: 'Cinzel', serif;
+    }
+
+    canvas { display: block; }
+
+    /* ── HUD ── */
+    #hud {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 22px 30px;
+      pointer-events: none;
+    }
+
+    #title {
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255, 160, 60, 0.45);
+    }
+
+    #counter {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: rgba(255, 100, 30, 0.3);
+    }
+
+    /* ── Controls panel ── */
+    #panel {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      background: rgba(10, 5, 0, 0.7);
+      border: 1px solid rgba(255, 120, 30, 0.12);
+      border-radius: 2px;
+      padding: 14px 28px;
+      backdrop-filter: blur(8px);
+    }
+
+    .ctrl {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .ctrl label {
+      font-family: 'Cinzel', serif;
+      font-size: 8px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255, 140, 50, 0.4);
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 80px;
+      height: 1px;
+      background: rgba(255, 100, 20, 0.25);
+      outline: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 160, 60, 0.75);
+      box-shadow: 0 0 6px rgba(255, 120, 20, 0.8);
+      cursor: pointer;
+    }
+
+    #hint {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cinzel', serif;
+      font-size: 8px;
+      letter-spacing: 0.25em;
+      color: rgba(255, 120, 40, 0.22);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<div id="hud">
+  <div id="title">Ember Rise</div>
+  <div id="counter">0 particles</div>
+</div>
+
+<div id="hint">click &amp; drag to move the source</div>
+
+<div id="panel">
+  <div class="ctrl">
+    <label>Rate</label>
+    <input type="range" id="rate"    min="1"   max="20"  step="1"   value="8">
+  </div>
+  <div class="ctrl">
+    <label>Spread</label>
+    <input type="range" id="spread"  min="5"   max="200" step="5"   value="55">
+  </div>
+  <div class="ctrl">
+    <label>Lift</label>
+    <input type="range" id="lift"    min="0.5" max="5"   step="0.1" value="2.2">
+  </div>
+  <div class="ctrl">
+    <label>Life</label>
+    <input type="range" id="life"    min="40"  max="240" step="10"  value="130">
+  </div>
+  <div class="ctrl">
+    <label>Size</label>
+    <input type="range" id="size"    min="1"   max="12"  step="0.5" value="4">
+  </div>
+  <div class="ctrl">
+    <label>Turbulence</label>
+    <input type="range" id="turb"    min="0"   max="3"   step="0.1" value="1.1">
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.3/p5.min.js"></script>
+<script>
+new p5(function(p) {
+
+  // ── Particle pool ──────────────────────────────────────────────────────────
+  const MAX = 3000;
+  const particles = [];
+
+  // Source position (draggable)
+  let srcX, srcY;
+  let dragging = false;
+
+  // Noise offsets per-particle (stored as property)
+  let noiseZ = 0;
+
+  // ── Colour palette: cool white core → amber → deep crimson → transparent ──
+  // We encode key stops as [r,g,b] at life fractions [0 … 1]
+  const STOPS = [
+    { t: 0.00, r: 255, g: 255, b: 230 },  // fresh: near-white
+    { t: 0.15, r: 255, g: 210, b: 80  },  // hot yellow
+    { t: 0.40, r: 255, g: 120, b: 20  },  // amber
+    { t: 0.70, r: 200, g:

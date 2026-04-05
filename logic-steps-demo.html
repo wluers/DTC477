@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Challenge 3: Dice Race (One Button) — Logic Steps + JS Code</title>
+  
+</head>
+
+<body>
+  <h1>Challenge 3: Dice Race (One Button)</h1>
+    <button id="rollBtn">Run One Round</button>
+      
+
+  <script>
+   
+    let player1Score = 0;
+    let player2Score = 0;
+
+    const targetScore = 5;
+    const button = document.querySelector("#rollBtn");
+    button.addEventListener("click", checkWin);
+
+    function checkWin() {
+      const player1Roll = Math.floor(Math.random() * 6) + 1;
+      const player2Roll = Math.floor(Math.random() * 6) + 1;
+
+      if (player1Roll > player2Roll) {
+        player1Score++;
+        console.log(`P1 rolled ${player1Roll}, P2 rolled ${player2Roll} → P1 wins round`);
+        if (player1Score >= targetScore) {
+          console.log("Player 1 wins!");
+        }
+
+      } else if (player2Roll > player1Roll) {
+        player2Score++;
+        console.log(`P1 rolled ${player1Roll}, P2 rolled ${player2Roll} → P2 wins round`);
+        if (player2Score >= targetScore) {
+          console.log("Player 2 wins!");
+        }
+
+      } else {
+        console.log(`P1 rolled ${player1Roll}, P2 rolled ${player2Roll} → Tie (no points)`);
+      }
+    }
+
+  </script>
+</body>
+</html>

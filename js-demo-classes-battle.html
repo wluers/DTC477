@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS Demo Lesson  – Classes and Character Generation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #333;
+    }
+    h1 { color: #000; }
+    #output {
+      background: white;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      min-height: 200px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #666;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background: #999; }
+  </style>
+</head>
+<body>
+  <h1>JS Demo Lesson 6: Classes and Character Generation</h1>
+  <p>Click the button to generate a random opponent and begin the battle!</p>
+  <button id="battleBtn">Start Battle</button>
+  <div id="output">Results will appear here...</div>
+
+  <script>
+    // ==============================================
+    // JS DEMO LESSON 6
+    // Topic: CLASSES, OBJECTS, AND GAME CHARACTERS
+    //
+    // IMPORTANT IDEA:
+    // A class is like a blueprint or factory for creating objects.
+    // It is an ES6 "amplified object constructor".
+    //
+    // Instead of manually creating each object,
+    // we define a class once, then create many instances.
+    //
+    // Example:
+    // class Player → blueprint
+    // new Player() → creates a real object from that blueprint
+    // ==============================================
+
+
+    // Get references to HTML elements so we can display results
+    const output = document.querySelector('#output');
+    const battleBtn = document.querySelector('#battleBtn');
+
+
+    // ==============================================
+    // 1. PLAYER CLASS (Blueprint for player objects)
+    // ==============================================
+
+    class Player {
+
+      // The constructor runs automatically when we create a new Player
+      // It sets up the object's starting properties
+      constructor(name, health) {
+
+        // "this" refers to the specific object being created
+        // Each player will have their own name, health, and inventory
+        this.name = name;
+        this.health = health;
+        this.inventory = [];
+      }
+
+      // This is a METHOD (a function inside a class)
+      // It adds an item to the player's inventory
+      addItem(item) {
+        this.inventory.push(item);
+      }
+
+      // This method calculates random attack damage
+      // Every Player instance can use this method
+      attack() {
+
+        // Math.random() creates unpredictability in the game
+        return Math.floor(Math.random() * 20) + 5;
+      }
+
+      // This method displays the Player's information on screen
+      displayInfo() {
+
+        output.innerHTML += `
+          <br><strong>${this.name}</strong> — Health: ${this.health}
+          <br>Inventory: ${this.inventory.join(', ')}`;
+      }
+    }
+
+
+    // ==============================================
+    // CREATE A PLAYER OBJECT FROM THE CLASS
+    // ==============================================
+
+    // "new Player()" creates an INSTANCE of the Player class
+    // This is now a real object with properties and methods
+    const player1 = new Player("Adventurer", 100);
+
+    // These methods belong to the Player class
+    // player1 can use them because it is an instance of Player
+    player1.addItem("Sword");
+    player1.addItem("Potion");
+
+
+    // ==============================================
+    // 2. ENEMY CLASS (Blueprint for enemy objects)
+    // ==============================================
+
+    class Enemy {
+
+      constructor(type, health) {
+
+        // Each enemy instance has its own type and health
+        this.type = type;
+        this.health = health;
+
+        // Automatically assign a random weapon when created
+        this.weapon = this.randomWeapon();
+      }
+
+
+      // Method that randomly selects a weapon
+      randomWeapon() {
+
+        const weapons = ["Club", "Axe", "Claws", "Fire Breath", "Poison Fang"];
+
+        const randomIndex = Math.floor(Math.random() * weapons.length);
+
+        return weapons[randomIndex];
+      }
+
+
+      // Enemy attack method (similar to Player attack)
+      attack() {
+
+        return Math.floor(Math.random() * 15) + 5;
+      }
+
+
+      // Display enemy info
+      displayInfo() {
+
+        output.innerHTML += `
+          <br><strong>Enemy:</strong> ${this.type} — Health: ${this.health}
+          <br>Weapon: ${this.weapon}`;
+      }
+    }
+
+
+    // ==============================================
+    // 3. BATTLE FUNCTION
+    // This function uses Player and Enemy objects
+    // ==============================================
+
+    function battle(player, enemy) {
+
+      // Reset display
+      output.innerHTML = `<h3>--- Opponents Revealed ---</h3>`;
+
+      // These methods come from the class definitions
+      player.displayInfo();
+      output.innerHTML += `<br>`;
+      enemy.displayInfo();
+
+      output.innerHTML += `<h3>--- Battle Begins! ---</h3>`;
+      output.innerHTML += `<br>${player.name} faces the ${enemy.type}!`;
+
+
+      // Decide randomly who attacks first
+      let firstAttacker;
+
+      if (Math.random() < 0.5) {
+
+        firstAttacker = player;
+
+        output.innerHTML += `<br><em>${player.name} attacks first!</em>`;
+
+      } else {
+
+        firstAttacker = enemy;
+
+        output.innerHTML += `<br><em>${enemy.type} attacks first!</em>`;
+      }
+
+
+      // Call attack methods from each object
+      // These methods were defined in their classes
+      const playerDamage = player.attack();
+      const enemyDamage = enemy.attack();
+
+
+      // Apply damage depending on turn order
+      if (firstAttacker === player) {
+
+        enemy.health -= playerDamage;
+
+        output.innerHTML += `<br>${player.name} swings for ${playerDamage} damage!`;
+
+        if (enemy.health > 0) {
+
+          player.health -= enemyDamage;
+
+          output.innerHTML += `<br>${enemy.type} retaliates with ${enemy.weapon} for ${enemyDamage} damage!`;
+        }
+
+      } else {
+
+        player.health -= enemyDamage;
+
+        output.innerHTML += `<br>${enemy.type} attacks first using ${enemy.weapon} for ${enemyDamage} damage!`;
+
+        if (player.health > 0) {
+
+          enemy.health -= playerDamage;
+
+          output.innerHTML += `<br>${player.name} counters for ${playerDamage} damage!`;
+        }
+      }
+
+
+      // Prevent negative health
+      if (player.health < 0) player.health = 0;
+      if (enemy.health < 0) enemy.health = 0;
+
+
+      // Show updated health
+      output.innerHTML += `<h4>--- Battle Results ---</h4>`;
+      output.innerHTML += `<br>${player.name} Health: ${player.health}`;
+      output.innerHTML += `<br>${enemy.type} Health: ${enemy.health}`;
+
+
+      // Determine winner
+      if (player.health <= 0 && enemy.health <= 0) {
+
+        output.innerHTML += `<br><strong>Both fall — it's a draw!</strong>`;
+
+      } else if (player.health <= 0) {
+
+        output.innerHTML += `<br><strong>${enemy.type} wins!</strong>`;
+
+      } else if (enemy.health <= 0) {
+
+        output.innerHTML += `<br><strong>${player.name} is victorious!</strong>`;
+
+      } else {
+
+        output.innerHTML += `<br><em>The fight could continue...</em>`;
+      }
+    }
+
+
+    // ==============================================
+    // 4. BUTTON EVENT
+    // Create a new Enemy object and start battle
+    // ==============================================
+
+    battleBtn.addEventListener('click', function() {
+
+      // Create random enemy type
+      const enemyTypes = ["Goblin", "Orc", "Skeleton", "Dragon", "Bandit"];
+
+      const randomIndex = Math.floor(Math.random() * enemyTypes.length);
+
+      const randomType = enemyTypes[randomIndex];
+
+      // Random health for enemy
+      const randomHealth = Math.floor(Math.random() * 100) + 50;
+
+      // Create a new Enemy instance from the Enemy class
+      const newEnemy = new Enemy(randomType, randomHealth);
+
+
+      // Reset player's health for a new battle
+      player1.health = Math.floor(Math.random() * 50) + 75;
+
+
+      // Call the battle function using the two objects
+      battle(player1, newEnemy);
+    });
+  </script>
+</body>
+</html>

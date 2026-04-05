@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Canvas Smiley Face</title>
+    <style>
+        #myCanvas {
+            border: 1px solid black;
+            display: block;
+            margin: 5% auto;
+            /*width: 600px;*/ 
+            /*height: 600px;*/
+        }
+        /* 
+         Important: The CSS width & height only affect the display size, NOT the actual drawing size of the canvas.
+           - The drawing area is controlled by the DOM properties: 
+             <canvas width="600" height="600">
+           - Even though CSS an stretch the canvas to 800px × 800px, the drawing commands still treat it as 600px × 600px.
+      */
+
+    </style>
+</head>
+<body>
+    <canvas width="600" height="600" id="myCanvas"></canvas>
+    
+    <script>
+        // Get the canvas and 2D drawing context
+        const c = document.getElementById("myCanvas");
+        const ctx = c.getContext("2d");
+        //The getContext("2d") method gives access to a bunch of drawing functions for shapes, text, images, and paths. There's also "webgl" for 3D graphics, but "2d" is the most common.
+        
+
+
+        // Function to generate a random integer within a range
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Function to draw the face
+        function drawFace(eyeX, eyeY) {
+            ctx.clearRect(0, 0, c.width, c.height); // Clear canvas before redrawing (for animation)
+
+            // TEXT BOX
+            ctx.font = "16px Arial"; // Increased font size for better visibility
+            ctx.fillStyle = "black";
+            ctx.textAlign = "right";  // Align text to the right
+            ctx.fillText("Smiley Face", c.width - 10, 30); // Draw text in the top-right corner
+
+            // DRAW FACE (Yellow Circle)
+            ctx.beginPath();
+            ctx.arc(300, 300, 200, 0, 2 * Math.PI); 
+            // (x, y, radius, startAngle, endAngle)
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+            ctx.closePath();
+
+            // DRAW MOUTH (Half-Circle with Stroke)
+            ctx.beginPath();
+            ctx.arc(300, 370, 80, 0, Math.PI); 
+            // half-circle mouth (x, y, radius, startAngle, endAngle, counterclockwise)
+            ctx.lineTo(380, 370); // Connect back to the right side - top of the mouth
+            ctx.stroke(); // Ensures the stroke is applied all around
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.closePath();
+
+            // DRAW EYES (Two White Circles)
+            
+            // Left eye
+            ctx.beginPath();
+            ctx.arc(230, 250, 30, 0, 2 * Math.PI); // (x, y, radius, startAngle, endAngle)
+            ctx.closePath();
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.stroke();
+
+            // Right eye
+            ctx.beginPath();
+            ctx.arc(370, 250, 30, 0, 2 * Math.PI); 
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.stroke();
+            ctx.closePath();
+
+            // DRAW NOSE BRIDGE (Slightly Angled Line)
+            ctx.beginPath();
+            ctx.moveTo(310, 260);  // Start at top of nose (moved up)
+            ctx.lineTo(315, 300);  // Slight angle (moved up)
+            ctx.stroke();
+            ctx.closePath();
+
+            // DRAW NOSE TIP (Half-Circle)
+            ctx.beginPath();
+            ctx.arc(310, 320, 20, 0, Math.PI); 
+            ctx.stroke();
+            ctx.closePath();
+
+            // DRAW EYEBROWS (Two Separate Lines)
+
+            // Left eyebrow
+            ctx.beginPath();
+            ctx.moveTo(180, 210);  
+            ctx.lineTo(260, 190);
+            ctx.stroke();
+            ctx.closePath();
+
+            // Right eyebrow
+            ctx.beginPath();
+            ctx.moveTo(420, 210); 
+            ctx.lineTo(340, 190); 
+            ctx.stroke();
+            ctx.closePath();
+
+            // DRAW EYEBALLS (Black Circles)
+
+            // Left eyeball
+            ctx.beginPath(); 
+            ctx.arc(eyeX, eyeY, 9, 0, 2 * Math.PI);
+            ctx.fillStyle = "black";
+            ctx.fill();
+            ctx.closePath();
+
+            // Right eyeball
+            ctx.beginPath(); 
+            ctx.arc(eyeX + 140, eyeY, 10, 0, 2 * Math.PI);
+            ctx.fillStyle = "black";
+            ctx.fill();
+            ctx.closePath();
+            
+        }
+        
+
+        // DRAW once
+        drawFace(230, 250);
+
+   
+        //ANIMATE (Draw in a loop)
+
+        /*function animateFace() {
+            let eyeX = getRandomInt(220, 240);
+            let eyeY = getRandomInt(245, 255);
+            drawFace(eyeX, eyeY);
+
+            // OPTION A — simple, no requestAnimationFrame
+            setTimeout(animateFace, 1000);
+        }*/
+        
+        //setInterval(animateFace, 1000);
+    
+        //animateFace();
+
+
+
+    </script>
+</body>
+</html>

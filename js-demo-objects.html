@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>JavaScript Objects – Player Examples</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 760px;
+      margin: 2rem auto;
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #output {
+      border: 1px solid #aaa;
+      padding: 1rem;
+      margin-top: 1rem;
+      background: #f9f9f9;
+      min-height: 220px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+
+    button {
+      padding: 0.5rem 0.9rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    code {
+      background: #eee;
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>JavaScript Object Types: Player</h1>
+
+  <div class="button-row">
+    <button id="btnLiteral">1) Object Literal</button>
+    <button id="btnConstructor">2) Function Constructor</button>
+    <button id="btnClass">3) ES6 Class</button>
+  </div>
+
+  <div id="output">Click a button to see one example.</div>
+
+  <script>
+    // =====================================================
+    // PAGE SETUP
+    // =====================================================
+    // We grab references to the buttons and output area once.
+    // Each button runs ONE example, so students can focus on one idea at a time.
+    const btnLiteral = document.querySelector('#btnLiteral');
+    const btnConstructor = document.querySelector('#btnConstructor');
+    const btnClass = document.querySelector('#btnClass');
+    const output = document.querySelector('#output');
+
+    // No arrow functions here (beginner-friendly rule)
+    btnLiteral.addEventListener('click', runObjectLiteralExample);
+    btnConstructor.addEventListener('click', runConstructorExample);
+    btnClass.addEventListener('click', runClassExample);
+
+    function clearOutput() {
+      output.innerHTML = "";
+    }
+
+    // Helper: random whole number from min..max
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+
+    // =====================================================
+    // 1) OBJECT LITERAL
+    // =====================================================
+    // An object literal creates ONE object directly.
+    //
+    // Use this when you need ONE "thing":
+    // - one player object (single-player game)
+    // - one set of game settings
+    // - one state object (current level info)
+    //
+    // The object literal groups related data + behavior in one place.
+    function runObjectLiteralExample() {
+      clearOutput();
+
+      const playerLiteral = {
+        name: "Hero",
+        health: 100,
+        weapon: "Sword",
+
+        // Method: a function stored inside the object.
+        // "this" refers to the object that calls the method.
+        attack: function() {
+          return randomInt(5, 15);
+        },
+
+        takeDamage: function(amount) {
+          this.health = this.health - amount;
+
+          // Keep health from going negative
+          if (this.health < 0) {
+            this.health = 0;
+          }
+        },
+
+        describe: function() {
+          return `
+            <p>
+              <strong>${this.name}</strong><br>
+              Health: ${this.health}<br>
+              Weapon: ${this.weapon}
+            </p>
+          `;
+        }
+      };
+
+      // Use the object
+      const damage = playerLiteral.attack();
+      playerLiteral.takeDamage(damage);
+
+      output.innerHTML = `
+        <h2>1) Object Literal (one object)</h2>
+
+        <p><strong>Idea:</strong> Make one player object directly.</p>
+
+        <p>
+          We called <code>playerLiteral.attack()</code> and got <strong>${damage}</strong> damage.
+          Then we applied it with <code>playerLiteral.takeDamage(damage)</code>.
+        </p>
+
+        ${playerLiteral.describe()}
+
+        <p><em>
+          This is great when you only need one player (or one settings object).
+          But if you need 20 enemies, object literals become repetitive.
+        </em></p>
+      `;
+    }
+
+
+    // =====================================================
+    // 2) FUNCTION CONSTRUCTOR (pre-ES6 blueprint)
+    // =====================================================
+    // Before ES6 classes, this was the main way to create MANY objects.
+    //
+    // A constructor function is a "blueprint".
+    //
+    // The keyword "new" does three important things:
+    // 1) It creates a new empty object
+    // 2) It sets "this" to that new object
+    // 3) It returns the object automatically
+    function runConstructorExample() {
+      clearOutput();
+
+      function PlayerConstructor(name, health, weapon) {
+        this.name = name;
+        this.health = health;
+        this.weapon = weapon;
+
+        this.attack = function() {
+          return randomInt(5, 15);
+        };
+
+        this.takeDamage = function(amount) {
+          this.health = this.health - amount;
+
+          if (this.health < 0) {
+            this.health = 0;
+          }
+        };
+
+        this.describe = function() {
+          return `
+            <p>
+              <strong>${this.name}</strong><br>
+              Health: ${this.health}<br>
+              Weapon: ${this.weapon}
+            </p>
+          `;
+        };
+      }
+
+      // Create multiple players from ONE blueprint
+      const playerA = new PlayerConstructor("Archer", 80, "Bow");
+      const playerB = new PlayerConstructor("Knight", 120, "Sword");
+
+      // Demo: both can attack, both can take damage
+      const damageA = playerA.attack();
+      const damageB = playerB.attack();
+
+      playerA.takeDamage(damageB);
+      playerB.takeDamage(damageA);
+
+      output.innerHTML = `
+        <h2>2) Function Constructor (blueprint, older style)</h2>
+
+        <p><strong>Idea:</strong> One blueprint can create many player objects.</p>
+
+        <p>
+          Player A attacks for <strong>${damageA}</strong>.<br>
+          Player B attacks for <strong>${damageB}</strong>.<br>
+          Each player takes the other player's damage.
+        </p>
+
+        <h3>Player A</h3>
+        ${playerA.describe()}
+
+        <h3>Player B</h3>
+        ${playerB.describe()}
+
+        <hr>
+
+        <h3>Identity Checks</h3>
+        <p>
+          <code>typeof playerA</code> → <strong>${typeof playerA}</strong><br>
+          <code>playerA instanceof PlayerConstructor</code> → <strong>${playerA instanceof PlayerConstructor}</strong>
+        </p>
+
+        <p><em>
+          This proves playerA is an object created from the PlayerConstructor blueprint.
+        </em></p>
+      `;
+    }
+
+
+    // =====================================================
+    // 3) ES6 CLASS (modern blueprint)
+    // =====================================================
+    // A class is a cleaner, modern way to create a blueprint.
+    //
+    // You still use "new" to create objects.
+    //
+    // The constructor() method is the setup function that runs when the object is created.
+    function runClassExample() {
+      clearOutput();
+
+      class PlayerClass {
+        constructor(name, health, weapon) {
+          this.name = name;
+          this.health = health;
+          this.weapon = weapon;
+        }
+
+        attack() {
+          return randomInt(5, 15);
+        }
+
+        takeDamage(amount) {
+          this.health = this.health - amount;
+
+          if (this.health < 0) {
+            this.health = 0;
+          }
+        }
+
+        describe() {
+          return `
+            <p>
+              <strong>${this.name}</strong><br>
+              Health: ${this.health}<br>
+              Weapon: ${this.weapon}
+            </p>
+          `;
+        }
+      }
+
+      // Create multiple instances from one class blueprint
+      const player1 = new PlayerClass("Mage", 70, "Staff");
+      const player2 = new PlayerClass("Rogue", 90, "Daggers");
+
+      const damage1 = player1.attack();
+      player2.takeDamage(damage1);
+
+      output.innerHTML = `
+        <h2>3) ES6 Class (blueprint, modern style)</h2>
+
+        <p><strong>Idea:</strong> Same blueprint concept, cleaner syntax, easier to extend.</p>
+
+        <p>
+          Mage attacks for <strong>${damage1}</strong>.<br>
+          Rogue takes damage.
+        </p>
+
+        <h3>Player 1</h3>
+        ${player1.describe()}
+
+        <h3>Player 2</h3>
+        ${player2.describe()}
+
+        <hr>
+
+        <h3>Identity Checks</h3>
+        <p>
+          <code>typeof player1</code> → <strong>${typeof player1}</strong><br>
+          <code>player1 instanceof PlayerClass</code> → <strong>${player1 instanceof PlayerClass}</strong><br>
+          <code>player1.constructor.name</code> → <strong>${player1.constructor.name}</strong>
+        </p>
+
+        <p><em>
+          This confirms player1 is an object created from the PlayerClass blueprint.
+        </em></p>
+      `;
+    }
+  </script>
+
+</body>
+</html>

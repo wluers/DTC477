@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JS Classes – Challenges</title>
+</head>
+<body>
+
+  <h2 id="heading1">Player 1</h2>
+  <button id="btn1">Roll</button>
+  <p id="result1"></p>
+
+  <hr>
+
+  <h2 id="heading2">Player 2</h2>
+  <button id="btn2">Roll</button>
+  <p id="result2"></p>
+
+  <p id="winner"></p>
+
+
+  <script>
+
+    // ================================================================
+    //  START HERE — this is the base game, fully working.
+    //  Read through it, then work through the challenges below.
+    // ================================================================
+
+    class Player {
+
+      constructor(name, color) {
+        this.name  = name;
+        this.color = color;
+
+        // ── CHALLENGE 2: add a new property here ──────────────────
+        // this.emoji = "⚔️";
+        // this.bonus = 0;
+      }
+
+      roll() {
+        return Math.floor(Math.random() * 6) + 1;
+
+        // ── CHALLENGE 3: make the roll use the bonus ───────────────
+        // return Math.floor(Math.random() * 6) + 1 + this.bonus;
+      }
+
+      // ── CHALLENGE 2: add a new method here ────────────────────────
+      // This method should return a string using this.name and this.emoji
+      //
+      // describe() {
+      //   return this.name + " " + this.emoji;
+      // }
+    }
+
+
+    // ── TWO INSTANCES ──────────────────────────────────────────────
+
+    const player1 = new Player("Alice", "tomato");
+    const player2 = new Player("Bob",   "steelblue");
+
+
+    // ── CHALLENGE 4: make a subclass below these two instances ──────
+    // A subclass inherits everything from Player but can override it.
+    //
+    // class Cheater extends Player {
+    //   constructor(name, color) {
+    //     super(name, color);    // calls Player's constructor first
+    //     this.bonus = 3;        // Cheater always gets +3
+    //   }
+    //
+    //   roll() {
+    //     const base = super.roll();   // calls Player's roll() method
+    //     console.log("Cheating! base roll was " + base);
+    //     return base + this.bonus;
+    //   }
+    // }
+    //
+    // Then swap one player to a Cheater:
+    // const player2 = new Cheater("Bob", "steelblue");
+
+
+    // ── STYLE BUTTONS WITH PLAYER COLOR ────────────────────────────
+
+    document.querySelector('#btn1').style.background = player1.color;
+    document.querySelector('#btn2').style.background = player2.color;
+
+    // ── CHALLENGE 1: change the heading text using a class property ──
+    // The headings currently just say "Player 1" and "Player 2".
+    // Use player1.name and player2.name to make them show real names.
+    //
+    // document.querySelector('#heading1').textContent = player1.name;
+    // document.querySelector('#heading2').textContent = player2.name;
+
+
+    // ── BUTTON FUNCTIONS ───────────────────────────────────────────
+
+    let roll1 = null;
+    let roll2 = null;
+
+    document.querySelector('#btn1').onclick = function () {
+      roll1 = player1.roll();
+      document.querySelector('#result1').textContent = player1.name + " rolled " + roll1;
+
+      // ── CHALLENGE 2: use your new describe() method here ──────────
+      // Replace the line above with:
+      // document.querySelector('#result1').textContent = player1.describe() + " rolled " + roll1;
+
+      if (roll2 !== null) compare();
+    };
+
+    document.querySelector('#btn2').onclick = function () {
+      roll2 = player2.roll();
+      document.querySelector('#result2').textContent = player2.name + " rolled " + roll2;
+
+      if (roll1 !== null) compare();
+    };
+
+
+    // ── COMPARE FUNCTION ───────────────────────────────────────────
+
+    function compare() {
+
+      const winnerBox = document.querySelector('#winner');
+
+      if (roll1 > roll2) {
+        winnerBox.textContent = player1.name + " wins!";
+        winnerBox.style.color = player1.color;
+
+      } else if (roll2 > roll1) {
+        winnerBox.textContent = player2.name + " wins!";
+        winnerBox.style.color = player2.color;
+
+      } else {
+        winnerBox.textContent = "Draw!";
+        winnerBox.style.color = "black";
+      }
+
+      // ── CHALLENGE 5: make the winner text bigger ───────────────────
+      // The margin between rolls tells you how decisive the win was.
+      // Use it to set the font size of the winner announcement.
+      //
+      // const margin = Math.abs(roll1 - roll2);
+      // winnerBox.style.fontSize = (16 + margin * 4) + "px";
+
+      roll1 = null;
+      roll2 = null;
+    }
+
+
+    // ================================================================
+    //  CHALLENGE SUMMARY
+    // ================================================================
+    //
+    //  1. PROPERTY → DOM
+    //     Uncomment the heading lines above.
+    //     Use player1.name to set the <h2> text.
+    //     Then try: player1.color to set heading color too.
+    //
+    //  2. NEW PROPERTY + METHOD
+    //     Add this.emoji to the constructor.
+    //     Add a describe() method that returns name + emoji.
+    //     Show it in the roll result text.
+    //
+    //  3. PROPERTY AFFECTS LOGIC
+    //     Add this.bonus = 0 to the constructor.
+    //     Use it inside roll() so it changes the result.
+    //     Give player1 a bonus of 2. Does player1 win more often?
+    //
+    //  4. SUBCLASS WITH extends
+    //     Uncomment the Cheater class above.
+    //     Notice: super() calls the parent constructor.
+    //     Notice: super.roll() calls the parent method.
+    //     Make player2 a Cheater. Is it obvious in the results?
+    //     How would you make it obvious in the UI?
+    //
+    //  5. METHOD RETURN VALUE → CSS
+    //     Uncomment the margin lines in compare().
+    //     A blowout win = huge text. A close win = small text.
+    //     This is the pattern: method returns a number → drives a style.
+    //
+    // ================================================================
+
+  </script>
+
+</body>
+</html>

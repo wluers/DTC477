@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SVG Smiley</title>
+    <style>
+        body { display: flex; justify-content: center; padding: 40px; font-family: monospace; }
+
+        #coords {
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+        SVG vs Canvas mental model
+        ──────────────────────────
+        Canvas: you call draw commands → pixels are baked in.
+                To change anything you must clear + redraw the whole canvas.
+
+        SVG: every shape is a live DOM element with attributes.
+                Call setAttribute() and the display updates instantly — no redraw.
+
+        1. Name your layers clearly in Illustrator before exporting
+        2. File → Export → Export As → SVG → open the SVG code
+        3. Paste the <svg>...</svg> block directly into your HTML
+        4. Check that ids match what you expect
+        JS works exactly as in the demo
+    -->
+
+    <div>
+        <svg id="svg" width="400" height="400" viewBox="0 0 600 600"
+             style="border: 1px solid #ccc;"
+             xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Face: a filled circle -->
+            <circle id="face" cx="300" cy="300" r="200"
+                    fill="yellow" stroke="black" stroke-width="4"/>
+
+            <!-- Mouth
+                 Path data breakdown:
+                   M 220,370        — move to left corner
+                   A 80,80 0 0,0    — arc (rx=80 ry=80, x-rotation=0, large-arc=0, sweep=0 = curves downward)
+                     380,370        — arc end point (right corner)
+                   L 220,370        — straight line back across the top, closing the mouth shape
+            -->
+            <path id="mouth"
+                  d="M 220,370 A 80,80 0 0,0 380,370 L 220,370"
+                  fill="white" stroke="black" stroke-width="3"/>
+
+            <!-- Eyes: white circles with black pupils -->
+            <circle id="leftEye"    cx="230" cy="250" r="30" fill="white" stroke="black" stroke-width="3"/>
+            <circle id="rightEye"   cx="370" cy="250" r="30" fill="white" stroke="black" stroke-width="3"/>
+            <circle id="leftPupil"  cx="234" cy="254" r="8"  fill="black"/>
+            <circle id="rightPupil" cx="374" cy="254" r="8"  fill="black"/>
+
+            <!-- Eyebrows: simple lines -->
+            <line id="leftBrow"  x1="195" y1="207" x2="265" y2="190" stroke="black" stroke-width="4" stroke-linecap="round"/>
+            <line id="rightBrow" x1="335" y1="190" x2="405" y2="207" stroke="black" stroke-width="4" stroke-linecap="round"/>
+
+            <!-- Nose: a short vertical line + a small arc tip -->
+            <line id="noseBridge" x1="310" y1="265" x2="315" y2="305" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+            <path id="noseTip"    d="M 290,322 A 20,15 0 0,0 330,322" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+
+        </svg>
+        <div id="coords">x, y</div>
+    </div>
+
+    <script>
+        // Grab every element by its id — they're all live DOM nodes
+        const svg = document.getElementById("svg");
+        const face = document.getElementById("face");
+        const mouth = document.getElementById("mouth");
+        const leftEye = document.getElementById("leftEye");
+        const rightEye = document.getElementById("rightEye");
+        const leftPupil = document.getElementById("leftPupil");
+        const rightPupil = document.getElementById("rightPupil");
+        const leftBrow = document.getElementById("leftBrow");
+        const rightBrow = document.getElementById("rightBrow");
+        const noseBridge = document.getElementById("noseBridge");
+        const noseTip = document.getElementById("noseTip");
+
+
+        // ── Coordinate display ──────────────────────────────────────────────
+        // SVG uses its own coordinate space (viewBox 0 0 600 600).
+        // We scale mouse position from display pixels → SVG units.
+        const coordsEl = document.getElementById("coords");
+
+        svg.addEventListener("mousemove", (e) => {
+            const rect   = svg.getBoundingClientRect();
+            const scaleX = 600 / rect.width;
+            const scaleY = 600 / rect.height;
+            const x = Math.round((e.clientX - rect.left) * scaleX);
+            const y = Math.round((e.clientY - rect.top)  * scaleY);
+            coordsEl.textContent = `${x}, ${y}`;
+        });
+
+        svg.addEventListener("mouseleave", () => {
+            coordsEl.textContent = "x, y";
+        });
+
+
+        // ── Example manipulations — edit or add your own below ──────────────
+
+        // Change the face color
+        // face.setAttribute("fill", "lightblue");
+
+        // Move a circle by changing its center
+        // leftEye.setAttribute("cx", "250");
+
+        // Reshape the mouth arc — flip sweep-flag from 0→1 to frown
+        // mouth.setAttribute("d", "M 220,370 A 80,80 0 0,1 380,370 L 220,370");
+
+        // Rotate the whole face around its center using a transform
+        // face.setAttribute("transform", "rotate(15 300 300)");
+
+        // Make pupils follow the mouse
+        svg.addEventListener("mousemove", (e) => {
+            const rect = svg.getBoundingClientRect();
+            const mx = (e.clientX - rect.left) * (600 / rect.width);
+            const my = (e.clientY - rect.top)  * (600 / rect.height);
+
+            // Helper: constrain a pupil inside its eye circle
+            function constrainPupil(eyeCX, eyeCY, eyeR, pupilR) {
+                const dx = mx - eyeCX;
+                const dy = my - eyeCY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const max  = eyeR - pupilR - 4;          // 4px padding from edge
+                const ratio = dist > max ? max / dist : 1;
+                return {
+                    x: eyeCX + dx * ratio,
+                    y: eyeCY + dy * ratio
+                };
+            }
+
+            const l = constrainPupil(230, 250, 30, 8);
+            const r = constrainPupil(370, 250, 30, 8);
+
+            leftPupil.setAttribute("cx",  l.x);
+            leftPupil.setAttribute("cy",  l.y);
+            rightPupil.setAttribute("cx", r.x);
+            rightPupil.setAttribute("cy", r.y);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS Demo Lesson  – Classes and Character Generation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #333;
+    }
+    h1 { color: #000; }
+    #output {
+      background: white;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      min-height: 200px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #666;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background: #999; }
+  </style>
+</head>
+<body>
+  <h1>JS Demo Lesson 6: Classes and Character Generation</h1>
+  <p>Click the button to generate a random opponent and begin the battle!</p>
+  <button id="battleBtn">Start Battle</button>
+  <div id="output">Results will appear here...</div>
+
+  <script>
+    // ==============================================
+    // JS DEMO LESSON 6
+    // Topic: CLASSES, OBJECTS, RANDOM INTERACTION
+    // ==============================================
+
+    const output = document.querySelector('#output');
+    const battleBtn = document.querySelector('#battleBtn');
+
+    // ----------------------------------------------
+    // 1. PLAYER CLASS
+    // ----------------------------------------------
+    class Player {
+      constructor(name, health) {
+        this.name = name;
+        this.health = health;
+        this.inventory = [];
+      }
+
+      addItem(item) {
+        this.inventory.push(item);
+      }
+
+      // Player's random attack power (5–25)
+      attack() {
+        return Math.floor(Math.random() * 20) + 5;
+      }
+
+      // Display Player properties
+      displayInfo() {
+        output.innerHTML += `
+          <br><strong>${this.name}</strong> — Health: ${this.health}
+          <br>Inventory: ${this.inventory.join(', ')}`;
+      }
+    }
+
+    // Create Player instance
+    const player1 = new Player("Adventurer", 100);
+    player1.addItem("Sword");
+    player1.addItem("Potion");
+
+    // ----------------------------------------------
+    // 2. ENEMY CLASS
+    // ----------------------------------------------
+    class Enemy {
+      constructor(type, health) {
+        this.type = type;
+        this.health = health;
+        this.weapon = this.randomWeapon();
+      }
+
+      // Randomize weapon type
+      randomWeapon() {
+        const weapons = ["Club", "Axe", "Claws", "Fire Breath", "Poison Fang"];
+        const randomIndex = Math.floor(Math.random() * weapons.length);
+        return weapons[randomIndex];
+      }
+
+      // Enemy random attack damage (5–20)
+      attack() {
+        return Math.floor(Math.random() * 15) + 5;
+      }
+
+      // Display Enemy properties
+      displayInfo() {
+        output.innerHTML += `
+          <br><strong>Enemy:</strong> ${this.type} — Health: ${this.health}
+          <br>Weapon: ${this.weapon}`;
+      }
+    }
+
+    // ----------------------------------------------
+    // 3. BATTLE FUNCTION
+    // ----------------------------------------------
+    function battle(player, enemy) {
+      output.innerHTML = `<h3>--- Opponents Revealed ---</h3>`;
+
+      // Display both characters before combat
+      player.displayInfo();
+      output.innerHTML += `<br>`;
+      enemy.displayInfo();
+
+      output.innerHTML += `<h3>--- Battle Begins! ---</h3>`;
+      output.innerHTML += `<br>${player.name} faces the ${enemy.type}!`;
+
+      // Randomly decide who attacks first (using if/else)
+      let firstAttacker;
+      if (Math.random() < 0.5) {
+        firstAttacker = player;
+        output.innerHTML += `<br><em>${player.name} attacks first!</em>`;
+      } else {
+        firstAttacker = enemy;
+        output.innerHTML += `<br><em>${enemy.type} attacks first!</em>`;
+      }
+
+      // Compute attack values
+      const playerDamage = player.attack();
+      const enemyDamage = enemy.attack();
+
+      // Execute turn order
+      if (firstAttacker === player) {
+        enemy.health -= playerDamage;
+        output.innerHTML += `<br>${player.name} swings for ${playerDamage} damage!`;
+        if (enemy.health > 0) {
+          player.health -= enemyDamage;
+          output.innerHTML += `<br>${enemy.type} retaliates with ${enemy.weapon} for ${enemyDamage} damage!`;
+        }
+      } else {
+        player.health -= enemyDamage;
+        output.innerHTML += `<br>${enemy.type} attacks first using ${enemy.weapon} for ${enemyDamage} damage!`;
+        if (player.health > 0) {
+          enemy.health -= playerDamage;
+          output.innerHTML += `<br>${player.name} counters for ${playerDamage} damage!`;
+        }
+      }
+
+      // Show updated health with conditionals 
+      output.innerHTML += `<h4>--- Battle Results ---</h4>`;
+      if (player.health < 0) {
+        player.health = 0;
+      }
+      if (enemy.health < 0) {
+        enemy.health = 0;
+      }
+
+      output.innerHTML += `<br>${player.name} Health: ${player.health}`;
+      output.innerHTML += `<br>${enemy.type} Health: ${enemy.health}`;
+
+      // Determine winner
+      if (player.health <= 0 && enemy.health <= 0) {
+        output.innerHTML += `<br><strong>Both fall — it's a draw!</strong>`;
+      } else if (player.health <= 0) {
+        output.innerHTML += `<br><strong>${enemy.type} wins!</strong>`;
+      } else if (enemy.health <= 0) {
+        output.innerHTML += `<br><strong>${player.name} is victorious!</strong>`;
+      } else {
+        output.innerHTML += `<br><em>The fight could continue...</em>`;
+      }
+    }
+
+    // ----------------------------------------------
+    // 4. BUTTON EVENT: RANDOM ENEMY GENERATION + BATTLE
+    // ----------------------------------------------
+    battleBtn.addEventListener('click', function() {
+      // Random enemy attributes
+      const enemyTypes = ["Goblin", "Orc", "Skeleton", "Dragon", "Bandit"];
+      const randomIndex = Math.floor(Math.random() * enemyTypes.length);
+      const randomType = enemyTypes[randomIndex];
+      const randomHealth = Math.floor(Math.random() * 100) + 50; // 50–150
+      const newEnemy = new Enemy(randomType, randomHealth);
+
+      // Reset player’s health for each battle
+      player1.health = Math.floor(Math.random() * 50) + 75; // 75–125
+
+      // Begin the fight
+      battle(player1, newEnemy);
+    });
+  </script>
+</body>
+</html>

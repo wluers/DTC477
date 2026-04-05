@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JS Classes – Visual Challenge (opacityLevel version)</title>
+  <style>
+    body {
+      font-size: 20px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.4;
+    }
+
+    button {
+      padding: 1%;
+      font-size: 1.3em;
+      cursor: pointer;
+    }
+
+    hr {
+      margin: 20px 0;
+    }
+
+    #winner {
+      font-weight: 700;
+      margin-top: 16px;
+      min-height: 1.5em;
+    }
+
+    .tiny {
+      font-size: 0.9em;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Player 1</h2>
+  <button id="btn1">Roll</button>
+  <p id="result1"></p>
+  <p id="streak1"></p>
+  <p id="level1" class="tiny"></p>
+
+  <hr>
+
+  <h2>Player 2</h2>
+  <button id="btn2">Roll</button>
+  <p id="result2"></p>
+  <p id="streak2"></p>
+  <p id="level2" class="tiny"></p>
+
+  <p id="winner"></p>
+
+  <script>
+
+    /*
+      opacityLevel stores integers from 2–10.
+      2  -> 0.2 opacity
+      10 -> 1.0 opacity
+
+      It takes 8 wins to go from 2 to 10.
+      No floating point math in our logic.
+    */
+
+    class Player {
+      constructor(name, color) {
+        this.name = name;
+        this.color = color;
+
+        // Start at 0.2 opacity
+        this.opacityLevel = 2;
+
+        this.streak = 0;
+        this.bonus = 0;
+      }
+
+      roll() {
+        return Math.floor(Math.random() * 6) + 1 + this.bonus;
+      }
+
+      win() {
+        if (this.opacityLevel < 10) {
+          this.opacityLevel++;
+        }
+        this.streak++;
+      }
+
+      lose() {
+        if (this.opacityLevel > 2) {
+          this.opacityLevel--;
+        }
+        this.streak = 0;
+      }
+
+      applyStyle(button) {
+        button.style.opacity = this.opacityLevel / 10;
+      }
+
+      resetGame() {
+        this.opacityLevel = 2;
+        this.streak = 0;
+      }
+    }
+
+    // ── CREATE PLAYERS ─────────────────────
+
+    const player1 = new Player("Alice", "red");
+    const player2 = new Player("Bob", "blue");
+
+    const btn1 = document.querySelector("#btn1");
+    const btn2 = document.querySelector("#btn2");
+
+    const result1 = document.querySelector("#result1");
+    const result2 = document.querySelector("#result2");
+
+    const streak1 = document.querySelector("#streak1");
+    const streak2 = document.querySelector("#streak2");
+
+    const level1 = document.querySelector("#level1");
+    const level2 = document.querySelector("#level2");
+
+    const winner = document.querySelector("#winner");
+
+    btn1.style.background = player1.color;
+    btn2.style.background = player2.color;
+
+    player1.applyStyle(btn1);
+    player2.applyStyle(btn2);
+
+    let roll1 = null;
+    let roll2 = null;
+
+    // ── BUTTON EVENTS ──────────────────────
+
+    btn1.addEventListener("click", function () {
+      roll1 = player1.roll();
+      result1.textContent = `${player1.name} rolled ${roll1}`;
+
+      if (roll2 !== null) {
+        compare();
+      }
+    });
+
+    btn2.addEventListener("click", function () {
+      roll2 = player2.roll();
+      result2.textContent = `${player2.name} rolled ${roll2}`;
+
+      if (roll1 !== null) {
+        compare();
+      }
+    });
+
+    // ── COMPARE FUNCTION ───────────────────
+
+    function compare() {
+
+      if (roll1 > roll2) {
+        player1.win();
+        player2.lose();
+
+        winner.textContent = `${player1.name} wins the roll!`;
+        winner.style.color = player1.color;
+
+      } else if (roll2 > roll1) {
+        player2.win();
+        player1.lose();
+
+        winner.textContent = `${player2.name} wins the roll!`;
+        winner.style.color = player2.color;
+
+      } else {
+        winner.textContent = `Draw!`;
+        winner.style.color = "black";
+      }
+
+      // Update streak text using conditionals (no ternary)
+
+      if (player1.streak >= 2) {
+        streak1.textContent = `${player1.name} is on a ${player1.streak} win streak!`;
+      } else {
+        streak1.textContent = "";
+      }
+
+      if (player2.streak >= 2) {
+        streak2.textContent = `${player2.name} is on a ${player2.streak} win streak!`;
+      } else {
+        streak2.textContent = "";
+      }
+
+      player1.applyStyle(btn1);
+      player2.applyStyle(btn2);
+
+
+      // Game win condition
+
+      if (player1.opacityLevel >= 10) {
+
+        player1.bonus++;
+
+        winner.textContent = `${player1.name} wins the game! Bonus carries forward: +${player1.bonus}`;
+        winner.style.color = player1.color;
+
+        player1.resetGame();
+        player2.resetGame();
+
+        player1.applyStyle(btn1);
+        player2.applyStyle(btn2);
+
+
+      } else if (player2.opacityLevel >= 10) {
+
+        player2.bonus++;
+
+        winner.textContent = `${player2.name} wins the game! Bonus carries forward: +${player2.bonus}`;
+        winner.style.color = player2.color;
+
+        player1.resetGame();
+        player2.resetGame();
+
+        player1.applyStyle(btn1);
+        player2.applyStyle(btn2);
+
+      }
+
+      roll1 = null;
+      roll2 = null;
+    }
+
+    
+
+  </script>
+
+</body>
+</html>

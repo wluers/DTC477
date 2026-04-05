@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS Demo Lesson 6 – Battle with Weapon Bonuses (Object Literals)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #333;
+    }
+    h1 { color: #000; }
+    #output {
+      background: white;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      min-height: 200px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #666;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background: #999; }
+  </style>
+</head>
+<body>
+  <h1>JS Demo Lesson 6: Classes and Battle with Weapon Bonuses</h1>
+  <p>Click the button to generate a random opponent and begin the battle!</p>
+  <button id="battleBtn">Start Battle</button>
+  <div id="output">Results will appear here...</div>
+
+  <script>
+    const output = document.querySelector('#output');
+    const battleBtn = document.querySelector('#battleBtn');
+
+    // ------------------------------------------------
+    // WEAPON DATA: lookup objects
+    // ------------------------------------------------
+    const playerWeapons = {
+      "Sword": 8,
+      "Axe": 10,
+      "Bow": 6,
+      "Dagger": 4
+    };
+
+    const enemyWeapons = {
+      "Club": 5,
+      "Axe": 10,
+      "Claws": 7,
+      "Fire Breath": 12,
+      "Poison Fang": 9
+    };
+
+    // ------------------------------------------------
+    // PLAYER CLASS
+    // ------------------------------------------------
+    class Player {
+      constructor(name, health) {
+        this.name = name;
+        this.health = health;
+        this.inventory = [];
+        this.weapon = null;
+      }
+
+      addItem(item) {
+        this.inventory.push(item);
+        if (playerWeapons[item]) {
+          this.weapon = item; // set weapon if it’s in the weapon table
+        }
+      }
+
+      weaponStrength() {
+        return playerWeapons[this.weapon] || 0;
+      }
+
+      attack() {
+        const baseAttack = Math.floor(Math.random() * 20) + 5;
+        return baseAttack + this.weaponStrength();
+      }
+
+      displayInfo() {
+        output.innerHTML += `
+          <br><strong>${this.name}</strong> — Health: ${this.health}
+          <br>Weapon: ${this.weapon || "None"} (Bonus: ${this.weaponStrength()})
+          <br>Inventory: ${this.inventory.join(', ')}`;
+      }
+    }
+
+    // Player setup
+    const player1 = new Player("Adventurer", 100);
+    player1.addItem("Sword");
+    player1.addItem("Potion");
+
+    // ------------------------------------------------
+    // ENEMY CLASS
+    // ------------------------------------------------
+    class Enemy {
+      constructor(type, health) {
+        this.type = type;
+        this.health = health;
+        this.weapon = this.randomWeapon();
+      }
+
+      randomWeapon() {
+        const weaponKeys = Object.keys(enemyWeapons);
+        const randomIndex = Math.floor(Math.random() * weaponKeys.length);
+        return weaponKeys[randomIndex];
+      }
+
+      weaponStrength() {
+        return enemyWeapons[this.weapon] || 0;
+      }
+
+      attack() {
+        const baseAttack = Math.floor(Math.random() * 15) + 5;
+        return baseAttack + this.weaponStrength();
+      }
+
+      displayInfo() {
+        output.innerHTML += `
+          <br><strong>Enemy:</strong> ${this.type} — Health: ${this.health}
+          <br>Weapon: ${this.weapon} (Bonus: ${this.weaponStrength()})`;
+      }
+    }
+
+    // ------------------------------------------------
+    // BATTLE FUNCTION
+    // ------------------------------------------------
+    function battle(player, enemy) {
+      output.innerHTML = `<h3>--- Opponents Revealed ---</h3>`;
+      player.displayInfo();
+      output.innerHTML += `<br>`;
+      enemy.displayInfo();
+
+      output.innerHTML += `<h3>--- Battle Begins! ---</h3>`;
+      output.innerHTML += `<br>${player.name} faces the ${enemy.type}!`;
+
+      let firstAttacker = Math.random() < 0.5 ? player : enemy;
+      output.innerHTML += `<br><em>${firstAttacker === player ? player.name : enemy.type} attacks first!</em>`;
+
+      const playerDamage = player.attack();
+      const enemyDamage = enemy.attack();
+
+      if (firstAttacker === player) {
+        enemy.health -= playerDamage;
+        output.innerHTML += `<br>${player.name} swings ${player.weapon} for ${playerDamage} damage!`;
+        if (enemy.health > 0) {
+          player.health -= enemyDamage;
+          output.innerHTML += `<br>${enemy.type} retaliates with ${enemy.weapon} for ${enemyDamage} damage!`;
+        }
+      } else {
+        player.health -= enemyDamage;
+        output.innerHTML += `<br>${enemy.type} strikes first with ${enemy.weapon} for ${enemyDamage} damage!`;
+        if (player.health > 0) {
+          enemy.health -= playerDamage;
+          output.innerHTML += `<br>${player.name} counters with ${player.weapon} for ${playerDamage} damage!`;
+        }
+      }
+
+      // Clamp health to 0
+      player.health = Math.max(0, player.health);
+      enemy.health = Math.max(0, enemy.health);
+
+      output.innerHTML += `<h4>--- Battle Results ---</h4>`;
+      output.innerHTML += `<br>${player.name} Health: ${player.health}`;
+      output.innerHTML += `<br>${enemy.type} Health: ${enemy.health}`;
+
+      if (player.health <= 0 && enemy.health <= 0) {
+        output.innerHTML += `<br><strong>Both fall — it's a draw!</strong>`;
+      } else if (player.health <= 0) {
+        output.innerHTML += `<br><strong>${enemy.type} wins!</strong>`;
+      } else if (enemy.health <= 0) {
+        output.innerHTML += `<br><strong>${player.name} is victorious!</strong>`;
+      } else {
+        output.innerHTML += `<br><em>The fight could continue...</em>`;
+      }
+    }
+
+    // ------------------------------------------------
+    // BUTTON EVENT
+    // ------------------------------------------------
+    battleBtn.addEventListener('click', function() {
+      const enemyTypes = ["Goblin", "Orc", "Skeleton", "Dragon", "Bandit"];
+      const randomType = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
+      const randomHealth = Math.floor(Math.random() * 100) + 50;
+      const newEnemy = new Enemy(randomType, randomHealth);
+
+      player1.health = Math.floor(Math.random() * 50) + 75;
+      battle(player1, newEnemy);
+    });
+  </script>
+</body>
+</html>

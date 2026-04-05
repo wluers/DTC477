@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Lesson 1 - Basics</title>
+</head>
+<body>
+  <h1>JS Lesson 1</h1>
+  <p></p>
+  <!-- <script src="app.js"></script> -->
+  <script>
+    // =======================================
+// JS Demo Lesson 1: Basic Concepts
+// (Uncomment and run one block at a time)
+// =======================================
+
+
+// ---------------------------------------
+// 0) JS Native (Built-in) Functions
+// ---------------------------------------
+
+//alert("hello world");
+// alert("2+3");          // string literal
+//alert(2 + 3);          // evaluates to 5
+//console.log("Hello World");
+//window.alert("hello world");
+// document.write("Hello World");
+// let proceed = confirm("Do you want to proceed?");
+// console.log("Confirm result:", proceed); // true or false
+
+
+// ---------------------------------------
+// 1) Declaring Variables
+// ---------------------------------------
+// Run these one at a time to avoid re-declaration errors.
+
+// let playerName = "Adventurer";
+// playerName = "Peter";   // reassignment
+
+// let playerName = prompt("What is your name?"); // input from user
+
+// // Concatenation vs. Template Literals
+// console.log("Player's name is: " + playerName);     // concatenation
+// console.log(`Player's name is: ${playerName}`);     // template literal (use backticks)
+
+
+// ---------------------------------------
+// 2) Data Types
+// ---------------------------------------
+// let health = 100;                       // Number
+// const isAlive = true;                   // Boolean
+// const message = "You are ready.";       // String
+// const qualities = ["strong", "clever", "sneaky"];       // Array
+// health = 80;                            // change value
+// console.log(`Health: ${health}, Alive: ${isAlive}, Message: ${message}`);
+
+
+// ---------------------------------------
+// 3) Basic Math Operations
+// ---------------------------------------
+// let goldCoins = 10;
+// let bonusCoins = 5;
+// let totalCoins = goldCoins + bonusCoins;
+// let magicCoins = totalCoins * 2;
+// console.log(`Total coins: ${totalCoins}`);
+// alert(`You get Magic Coins: ${magicCoins}`);
+
+
+// ---------------------------------------
+// 4) Basic Operators: ++, --, +=, -=, *=, /=, %
+// ---------------------------------------
+// let score = 0;
+// score++;           // increment: score = score + 1
+// score--;           // decrement: score = score - 1
+// score += 100;      // add and assign
+// score -= 50;       // subtract and assign
+// score *= 2;        // multiply and assign
+// score /= 5;        // divide and assign
+// console.log(`Score: ${score}`);
+
+// // Modulus gives remainder
+// let remainder = score % 2;
+// console.log(`Remainder when divided by 2: ${remainder}`);
+
+
+// ---------------------------------------
+// 5) Simple Conditionals (if / else)
+// ---------------------------------------
+// let choice = "left";
+// if (choice === "left") {
+//   console.log("You go left and find a treasure chest.");
+// } else {
+//   console.log("You go right into an empty chamber.");
+// }
+
+
+// ---------------------------------------
+// 6) else if Conditionals
+// ---------------------------------------
+// let choice = "left";
+// if (choice === "left") {
+//   console.log("You go left and find a treasure chest.");
+// } else if (choice === "forward") {
+//   console.log("You go forward and find a sword.");
+// } else if (choice === "right") {
+//   console.log("You go right and find an empty chamber.");
+// } else {
+//   console.log("You choose to go back.");
+// }
+
+
+// ---------------------------------------
+// 7) Nested Conditionals
+// ---------------------------------------
+// let playerHealth = 50;
+// if (playerHealth > 0) {
+//   if (playerHealth > 30) {
+//     console.log("Player is healthy.");
+//   } else {
+//     console.log("Player is injured.");
+//   }
+// } else {
+//   console.log("Player is defeated.");
+// }
+
+
+// ---------------------------------------
+// 8) Comparison Operators
+// =  (assignment)      === (strict equality)     !== (strict inequality)
+// == (loose equality)  >=  (greater or equal)    <=  (less or equal)
+// != (loose inequality)
+// ---------------------------------------
+// let x = "8";
+
+// if (x == 8) {
+//   document.write("x == 8 is true.<br>");      // loose equality (type coercion)
+// }
+// if (x === "8") {
+//   document.write("x === '8' is true.<br>");   // strict equality (no coercion)
+// }
+// if (x != 5) {
+//   document.write("x != 5 is true.<br>");      // loose inequality
+// }
+// if (x !== 8) {
+//   document.write("x !== 8 is true.");         // strict inequality ("8" !== 8)
+// }
+
+
+
+
+
+// =====================
+// EXTENDED EXERCISES
+// =====================
+
+
+// --- Confirm button example ---
+/*let x;
+let r = confirm("Press a button!");
+//
+if (r === true) {
+  x = "You pressed OK!";
+} else {
+  x = "You pressed Cancel!";
+}
+document.write(x);
+*/
+
+
+
+// --- String property ---
+//let name = "Peter";
+//let nameLength = name.length;       // .length is a property of the string
+//alert(nameLength);                  // 5
+
+
+
+// --- Document method ---
+// let message = document.write("Hi Peter"); // .write() is a method of document
+
+
+// --- Math operations ---
+// let doMath = 2 + 3 * 2;             // multiplication before addition
+// let doMath = (2 + 3) * 2;           // parentheses change the order
+    
+// console.log(doMath);
+
+// let doMath = (2 + 3) * 2;
+// alert(doMath);
+
+
+
+// --- Arrays (index starts at 0) ---
+// An array is a list of values
+
+// let fruits = ["apple", "banana", "peach"];
+
+// document.write(fruits);        // prints the whole array
+// document.write(fruits.length); // number of items in the array
+
+// document.write(fruits[0]);     // first item → "apple"
+// document.write(fruits[1]);     // second item → "banana"
+// document.write(fruits[2]);     // third item → "peach"
+
+
+
+
+
+// --- Strings (index starts at 0) ---
+//let name = "Hermione";
+// document.write(name.length);        // string length
+// document.write(name[0]);            // first character
+// document.write(name[3]);            // fourth character
+// document.write(name.toUpperCase()); // uppercase
+// document.write(name.toLowerCase()); // lowercase
+//document.write(name.slice(2, 6).toLowerCase()); // substring and lowercase - start at index 2 and take elements up to but not including index 6.
+
+
+
+
+
+
+// ---------------------------------------
+// DEMO: Logical Operators in Conditionals
+// ---------------------------------------
+
+// let age = 20;
+// let hasID = true;
+
+// "AND" Operator: && means BOTH conditions must be true
+// if (age >= 18 && hasID === true) {
+//   console.log("Access granted.");
+// }
+
+// "OR" Operator: || means AT LEAST ONE condition must be true
+// let isStudent = false;
+// let isTeacher = true;
+
+// if (isStudent === true || isTeacher === true) {
+//   console.log("Discount applies.");
+// }
+
+// "NOT" Operator:  != means NOT EQUAL TO
+// let password = "admin";
+
+// if (password != "1234") {
+//   console.log("Password is not correct.");
+// }
+
+
+
+
+
+
+// ---------------------------------------
+// DEMO: Random Item from an Array
+// ---------------------------------------
+// NOTE:
+// Arrays start at index 0
+// colors.length gives the total number of items
+
+// Create an array
+//let colors = ["red", "blue", "green", "yellow"];
+
+// Generate a random decimal between 0 and 1
+//let randomNumber = Math.random();
+//console.log(randomNumber);
+
+// Scale the number using the array length
+//let scaledNumber = randomNumber * colors.length;
+//console.log(scaledNumber);
+
+// Round the number to get a whole index
+//let randomIndex = Math.round(scaledNumber);
+//console.log(randomIndex);
+
+// Use the index to access the array
+//let randomColor = colors[randomIndex];
+//onsole.log(randomColor);
+
+// Shortened Script:
+
+//let colors = ["red", "blue", "green", "yellow"];
+//let randomNumber = Math.floor(Math.random() * colors.length );
+
+//let randomColor = colors[randomNumber];
+//console.log(randomColor);
+
+
+
+    // ---------------------------------------
+// DEMO: Compact Random Array Access
+// ---------------------------------------
+
+// let colors = ["red", "blue", "green", "yellow"];
+
+// Math.random()      → random decimal between 0 and 1
+// * colors.length    → scales it to the array size
+// Math.floor()       → rounds DOWN to a valid index
+
+// let randomNumber = Math.floor(Math.random() * colors.length);
+
+// let randomColor = colors[randomNumber];
+// console.log(randomColor);
+
+
+
+
+
+  </script>
+</body>
+</html>

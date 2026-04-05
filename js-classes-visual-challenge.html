@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JS Classes – Visual Challenge</title>
+</head>
+<body>
+
+  <h2>Player 1</h2>
+  <button id="btn1">Roll</button>
+  <p id="result1"></p>
+
+  <hr>
+
+  <h2>Player 2</h2>
+  <button id="btn2">Roll</button>
+  <p id="result2"></p>
+
+  <p id="winner"></p>
+
+
+  <script>
+
+    class Player {
+
+      constructor(name, color) {
+        this.name       = name;
+        this.color      = color;
+
+        // ── NEW PROPERTIES ────────────────────────────────────
+        // These track visual state across rounds.
+        // They start neutral and shift with each win or loss.
+
+        this.opacity    = 0.5;   // range 0 (invisible) → 1 (solid)
+        this.saturation = 0;     // range 0 (grey) → 100 (full color)
+      }
+
+      roll() {
+        return Math.floor(Math.random() * 6) + 1;
+      }
+
+      // ── NEW METHODS ───────────────────────────────────────
+      // Each method updates a property, then clamps it so it
+      // never goes out of a sensible range.
+
+      win() {
+        this.opacity    = Math.min(1,   this.opacity    + 0.1);
+        this.saturation = Math.min(100, this.saturation + 20);
+      }
+
+      lose() {
+        this.opacity    = Math.max(0.1, this.opacity    - 0.1);
+        this.saturation = Math.max(0,   this.saturation - 20);
+      }
+
+      // ── APPLY VISUAL STATE ────────────────────────────────
+      // This method reads the current properties and writes
+      // them to the button's CSS filter in one go.
+      //
+      // filter: saturate() controls colour intensity
+      // filter: opacity()  controls transparency
+      //
+      // Both are combined in a single template literal string.
+
+      applyStyle(btn) {
+        btn.style.filter = `saturate(${this.saturation}%) opacity(${this.opacity})`;
+      }
+    }
+
+
+    // ── INSTANCES ─────────────────────────────────────────
+
+    const player1 = new Player("Alice", "tomato");
+    const player2 = new Player("Bob",   "steelblue");
+
+
+    // ── BUTTONS ───────────────────────────────────────────
+
+    const btn1 = document.querySelector('#btn1');
+    const btn2 = document.querySelector('#btn2');
+
+    btn1.style.background = player1.color;
+    btn2.style.background = player2.color;
+
+    // Apply starting visual state — both start grey and half-transparent
+    player1.applyStyle(btn1);
+    player2.applyStyle(btn2);
+
+
+    // ── ROLL TRACKING ─────────────────────────────────────
+
+    let roll1 = null;
+    let roll2 = null;
+
+
+    // ── EVENT LISTENERS ───────────────────────────────────
+
+    btn1.addEventListener('click', function () {
+      roll1 = player1.roll();
+      document.querySelector('#result1').textContent = `${player1.name} rolled ${roll1}`;
+      if (roll2 !== null) compare();
+    });
+
+    btn2.addEventListener('click', function () {
+      roll2 = player2.roll();
+      document.querySelector('#result2').textContent = `${player2.name} rolled ${roll2}`;
+      if (roll1 !== null) compare();
+    });
+
+
+    // ── COMPARE ───────────────────────────────────────────
+
+    function compare() {
+
+      const winnerBox = document.querySelector('#winner');
+
+      if (roll1 > roll2) {
+        winnerBox.textContent   = `${player1.name} wins!`;
+        winnerBox.style.color   = player1.color;
+        player1.win();           // updates player1's properties
+        player2.lose();          // updates player2's properties
+
+      } else if (roll2 > roll1) {
+        winnerBox.textContent   = `${player2.name} wins!`;
+        winnerBox.style.color   = player2.color;
+        player2.win();
+        player1.lose();
+
+      } else {
+        winnerBox.textContent   = `Draw!`;
+        winnerBox.style.color   = "black";
+        // no win() or lose() on a draw — state stays the same
+      }
+
+      // After updating the properties, push them to the DOM
+      player1.applyStyle(btn1);
+      player2.applyStyle(btn2);
+
+      roll1 = null;
+      roll2 = null;
+    }
+
+  </script>
+
+</body>
+</html>

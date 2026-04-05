@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beginner Challenges Demo (Buttons + Output + Commented Scripts)</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.4; padding: 24px; max-width: 900px; margin: 0 auto; }
+    section { padding: 16px; border: 1px solid #ddd; border-radius: 10px; margin: 16px 0; }
+    .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    button { padding: 8px 12px; cursor: pointer; }
+    .output { padding: 10px; border: 1px solid #eee; border-radius: 8px; min-height: 20px; background: #fafafa; }
+    details { margin-top: 10px; }
+    pre { background: #0b1020; color: #e8e8e8; padding: 12px; border-radius: 10px; overflow: auto; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    hr { border: none; border-top: 1px solid #eee; margin: 18px 0; }
+  </style>
+</head>
+
+<body>
+  <h3>BEGINNER CHALLENGES</h3>
+
+  <p>
+    Each challenge includes a button, an output element, and a script block (commented out).
+    To run a challenge, uncomment its script block at the bottom (one at a time).
+  </p>
+
+  <pre><code>&lt;button&gt;Run&lt;/button&gt;
+&lt;div class="output"&gt;&lt;/div&gt;</code></pre>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <section>
+    <h4><strong>Challenge 1: Is It In the List?</strong></h4>
+    <p>The user types a word. The program checks if that word exists in an array.</p>
+
+    <div class="row">
+      <button id="btn1">Run Challenge 1</button>
+      <div id="output1" class="output"></div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <section>
+    <h4><strong>Challenge 2: Count the Matches</strong></h4>
+    <p>The user types a number. The program counts how many times it appears in an array.</p>
+
+    <div class="row">
+      <button id="btn2">Run Challenge 2</button>
+      <div id="output2" class="output"></div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <section>
+    <h4><strong>Challenge 3: Above or Below?</strong></h4>
+    <p>The user types a threshold. The program counts how many array numbers are above it.</p>
+
+    <div class="row">
+      <button id="btn3">Run Challenge 3</button>
+      <div id="output3" class="output"></div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <section>
+    <h4><strong>Challenge 4: “Y/N” Survey Count</strong></h4>
+    <p>The user answers a yes/no prompt. The program counts how many matches exist in an array.</p>
+
+    <div class="row">
+      <button id="btn4">Run Challenge 4</button>
+      <div id="output4" class="output"></div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <section>
+    <h4><strong>Challenge 5: Random Score Adder (User Chooses Risk)</strong></h4>
+    <p>If the user confirms, the program adds a random number from the array to a running score.</p>
+
+    <div class="row">
+      <button id="btn5">Run Challenge 5</button>
+      <div id="output5" class="output"></div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <section>
+    <h4><strong>Challenge 6: Pick a Category</strong></h4>
+    <p>The user types a category word. The program checks if it is one of the allowed categories in an array.</p>
+
+    <div class="row">
+      <button id="btn6">Run Challenge 6</button>
+      <div id="output6" class="output"></div>
+    </div>
+  </section>
+
+  <hr>
+
+  <p><strong>Scripts (commented out):</strong> Uncomment ONE challenge at a time.</p>
+
+  <!-- ========================================================= -->
+  <!-- Challenge 1 Script (COMMENTED OUT) -->
+  
+  <!-- <script>
+    // Challenge 1: Is It In the List?
+    // - Prompt for a word
+    // - Loop through array with a for loop
+    // - Use a "found" boolean to track match
+    // - Display result
+
+    const words1 = ["apple", "banana", "grape", "orange"];
+    const btn1 = document.getElementById("btn1");
+    const output1 = document.getElementById("output1");
+
+    btn1.addEventListener("click", checkList1);
+
+    function checkList1() {
+      // Ask the user for a word
+      const input = prompt("Type a word:");
+
+      // Handle cancel (input will be null)
+      if (input === null) {
+        output1.textContent = "Canceled.";
+        return;
+      }
+
+      // Track whether we found a match
+      let found = false;
+
+      // Loop through the array
+      for (let i = 0; i < words1.length; i++) {
+        // Compare current array word to user input
+        if (words1[i] === input) {
+          found = true;
+        }
+      }
+
+      // After the loop, display the result
+      if (found) {
+        output1.textContent = "Found: " + input;
+      } else {
+        output1.textContent = "Not found: " + input;
+      }
+    }
+  </script> -->
+  
+
+  <!-- ========================================================= -->
+  <!-- Challenge 2 Script (COMMENTED OUT) -->
+  
+  <!-- <script>
+    // Challenge 2: Count the Matches
+    // - Prompt for a number
+    // - Use a counter starting at 0
+    // - Loop through array and count matches
+    // - Display final count
+
+    const nums2 = [2, 5, 7, 5, 9, 5, 1];
+    const btn2 = document.getElementById("btn2");
+    const output2 = document.getElementById("output2");
+
+    btn2.addEventListener("click", countMatches2);
+
+    function countMatches2() {
+      // Ask the user for a number (as a string)
+      const input = prompt("Type a number to count:");
+
+      if (input === null) {
+        output2.textContent = "Canceled.";
+        return;
+      }
+
+      // Counter starts at 0
+      let count = 0;
+
+      // Loop through the array
+      for (let i = 0; i < nums2.length; i++) {
+        // Convert array number to string so we can compare to prompt input
+        if (String(nums2[i]) === input) {
+          count = count + 1;
+        }
+      }
+
+      output2.textContent = "Matches for " + input + ": " + count;
+    }
+  </script> -->
+  
+
+  <!-- ========================================================= -->
+  <!-- Challenge 3 Script (COMMENTED OUT) -->
+  <!--
+  <script>
+    // Challenge 3: Above or Below?
+    // - Prompt for a threshold
+    // - Count how many numbers are above it
+    // - Display the count
+
+    const nums3 = [4, 12, 9, 27, 3, 18];
+    const btn3 = document.getElementById("btn3");
+    const output3 = document.getElementById("output3");
+
+    btn3.addEventListener("click", countAbove3);
+
+    function countAbove3() {
+      const input = prompt("Type a threshold number:");
+
+      if (input === null) {
+        output3.textContent = "Canceled.";
+        return;
+      }
+
+      // Convert prompt input to a number
+      const threshold = Number(input);
+
+      // If user types something non-numeric, Number() becomes NaN
+      if (Number.isNaN(threshold)) {
+        output3.textContent = "Please type a real number.";
+        return;
+      }
+
+      let count = 0;
+
+      for (let i = 0; i < nums3.length; i++) {
+        if (nums3[i] > threshold) {
+          count = count + 1;
+        }
+      }
+
+      output3.textContent = "Numbers above " + threshold + ": " + count;
+    }
+  </script>
+  -->
+
+  <!-- ========================================================= -->
+  <!-- Challenge 4 Script (COMMENTED OUT) -->
+  <!--
+  <script>
+    // Challenge 4: "Y/N" Survey Count
+    // - Prompt user for "yes" or "no"
+    // - Count how many matches exist in array
+    // - Display result
+
+    const answers4 = ["yes", "no", "yes", "yes", "no", "no", "yes"];
+    const btn4 = document.getElementById("btn4");
+    const output4 = document.getElementById("output4");
+
+    btn4.addEventListener("click", countAnswer4);
+
+    function countAnswer4() {
+      const input = prompt('Type "yes" or "no":');
+
+      if (input === null) {
+        output4.textContent = "Canceled.";
+        return;
+      }
+
+      // Normalize to lowercase to be a little forgiving
+      const choice = input.toLowerCase();
+
+      if (choice !== "yes" && choice !== "no") {
+        output4.textContent = 'Please type exactly "yes" or "no".';
+        return;
+      }
+
+      let count = 0;
+
+      for (let i = 0; i < answers4.length; i++) {
+        if (answers4[i] === choice) {
+          count = count + 1;
+        }
+      }
+
+      output4.textContent = choice + " count: " + count;
+    }
+  </script>
+  -->
+
+  <!-- ========================================================= -->
+  <!-- Challenge 5 Script (COMMENTED OUT) -->
+  <!--
+  <script>
+    // Challenge 5: Random Score Adder (User Chooses Risk)
+    // - Score persists between clicks (outside function)
+    // - confirm() decides whether to continue
+    // - pick random value from array with Math.random + Math.floor
+    // - add to score and display
+
+    const nums5 = [5, -3, 10, -8, 2];
+    let score5 = 0;
+
+    const btn5 = document.getElementById("btn5");
+    const output5 = document.getElementById("output5");
+
+    btn5.addEventListener("click", takeTurn5);
+
+    function takeTurn5() {
+      const ok = confirm("Take a risk?");
+
+      if (!ok) {
+        output5.textContent = "No risk taken. Score: " + score5;
+        return; // Stop the function early
+      }
+
+      const i = Math.floor(Math.random() * nums5.length);
+      const value = nums5[i];
+      score5 = score5 + value;
+
+      output5.textContent = "Picked: " + value + " | Score: " + score5;
+    }
+  </script>
+  -->
+
+  <!-- ========================================================= -->
+  <!-- Challenge 6 Script (COMMENTED OUT) -->
+  <!--
+  <script>
+    // Challenge 6: Pick a Category
+    // - Prompt user for a category
+    // - Loop through allowed categories to find match
+    // - Display accepted or not an option
+
+    const categories6 = ["action", "comedy", "drama"];
+    const btn6 = document.getElementById("btn6");
+    const output6 = document.getElementById("output6");
+
+    btn6.addEventListener("click", pickCategory6);
+
+    function pickCategory6() {
+      const input = prompt("Pick a category: action, comedy, drama");
+
+      if (input === null) {
+        output6.textContent = "Canceled.";
+        return;
+      }
+
+      // Normalize input
+      const choice = input.toLowerCase();
+
+      let allowed = false;
+
+      for (let i = 0; i < categories6.length; i++) {
+        if (categories6[i] === choice) {
+          allowed = true;
+        }
+      }
+
+      if (allowed) {
+        output6.textContent = "Accepted: " + choice;
+      } else {
+        output6.textContent = "Not an option: " + choice;
+        alert("Try: action, comedy, or drama");
+      }
+    }
+  </script>
+  -->
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JS Demo Lesson 2</title>
+  <style>
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      line-height: 1.5;
+    }
+
+    .box {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin: 1rem 0;
+      min-height: 1.5rem;
+    }
+
+    button {
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JS Demo Lesson 2</h1>
+
+  <button id="btnOne">Button One</button>
+  <button id="btnTwo">Button Two</button>
+
+  <div id="output" class="box">Output appears here</div>
+
+  <p class="message">Message One</p>
+  <p class="message">Message Two</p>
+
+  <script>
+    // ==================================================
+    // JS Demo Lesson 2
+    // Uncomment ONE block at a time
+    // ==================================================
+
+
+    // --------------------------------------------------
+    // 1) DOM SELECTION
+    // --------------------------------------------------
+
+    // By ID
+    //let outputBox = document.getElementById("output");
+    //outputBox.textContent = "Selected by ID";
+
+    // By class name (HTMLCollection)
+    //let messages = document.getElementsByClassName("message");
+    // messages[0].textContent = "First message updated";
+
+    // querySelector (first match, preferred)
+    // let firstMessage = document.querySelector(".message");
+    // firstMessage.textContent = "Updated with querySelector";
+
+    //NOTE: "textContent" and "innerHTML" are DOM element properties.
+    //document.querySelector(".message").textContent = "Just text";
+    //document.querySelector(".message").innerHTML = "<h3>innerHTML</h3><p>Text with HTML tags</p>";
+
+    // --------------------------------------------------
+    // 2) FUNCTION DECLARATION
+    //A declaration is always available.
+    // --------------------------------------------------
+
+    /*
+    function sayHello() {
+      document.getElementById("output").textContent = "Hello from a function";
+    }
+    sayHello();
+    */
+
+
+    // --------------------------------------------------
+    // 3) FUNCTION EXPRESSION
+    // An expression only exists after it’s assigned.
+    // --------------------------------------------------
+
+    /*
+    const sayHello = function () {
+      document.getElementById("output").textContent = "Hello from a function expression";
+    };
+    sayHello();
+    */
+
+
+    // --------------------------------------------------
+    // 4) ARROW FUNCTION
+    // --------------------------------------------------
+
+    /*
+    const sayHello = () => {
+      document.getElementById("output").textContent = "Hello from an arrow function";
+    };
+    sayHello();
+    */
+
+
+    // --------------------------------------------------
+    // 5) FUNCTION PARAMETERS
+    // --------------------------------------------------
+
+    /*
+    function greet(name) {
+      document.getElementById("output").textContent = "Hello " + name;
+    }
+    greet("Player One");
+    */
+
+
+    // --------------------------------------------------
+    // 6) RETURN VALUES
+    //after return, the function stops. 
+    // --------------------------------------------------
+
+    
+    /*function add(a, b) {
+      return a + b;
+      console.log(a + b);
+    }
+
+    let result = add(3, 4);
+    document.getElementById("output").textContent = "Result: " + result;
+    */
+
+
+    // --------------------------------------------------
+    // 7) SCOPE (GLOBAL vs LOCAL)
+    // --------------------------------------------------
+
+    /*
+    let score = 0;
+
+    function increaseScore() {
+      let bonus = 10; // local
+      score = score + bonus; 
+    }
+
+    increaseScore();
+    document.getElementById("output").textContent = "Score: " + score;
+    */
+
+
+    // --------------------------------------------------
+    // 8) EVENTS
+    // --------------------------------------------------
+
+    
+    /*let outputBox = document.getElementById("output");
+
+    document.getElementById("btnOne").addEventListener("click", function () {
+      outputBox.textContent = "Button One clicked";
+    });
+
+    document.getElementById("btnTwo").addEventListener("dblclick", function () {
+      outputBox.textContent = "Button Two clicked";
+    });*/
+    
+
+
+    // --------------------------------------------------
+    // 9) FOR LOOP
+    // --------------------------------------------------
+
+    
+    /*let colors = ["red", "blue", "green"];
+
+    let text = "";
+    for (let i = 0; i < colors.length; i++) {
+      text += `The color ${colors[i]}<br>`;
+    }
+
+    document.getElementById("output").innerHTML = text;*/
+    
+
+
+        // ----------------------------------
+    // WHILE LOOP: Coin Toss Example
+    // ----------------------------------
+
+    // 0 = Heads
+    // 1 = Tails
+
+    /*
+    let result = Math.floor(Math.random() * 2);
+    let text = "";
+
+    // Keep flipping WHILE the result is Heads
+    while (result === 0) {
+      text += "Heads! Flipping again...<br>";
+      result = Math.floor(Math.random() * 2);
+    }
+
+    // Loop ends when result is Tails
+    text += "Tails! Stopping.";
+
+    document.getElementById("output").innerHTML = text;
+    */
+
+
+
+
+    // ----------------------------------
+    // RANDOM NUMBER GENERATOR: 
+    // ----------------------------------
+
+/*    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    let x = getRandomInt(0, 20);*/
+
+    
+
+  </script>
+</body>
+</html>

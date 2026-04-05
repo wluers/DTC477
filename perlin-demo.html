@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Perlin Cloud Field</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; overflow: hidden; }
+    canvas { display: block; }
+
+    #ui {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.35);
+      user-select: none;
+    }
+    .ctrl { display: flex; align-items: center; gap: 10px; }
+    .ctrl label { text-transform: uppercase; white-space: nowrap; }
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 90px; height: 2px;
+      background: rgba(255,255,255,0.18);
+      outline: none; border: none;
+      cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.6);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="ui">
+  <div class="ctrl">
+    <label>Scale</label>
+    <input type="range" id="scaleSlider" min="0.001" max="0.012" step="0.0005" value="0.004">
+  </div>
+  <div class="ctrl">
+    <label>Speed</label>
+    <input type="range" id="speedSlider" min="0.0005" max="0.006" step="0.0001" value="0.0015">
+  </div>
+  <div class="ctrl">
+    <label>Contrast</label>
+    <input type="range" id="contrastSlider" min="0.5" max="2.5" step="0.05" value="1.4">
+  </div>
+  <div class="ctrl">
+    <label>Octaves</label>
+    <input type="range" id="octavesSlider" min="1" max="8" step="1" value="5">
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.3/p5.min.js"></script>
+<script>
+new p5(function(p) {
+  let pg;           // off-screen pixel buffer
+  let t = 0;
+  let SCALE, SPEED, CONTRAST, OCTAVES;
+
+  // ── Seeded hash for smooth noise without p5's fixed seed ──────────────────
+  // We'll rely on p5's built-in noise() which is 3D Perlin noise.
+  // x, y are spatial coords; t is the temporal offset → true 3D slice.
+
+  p.setup = function() {
+    p.createCanvas(p.windowWidth, p.windowHeight);
+    pg = p.createGraphics(p.width, p.height);
+    pg.pixelDensity(1);
+    p.noSmooth();
+    readSliders();
+    p.noiseDetail(OCTAVES, 0.52);
+  };
+
+  function readSliders() {
+    SCALE    = parseFloat(document.getElementById('scaleSlider').value);
+    SPEED    = parseFloat(document.getElementById('speedSlider').value);
+    CONTRAST = parseFloat(document.getElementById('contrastSlider').value);
+    OCTAVES  = parseInt(document.getElementById('octavesSlider').value);
+  }
+
+  p.draw = function() {
+    readSliders();
+    p.noiseDetail(OCTAVES, 0.52);
+
+    pg.loadPixels();
+    const W = pg.width, H = pg.height;
+    const pix = pg.pixels;
+
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        // 3-D Perlin slice: (x, y, time)
+        let n = p.noise(x * SCALE, y * SCALE, t);
+
+        // Remap [0,1] → [-1,1], apply contrast, remap back
+        n = (n - 0.5) * CONTRAST + 0.5;
+        n = p.constrain(n, 0, 1);
+
+        // Soft gamma curve so mid-grays feel wispy
+        n = Math.pow(n, 0.85);
+
+        const v = (n * 255) | 0;
+        const idx = (x + y * W) * 4;
+        pix[idx]     = v;
+        pix[idx + 1] = v;
+        pix[idx + 2] = v;
+        pix[idx + 3] = 255;
+      }
+    }
+
+    pg.updatePixels();
+    p.image(pg, 0, 0);
+
+    // Subtle vignette
+    drawVignette();
+
+    t += SPEED;
+  };
+
+  function drawVignette() {
+    const cx = p.width / 2, cy = p.height / 2;
+    const r = Math.max(cx, cy) * 1.42;
+    const g = p.drawingContext.createRadialGradient(cx, cy, r * 0.3, cx, cy, r);
+    g.addColorStop(0, 'rgba(0,0,0,0)');
+    g.addColorStop(1, 'rgba(0,0,0,0.62)');
+    p.drawingContext.fillStyle = g;
+    p.drawingContext.fillRect(0, 0, p.width, p.height);
+  }
+
+  p.windowResized = function() {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+    pg = p.createGraphics(p.width, p.height);
+    pg.pixelDensity(1);
+  };
+});
+</script>
+</body>
+</html>

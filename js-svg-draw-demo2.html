@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SVG Smiley Face</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #0f0f0f;
+            color: #e8e8e8;
+            font-family: 'Space Mono', monospace;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            grid-template-rows: auto 1fr;
+        }
+
+        header {
+            grid-column: 1 / -1;
+            padding: 18px 32px;
+            border-bottom: 1px solid #2a2a2a;
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+        }
+
+        header h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #f5f5f5;
+            letter-spacing: -0.5px;
+        }
+
+        header span {
+            font-size: 11px;
+            color: #555;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ── SVG STAGE ── */
+        #stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        #stage svg {
+            width: 420px;
+            height: 420px;
+            overflow: visible;
+            filter: drop-shadow(0 0 40px rgba(255,220,50,0.08));
+        }
+
+        /* coordinate pill */
+        #coordinates {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+            color: #777;
+            padding: 6px 12px;
+            font-size: 11px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            transition: color 0.15s;
+        }
+        #coordinates.active { color: #f5c842; }
+
+        /* ── SIDEBAR ── */
+        #sidebar {
+            border-left: 1px solid #1e1e1e;
+            background: #0a0a0a;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel {
+            border-bottom: 1px solid #1a1a1a;
+            padding: 20px;
+        }
+
+        .panel-title {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #444;
+            margin-bottom: 16px;
+        }
+
+        /* sliders */
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .control-label {
+            font-size: 11px;
+            color: #666;
+            width: 110px;
+            flex-shrink: 0;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            flex: 1;
+            height: 2px;
+            background: #2a2a2a;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px; height: 12px;
+            background: #f5c842;
+            border-radius: 50%;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 12px; height: 12px;
+            background: #f5c842;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .control-value {
+            font-size: 11px;
+            color: #888;
+            width: 32px;
+            text-align: right;
+        }
+
+        /* color swatch */
+        input[type="color"] {
+            width: 28px; height: 28px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 1px;
+            background: none;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* buttons */
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        button {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            padding: 7px 12px;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            color: #aaa;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            letter-spacing: 0.5px;
+        }
+        button:hover { background: #252525; border-color: #f5c842; color: #f5c842; }
+        button.active { background: #f5c842; color: #111; border-color: #f5c842; font-weight: 700; }
+
+        /* console */
+        #console {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #console-title {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #444;
+            padding: 14px 20px 10px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        #console-output {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 11px;
+            line-height: 1.7;
+            color: #555;
+            overflow-y: auto;
+            min-height: 80px;
+        }
+
+        #console-output .line { margin-bottom: 2px; }
+        #console-output .line.info { color: #4a9eff; }
+        #console-output .line.ok   { color: #4ec94e; }
+        #console-output .line.warn { color: #f5c842; }
+
+        #console-input-row {
+            display: flex;
+            border-top: 1px solid #1a1a1a;
+            padding: 10px 20px;
+            gap: 8px;
+            align-items: center;
+        }
+        #console-input-row span { color: #f5c842; font-size: 12px; }
+
+        #js-input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: #e8e8e8;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            caret-color: #f5c842;
+        }
+        #js-input::placeholder { color: #333; }
+
+        /* snippet buttons */
+        .snippet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+        .snippet-btn {
+            font-size: 10px;
+            padding: 6px 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>SVG Smiley</h1>
+    <span>JS Sandbox</span>
+</header>
+
+<!-- ── STAGE ── -->
+<section id="stage">
+    <div id="coordinates">(x, y)</div>
+
+    <!--
+        KEY DIFFERENCE FROM CANVAS:
+        SVG elements are DOM nodes — you can select, style, and animate them
+        with JavaScript just like HTML elements (getElementById, setAttribute, etc.)
+        No "redraw" needed: changing an attribute updates the display instantly.
+    -->
+    <svg id="mySVG" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Face -->
+        <circle id="face" cx="300" cy="300" r="200"
+                fill="yellow" stroke="black" stroke-width="4"/>
+
+        <!-- Mouth: arc path -->
+        <path id="mouth" d="M 220,370 A 80,80 0 0,0 380,370"
+              fill="white" stroke="black" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Left eye white -->
+        <circle id="leftEyeWhite"  cx="230" cy="250" r="30" fill="white" stroke="black" stroke-width="3"/>
+        <!-- Right eye white -->
+        <circle id="rightEyeWhite" cx="370" cy="250" r="30" fill="white" stroke="black" stroke-width="3"/>
+
+        <!-- Eyeballs (grouped so they can move together) -->
+        <g id="eyeballs">
+            <rect id="leftPupil"  x="224" y="244" width="10" height="10" rx="2" fill="black"/>
+            <rect id="rightPupil" x="364" y="244" width="10" height="10" rx="2" fill="black"/>
+        </g>
+
+        <!-- Nose bridge -->
+        <line id="noseBridge" x1="310" y1="260" x2="315" y2="300"
+              stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Nose tip (arc path) -->
+        <path id="noseTip" d="M 290,320 A 20,20 0 0,0 330,320"
+              fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Eyebrows -->
+        <line id="leftBrow"  x1="180" y1="210" x2="260" y2="190"
+              stroke="black" stroke-width="3" stroke-linecap="round"/>
+        <line id="rightBrow" x1="340" y1="190" x2="420" y2="210"
+              stroke="black" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Blush (hidden by default) -->
+        <ellipse id="blushLeft"  cx="175" cy="340" rx="35" ry="18"
+                 fill="pink" opacity="0"/>
+        <ellipse id="blushRight" cx="425" cy="340" rx="35" ry="18"
+                 fill="pink" opacity="0"/>
+    </svg>
+</section>
+
+<!-- ── SIDEBAR ── -->
+<aside id="sidebar">
+
+    <!-- Controls -->
+    <div class="panel">
+        <div class="panel-title">Controls</div>
+
+        <div class="control-row">
+            <span class="control-label">Face size</span>
+            <input type="range" id="sldRadius" min="80" max="240" value="200">
+            <span class="control-value" id="valRadius">200</span>
+        </div>
+
+        <div class="control-row">
+            <span class="control-label">Face color</span>
+            <input type="color" id="sldFaceColor" value="#ffff00">
+            <span class="control-label" style="width:auto;color:#555;font-size:10px">fill</span>
+        </div>
+
+        <div class="control-row">
+            <span class="control-label">Stroke width</span>
+            <input type="range" id="sldStroke" min="1" max="12" value="4">
+            <span class="control-value" id="valStroke">4</span>
+        </div>
+
+        <div class="control-row">
+            <span class="control-label">Smile amount</span>
+            <input type="range" id="sldSmile" min="-80" max="80" value="0">
+            <span class="control-value" id="valSmile">0</span>
+        </div>
+
+        <div class="control-row">
+            <span class="control-label">Eye size</span>
+            <input type="range" id="sldEyeSize" min="10" max="55" value="30">
+            <span class="control-value" id="valEyeSize">30</span>
+        </div>
+
+        <div class="control-row">
+            <span class="control-label">Blush</span>
+            <input type="range" id="sldBlush" min="0" max="100" value="0">
+            <span class="control-value" id="valBlush">0</span>
+        </div>
+    </div>
+
+    <!-- Animations -->
+    <div class="panel">
+        <div class="panel-title">Animation</div>
+        <div class="btn-row">
+            <button id="btnBlink">Blink</button>
+            <button id="btnWink">Wink</button>
+            <button id="btnWiggle">Wiggle</button>
+            <button id="btnAutoEyes" id="">Track Mouse</button>
+        </div>
+    </div>
+
+    <!-- Snippets -->
+    <div class="panel">
+        <div class="panel-title">Code Snippets</div>
+        <div class="snippet-grid">
+            <button class="snippet-btn" data-code="face.setAttribute('fill', 'tomato')">Red face</button>
+            <button class="snippet-btn" data-code="face.setAttribute('r', '150')">Shrink</button>
+            <button class="snippet-btn" data-code="mouth.setAttribute('stroke', 'red')">Red mouth</button>
+            <button class="snippet-btn" data-code="leftBrow.setAttribute('transform', 'rotate(-15 220 200)')">Angry brow</button>
+            <button class="snippet-btn" data-code="blushLeft.setAttribute('opacity','0.7'); blushRight.setAttribute('opacity','0.7')">Add blush</button>
+            <button class="snippet-btn" data-code="face.setAttribute('fill', 'yellow'); face.setAttribute('r','200'); blushLeft.setAttribute('opacity','0'); blushRight.setAttribute('opacity','0'); leftBrow.removeAttribute('transform'); rightBrow.removeAttribute('transform')">Reset</button>
+        </div>
+    </div>
+
+    <!-- JS Console -->
+    <div id="console">
+        <div id="console-title">JS Console</div>
+        <div id="console-output"></div>
+        <div id="console-input-row">
+            <span>›</span>
+            <input id="js-input" type="text" placeholder="face.setAttribute('fill', 'hotpink')  [Enter]" autocomplete="off" spellcheck="false"/>
+        </div>
+    </div>
+
+</aside>
+
+<script>
+    /*
+     * SVG vs Canvas — the key mental model:
+     * ─────────────────────────────────────
+     * Canvas: imperative "painter". You call draw commands; pixels are baked.
+     *         To change something you must clear + redraw everything.
+     *
+     * SVG:    declarative DOM tree. Each shape is a live element with attributes.
+     *         Changing an attribute (setAttribute) instantly updates the display —
+     *         no redraw cycle needed.
+     *
+     * Useful SVG attribute refs used below:
+     *   circle  → cx, cy, r, fill, stroke, stroke-width
+     *   rect    → x, y, width, height, rx (corner radius)
+     *   line    → x1, y1, x2, y2, stroke, stroke-linecap
+     *   path    → d  (SVG path data — M=moveto, A=arc, L=lineto, Z=close)
+     *   ellipse → cx, cy, rx, ry, fill, opacity
+     *   Any element → transform="translate(dx,dy)" / "rotate(deg cx cy)" / "scale(s)"
+     */
+
+    // ── Grab every named SVG element so they're available in the console ──
+    const svg          = document.getElementById('mySVG');
+    const face         = document.getElementById('face');
+    const mouth        = document.getElementById('mouth');
+    const leftEyeWhite = document.getElementById('leftEyeWhite');
+    const rightEyeWhite= document.getElementById('rightEyeWhite');
+    const eyeballs     = document.getElementById('eyeballs');
+    const leftPupil    = document.getElementById('leftPupil');
+    const rightPupil   = document.getElementById('rightPupil');
+    const noseBridge   = document.getElementById('noseBridge');
+    const noseTip      = document.getElementById('noseTip');
+    const leftBrow     = document.getElementById('leftBrow');
+    const rightBrow    = document.getElementById('rightBrow');
+    const blushLeft    = document.getElementById('blushLeft');
+    const blushRight   = document.getElementById('blushRight');
+
+    // ── Coordinate display ──
+    const coordEl = document.getElementById('coordinates');
+    svg.addEventListener('mousemove', e => {
+        // getBoundingClientRect + viewBox scaling — same idea as Canvas but for SVG
+        const rect  = svg.getBoundingClientRect();
+        const scaleX = 600 / rect.width;
+        const scaleY = 600 / rect.height;
+        const x = Math.floor((e.clientX - rect.left) * scaleX);
+        const y = Math.floor((e.clientY - rect.top)  * scaleY);
+        coordEl.textContent = `X: ${x},  Y: ${y}`;
+        coordEl.classList.add('active');
+        if (trackingMouse) movePupils(x, y);
+    });
+    svg.addEventListener('mouseleave', () => {
+        coordEl.textContent = '(x, y)';
+        coordEl.classList.remove('active');
+    });
+
+    // ── Sliders ──
+    function bindSlider(id, valId, callback) {
+        const el = document.getElementById(id);
+        const vl = document.getElementById(valId);
+        el.addEventListener('input', () => { vl.textContent = el.value; callback(+el.value); });
+    }
+
+    bindSlider('sldRadius', 'valRadius', v => face.setAttribute('r', v));
+
+    bindSlider('sldStroke', 'valStroke', v => {
+        [face, mouth, leftEyeWhite, rightEyeWhite, noseBridge, noseTip, leftBrow, rightBrow]
+            .forEach(el => el.setAttribute('stroke-width', v));
+    });
+
+    bindSlider('sldFaceColor', 'valFaceColor', () => {}); // color input — no valId needed
+    document.getElementById('sldFaceColor').addEventListener('input', e => {
+        face.setAttribute('fill', e.target.value);
+    });
+
+    bindSlider('sldEyeSize', 'valEyeSize', v => {
+        leftEyeWhite.setAttribute('r', v);
+        rightEyeWhite.setAttribute('r', v);
+    });
+
+    bindSlider('sldBlush', 'valBlush', v => {
+        const o = v / 100;
+        blushLeft.setAttribute('opacity', o);
+        blushRight.setAttribute('opacity', o);
+    });
+
+    // Smile slider — rebuilds the mouth arc path
+    // SVG arc path: M startX,startY  A rx,ry x-rotation large-arc-flag sweep-flag  endX,endY
+    bindSlider('sldSmile', 'valSmile', v => {
+        const cy = 370 + v;           // vertical shift of arc endpoint
+        const sweep = v >= 0 ? 0 : 1; // 0 = downward arc (smile), 1 = upward arc (frown)
+        mouth.setAttribute('d', `M 220,370 A 80,80 0 0,${sweep} 380,${cy}`);
+    });
+
+    // ── Animations ──
+    let blinkTimer = null;
+    let wiggleTimer = null;
+    let trackingMouse = false;
+
+    // Blink: scale eyes vertically to 0 then back
+    document.getElementById('btnBlink').addEventListener('click', () => {
+        [leftEyeWhite, rightEyeWhite, leftPupil, rightPupil].forEach(el => {
+            el.style.transition = 'transform 0.08s';
+        });
+        leftEyeWhite.setAttribute('transform',  'scale(1, 0.05) translate(0, 4700)');
+        rightEyeWhite.setAttribute('transform', 'scale(1, 0.05) translate(0, 4700)');
+        // SVG transform-origin workaround: use a wrapper translate
+        setTimeout(() => {
+            leftEyeWhite.removeAttribute('transform');
+            rightEyeWhite.removeAttribute('transform');
+        }, 120);
+        log('Blinked! (setAttribute + setTimeout)', 'ok');
+    });
+
+    document.getElementById('btnWink').addEventListener('click', () => {
+        rightEyeWhite.setAttribute('transform', 'scale(1, 0.05) translate(0, 4700)');
+        rightPupil.setAttribute('opacity', '0');
+        setTimeout(() => {
+            rightEyeWhite.removeAttribute('transform');
+            rightPupil.setAttribute('opacity', '1');
+        }, 300);
+        log('Winked right eye!', 'ok');
+    });
+
+    document.getElementById('btnWiggle').addEventListener('click', () => {
+        let i = 0;
+        const angles = [0, -8, 8, -5, 5, -2, 2, 0];
+        wiggleTimer = setInterval(() => {
+            face.setAttribute('transform', `rotate(${angles[i]} 300 300)`);
+            if (++i >= angles.length) { clearInterval(wiggleTimer); face.removeAttribute('transform'); }
+        }, 60);
+        log('Wiggled face via transform="rotate(...)"', 'ok');
+    });
+
+    const btnAutoEyes = document.getElementById('btnAutoEyes');
+    btnAutoEyes.addEventListener('click', () => {
+        trackingMouse = !trackingMouse;
+        btnAutoEyes.classList.toggle('active', trackingMouse);
+        if (!trackingMouse) resetPupils();
+        log(`Mouse tracking ${trackingMouse ? 'ON' : 'OFF'}`, 'info');
+    });
+
+    function movePupils(mx, my) {
+        // Constrain pupil inside eye circle using vector math
+        function constrainPupil(eyeCX, eyeCY, eyeR, pSize) {
+            const dx = mx - eyeCX, dy = my - eyeCY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            const maxDist = eyeR - pSize / 2 - 4;
+            const ratio = dist > maxDist ? maxDist / dist : 1;
+            return { x: eyeCX + dx * ratio - pSize/2, y: eyeCY + dy * ratio - pSize/2 };
+        }
+        const lp = constrainPupil(230, 250, 30, 10);
+        const rp = constrainPupil(370, 250, 30, 10);
+        leftPupil.setAttribute('x',  lp.x);
+        leftPupil.setAttribute('y',  lp.y);
+        rightPupil.setAttribute('x', rp.x);
+        rightPupil.setAttribute('y', rp.y);
+    }
+
+    function resetPupils() {
+        leftPupil.setAttribute('x', '224');  leftPupil.setAttribute('y', '244');
+        rightPupil.setAttribute('x','364'); rightPupil.setAttribute('y', '244');
+    }
+
+    // ── Snippet buttons ──
+    document.querySelectorAll('.snippet-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const code = btn.dataset.code;
+            runCode(code);
+            log(`› ${code}`, 'warn');
+        });
+    });
+
+    // ── JS Console ──
+    const output = document.getElementById('console-output');
+    const input  = document.getElementById('js-input');
+
+    function log(msg, type = '') {
+        const div = document.createElement('div');
+        div.className = 'line ' + type;
+        div.textContent = msg;
+        output.appendChild(div);
+        output.scrollTop = output.scrollHeight;
+    }
+
+    function runCode(code) {
+        try {
+            // eval with all SVG element names in scope
+            const result = (new Function(
+                'svg','face','mouth','leftEyeWhite','rightEyeWhite',
+                'eyeballs','leftPupil','rightPupil','noseBridge','noseTip',
+                'leftBrow','rightBrow','blushLeft','blushRight',
+                `return (${code})`
+            ))(svg, face, mouth, leftEyeWhite, rightEyeWhite,
+               eyeballs, leftPupil, rightPupil, noseBridge, noseTip,
+               leftBrow, rightBrow, blushLeft, blushRight);
+            if (result !== undefined) log('← ' + JSON.stringify(result), 'ok');
+        } catch(err) {
+            log('✕ ' + err.message, 'warn');
+        }
+    }
+
+    input.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && input.value.trim()) {
+            const code = input.value.trim();
+            log('› ' + code);
+            runCode(code);
+            input.value = '';
+        }
+    });
+
+    // startup log
+    log('SVG elements available in console:', 'info');
+    log('face, mouth, leftEyeWhite, rightEyeWhite', 'info');
+    log('leftPupil, rightPupil, leftBrow, rightBrow', 'info');
+    log('noseBridge, noseTip, blushLeft, blushRight, svg', 'info');
+    log('Use setAttribute(attr, value) to modify any element.', '');
+</script>
+</body>
+</html>

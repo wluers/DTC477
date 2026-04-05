@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Mountains</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+    }
+    canvas {
+      display: block;
+      margin: 10% auto;
+      background: skyblue;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="900" height="600"></canvas>
+
+<script>
+
+// Get canvas and drawing tool
+let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
+
+// Draw mountains
+function drawMountains() {
+
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Start drawing shape
+  ctx.beginPath();
+  // Start at left bottom
+  ctx.moveTo(0, canvas.height);
+
+  // Number of mountain points
+  let numberOfPoints = 10;
+  // Space between points
+  let space = canvas.width / numberOfPoints;
+
+  // Loop across the screen
+  for (let i = 0; i <= numberOfPoints; i++) {
+    let x = i * space;
+    // Random height between 100 and 300
+    let y = Math.random() * 200 + 100;
+    ctx.lineTo(x, y);
+  }
+
+  // Finish shape at bottom right
+  ctx.lineTo(canvas.width, canvas.height);
+  ctx.closePath();
+
+  // Fill mountains
+  ctx.fillStyle = "darkgreen";
+  ctx.fill();
+}
+
+// Draw once
+drawMountains();
+
+// Redraw every second
+setInterval(drawMountains, 1000);
+
+</script>
+
+</body>
+</html>

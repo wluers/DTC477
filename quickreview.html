@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Background Color</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      font-size: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Background Color</h1>
+  <p>Click the button to change the background color!</p>
+  <button id="colorButton" onclick="changeBackgroundColor()">Change Color</button>
+
+  <script>
+    // Define an array of colors
+    const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+    let paragraph = document.querySelector('p');
+    let count = 0;
+
+    // Define the function to change the background color
+    function changeBackgroundColor() {
+
+      /*
+      =====================================================
+      DEMO 1: Move Through the Array in Order (No Random)
+      =====================================================
+      */
+
+      
+      /*document.body.style.backgroundColor = colors[count];
+      paragraph.textContent = `The background color is now: ${colors[count]}`;
+
+      count++;  // move to next color in the array
+
+      // Reset to beginning if we reach the end
+      if (count >= colors.length) {
+        count = 0;
+      }*/
+      
+
+
+
+      /*
+      =====================================================
+      DEMO 2: Simple Random Color (May Repeat)
+      =====================================================
+      */
+
+      
+      /*let randomIndex = Math.floor(Math.random() * colors.length);
+      let randomColor = colors[randomIndex];
+
+      document.body.style.backgroundColor = randomColor;
+      paragraph.textContent = `Random color selected: ${randomColor}`;*/
+      
+      /*
+      =====================================================
+      DEMO 3: Random Color With WHILE Loop (No Repeats)
+      =====================================================
+      */
+
+      
+      /*let randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+      while (document.body.style.backgroundColor === randomColor) {
+        randomColor = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      document.body.style.backgroundColor = randomColor;
+      paragraph.textContent = `New random color (no repeats): ${randomColor}`;*/
+
+
+        
+      /*=====================================================
+      DEMO 5: Timed Color Changes
+      =====================================================
+
+      This demo introduces times changes.
+
+      There are TWO JS functions possible:
+
+      1. setTimeout()
+         → Runs ONCE after a delay
+         → Triggered by clicking the button
+
+      2. setInterval()
+         → Runs OVER AND OVER automatically
+         → Not tied to the button click
+      */
+
+        
+      let randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+      // Keep picking a color while it matches current background
+      while (document.body.style.backgroundColor === randomColor) {
+        randomColor = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      document.body.style.backgroundColor = randomColor;
+      paragraph.textContent = "Color changes every 2 seconds (no repeats)";
+
+      // Call this function again after 2 seconds
+      setTimeout(changeBackgroundColor, 2000);
+      
+    }  // this closes the function
+
+
+    //setInterval(changeBackgroundColor, 2000);
+
+
+
+  </script>
+</body>
+</html>
+

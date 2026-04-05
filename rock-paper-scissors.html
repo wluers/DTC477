@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Rock, Paper, Scissors</title>
+</head>
+<body>
+
+<h1>Rock, Paper, Scissors</h1>
+<p>Check Console...</p>
+
+<script>
+	// 1. Ask the user to enter "rock", "paper", or "scissors"
+	let userChoice = prompt("Enter rock, paper, or scissors");
+
+	// 2. Save the user’s choice in a variable
+	// (already saved as userChoice)
+
+	// 3. Create an array of possible choices
+	let choices = ["rock", "paper", "scissors"];
+
+	// 4. Have the computer randomly pick one option
+	let randomIndex = Math.floor(Math.random() * choices.length);
+
+	// 5. Save the computer’s choice in another variable
+	let computerChoice = choices[randomIndex];
+
+	// 6. Print both choices
+	console.log("User choice:", userChoice);
+	console.log("Computer choice:", computerChoice);
+
+	// 7. Compare the two choices
+	if (userChoice === computerChoice) {
+	  // Same choice
+	  console.log("Tie");
+	} else if (userChoice === "rock" && computerChoice === "scissors") {
+	  console.log("User wins");
+	} else if (userChoice === "paper" && computerChoice === "rock") {
+	  console.log("User wins");
+	} else if (userChoice === "scissors" && computerChoice === "paper") {
+	  console.log("User wins");
+	} else {
+	  // All other cases
+	  console.log("Computer wins");
+	}
+
+	// 8. Outcome is printed in each case above
+
+</script>
+</body>
+</html>

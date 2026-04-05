@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Dice Race - Two Buttons</title>
+</head>
+
+<body>
+
+  <button id="player1Btn">Player 1 Roll</button>
+  <button id="player2Btn">Player 2 Roll</button>
+
+  <script>
+
+    // VARIABLES
+    let player1Score = 0;
+    let player2Score = 0;
+    const targetScore = 3;
+
+    // SELECT BUTTONS
+    const player1Btn = document.querySelector("#player1Btn");
+    const player2Btn = document.querySelector("#player2Btn");
+
+    // EVENT LISTENERS
+    player1Btn.addEventListener("click", player1Roll);
+    player2Btn.addEventListener("click", player2Roll);
+
+    // PLAYER 1 FUNCTION
+    function player1Roll() {
+
+      const roll = Math.floor(Math.random() * 6) + 1;
+      console.log("Player 1 rolled:", roll);
+
+      if (roll >= 4) {
+        player1Score++;
+      }
+
+      console.log("Score → P1:", player1Score, "P2:", player2Score);
+
+      checkWinner();
+    }
+
+    // PLAYER 2 FUNCTION
+    function player2Roll() {
+
+      const roll = Math.floor(Math.random() * 6) + 1;
+      console.log("Player 2 rolled:", roll);
+
+      if (roll >= 4) {
+        player2Score++;
+      }
+
+      console.log("Score → P1:", player1Score, "P2:", player2Score);
+
+      checkWinner();
+    }
+
+    // CHECK WINNER
+    function checkWinner() {
+
+      if (player1Score >= targetScore) {
+        console.log("Player 1 wins");
+      }
+
+      if (player2Score >= targetScore) {
+        console.log("Player 2 wins");
+      }
+    }
+
+  </script>
+
+</body>
+</html>

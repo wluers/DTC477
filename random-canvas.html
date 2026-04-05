@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Random Mountain Horizon</title>
+  <style>
+    body { margin: 0; background: #111; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    canvas { border: 1px solid #333; }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+
+  <script>
+    // --- Setup ---
+    let canvas = document.getElementById("c");
+    let ctx = canvas.getContext("2d");
+
+    // Fit canvas (simple desktop-friendly sizing)
+    function resizeCanvas() {
+      canvas.width = Math.min(window.innerWidth - 40, 900);
+      canvas.height = Math.min(window.innerHeight - 40, 500);
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    // --- Mountain generator ---
+    function randInt(min, max) {
+      // inclusive min/max
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function makeHorizonPoints(pointCount, minY, maxY) {
+      // Creates points with random Y, evenly spaced X across the canvas width.
+      let pts = [];
+      let step = canvas.width / (pointCount - 1);
+
+      for (let i = 0; i < pointCount; i++) {
+        let x = i * step;
+        let y = randInt(minY, maxY);
+        pts.push({ x: x, y: y });
+      }
+      return pts;
+    }
+
+    function drawMountains(points) {
+      // Clear background
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Sky
+      ctx.fillStyle = "#0b1020";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw ridge
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+
+      for (let i = 1; i < points.length; i++) {
+        ctx.lineTo(points[i].x, points[i].y);
+      }
+
+      // Close shape down to bottom (so we can fill it)
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.lineTo(0, canvas.height);
+      ctx.closePath();
+
+      // Fill + outline
+      ctx.fillStyle = "#1e2a44";
+      ctx.fill();
+
+      ctx.strokeStyle = "#b9c7ff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // --- Animation loop (updates every second) ---
+    function newFrame() {
+      // Horizon band (keep mountains roughly in the upper half)
+      let minY = Math.floor(canvas.height * 0.25);
+      let maxY = Math.floor(canvas.height * 0.65);
+
+      // More points = more jagged detail
+      let points = makeHorizonPoints(18, minY, maxY);
+      drawMountains(points);
+    }
+
+    newFrame();
+    setInterval(newFrame, 1000);
+  </script>
+</body>
+</html>

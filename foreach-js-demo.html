@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Demo - Array Method & Iterators</title>
+  <style>
+    body {
+      padding: 5%;
+    }
+  </style>
+</head>
+<body>
+  <h1>JS Demo: Using Array Method & Iterators</h1>
+  <p>Open the console or see alerts for outputs.</p>
+
+  <script>
+
+    // =====================================================
+  // NESTED ARRAY
+  // =====================================================
+  // Now fruits becomes part of a larger "foods" array.
+  // This is called a nested array (an array inside an array).
+  //
+  // Structure:
+  // foods
+  //   [0] → fruits array
+  //   [1] → vegetables array
+  //   [2] → proteins array
+  // =====================================================
+
+  /*const foods = [
+    ["apple", "strawberry", "banana"],      // fruits
+    ["carrot", "broccoli", "spinach"],      // vegetables
+    ["chicken", "tofu", "beans"]            // proteins
+  ];
+
+  console.log(foods[0][2]);
+
+  let fruits = foods[0];
+  let vegetables = foods[1];
+  let proteins = foods[2];
+
+  console.log(fruits[2]);*/
+
+
+
+
+
+   // =====================================================
+    // Array and Nested Strings
+    // =====================================================
+  
+
+    /*const fruits = [
+      "apple",
+      "strawberry",
+      "banana"
+    ];
+   
+    console.log(fruits[1][fruits[1].length - 1]);*/
+
+
+
+
+    // =====================================================
+
+    // slice() returns a NEW string (or array).
+    // It does NOT change the original value.
+    
+    // Example:
+    // word.slice(0, 3)
+    //
+    // Means:
+    // Start at index 0
+    // Stop BEFORE index 3
+
+    // Example:
+    // word.slice(0, -1)
+    // Removes the last character.
+
+    /*const fruits = [
+      "apple",
+      "strawberry",
+      "banana"
+    ];
+
+    for (let i = 0; i < fruits.length; i++) {
+
+      if (fruits[i].endsWith("y")) {
+        fruits[i] = `${fruits[i].slice(0, -1)}ies`;
+      } else {
+        fruits[i] += "s";
+      }
+
+    }
+
+    console.log(fruits); // ["apples", "strawberries", "bananas"]*/
+    
+
+
+
+    // =====================================================
+    // forEach() VERSION
+    // =====================================================
+    // forEach() is an array method.
+    // It calls a function for each element in an array.. The parameters are specific:
+    //forEach(function(fruit, index, array)
+    
+
+    
+    /*const fruits = [
+      "apple",
+      "strawberry",
+      "banana"
+    ];
+
+
+    fruits.forEach(function(fruit, index, array) {
+
+      if (fruit.endsWith("y")) {
+        array[index] = `${fruits[index].slice(0, -1)}ies`;
+      } else {
+        array[index] = fruit + "s";
+      }
+
+    });
+
+    console.log(fruits); // ["apples", "strawberries", "bananas"]*/
+
+
+
+
+
+  
+
+    // forEach with function OUTSIDE:
+    //forEach(myFunction)
+    // function myFunction(fruit, index, array) {...}
+    
+
+    /*const fruits = [
+      "apple",
+      "strawberry",
+      "banana"
+    ];
+
+    
+    fruits.forEach(pluralize);
+
+
+    function pluralize(fruit, index, array) {
+
+      if (fruit.endsWith("y")) {
+        array[index] = `${fruits[index].slice(0, -1)}ies`;
+      } else {
+        array[index] = fruit + "s";
+      }
+
+    }
+
+    console.log(fruits); // ["apples", "strawberries", "bananas"]*/
+    
+
+
+  
+    
+ 
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+body {
+  padding: 0%;
+  margin: 0%;
+  overflow: hidden;
+}
+
+#wrapper {
+  margin: 0 auto;
+  height: 2000px;
+  /* Added transition for smooth animation */
+  transition: background-color 1s ease-in-out;
+}
+
+.circle {
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;
+  margin: 1%;
+  float: left;
+  border: 2px solid black;
+  position: relative;
+
+  /* Added transition for smooth animation */
+  transition: top 1s ease-in-out, left 1s ease-in-out, background-color 1s ease-in-out;
+}
+
+button {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<button onclick="setCircles()">Run Function</button>
+
+<div id="wrapper">
+  <div class="circle"></div>
+</div>
+
+<script>
+  // create a variable for #wrapper
+  let wrapper = document.getElementById('wrapper');
+
+  // create a function to multiply circles x 200 and run a function inside it to change colors
+  function setCircles() {
+    for (let i = 0; i < 199; i++) {
+      wrapper.insertAdjacentHTML('beforeend', '<div class="circle"></div>');
+    }
+    changeColors();
+  }
+
+  // create variables 
+  let colorcount = 0;
+  let circles = document.getElementsByClassName('circle');
+
+  // create an array to store a list of colors
+  let colors = [
+    'green', 
+    'blue', 
+    'yellow', 
+    'orange', 
+    'purple'
+    ];
+
+  // create function to change color of circles, background and circle position
+  function changeColors() {
+    
+    wrapper.style.backgroundColor = colors[colorcount];
+
+    colorcount++;
+    if (colorcount >= colors.length) {
+      colorcount = 0;
+    }
+
+    for (let i = 0; i < circles.length; i++) {
+      let randmcolor = `#${Math.random().toString(16).substr(2, 6)}`;
+      let num1 = Math.round(Math.random() * 200);
+      let num2 = Math.round(Math.random() * 200);
+      let num3 = Math.round(Math.random() * 200);
+
+      let thisCircle = circles[i];
+
+      thisCircle.style.backgroundColor = randmcolor; 
+      thisCircle.style.top = `${num1}px`;
+      thisCircle.style.left = `${num2}px`;
+      /*thisCircle.style.zIndex = `${num3}`;*/
+    }
+
+    
+    // create animation of change with setTimeout
+    setTimeout(changeColors, 1000);
+
+  }
+
+
+
+
+
+  // create animation of change with setinterval
+  //setInterval(changeColors, 1000);
+  
+</script>
+</body>
+</html>

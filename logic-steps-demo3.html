@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+<button id="btn1"></button>
+<button id="btn2"></button>
+<button id="btn3"></button>
+
+<button onclick="secretWord1()">Secret word after selection of 3</button><br>
+<button onclick="secretWord2()">Secret word before selection of 3</button>
+
+
+<script>
+
+    
+	function secretWord1() {
+		// 1) Possible words
+		  const words = ["apple", "banana", "grape", "orange", "cherry"];
+
+		  // 2) Attempts
+		  //let attempts = 3;
+
+		  // Pick 3 different random indexes
+		  let index1 = Math.floor(Math.random() * words.length);
+
+		  let index2 = Math.floor(Math.random() * words.length);
+		  while (index2 === index1) {
+		    index2 = Math.floor(Math.random() * words.length);
+		  }
+
+		  let index3 = Math.floor(Math.random() * words.length);
+		  while (index3 === index1 || index3 === index2) {
+		    index3 = Math.floor(Math.random() * words.length);
+		  }
+
+		  // 3) Put those 3 words on buttons
+		  const btn1 = document.getElementById("btn1");
+		  const btn2 = document.getElementById("btn2");
+		  const btn3 = document.getElementById("btn3");
+		  const output = document.getElementById("output");
+
+		  document.getElementById("btn1").textContent = words[index1];
+		  document.getElementById("btn2").textContent = words[index2];
+		  document.getElementById("btn3").textContent = words[index3];
+
+		  // 4) Pick secret from the displayed choices (one of the three indexes)
+		  const secretPick = Math.floor(Math.random() * 3);
+		  let secretWord = "";
+
+		  if (secretPick === 0) secretWord = words[index1];
+		  if (secretPick === 1) secretWord = words[index2];
+		  if (secretPick === 2) secretWord = words[index3];
+
+		  // 5) Handle guesses
+		  let gameOver = false;
+
+		  function handleGuess(clickedWord) {
+		    if (gameOver) return;
+
+		    if (clickedWord === secretWord) {
+		      output.innerHTML = "Correct! The secret word was: " + secretWord;
+		      gameOver = true;
+		      disableButtons();
+		      return;
+		    }
+
+		    attempts = attempts - 1;
+
+		    if (attempts === 0) {
+		      output.innerHTML = "Game over. The secret word was: " + secretWord;
+		      gameOver = true;
+		      disableButtons();
+		      return;
+		    }
+
+		    output.innerHTML = "Try again. Attempts left: " + attempts;
+		  }
+
+		  function disableButtons() {
+		    btn1.disabled = true;
+		    btn2.disabled = true;
+		    btn3.disabled = true;
+		  }
+
+		  // Button click events
+		  btn1.onclick = function () { handleGuess(btn1.textContent); };
+		  btn2.onclick = function () { handleGuess(btn2.textContent); };
+		  btn3.onclick = function () { handleGuess(btn3.textContent); };
+	}
+
+
+	function secretWord2() {
+		const words = ["apple", "banana", "cherry", "grape", "orange"];
+		const choices = [];
+
+		while (choices.length < 3) {
+		  const word = words[Math.floor(Math.random() * words.length)];
+
+		  if (choices.indexOf(word) === -1) {
+		    choices.push(word);
+		  }
+		}
+
+		const secretWord = choices[Math.floor(Math.random() * choices.length)];
+	}
+
+</script>
+</body>
+</html>

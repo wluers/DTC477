@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Built-in Objects: Date and Math</title>
+<style>
+  body {
+    font-family: sans-serif;
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+
+  button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+
+  #output {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    min-height: 100px;
+    background: #f9f9f9;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>Built-in JavaScript Objects</h1>
+
+<p>Open the console.</p>
+
+<h2>Date Object</h2>
+
+<button id="btnDateInspect">Inspect Date object</button>
+<button id="btnDateMethods">Run Date methods</button>
+
+<h2>Math Object</h2>
+
+<button id="btnMathInspect">Inspect Math object</button>
+<button id="btnMathMethods">Run Math methods</button>
+
+<script>
+
+
+const btnDateInspect = document.querySelector("#btnDateInspect");
+const btnDateMethods = document.querySelector("#btnDateMethods");
+
+const btnMathInspect = document.querySelector("#btnMathInspect");
+const btnMathMethods = document.querySelector("#btnMathMethods");
+
+
+// ================================
+// DATE OBJECT
+// ================================
+
+// Show the Date object itself
+btnDateInspect.addEventListener("click", function() {
+  //creates and instance of the Date object (now)
+  const now = new Date();
+  console.log(`Date and time now: ${now}`);
+
+  // all Date objects share methods from Date.prototype.
+  // A prototype is an object that contains shared methods and properties.
+  console.log(Date.prototype);
+  
+});
+
+
+// Run some Date methods
+btnDateMethods.addEventListener("click", function() {
+
+  const now = new Date();
+
+
+  // console.log can take multiple arguments.
+  // Each value is printed in order, separated by spaces.
+  console.log("Full date:", now);
+
+  console.log("Year:", now.getFullYear());
+
+  console.log("Month:", now.getMonth());
+
+  console.log("Day:", now.getDate());
+
+  console.log("Hours:", now.getHours());
+
+  console.log("Minutes:", now.getMinutes());
+
+  console.log("Locale string:", now.toLocaleString());
+
+
+});
+
+
+// ================================
+// MATH OBJECT
+// ================================
+
+// Show Math object
+btnMathInspect.addEventListener("click", function() {
+
+  console.log("Math object:");
+  console.log(Math);
+  /*console.log(Math.prototype);*/
+
+
+});
+
+
+// Run some Math methods
+btnMathMethods.addEventListener("click", function() {
+
+  console.log("Random number:", Math.random());
+
+  console.log("Random integer 1–10:",
+    Math.floor(Math.random() * 10) + 1
+  );
+
+  console.log("Round 4.7:", Math.round(4.7));
+
+  console.log("Floor 4.7:", Math.floor(4.7));
+
+  console.log("Ceil 4.2:", Math.ceil(4.2));
+
+  console.log("Max of 5, 12, 3:", Math.max(5, 12, 3));
+
+  console.log("Min of 5, 12, 3:", Math.min(5, 12, 3));
+
+});
+
+</script>
+
+</body>
+</html>

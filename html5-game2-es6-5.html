@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ball Paddle Game</title>
+    <style>
+        canvas {
+            background-color: #f0f0f0;
+            display: block;
+            margin: 5% auto;
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+
+<script>
+    // Canvas setup
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 700;
+    canvas.height = 700;
+
+    // Keyboard state
+    const keys = {
+        right: false,
+        left: false
+    };
+
+    // Score
+    let score = 0;
+    let misses = 0;
+
+    // Player / Paddle class
+    class Player {
+        constructor(x, y, width, height, color) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.color = color;
+            this.speed = 8;
+        }
+
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+
+        update() {
+            if (keys.right && this.x + this.width < canvas.width) {
+                this.x += this.speed;
+            }
+
+            if (keys.left && this.x > 0) {
+                this.x -= this.speed;
+            }
+
+            this.draw();
+        }
+    }
+
+    // Ball class
+    class Ball {
+        constructor(x, y, radius, color) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.color = color;
+
+            // Vertical speed
+            this.dy = Math.random() * 2 + 2;
+
+            // Gravity pulls the ball back down after it bounces up
+            this.gravity = 0.08;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        update() {
+            this.dy += this.gravity; // gravity effect
+            this.y += this.dy;
+            this.draw();
+        }
+
+        reset() {
+            this.x = Math.random() * (canvas.width - this.radius * 2) + this.radius;
+            this.y = -(Math.random() * 300 + this.radius); // restart above screen
+            this.dy = Math.random() * 2 + 2; // fall downward again
+        }
+    }
+
+    // Create paddle
+    const player = new Player(canvas.width / 2 - 60, canvas.height - 40, 120, 20, 'blue');
+
+    // 9 unique colors
+    const colors = [
+        'red',
+        'orange',
+        'yellow',
+        'green',
+        'blue',
+        'indigo',
+        'violet',
+        'pink',
+        'brown'
+    ];
+
+    // 9 unique sizes
+    const sizes = [10, 14, 18, 22, 26, 30, 34, 38, 42];
+
+    // Create 9 balls
+    const balls = [];
+
+    function createBalls() {
+        for (let i = 0; i < 9; i++) {
+            const radius = sizes[i];
+            const x = Math.random() * (canvas.width - radius * 2) + radius;
+            const y = -(Math.random() * 600 + radius); // random starting height above screen
+            const color = colors[i];
+
+            balls.push(new Ball(x, y, radius, color));
+        }
+    }
+
+    createBalls();
+
+    // Keyboard listeners
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowRight") {
+            keys.right = true;
+        } else if (event.key === "ArrowLeft") {
+            keys.left = true;
+        }
+    });
+
+    document.addEventListener('keyup', function(event) {
+        if (event.key === "ArrowRight") {
+            keys.right = false;
+        } else if (event.key === "ArrowLeft") {
+            keys.left = false;
+        }
+    });
+
+    // Collision check between ball and paddle
+    function checkPaddleCollision(ball, player) {
+        const ballBottom = ball.y + ball.radius;
+        const ballTop = ball.y - ball.radius;
+        const ballRight = ball.x + ball.radius;
+        const ballLeft = ball.x - ball.radius;
+
+        const paddleTop = player.y;
+        const paddleBottom = player.y + player.height;
+        const paddleLeft = player.x;
+        const paddleRight = player.x + player.width;
+
+        return (
+            ballBottom >= paddleTop &&
+            ballTop <= paddleBottom &&
+            ballRight >= paddleLeft &&
+            ballLeft <= paddleRight
+        );
+    }
+
+    // Draw score text
+    function drawScore() {
+        ctx.fillStyle = 'black';
+        ctx.font = '24px Arial';
+        ctx.fillText(`Score: ${score}`, 20, 35);
+        ctx.fillText(`Misses: ${misses}`, 20, 65);
+    }
+
+    // Game loop
+    function gameLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        player.update();
+
+        balls.forEach(ball => {
+            ball.update();
+
+            // Bounce upward only if the ball is moving downward
+            if (checkPaddleCollision(ball, player) && ball.dy > 0) {
+                ball.y = player.y - ball.radius;   // move ball just above paddle
+                ball.dy = -(Math.random() * 3 + 4); // send ball upward
+                score += 1;
+            }
+
+            // If ball falls off bottom, lose a point and reset it
+            if (ball.y - ball.radius > canvas.height) {
+                score -= 1;
+                misses += 1;
+                ball.reset();
+            }
+
+            // Optional: stop ball from going too far above screen forever
+            if (ball.y + ball.radius < -100 && ball.dy < 0) {
+                ball.dy = 1;
+            }
+        });
+
+        drawScore();
+        requestAnimationFrame(gameLoop);
+    }
+
+    requestAnimationFrame(gameLoop);
+</script>
+</body>
+</html>

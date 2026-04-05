@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JS Classes – Sandbox</title>
+</head>
+<style>
+  body {
+    font-size: 20px;
+  }
+  button {
+    padding: 1%;
+    font-size: 1.3em;
+  }
+</style>
+<body>
+
+  <h2>Player 1</h2>
+  <button id="btn1">Roll</button>
+  <p id="result1"></p>
+
+  <hr>
+
+  <h2>Player 2</h2>
+  <button id="btn2">Roll</button>
+  <p id="result2"></p>
+
+  <p id="winner"></p>
+
+
+  <script>
+
+    // ── THE CLASS ──────────────────────────────────────────
+    // A class is a blueprint for making objects.
+    // Every Player object will have these same properties and method.
+
+    class Player {
+
+      constructor(name, color) {
+        this.name  = name;   
+        this.color = color;  // any CSS color: "red", "#ff0", "blue"
+      }
+
+      roll() {
+        return Math.floor(Math.random() * 6) + 1;
+      }
+
+    }
+
+
+    // ── TWO INSTANCES ──────────────────────────────────────
+    // "new Player()" creates a real object from the blueprint.
+    // Each instance is independent — its own name, color, etc.
+
+    const player1 = new Player("Alice", "red");
+    const player2 = new Player("Bob",   "blue");
+
+
+    // ── GRAB THE BUTTONS ───────────────────────────────────
+    // Store references so we don't have to querySelector repeatedly.
+
+    const btn1 = document.querySelector('#btn1');
+    const btn2 = document.querySelector('#btn2');
+
+
+    // ── USE THE COLOR PROPERTY TO STYLE THE BUTTONS ────────
+
+    btn1.style.background = player1.color;
+    btn2.style.background = player2.color;
+
+
+    // ── TRACKING ROLLS WITH null ────────────────────────────
+    
+    //   null means "this variable exists but has no value yet"
+    //
+    // null is JavaScript's way of saying: intentionally empty.
+    // We can safely check  if (roll1 !== null)  to mean "has this player rolled?"
+
+    let roll1 = null;
+    let roll2 = null;
+
+
+    // ── BUTTON EVENT LISTENERS ─────────────────────────────
+
+
+    btn1.addEventListener('click', function () {
+      roll1 = player1.roll();
+      
+      document.querySelector('#result1').textContent = `${player1.name} rolled ${roll1}`;
+
+      if (roll2 !== null) {
+        compare();
+      }
+    });
+
+
+
+    btn2.addEventListener('click', function () {
+      roll2 = player2.roll();
+
+      document.querySelector('#result2').textContent = `${player2.name} rolled ${roll2}`;
+
+      if (roll1 !== null) {
+        compare();
+      }
+    });
+
+
+    // ── COMPARE FUNCTION ───────────────────────────────────
+
+    function compare() {
+
+      const winnerBox = document.querySelector('#winner');
+
+      if (roll1 > roll2) {
+        winnerBox.textContent = `${player1.name} wins!`;
+        winnerBox.style.color = player1.color;
+
+      } else if (roll2 > roll1) {
+        winnerBox.textContent = `${player2.name} wins!`;
+        winnerBox.style.color = player2.color;
+
+      } else {
+        winnerBox.textContent = `Draw!`;
+        winnerBox.style.color = "black";
+      }
+
+      // Reset both rolls to null — back to "no value yet" for next round
+      roll1 = null;
+      roll2 = null;
+    }
+
+  </script>
+
+</body>
+</html>

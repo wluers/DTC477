@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Demo Lesson 2 - Functions, Arrays, and Loops </title>
+  <style>
+    body { 
+        font-family: Helvetica, Arial, sans-serif; 
+        line-height: 1.5; 
+        max-width: 820px; 
+        margin: 2rem auto; 
+        padding: 0 1rem; 
+    }
+    code, pre { 
+        background: #f6f8fa; 
+        padding: 0.25rem 0.5rem; 
+        border-radius: 6px; 
+    }
+
+    .note { 
+        color: #555; 
+    }
+    .demo-box { 
+        padding: 0.75rem; 
+        border: 1px solid #ddd; 
+        border-radius: 6px; 
+        margin-top: 0.5rem; 
+        min-height: 1.5rem; 
+    }
+  </style>
+</head>
+<body>
+  <h1>JS Demo Lesson 2: Functions, Arrays, and Loops</h1>
+
+  <!-- Buttons used later in the events section -->
+  <button onclick="handleClick()">button 1</button>
+  <button id="button2">button 2</button>
+
+  <!-- Elements for the DOM selection demo -->
+  <div id="statusBox" class="demo-box">Status box (id="statusBox")</div>
+  <p class="message">First message (class="message")</p>
+  <p class="message">Second message (class="message")</p>
+
+  <script>
+    // ====================================================================
+    //-- JS Demo Lesson 2: Functions, Arrays, and Loops — ES6 with DOM outputs
+    // ====================================================================
+    //-- We start by introducing different DOM selection methods.
+
+    //-- A. getElementById (returns a single element by its id)
+    //const statusElement = document.getElementById("statusBox");
+    //statusElement.textContent = "Updated via getElementById: Ready to explore.";
+
+    //-- B. getElementsByClassName (returns a live HTMLCollection)
+    //--   We can loop through it with a for loop.
+    //const messageElements = document.getElementsByClassName("message");
+    //messageElements[1].textContent = `A message for the second div with class name "message"`;
+    
+    //-- C. querySelector (preferred) — selects the first match for a CSS selector
+    //const firstMessage = document.querySelector(".message");
+    //firstMessage.textContent = "First .message updated by querySelector (preferred).";
+
+    //-- (Optional) querySelectorAll — selects all matches (NodeList)
+    //const allMessages = document.querySelectorAll(".message");
+    
+
+    //-- Using querySelector to change content (later in course; kept commented)
+    //document.querySelector("h1").innerHTML = "JS Demo Lesson 2: Let's Go!";
+    //document.querySelector("#statusBox").innerHTML +=  "<br>Added another message via querySelector";
+
+    
+
+    // ---------------------------------------------------------------
+    //-- 1) Functions — Declarations, Parameters, Returns
+    // ---------------------------------------------------------------
+    // --- Function Declaration ---
+    //A declaration is always available.
+    
+
+   /* function sum() {
+      const result = 2 + 7;
+      document.querySelector("#statusBox").textContent = `Sum is: ${result}`;
+    }
+     sum();*/
+   
+
+    // --- Function Expression ---
+    // An expression only exists after it’s assigned.
+
+    /*const sum = function() {
+      const result = 2 + 7;
+      document.querySelector("#statusBox").textContent = `Sum is: ${result}`;
+    };
+    sum();*/
+
+    // --- Arrow Function ---
+    /*const sum = () => {
+      const result = 2 + 7;
+      document.querySelector("#statusBox").textContent = `Sum is: ${result}`;
+    };
+    sum();*/
+
+    // --- Return  ---
+    /*function sum() {
+      const result = 2 + 7;
+      return result;
+    }
+
+    document.querySelector("#statusBox").textContent = `Sum is: ${sum()}`;*/
+    
+
+    // --- Function Parameters/Arguments  ---
+    /*function sum(a, b) {
+      const result = a + b;
+      document.querySelector("#statusBox").textContent = `Sum is: ${result}`;
+    }
+    sum(2, 7);*/
+    
+    
+    // --- Version 1: prompt outside the function ---
+    /*
+    function greetPlayer(playerName) {
+      document.querySelector("#statusBox").textContent = `Hello, ${playerName}! Welcome to the adventure.`;
+    }
+    const inputName = prompt("What is your name?")
+    greetPlayer(inputName);
+    */
+
+  
+    // --- Version 2: prompt inside the function ---
+    /*function greetPlayer() {
+      const playerName = prompt("What's your name?")
+      const message = `Hello, ${playerName}! Welcome to the adventure.`;
+      document.querySelector("#statusBox").textContent = message;
+    }
+    greetPlayer();*/
+
+
+     // --- Version 3: prompt passed in as an argument ---
+    /*function greetPlayer(playerName) {
+      const message = `Hello, ${playerName}! Welcome to the adventure.`;
+      document.querySelector("#statusBox").textContent = message;
+    }
+    greetPlayer(prompt("What's your name?"));*/
+
+
+    // --- Version 4: using return ---
+    /*function greetPlayer(playerName) {
+      const message = `Hello, ${playerName}! Welcome to the adventure.`;
+      return message; // give back the string
+    }
+
+    const result = greetPlayer(prompt("What's your name?")); // capture the return value
+    document.querySelector("#statusBox").textContent = result; // now we decide what to do with it*/
+ 
+
+    // ---------------------------------------------------------------
+    //-- 2) Function Scope (Local vs Global)
+    // ---------------------------------------------------------------
+    /*
+    let score = 0;
+    function increaseScore() {
+      const bonus = 10;
+      score = score + bonus;
+      document.querySelector("#statusBox").textContent = `Score increased by ${bonus}. Total score: ${score}`;
+    }
+    increaseScore();
+    */
+
+    // ---------------------------------------------------------------
+    //-- 3) Events — onclick attribute vs addEventListener
+    // ---------------------------------------------------------------
+    /*function handleClick() {
+      document.querySelector("#statusBox").textContent = "Button 1 clicked using onclick!";
+    }
+
+    const buttonTwo = document.querySelector("#button2");
+    buttonTwo.addEventListener("click", function () {
+      document.querySelector("#statusBox").textContent = "Button 2 clicked using addEventListener!";
+    });
+*/
+    // ---------------------------------------------------------------
+    //-- 4) Arrays — create, add items, and access by index
+    // ---------------------------------------------------------------
+    /*
+    const inventory = ["sword", "shield", "potion"];
+    output(`Initial inventory: ${inventory}`);
+    inventory.push("magic ring");
+    output(`Updated inventory: ${inventory}`);
+    output(`First item: ${inventory[0]}`);
+    */
+
+    // ---------------------------------------------------------------
+    //-- 5) Nested Arrays (2D array / grid)
+    // ---------------------------------------------------------------
+    /*
+    const grid = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9]
+    ];
+    output(`Grid: ${grid}`);
+    output(`Accessing grid[1][2]: ${grid[1][2]}`);
+    */
+
+    // ---------------------------------------------------------------
+    //-- 6) For Loop — iterate through an array
+    // ---------------------------------------------------------------
+    /*
+    const inventoryForLoop = ["sword", "shield", "potion"];
+    for (let index = 0; index < inventoryForLoop.length; index++) {
+      output(`Item ${index + 1}: ${inventoryForLoop[index]}`);
+    }
+    */
+
+    // ---------------------------------------------------------------
+    //-- 7) While Loop — coin flip until tails
+    // ---------------------------------------------------------------
+    
+    /*let coin = Math.floor(Math.random() * 2);
+    while (coin === 0) {
+      output("Heads! Flipping again...");
+      coin = Math.floor(Math.random() * 2);
+    }
+    output("Tails! Done flipping.");*/
+    
+
+    // ---------------------------------------------------------------
+    //-- 8) DOM Manipulation — create and append a new element
+    // ---------------------------------------------------------------
+    /*
+    const storyParagraph = document.createElement("p");
+    storyParagraph.textContent = "You find a treasure chest containing a golden key.";
+    document.querySelector("body").appendChild(storyParagraph);
+    */
+
+
+    // ---------------------------------------
+// Modulus Example: Alternating Player Turns
+// ---------------------------------------
+// let turn = 5; // current turn number
+// if (turn % 2 === 0) {
+//   console.log("It's Player 2's turn.");
+// } else {
+//   console.log("It's Player 1's turn.");
+// }
+
+
+    // --- Date() object ---
+/*let now = new Date();
+let time = now.getHours(); // current hour (0–23)
+console.log(now);
+console.log(time);*/
+
+// if (time > 12) {
+//   document.write("Good afternoon!");
+// }
+
+// --- Common Date methods ---
+//now.getFullYear();   // returns the year (e.g., 2025)
+//now.getMonth();      // returns the month (0–11, where 0 = January)
+//now.getDate();       // returns the day of the month (1–31)
+//now.getDay();        // returns the day of the week (0–6, where 0 = Sunday)
+//now.getHours();      // returns the hour (0–23)
+//now.getMinutes();    // returns the minutes (0–59)
+//now.getSeconds();    // returns the seconds (0–59)
+//now.getTime();       // returns milliseconds since Jan 1, 1970 (timestamp)
+
+
+
+// --- If / Else ---
+// let x;
+// if (time < 20) {
+//   x = "Good day";
+// } else {
+//   x = "Good evening";
+// }
+// document.write(x);
+
+
+// --- Else If ---
+// let x;
+// if (time >= 10 && time <= 17) {
+//   x = "Good day";
+// } else if (time >= 18) {
+//   x = "Good evening";
+// } else {
+//   x = "Good morning";
+// }
+// document.write(x);
+
+
+// --- Math object ---
+// alert(Math.random()); // random number between 0 and 1
+
+// let i = Math.random() * 20; // random number between 0 and 20
+// document.write(`The random number is ${i} <br>`);
+//
+// if (i > 15) {
+//   document.write(`${i} is greater than 15`);
+// } else if (i < 5) {
+//   document.write(`${i} is less than 5`);
+// } else {
+//   document.write(`${i} is between 5 and 15`);
+// }
+
+// --- Common Math methods ---
+//Math.random();     // random number between 0 and 1
+//Math.round(4.6);   // rounds to nearest integer → 5
+//Math.floor(4.9);   // rounds down → 4
+//Math.ceil(4.1);    // rounds up → 5
+
+
+  </script>
+</body>
+</html>

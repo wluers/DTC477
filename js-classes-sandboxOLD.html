@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS Classes — Player Sandbox</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --left-bg: #f5f0e8;
+      --right-bg: #0e0e0e;
+      --left-text: #111;
+      --right-text: #f0ece0;
+      --accent: #e63c2f;
+      --mono: 'Space Mono', monospace;
+      --display: 'Bebas Neue', sans-serif;
+    }
+
+    body {
+      font-family: var(--mono);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* ── SPLIT HALVES ── */
+    .side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 28px;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .side--left  { background: var(--left-bg);  color: var(--left-text);  }
+    .side--right { background: var(--right-bg); color: var(--right-text); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 3px;
+      background: linear-gradient(to bottom, transparent 0%, var(--accent) 20%, var(--accent) 80%, transparent 100%);
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+    .divider::after {
+      content: 'VS';
+      font-family: var(--display);
+      font-size: 22px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--accent);
+      color: white;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      letter-spacing: 1px;
+    }
+
+    /* ── PLAYER BUTTON ── */
+    .roll-btn {
+      font-family: var(--display);
+      font-size: 28px;
+      letter-spacing: 3px;
+      border: none;
+      cursor: pointer;
+      padding: 14px 32px;
+      border-radius: 4px;
+      transition: transform 0.08s, opacity 0.15s;
+      width: 100%;
+      max-width: 240px;
+    }
+    .roll-btn:active { transform: scale(0.95); }
+
+    .side--left  .roll-btn { background: #111; color: #f5f0e8; }
+    .side--right .roll-btn { background: #f5f0e8; color: #111; }
+
+    .roll-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* ── PLAYER NAME ── */
+    .player-name {
+      font-family: var(--display);
+      font-size: 42px;
+      letter-spacing: 4px;
+      margin: 20px 0 4px;
+    }
+
+    /* ── PLAYER STATS (from the class properties) ── */
+    .player-stats {
+      font-size: 11px;
+      opacity: 0.55;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    /* ── DICE DISPLAY ── */
+    .dice-wrap {
+      margin: 12px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-height: 110px;
+    }
+    .die-face {
+      font-family: var(--display);
+      font-size: 86px;
+      line-height: 1;
+      transition: transform 0.25s cubic-bezier(.68,-0.55,.27,1.55), opacity 0.2s;
+      opacity: 0;
+      transform: scale(0.5) rotate(-15deg);
+    }
+    .die-face.show {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+    .die-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    /* ── RESULT TAG ── */
+    .result-tag {
+      font-family: var(--display);
+      font-size: 22px;
+      letter-spacing: 3px;
+      padding: 6px 18px;
+      border-radius: 3px;
+      opacity: 0;
+      transition: opacity 0.4s 0.3s;
+      min-height: 40px;
+    }
+    .result-tag.show { opacity: 1; }
+    .result-tag.win  { background: var(--accent); color: white; }
+    .result-tag.lose { border: 2px solid currentColor; }
+    .result-tag.draw { border: 2px dashed currentColor; }
+
+    /* ── CODE PANE (bottom hint) ── */
+    .code-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 0; right: 0;
+      padding: 0 20px;
+      font-size: 10px;
+      opacity: 0.3;
+      letter-spacing: 0.5px;
+      line-height: 1.7;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    /* ── SHAKE ANIMATION ── */
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-6px) rotate(-2deg); }
+      40%      { transform: translateX(6px) rotate(2deg); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
+    }
+    .rolling { animation: shake 0.45s ease; }
+
+    /* ── FLASH WIN SIDE ── */
+    .side--left.flash-win   { animation: flashLeft 0.6s ease; }
+    .side--right.flash-win  { animation: flashRight 0.6s ease; }
+    @keyframes flashLeft  { 0%,100%{background:var(--left-bg)}  50%{background:#ffd6d3} }
+    @keyframes flashRight { 0%,100%{background:var(--right-bg)} 50%{background:#3a0d0a} }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       LEFT SIDE — PLAYER 1
+  ══════════════════════════════════════════ -->
+  <div class="side side--left" id="sideLeft">
+    <button class="roll-btn" id="btnLeft">ROLL</button>
+    <div class="player-name" id="nameLeft"></div>
+    <div class="player-stats" id="statsLeft"></div>
+
+    <div class="dice-wrap">
+      <div class="die-face" id="dieLeft"></div>
+      <div class="die-label" id="labelLeft"></div>
+    </div>
+
+    <div class="result-tag" id="resultLeft"></div>
+
+    <div class="code-hint">player1.name &nbsp;·&nbsp; player1.level &nbsp;·&nbsp; player1.roll()</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       RIGHT SIDE — PLAYER 2
+  ══════════════════════════════════════════ -->
+  <div class="side side--right" id="sideRight">
+    <button class="roll-btn" id="btnRight">ROLL</button>
+    <div class="player-name" id="nameRight"></div>
+    <div class="player-stats" id="statsRight"></div>
+
+    <div class="dice-wrap">
+      <div class="die-face" id="dieRight"></div>
+      <div class="die-label" id="labelRight"></div>
+    </div>
+
+    <div class="result-tag" id="resultRight"></div>
+
+    <div class="code-hint">player2.name &nbsp;·&nbsp; player2.level &nbsp;·&nbsp; player2.roll()</div>
+  </div>
+
+
+  <script>
+    // ================================================================
+    // ██████████████████████████████████████████████████████████████
+    //  JS SANDBOX — LESSON: CLASSES & INSTANCES
+    // ██████████████████████████████████████████████████████████████
+    //
+    //  HOW TO USE THIS SANDBOX:
+    //  Read the class definition below, then try these challenges:
+    //
+    //  ★ STARTER: Change the player names and levels
+    //  ★ EASY:    Add a new property (e.g. this.wins = 0)
+    //  ★ MEDIUM:  Add a method that uses the property (track wins)
+    //  ★ HARD:    Create a subclass with "extends" that adds special
+    //             abilities or a different dice range
+    // ================================================================
+
+
+    // ================================================================
+    //  THE CLASS — a blueprint for making Player objects
+    // ================================================================
+    //
+    //  SYNTAX:
+    //  ┌─────────────────────────────────────────────┐
+    //  │  class ClassName {                          │
+    //  │    constructor(param1, param2) {            │
+    //  │      this.property1 = param1;  ← stored    │
+    //  │      this.property2 = param2;  ← stored    │
+    //  │    }                                        │
+    //  │    methodName() {                           │
+    //  │      // logic using this.property1, etc.   │
+    //  │      return someValue;                      │
+    //  │    }                                        │
+    //  │  }                                          │
+    //  └─────────────────────────────────────────────┘
+
+    class Player {
+
+      // constructor() runs ONCE when we write: new Player(...)
+      // "this" is the specific object being built right now
+      constructor(name, level) {
+
+        this.name  = name;   // PROPERTY 1 — who is this player?
+        this.level = level;  // PROPERTY 2 — affects their dice range
+      }
+
+      // METHOD — a function that belongs to every Player instance
+      // Higher level = bigger dice (more sides)
+      roll() {
+        const sides = 4 + (this.level * 2); // level 1 → d6, level 2 → d8, etc.
+        return Math.floor(Math.random() * sides) + 1;
+      }
+
+      // ── SANDBOX SUGGESTIONS ────────────────────────────────────────
+      //
+      // ADD MORE PROPERTIES in the constructor:
+      //   this.wins   = 0;         // track victories
+      //   this.health = 100;       // for a health-based game
+      //   this.weapon = "Sword";   // changes damage calculation
+      //   this.luck   = Math.random() < 0.5; // random trait at birth
+      //
+      // ADD MORE METHODS below the roll() method:
+      //
+      //   heal(amount) {
+      //     this.health = Math.min(100, this.health + amount);
+      //   }
+      //
+      //   isAlive() {
+      //     return this.health > 0;
+      //   }
+      //
+      //   recordWin() {
+      //     this.wins++;
+      //   }
+      //
+      //   describe() {
+      //     return `${this.name} (Lv.${this.level}) — Wins: ${this.wins}`;
+      //   }
+      //
+      // EXTEND THE CLASS to make specialised variants:
+      //
+      //   class Wizard extends Player {
+      //     constructor(name) {
+      //       super(name, 3);         // calls Player's constructor
+      //       this.mana = 50;         // Wizards get extra mana property
+      //     }
+      //     roll() {                  // override the base roll method
+      //       return super.roll() + 4; // Wizards always roll +4
+      //     }
+      //   }
+      //
+      // ──────────────────────────────────────────────────────────────
+    }
+
+
+    // ================================================================
+    //  CREATE INSTANCES — building real objects from the blueprint
+    // ================================================================
+    //
+    //  SYNTAX:
+    //  ┌──────────────────────────────────────────────────────────┐
+    //  │  const myObject = new ClassName(arg1, arg2);            │
+    //  │                   ^^^                                   │
+    //  │         "new" is the keyword that triggers              │
+    //  │         the constructor and returns an object           │
+    //  └──────────────────────────────────────────────────────────┘
+    //
+    //  ★ TRY: Change the names, or make both the same level.
+    //         What happens to the dice range?
+
+    const player1 = new Player("CIPHER",  2);  // ← left side,  level 2 → d8
+    const player2 = new Player("PHANTOM", 3);  // ← right side, level 3 → d10
+
+
+    // ================================================================
+    //  UI — wire up the display (no need to edit below this line
+    //  unless you want to change how results are shown)
+    // ================================================================
+
+    // Grab DOM elements
+    const btnLeft    = document.querySelector('#btnLeft');
+    const btnRight   = document.querySelector('#btnRight');
+    const dieLeft    = document.querySelector('#dieLeft');
+    const dieRight   = document.querySelector('#dieRight');
+    const labelLeft  = document.querySelector('#dieLeft + .die-label');   // ← won't work directly
+    const resultLeft  = document.querySelector('#resultLeft');
+    const resultRight = document.querySelector('#resultRight');
+
+    // Populate player info panels from class properties
+    document.querySelector('#nameLeft').textContent  = player1.name;
+    document.querySelector('#nameRight').textContent = player2.name;
+
+    document.querySelector('#statsLeft').textContent  = `Level ${player1.level}  ·  d${4 + player1.level * 2}`;
+    document.querySelector('#statsRight').textContent = `Level ${player2.level}  ·  d${4 + player2.level * 2}`;
+
+    // Die faces — simple large number display
+    // (swap these for emoji dice if you like: 🎲)
+    let p1Roll = null;
+    let p2Roll = null;
+
+    function resetRound() {
+      p1Roll = null;
+      p2Roll = null;
+      [dieLeft, dieRight].forEach(d => { d.classList.remove('show'); d.textContent = ''; });
+      [resultLeft, resultRight].forEach(r => { r.className = 'result-tag'; r.textContent = ''; });
+      document.querySelector('#labelLeft').textContent  = '';
+      document.querySelector('#labelRight').textContent = '';
+      document.querySelector('#sideLeft').classList.remove('flash-win');
+      document.querySelector('#sideRight').classList.remove('flash-win');
+      btnLeft.disabled  = false;
+      btnRight.disabled = false;
+    }
+
+    // ── Helper: show a roll result on one side ──────────────────────
+    function showRoll(side, rollValue, die, label) {
+      die.textContent = rollValue;
+      die.classList.add('rolling');
+      die.addEventListener('animationend', () => die.classList.remove('rolling'), { once: true });
+      setTimeout(() => die.classList.add('show'), 50);
+      label.textContent = `rolled ${rollValue}`;
+    }
+
+    // ── Resolve: called once BOTH players have rolled ───────────────
+    function resolve() {
+      // ★ THIS is where you could use more class methods!
+      // e.g. player1.recordWin() or player1.health -= damage
+
+      let leftTag, rightTag;
+
+      if (p1Roll > p2Roll) {
+        leftTag  = { text: 'WINNER',  cls: 'win'  };
+        rightTag = { text: 'DEFEATED', cls: 'lose' };
+        document.querySelector('#sideLeft').classList.add('flash-win');
+      } else if (p2Roll > p1Roll) {
+        leftTag  = { text: 'DEFEATED', cls: 'lose' };
+        rightTag = { text: 'WINNER',   cls: 'win'  };
+        document.querySelector('#sideRight').classList.add('flash-win');
+      } else {
+        leftTag  = { text: 'DRAW', cls: 'draw' };
+        rightTag = { text: 'DRAW', cls: 'draw' };
+      }
+
+      setTimeout(() => {
+        resultLeft.textContent  = leftTag.text;
+        resultLeft.className    = `result-tag ${leftTag.cls} show`;
+        resultRight.textContent = rightTag.text;
+        resultRight.className   = `result-tag ${rightTag.cls} show`;
+      }, 300);
+
+      // Auto-reset after 2.5 seconds so another round can start
+      setTimeout(resetRound, 2600);
+    }
+
+    // ── Button events: each player rolls independently ──────────────
+    btnLeft.addEventListener('click', function () {
+      this.disabled = true;
+
+      // ↓ Calling the method on the player1 INSTANCE
+      p1Roll = player1.roll();
+
+      showRoll(
+        'left', p1Roll,
+        dieLeft,
+        document.querySelector('#labelLeft')
+      );
+
+      if (p2Roll !== null) resolve();  // other player already rolled
+    });
+
+    btnRight.addEventListener('click', function () {
+      this.disabled = true;
+
+      // ↓ Same method, different instance — each roll is independent
+      p2Roll = player2.roll();
+
+      showRoll(
+        'right', p2Roll,
+        dieRight,
+        document.querySelector('#labelRight')
+      );
+
+      if (p1Roll !== null) resolve();  // other player already rolled
+    });
+
+  </script>
+</body>
+</html>

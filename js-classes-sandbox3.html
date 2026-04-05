@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JS Classes – Sandbox</title>
+</head>
+<body>
+
+  <h2>Player 1</h2>
+  <button id="btn1">Roll</button>
+  <p id="result1"></p>
+
+  <hr>
+
+  <h2>Player 2</h2>
+  <button id="btn2">Roll</button>
+  <p id="result2"></p>
+
+  <p id="winner"></p>
+
+
+  <script>
+
+    // ── THE CLASS ──────────────────────────────────────────
+    // A class is a blueprint for making objects.
+    // Every Player object will have these same properties and method.
+
+    class Player {
+
+      constructor(name, color) {
+        this.name  = name;   // try changing these values ↓
+        this.color = color;  // any CSS color: "red", "#ff0", "blue"
+      }
+
+      roll() {
+        return Math.floor(Math.random() * 6) + 1;
+      }
+
+      // SANDBOX IDEAS — add more properties to the constructor:
+      //   this.emoji = "🗡️"    then show it in the result text
+      //   this.bonus = 2       then add it to the roll result
+      //
+      // Add more methods:
+      //   greet() { return "I am " + this.name; }
+    }
+
+
+    // ── TWO INSTANCES ──────────────────────────────────────
+    // "new Player()" creates a real object from the blueprint.
+    // Each instance is independent — its own name, color, etc.
+
+    const player1 = new Player("Alice", "tomato");
+    const player2 = new Player("Bob",   "steelblue");
+
+
+    // ── USE THE COLOR PROPERTY TO STYLE THE BUTTONS ────────
+    // This is the payoff: changing this.color above changes what you see.
+
+    document.querySelector('#btn1').style.background = player1.color;
+    document.querySelector('#btn2').style.background = player2.color;
+
+
+    // ── BUTTON FUNCTIONS ───────────────────────────────────
+
+    let roll1 = null;
+    let roll2 = null;
+
+    document.querySelector('#btn1').onclick = function () {
+      roll1 = player1.roll();
+      document.querySelector('#result1').textContent = player1.name + " rolled " + roll1;
+      if (roll2 !== null) compare();
+    };
+
+    document.querySelector('#btn2').onclick = function () {
+      roll2 = player2.roll();
+      document.querySelector('#result2').textContent = player2.name + " rolled " + roll2;
+      if (roll1 !== null) compare();
+    };
+
+
+    // ── COMPARE FUNCTION ───────────────────────────────────
+
+    function compare() {
+
+      const winnerBox = document.querySelector('#winner');
+
+      if (roll1 > roll2) {
+        winnerBox.textContent = player1.name + " wins!";
+        winnerBox.style.color = player1.color;
+
+      } else if (roll2 > roll1) {
+        winnerBox.textContent = player2.name + " wins!";
+        winnerBox.style.color = player2.color;
+
+      } else {
+        winnerBox.textContent = "Draw!";
+        winnerBox.style.color = "black";
+      }
+
+      // reset for next round
+      roll1 = null;
+      roll2 = null;
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>JavaScript Objects – Mealplanner Examples</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 700px;
+      margin: 2rem auto;
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #output {
+      border: 1px solid #aaa;
+      padding: 1rem;
+      margin-top: 1rem;
+      background: #f9f9f9;
+    }
+
+    button {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>JavaScript Object Types: Mealplanner</h1>
+  <button>Show Examples</button>
+  <div id="output"></div>
+
+  <script>
+  // Select elements
+  const button = document.querySelector('button');
+  const output = document.querySelector('#output');
+
+  button.addEventListener('click', showExamples);
+
+  function showExamples() {
+    output.innerHTML = ""; // clear before each run
+
+    //
+    // 1️. OBJECT LITERAL
+    // Use this when you only need ONE version of the object.
+    // It’s simple and perfect for holding data and methods together.
+    // Commonly used for configs, settings, or static data.
+    const mealplannerLiteral = {
+      breakfast: "oatmeal and fruit",
+      lunch: "chicken salad",
+      dinner: "grilled salmon with rice",
+      showMeals() {
+        return `Breakfast: ${this.breakfast}<br>Lunch: ${this.lunch}<br>Dinner: ${this.dinner}`;
+      }
+    };
+
+    output.innerHTML += `<h2>1. Object Literal</h2>`;
+    output.innerHTML += `<p>${mealplannerLiteral.showMeals()}</p>`;
+    output.innerHTML += `<p><em>Use when you only need one object.</em></p>`;
+
+    
+
+    // 2. ES6 CLASS
+    // Modern, clean syntax for defining reusable "blueprints".
+    // Best for organized, scalable programs.
+    // Common in games, simulations, and app models.
+    class MealplannerClass {
+      constructor(breakfast, lunch, dinner) {
+        this.breakfast = breakfast;
+        this.lunch = lunch;
+        this.dinner = dinner;
+      }
+
+      showMeals() {
+        return `Breakfast: ${this.breakfast}<br>Lunch: ${this.lunch}<br>Dinner: ${this.dinner}`;
+      }
+    }
+
+    const tuesdayPlan = new MealplannerClass("smoothie", "tuna wrap", "stir-fry noodles");
+
+    output.innerHTML += `<h2>3. ES6 Class</h2>`;
+    output.innerHTML += `<p>${tuesdayPlan.showMeals()}</p>`;
+    output.innerHTML += `<p><em>Use Classes for clear, modern structure in larger projects.</em></p>`;
+  }
+
+
+  
+ 
+
+
+
+  </script>
+
+</body>
+</html>

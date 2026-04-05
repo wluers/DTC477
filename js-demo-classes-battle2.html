@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS Demo Lesson  – Classes and Character Generation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #333;
+    }
+    h1 { color: #000; }
+    #output {
+      background: white;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      min-height: 200px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #666;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background: #999; }
+  </style>
+</head>
+<body>
+  <h1>JS Demo Lesson 6: Classes and Character Generation</h1>
+  <p>Click the button to generate a random opponent and begin the battle!</p>
+  <button id="battleBtn">Start Battle</button>
+  <div id="output">Results will appear here...</div>
+
+  <script>
+    // ==============================================
+    // JS DEMO LESSON 6
+    // Classes, Getters, and Setters (ES6 Version)
+    // ==============================================
+
+    const output = document.querySelector('#output');
+    const battleBtn = document.querySelector('#battleBtn');
+
+    // Helper function to keep numbers in a valid range
+    function clamp(value, min, max) {
+      if (value < min) {
+        return min;
+      }
+
+      if (value > max) {
+        return max;
+      }
+
+      return value;
+    }
+
+    // ==============================================
+    // PLAYER CLASS (Blueprint)
+    // ==============================================
+    class Player {
+
+      constructor(name, health, maxHealth) {
+
+        // Internal properties (use getters/setters to access safely)
+        this._name = name;
+        this._maxHealth = maxHealth;
+        this._health = clamp(health, 0, this._maxHealth);
+
+        this.inventory = [];
+      }
+
+      // -------- GETTER --------
+      // Access like: player.name
+      get name() {
+        return this._name;
+      }
+
+      // -------- SETTER --------
+      // Assign like: player.name = "Hero"
+      set name(value) {
+
+        if (typeof value !== "string") {
+          return;
+        }
+
+        const trimmed = value.trim();
+
+        if (trimmed.length === 0) {
+          return;
+        }
+
+        this._name = trimmed;
+      }
+
+      get maxHealth() {
+        return this._maxHealth;
+      }
+
+      set maxHealth(value) {
+
+        if (typeof value !== "number") {
+          return;
+        }
+
+        if (value < 1) {
+          return;
+        }
+
+        this._maxHealth = Math.floor(value);
+
+        // Make sure health is still valid
+        this._health = clamp(this._health, 0, this._maxHealth);
+      }
+
+      get health() {
+        return this._health;
+      }
+
+      set health(value) {
+
+        if (typeof value !== "number") {
+          return;
+        }
+
+        this._health = clamp(Math.floor(value), 0, this._maxHealth);
+      }
+
+      // Getter that returns true or false
+      get isAlive() {
+
+        if (this._health > 0) {
+          return true;
+        }
+
+        return false;
+      }
+
+      // Getter that returns a label
+      get status() {
+
+        if (this.isAlive) {
+          return "Alive";
+        }
+
+        return "Defeated";
+      }
+
+      get inventoryCount() {
+        return this.inventory.length;
+      }
+
+      // -------- METHODS --------
+
+      addItem(item) {
+        this.inventory.push(item);
+      }
+
+      attack() {
+
+        const damage = Math.floor(Math.random() * 20) + 5;
+
+        return damage;
+      }
+
+      takeDamage(amount) {
+
+        this.health = this.health - amount;
+      }
+
+      heal(amount) {
+
+        this.health = this.health + amount;
+      }
+
+      displayInfo() {
+
+        output.innerHTML +=
+          "<br><strong>" + this.name + "</strong>" +
+          "<br>Health: " + this.health + "/" + this.maxHealth +
+          " (" + this.status + ")" +
+          "<br>Inventory (" + this.inventoryCount + "): " +
+          this.inventory.join(", ");
+      }
+    }
+
+    // Create player instance
+    const player1 = new Player("Adventurer", 100, 120);
+
+    player1.addItem("Sword");
+    player1.addItem("Potion");
+
+
+    // ==============================================
+    // ENEMY CLASS
+    // ==============================================
+    class Enemy {
+
+      constructor(type, health, maxHealth) {
+
+        this._type = type;
+        this._maxHealth = maxHealth;
+        this._health = clamp(health, 0, this._maxHealth);
+
+        this.weapon = this.randomWeapon();
+      }
+
+      get type() {
+        return this._type;
+      }
+
+      set type(value) {
+
+        if (typeof value !== "string") {
+          return;
+        }
+
+        const trimmed = value.trim();
+
+        if (trimmed.length === 0) {
+          return;
+        }
+
+        this._type = trimmed;
+      }
+
+      get health() {
+        return this._health;
+      }
+
+      set health(value) {
+
+        if (typeof value !== "number") {
+          return;
+        }
+
+        this._health = clamp(Math.floor(value), 0, this._maxHealth);
+      }
+
+      get maxHealth() {
+        return this._maxHealth;
+      }
+
+      set maxHealth(value) {
+
+        if (typeof value !== "number") {
+          return;
+        }
+
+        if (value < 1) {
+          return;
+        }
+
+        this._maxHealth = value;
+
+        this._health = clamp(this._health, 0, this._maxHealth);
+      }
+
+      get isAlive() {
+
+        if (this._health > 0) {
+          return true;
+        }
+
+        return false;
+      }
+
+      get status() {
+
+        if (this.isAlive) {
+          return "Alive";
+        }
+
+        return "Defeated";
+      }
+
+      randomWeapon() {
+
+        const weapons = ["Club", "Axe", "Claws", "Fire Breath", "Poison Fang"];
+
+        const index = Math.floor(Math.random() * weapons.length);
+
+        return weapons[index];
+      }
+
+      attack() {
+
+        const damage = Math.floor(Math.random() * 15) + 5;
+
+        return damage;
+      }
+
+      takeDamage(amount) {
+
+        this.health = this.health - amount;
+      }
+
+      displayInfo() {
+
+        output.innerHTML +=
+          "<br><strong>Enemy:</strong> " + this.type +
+          "<br>Health: " + this.health + "/" + this.maxHealth +
+          " (" + this.status + ")" +
+          "<br>Weapon: " + this.weapon;
+      }
+    }
+
+
+    // ==============================================
+    // BATTLE FUNCTION
+    // ==============================================
+    function battle(player, enemy) {
+
+      output.innerHTML = "<h3>--- Opponents Revealed ---</h3>";
+
+      player.displayInfo();
+
+      output.innerHTML += "<br>";
+
+      enemy.displayInfo();
+
+      output.innerHTML += "<h3>--- Battle Begins ---</h3>";
+
+      let firstAttacker;
+
+      if (Math.random() < 0.5) {
+
+        firstAttacker = player;
+
+        output.innerHTML += "<br>" + player.name + " attacks first.";
+
+      } else {
+
+        firstAttacker = enemy;
+
+        output.innerHTML += "<br>" + enemy.type + " attacks first.";
+      }
+
+      const playerDamage = player.attack();
+
+      const enemyDamage = enemy.attack();
+
+      if (firstAttacker === player) {
+
+        enemy.takeDamage(playerDamage);
+
+        output.innerHTML += "<br>" + player.name + " deals " + playerDamage;
+
+        if (enemy.isAlive) {
+
+          player.takeDamage(enemyDamage);
+
+          output.innerHTML += "<br>" + enemy.type + " deals " + enemyDamage;
+        }
+
+      } else {
+
+        player.takeDamage(enemyDamage);
+
+        output.innerHTML += "<br>" + enemy.type + " deals " + enemyDamage;
+
+        if (player.isAlive) {
+
+          enemy.takeDamage(playerDamage);
+
+          output.innerHTML += "<br>" + player.name + " deals " + playerDamage;
+        }
+      }
+
+      output.innerHTML += "<h4>--- Results ---</h4>";
+
+      output.innerHTML += "<br>" + player.name + ": " + player.health;
+      output.innerHTML += "<br>" + enemy.type + ": " + enemy.health;
+
+      if (!player.isAlive && !enemy.isAlive) {
+
+        output.innerHTML += "<br>Draw";
+
+      } else if (!player.isAlive) {
+
+        output.innerHTML += "<br>" + enemy.type + " wins";
+
+      } else if (!enemy.isAlive) {
+
+        output.innerHTML += "<br>" + player.name + " wins";
+
+      } else {
+
+        output.innerHTML += "<br>Battle continues...";
+      }
+    }
+
+
+    // ==============================================
+    // BUTTON EVENT
+    // ==============================================
+    battleBtn.addEventListener("click", function() {
+
+      const types = ["Goblin", "Orc", "Skeleton", "Dragon"];
+
+      const index = Math.floor(Math.random() * types.length);
+
+      const type = types[index];
+
+      const maxHealth = Math.floor(Math.random() * 60) + 90;
+
+      const health = Math.floor(Math.random() * maxHealth);
+
+      const enemy = new Enemy(type, health, maxHealth);
+
+      player1.health = Math.floor(Math.random() * player1.maxHealth);
+
+      battle(player1, enemy);
+    });
+
+  </script>
+</body>
+</html>
